@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="DroidSansMerged-Regular.ttf">
+            <string>DroidSans</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleAspectFit" id="avV-dV-uka" customClass="CustomMarkers" customModule="Karma" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="210" height="92"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Bs-Ei-ZlQ">
+                    <rect key="frame" x="10" y="8.5" width="190" height="85"/>
+                    <subviews>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="snipper" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zau-9S-asQ">
+                            <rect key="frame" x="91" y="54.5" width="58" height="20.5"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="rSS-z7-3aM">
+                            <rect key="frame" x="3" y="10" width="192" height="79"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7L4-SF-3im">
+                            <rect key="frame" x="80.5" y="25" width="21" height="14"/>
+                            <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="12"/>
+                            <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="highlightedColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="190" id="2oT-8t-aMS"/>
+                        <constraint firstItem="7L4-SF-3im" firstAttribute="centerX" secondItem="rSS-z7-3aM" secondAttribute="centerX" multiplier="0.92" id="6Nk-wq-Zp4"/>
+                        <constraint firstItem="7L4-SF-3im" firstAttribute="centerY" secondItem="rSS-z7-3aM" secondAttribute="centerY" multiplier="0.65" id="9oc-Qu-s9f"/>
+                        <constraint firstItem="rSS-z7-3aM" firstAttribute="top" secondItem="1Bs-Ei-ZlQ" secondAttribute="top" constant="10" id="NMu-iT-TNV"/>
+                        <constraint firstAttribute="trailing" secondItem="rSS-z7-3aM" secondAttribute="trailing" constant="-5" id="Osn-GU-nBd"/>
+                        <constraint firstItem="rSS-z7-3aM" firstAttribute="leading" secondItem="1Bs-Ei-ZlQ" secondAttribute="leading" constant="3" id="P8T-kd-vMe"/>
+                        <constraint firstAttribute="bottom" secondItem="rSS-z7-3aM" secondAttribute="bottom" constant="-14" id="kuD-Bc-9XM"/>
+                        <constraint firstAttribute="height" constant="75" id="u3x-yM-Mfl"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="1Bs-Ei-ZlQ" firstAttribute="centerY" secondItem="Hcw-6g-P9v" secondAttribute="centerY" id="juh-HZ-Et8"/>
+                <constraint firstItem="1Bs-Ei-ZlQ" firstAttribute="centerX" secondItem="Hcw-6g-P9v" secondAttribute="centerX" id="ug9-Ko-Ztj"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="Hcw-6g-P9v"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                    <integer key="value" value="10"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="infoMarkerSnipper" destination="zau-9S-asQ" id="3C8-qz-xvr"/>
+                <outlet property="infoMarkerTitle" destination="7L4-SF-3im" id="Epz-H2-WWo"/>
+                <outlet property="viewSelf" destination="1Bs-Ei-ZlQ" id="74F-PK-bnh"/>
+            </connections>
+            <point key="canvasLocation" x="-454.39999999999998" y="-639.58020989505258"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bg" width="184" height="80"/>
+    </resources>
+</document>

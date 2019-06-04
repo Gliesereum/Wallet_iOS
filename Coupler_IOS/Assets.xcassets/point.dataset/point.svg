@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="540px" height="306px" viewBox="0 0 540 306" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 5</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="540" height="306" rx="3"></rect>
+        <path d="M292.982744,183.999995 C292.99422,184.380801 293,184.763069 293,185.146715 C293,185.529821 292.872364,195.103587 289.682762,201.869203 C282.155158,219.357579 264.037985,237.867248 258.041365,243.866652 C256.510382,245.270727 255.872526,245.526131 253.958635,243.73895 C247.834379,237.739222 229.972477,219.484957 222.444874,202.124283 C219.765492,197.018145 219,186.039981 219,185.146391 C219.000006,184.762854 219.005789,184.380694 219.017265,183.999995 L4,184 C1.790861,184 2.705415e-16,182.209139 0,180 L0,4 C-2.705415e-16,1.790861 1.790861,4.05812251e-16 4,0 L508,0 C510.209139,-4.05812251e-16 512,1.790861 512,4 L512,180 C512,182.209139 510.209139,184 508,184 L292.982744,184 Z M274.974287,184 L267.357414,184 C267.385571,184.329467 267.399936,184.663099 267.399936,185.000322 C267.399936,191.333548 262.333226,196.400257 256,196.400257 C249.666774,196.400257 244.600064,191.333548 244.600064,185.000322 C244.600064,184.663099 244.614429,184.329467 244.642586,184 L237.025713,184 C237.008641,184.33113 237,184.664533 237,185 C237,195.513245 245.486755,204 256,204 C266.513245,204 275,195.513245 275,185 C275,184.664533 274.991359,184.33113 274.974287,184 Z" id="path-3"></path>
+        <filter x="-2.5%" y="-4.5%" width="105.1%" height="110.6%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.152938179 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-5">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill-opacity="0.01" fill="#000000" xlink:href="#path-1"></use>
+            <g mask="url(#mask-2)" id="Combined-Shape">
+                <g transform="translate(14.000000, 61.000000)">
+                    <g>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                        <use fill="#F5A623" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
