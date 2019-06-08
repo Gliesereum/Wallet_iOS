@@ -39,7 +39,6 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         self.navigationItem.titleView = imageView
 //        tableBuisness.rowHeight = UITableView.automaticDimension
 //        tableBuisness.tableFooterView = UIView()
-        getAllBuisness()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -167,6 +166,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
     override func viewWillAppear(_ animated: Bool) {
         
        
+        getAllBuisness()
     }
 
 }
