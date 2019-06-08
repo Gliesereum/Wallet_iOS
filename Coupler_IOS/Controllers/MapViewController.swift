@@ -59,7 +59,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     override func viewDidLoad() {
         super .viewDidLoad()
         // Initialize the location manager.
-       
+        
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -105,6 +105,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
 //            self.navigationController?.pushViewController(vc, animated: true)
 //            
 //        }
+       
     }
     @IBAction func filterMap(_ sender: Any) {
         addFilter()
@@ -146,9 +147,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
                 for carWash: CarWashMarkerElement in responseBody{
                     if carWash.logoURL != nil {
                        
-                    self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: carWash.logoURL!)
+                        self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: carWash.logoURL!, buisness: (carWash.businessCategory?.id)!)
                     }else {
-                         self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: "")
+                        self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: "", buisness: (carWash.businessCategory?.id)!)
                     }
             }
             }
@@ -161,10 +162,23 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         }
     }
     
-    func addMarkerOnMap(getlatitude: Double, getlongitude: Double, title: String, sniper: String, logo: String) {
+    func addMarkerOnMap(getlatitude: Double, getlongitude: Double, title: String, sniper: String, logo: String, buisness: String) {
         // Creates a marker in the center of the map.
         var markerImage = UIImage()
-        markerImage = UIImage(named: "marker")!
+        switch buisness {
+        case "0c1ca141-fb7d-414c-999f-ed8a8af69b1c":
+            
+            markerImage = UIImage(named: "marker")!
+        case "607b10e5-fc65-463d-a116-5fae6019c782":
+            
+            markerImage = UIImage(named: "markerSH")!
+        case "6a7d64fd-1538-430d-be52-c92ef28d2d3a":
+            
+            markerImage = UIImage(named: "markerSTO")!
+        default:
+            
+            markerImage = UIImage(named: "marker")!
+        }
         let matkerView = UIImageView(image: markerImage)
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: getlatitude, longitude: getlongitude)
@@ -241,30 +255,33 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         return customMarker
     }
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        startAnimating()
-        guard utils.getSharedPref(key: "accessToken") != nil else{
-        self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
-            
-            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
-            stopAnimating()
-            return
-        }
-        guard utils.getCarInfo(key: "CARID") != nil else{
-        self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
-            
-            self.utils.checkFilds(massage: "Выберите машину", vc: self.view)
-            stopAnimating()
-            return
-        }
+       
         getCarWashInfo(carWashId: marker.snippet!)
        
         
     }
     //MARK: get carwash list
     func getCarWashInfo(carWashId: String){
-        
+        startAnimating()
+        guard utils.getSharedPref(key: "accessToken") != nil else{
+            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+            utils.setSaredPref(key: "CARWASHID", value: carWashId)
+            self.sideMenuViewController!.hideMenuViewController()
+            
+//            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
+            stopAnimating()
+            return
+        }
+        guard utils.getCarInfo(key: "CARID") != nil else{
+            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
+            
+            utils.setSaredPref(key: "CARWASHID", value: carWashId)
+            self.sideMenuViewController!.hideMenuViewController()
+            
+//            self.utils.checkFilds(massage: "Выберите машину", vc: self.view)
+            stopAnimating()
+            return
+        }
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
         let restUrl = constants.startUrl + "karma/v1/business/\(carWashId)/full-model"
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
@@ -272,17 +289,22 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
                 self.stopAnimating()
                 return
             }
+            if self.utils.getSharedPref(key: "CARWASHID") != nil{
+                
+                UserDefaults.standard.removeObject(forKey: "CARWASHID")
+            }
             do{
+               
                 let responseBody = try JSONDecoder().decode(CarWashBody.self, from: response.data!)
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "carWashInfo") as! CarWashInfo
                 vc.carWashInfo = responseBody
                 self.navigationController?.pushViewController(vc, animated: true)
              
+                
+                self.stopAnimating()
             } catch{
                 print(error)
             }
-            
-            self.stopAnimating()
         }
     }
 }
@@ -427,6 +449,11 @@ extension MapViewController: CLLocationManagerDelegate {
             }
         
         }
+        guard self.utils.getSharedPref(key: "CARWASHID") == nil else{
+            
+            getCarWashInfo(carWashId: self.utils.getSharedPref(key: "CARWASHID")!)
+            return
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -464,7 +491,7 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+       
 //        utils.checkPushNot(vc: self)
     }
    

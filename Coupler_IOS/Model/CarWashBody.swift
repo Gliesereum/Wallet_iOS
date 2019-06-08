@@ -7,9 +7,9 @@ import Foundation
 class CarWashBody: Codable {
     let id, name, corporationID, businessID: String?
     let description: String?
-    let logoURL: JSONNull?
+    let logoURL: String?
     let address, phone: String?
-    let addPhone: JSONNull?
+    let addPhone: String?
     let latitude, longitude: Double?
     let timeZone: Int?
     let rating: Rating?
@@ -31,7 +31,7 @@ class CarWashBody: Codable {
         case address, phone, addPhone, latitude, longitude, timeZone, rating, objectState, workTimes, spaces, servicePrices, packages, media, comments, records
     }
     
-    init(id: String?, name: String?, corporationID: String?, businessID: String?, description: String?, logoURL: JSONNull?, address: String?, phone: String?, addPhone: JSONNull?, latitude: Double?, longitude: Double?, timeZone: Int?, rating: Rating?, objectState: String?, workTimes: [WorkTime]?, spaces: [Space]?, servicePrices: [Serviceice]?, packages: [Package]?, media: [Media]?, comments: [Comment]?, records: [JSONAny]?) {
+    init(id: String?, name: String?, corporationID: String?, businessID: String?, description: String?, logoURL: String?, address: String?, phone: String?, addPhone: String?, latitude: Double?, longitude: Double?, timeZone: Int?, rating: Rating?, objectState: String?, workTimes: [WorkTime]?, spaces: [Space]?, servicePrices: [Serviceice]?, packages: [Package]?, media: [Media]?, comments: [Comment]?, records: [JSONAny]?) {
         self.id = id
         self.name = name
         self.corporationID = corporationID
@@ -139,7 +139,7 @@ class Package: Codable {
 
 class Serviceice: Codable {
     let id, name: String?
-    let description: JSONNull?
+    let description: String?
     let price: Int?
     let serviceID, businessID: String?
     let service: Service?
@@ -155,7 +155,7 @@ class Serviceice: Codable {
         case service, objectState, duration, serviceClass, attributes
     }
     
-    init(id: String?, name: String?, description: JSONNull?, price: Int?, serviceID: String?, businessID: String?, service: Service?, objectState: ObjectState?, duration: Int?, serviceClass: [Service]?, attributes: [Attribute]?) {
+    init(id: String?, name: String?, description: String?, price: Int?, serviceID: String?, businessID: String?, service: Service?, objectState: ObjectState?, duration: Int?, serviceClass: [Service]?, attributes: [Attribute]?) {
         self.id = id
         self.name = name
         self.description = description
@@ -219,7 +219,7 @@ class Rating: Codable {
 class Space: Codable {
     let businessID, id, statusSpace: String?
     let indexNumber: Int?
-    let spaceDescription: JSONNull?
+    let spaceDescription: String?
     let businessCategoryID, name: String?
     let workers: [JSONAny]?
     
@@ -231,7 +231,7 @@ class Space: Codable {
         case name, workers
     }
     
-    init(businessID: String?, id: String?, statusSpace: String?, indexNumber: Int?, spaceDescription: JSONNull?, businessCategoryID: String?, name: String?, workers: [JSONAny]?) {
+    init(businessID: String?, id: String?, statusSpace: String?, indexNumber: Int?, spaceDescription: String?, businessCategoryID: String?, name: String?, workers: [JSONAny]?) {
         self.businessID = businessID
         self.id = id
         self.statusSpace = statusSpace
@@ -273,7 +273,7 @@ class WorkTime: Codable {
     let from, to: Int?
     let objectID: String?
     let isWork: Bool?
-    let serviceType: ServiceType?
+    let serviceType: String?
     let dayOfWeek: String?
     
     enum CodingKeys: String, CodingKey {
@@ -282,7 +282,7 @@ class WorkTime: Codable {
         case isWork, serviceType, dayOfWeek
     }
     
-    init(id: String?, from: Int?, to: Int?, objectID: String?, isWork: Bool?, serviceType: ServiceType?, dayOfWeek: String?) {
+    init(id: String?, from: Int?, to: Int?, objectID: String?, isWork: Bool?, serviceType: String?, dayOfWeek: String?) {
         self.id = id
         self.from = from
         self.to = to
@@ -318,10 +318,10 @@ extension CarWashBody {
         corporationID: String?? = nil,
         businessID: String?? = nil,
         description: String?? = nil,
-        logoURL: JSONNull?? = nil,
+        logoURL: String?? = nil,
         address: String?? = nil,
         phone: String?? = nil,
-        addPhone: JSONNull?? = nil,
+        addPhone: String?? = nil,
         latitude: Double?? = nil,
         longitude: Double?? = nil,
         timeZone: Int?? = nil,
@@ -531,7 +531,7 @@ extension Serviceice {
     func with(
         id: String?? = nil,
         name: String?? = nil,
-        description: JSONNull?? = nil,
+        description: String?? = nil,
         price: Int?? = nil,
         serviceID: String?? = nil,
         businessID: String?? = nil,
@@ -709,7 +709,7 @@ extension Space {
         id: String?? = nil,
         statusSpace: String?? = nil,
         indexNumber: Int?? = nil,
-        spaceDescription: JSONNull?? = nil,
+        spaceDescription: String?? = nil,
         businessCategoryID: String?? = nil,
         name: String?? = nil,
         workers: [JSONAny]?? = nil
@@ -803,7 +803,7 @@ extension WorkTime {
         to: Int?? = nil,
         objectID: String?? = nil,
         isWork: Bool?? = nil,
-        serviceType: ServiceType?? = nil,
+        serviceType: String?? = nil,
         dayOfWeek: String?? = nil
         ) -> WorkTime {
         return WorkTime(

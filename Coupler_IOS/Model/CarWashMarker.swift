@@ -221,10 +221,10 @@ enum ObjectStateCWME: String, Codable {
 class SpaceCWME: Codable {
     let id: String?
     let name: String?
-    let spaceDescription: JSONNull?
+    let spaceDescription: String?
     let indexNumber: Int?
     let businessID: String?
-    let statusSpace: StatusSpace?
+    let statusSpace: String?
     let businessCategoryID: String?
     let workers: [WorkerCWME]?
     
@@ -238,7 +238,7 @@ class SpaceCWME: Codable {
         case workers
     }
     
-    init(id: String?, name: String?, spaceDescription: JSONNull?, indexNumber: Int?, businessID: String?, statusSpace: StatusSpace?, businessCategoryID: String?, workers: [WorkerCWME]?) {
+    init(id: String?, name: String?, spaceDescription: String?, indexNumber: Int?, businessID: String?, statusSpace: String?, businessCategoryID: String?, workers: [WorkerCWME]?) {
         self.id = id
         self.name = name
         self.spaceDescription = spaceDescription
@@ -272,10 +272,10 @@ extension SpaceCWME {
     func with(
         id: String?? = nil,
         name: String?? = nil,
-        spaceDescription: JSONNull?? = nil,
+        spaceDescription: String?? = nil,
         indexNumber: Int?? = nil,
         businessID: String?? = nil,
-        statusSpace: StatusSpace?? = nil,
+        statusSpace: String?? = nil,
         businessCategoryID: String?? = nil,
         workers: [WorkerCWME]?? = nil
         ) -> SpaceCWME {

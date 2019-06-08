@@ -50,7 +50,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+       NotificationCenter.default.addObserver(self, selector: #selector(getPushNatRecord), name: Notification.Name(rawValue: "reloadTheTable"), object: nil)
 //        utils.checkPushNot(vc: self)
         if record != nil{
         utils.setBorder(view: headerView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
@@ -75,7 +75,9 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         utils.setBorder(view: canselBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
         }
         if (self.utils.getSharedPref(key: "OBJECTID")) != nil{
-            getPushRecord()
+            
+            let pushRecordId = (self.utils.getSharedPref(key: "OBJECTID"))!
+            getPushRecord(pushRecordId: pushRecordId)
         }
         
         // Do any additional setup after loading the view.
@@ -85,6 +87,9 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    @objc func getPushNatRecord(){
+        getPushRecord(pushRecordId: (record?.id)!)
     }
     /*
     // MARK: - Navigation
@@ -297,9 +302,8 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         
         }
     }
-    func getPushRecord(){
+    func getPushRecord(pushRecordId: String){
             startAnimating()
-            let pushRecordId = (self.utils.getSharedPref(key: "OBJECTID"))!
             UserDefaults.standard.removeObject(forKey: "OBJECTID")
         let restUrl = constants.startUrl + "karma/v1/record/\(pushRecordId)"
             guard UserDefaults.standard.object(forKey: "accessToken") != nil else{

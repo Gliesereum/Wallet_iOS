@@ -20,12 +20,12 @@ class AllRecordsCarWashElement: Codable {
     let packageID: String?
     let businessID: String?
     let price, begin, finish: Int?
-    let description: AllRecordsCarWashDescription?
+    let description: String?
     let packageDto: PackageDto?
     let business: BusinessARCE?
-    let statusPay, statusProcess: JSONNull?
-    let statusRecord: StatusRecord?
-    let serviceType: ServiceTypeARCE?
+    let statusPay, statusProcess: String?
+    let statusRecord: String?
+    let serviceType: String?
     let services: [ServiceElement]?
     let servicesIDS: [JSONAny]?
     let workingSpaceID: String?
@@ -40,7 +40,7 @@ class AllRecordsCarWashElement: Codable {
         case workingSpaceID = "workingSpaceId"
     }
     
-    init(id: String?, targetID: String?, packageID: String?, businessID: String?, price: Int?, begin: Int?, finish: Int?, description: AllRecordsCarWashDescription?, packageDto: PackageDto?, business: BusinessARCE?, statusPay: JSONNull?, statusProcess: JSONNull?, statusRecord: StatusRecord?, serviceType: ServiceTypeARCE?, services: [ServiceElement]?, servicesIDS: [JSONAny]?, workingSpaceID: String?) {
+    init(id: String?, targetID: String?, packageID: String?, businessID: String?, price: Int?, begin: Int?, finish: Int?, description: String?, packageDto: PackageDto?, business: BusinessARCE?, statusPay: String?, statusProcess: String?, statusRecord: String?, serviceType: String?, services: [ServiceElement]?, servicesIDS: [JSONAny]?, workingSpaceID: String?) {
         self.id = id
         self.targetID = targetID
         self.packageID = packageID
@@ -63,16 +63,16 @@ class AllRecordsCarWashElement: Codable {
 
 class BusinessARCE: Codable {
     let id, corporationID: String?
-    let name: BusinessName?
+    let name: String?
     let description: String?
-    let logoURL: JSONNull?
-    let address: Address?
+    let logoURL: String?
+    let address: String?
     let phone: String?
-    let addPhone: JSONNull?
+    let addPhone: String?
     let latitude, longitude: Double?
     let timeZone: Int?
-    let serviceType: ServiceTypeARCE?
-    let objectState: ObjectStateARCE?
+    let serviceType: String?
+    let objectState: String?
     let workTimes: [WorkTimeARCE]?
     let spaces: [SpaceARCE]?
     
@@ -84,7 +84,7 @@ class BusinessARCE: Codable {
         case address, phone, addPhone, latitude, longitude, timeZone, serviceType, objectState, workTimes, spaces
     }
     
-    init(id: String?, corporationID: String?, name: BusinessName?, description: String?, logoURL: JSONNull?, address: Address?, phone: String?, addPhone: JSONNull?, latitude: Double?, longitude: Double?, timeZone: Int?, serviceType: ServiceTypeARCE?, objectState: ObjectStateARCE?, workTimes: [WorkTimeARCE]?, spaces: [SpaceARCE]?) {
+    init(id: String?, corporationID: String?, name: String?, description: String?, logoURL: String?, address: String?, phone: String?, addPhone: String?, latitude: Double?, longitude: Double?, timeZone: Int?, serviceType: String?, objectState: String?, workTimes: [WorkTimeARCE]?, spaces: [SpaceARCE]?) {
         self.id = id
         self.corporationID = corporationID
         self.name = name
@@ -227,7 +227,7 @@ class ServiceElement: Codable {
     let price: Int?
     let serviceID, businessID: String?
     let service: ServiceClassClass?
-    let objectState: ObjectStateARCE?
+    let objectState: String?
     let duration: Int?
     let serviceClass: [ServiceClassClass]?
     let attributes: [JSONAny]?
@@ -239,7 +239,7 @@ class ServiceElement: Codable {
         case service, objectState, duration, serviceClass, attributes
     }
     
-    init(id: String?, name: String?, description: String?, price: Int?, serviceID: String?, businessID: String?, service: ServiceClassClass?, objectState: ObjectStateARCE?, duration: Int?, serviceClass: [ServiceClassClass]?, attributes: [JSONAny]?) {
+    init(id: String?, name: String?, description: String?, price: Int?, serviceID: String?, businessID: String?, service: ServiceClassClass?, objectState: String?, duration: Int?, serviceClass: [ServiceClassClass]?, attributes: [JSONAny]?) {
         self.id = id
         self.name = name
         self.description = description
@@ -335,13 +335,13 @@ extension AllRecordsCarWashElement {
         price: Int?,
         begin: Int?,
         finish: Int?,
-        description: AllRecordsCarWashDescription?,
+        description: String?,
         packageDto: PackageDto?,
         business: BusinessARCE?,
-        statusPay: JSONNull?,
-        statusProcess: JSONNull?,
-        statusRecord: StatusRecord?,
-        serviceType: ServiceTypeARCE?,
+        statusPay: String?,
+        statusProcess: String?,
+        statusRecord: String?,
+        serviceType: String?,
         services: [ServiceElement]?,
         servicesIDS: [JSONAny]?,
         workingSpaceID: String?
@@ -396,17 +396,17 @@ extension BusinessARCE {
     func with(
         id: String?,
         corporationID: String?,
-        name: BusinessName?,
+        name: String?,
         description: String?,
-        logoURL: JSONNull?,
-        address: Address?,
+        logoURL: String?,
+        address: String?,
         phone: String?,
-        addPhone: JSONNull?,
+        addPhone: String?,
         latitude: Double?,
         longitude: Double?,
         timeZone: Int?,
-        serviceType: ServiceTypeARCE?,
-        objectState: ObjectStateARCE?,
+        serviceType: String?,
+        objectState: String?,
         workTimes: [WorkTimeARCE]?,
         spaces: [SpaceARCE]?
         ) -> BusinessARCE {
@@ -601,7 +601,7 @@ extension ServiceElement {
         serviceID: String?,
         businessID: String?,
         service: ServiceClassClass?,
-        objectState: ObjectStateARCE?,
+        objectState: String?,
         duration: Int?,
         serviceClass: [ServiceClassClass]?,
         attributes: [JSONAny]?

@@ -58,6 +58,8 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
             
         swImage.delegate = self
         swImage.numberOfTapsRequired = 1
+        imageScroll.interitemSpacing = 20
+        imageScroll.itemSize = CGSize(width: 200, height: 178)
 //        let swTime = UITapGestureRecognizer(target: self, action: #selector(showWorkTime))
 //
 //        swTime.delegate = self
@@ -68,7 +70,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         getCarWashInfo()
         getMyComment()
         super.viewDidLoad()
-        imageScroll.transformer = FSPagerViewTransformer(type: .cubic)
+        imageScroll.transformer = FSPagerViewTransformer(type: .linear)
         if carWashInfo?.media?.count == 0 {
             imageScroll.visiblity(gone: true)
         }

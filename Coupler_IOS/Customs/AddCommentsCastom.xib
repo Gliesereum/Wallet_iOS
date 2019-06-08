@@ -15,7 +15,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CommentsDialog" customModule="Karma" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CommentsDialog" customModule="Coupler_IOS" customModuleProvider="target">
             <connections>
                 <outlet property="bottomConstraint" destination="cRe-5O-3Rq" id="EOB-yN-Pf0"/>
                 <outlet property="canselBtn" destination="uAm-gm-vV5" id="hdC-iZ-YAo"/>
@@ -31,10 +31,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tbt-h5-N8P" customClass="FloatRatingView" customModule="FloatRatingView">
-                    <rect key="frame" x="30" y="10" width="190" height="40"/>
+                    <rect key="frame" x="45" y="10" width="160" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="6lP-7v-yE7"/>
-                        <constraint firstAttribute="width" constant="190" id="oMP-j6-DyT"/>
+                        <constraint firstAttribute="height" constant="30" id="6lP-7v-yE7"/>
+                        <constraint firstAttribute="width" constant="160" id="oMP-j6-DyT"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="StarEmpty"/>
@@ -52,7 +52,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите ваш коменнтарий" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="9No-bi-UI6" customClass="MDCTextField">
-                    <rect key="frame" x="10" y="71" width="230" height="44"/>
+                    <rect key="frame" x="10" y="61" width="230" height="54"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
@@ -98,7 +98,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="9No-bi-UI6" firstAttribute="top" secondItem="Tbt-h5-N8P" secondAttribute="bottom" constant="21" id="2Ht-b3-9oE"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="uAm-gm-vV5" secondAttribute="trailing" constant="130" id="4sh-VR-RLz"/>

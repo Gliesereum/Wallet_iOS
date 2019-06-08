@@ -53,7 +53,9 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        recordTableView.refreshControl?.addTarget(self, action: #selector(getAllCars), for: .valueChanged)
+        NotificationCenter.default.addObserver(self, selector: #selector(getAllCars), name: Notification.Name(rawValue: "reloadTheTable"), object: nil)
+
 //        defoultLogo = UIImage(contentsOfFile: "logo_v1SmallLogo.png")!
         recordTableView.rowHeight = UITableView.automaticDimension
         recordTableView.tableFooterView = UIView()
@@ -74,8 +76,11 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
 //            
 //        }
     }
+    @objc func reloadTableview(){
+        recordTableView.reloadData()
+    }
     
-    func getAllCars(){
+    @objc func getAllCars(){
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/record/client/all"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
@@ -179,7 +184,7 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
             cell.orderStatus.text = "В процессе"
             break
         case "COMPLETED":
-            cell.orderStatus.text = "В ожидании"
+            cell.orderStatus.text = "Завершен"
             break
         case "CANCELED":
             cell.orderStatus.text = "Отменен"
@@ -249,6 +254,8 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewWillAppear(_ animated: Bool) {
 //        
 //        utils.checkPushNot(vc: self)
+        NotificationCenter.default.removeObserver("reloadTheTable")
+
     }
 
 }

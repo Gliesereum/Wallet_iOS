@@ -12,6 +12,50 @@ import SVGKit
 import FirebaseMessaging
 import UIKit
 
+class UserPushNot: Codable{
+    let notificationEnable: Bool?
+    let subscribeDestination: String?
+    init(notificationEnable: Bool?, subscribeDestination: String?) {
+        self.notificationEnable = notificationEnable
+        self.subscribeDestination = subscribeDestination
+    }
+}
+extension UserPushNot {
+    convenience init(data: Data) throws {
+        let me = try newJSONDecoder().decode(UserPushNot.self, from: data)
+        self.init(notificationEnable: me.notificationEnable, subscribeDestination: me.subscribeDestination)
+    }
+    
+    convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
+        guard let data = json.data(using: encoding) else {
+            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
+        }
+        try self.init(data: data)
+    }
+    
+    convenience init(fromURL url: URL) throws {
+        try self.init(data: try Data(contentsOf: url))
+    }
+    
+    func with(
+        notificationEnable: Bool?,
+        subscribeDestination: String?
+        ) -> UserPushNot {
+        return UserPushNot(
+            notificationEnable: notificationEnable ?? self.notificationEnable,
+            subscribeDestination: subscribeDestination ?? self.subscribeDestination
+        )
+    }
+    
+    func jsonData() throws -> Data {
+        return try newJSONEncoder().encode(self)
+    }
+    
+    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
+        return String(data: try self.jsonData(), encoding: encoding)
+    }
+}
+
 class SiginViewController: UIViewController, NVActivityIndicatorViewable{
    
     // initialize
@@ -279,11 +323,14 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
         startAnimating()
         print(token)
         let restUrl = constants.startUrl + "notification/v1/user-device"
-        let userSubscribe = [String: Any]()
-        var destination = [userSubscribe]
-        destination.append(["notificationEnable": true, "subscribeDestination": "KARMA_USER_RECORD"])
-        destination.append(["notificationEnable": true, "subscribeDestination": "KARMA_USER_REMIND_RECORD"])
-        let toDo: [String: Any]  = ["userId": userId,"subscribes": [destination], "firebaseRegistrationToken": token, "notificationEnable": true]
+//        let userSubscribe = [String: Any]()
+        var destination = [UserPushNot]()
+        destination.append(UserPushNot.init(notificationEnable: true, subscribeDestination: "KARMA_USER_RECORD"))
+            
+        destination.append(UserPushNot.init(notificationEnable: true, subscribeDestination: "KARMA_USER_REMIND_RECORD"))
+        
+        let toDo: [String: Any]  = ["userId": userId,"subscribes": [["notificationEnable": true, "subscribeDestination": "KARMA_USER_RECORD"],["notificationEnable": true, "subscribeDestination": "KARMA_USER_REMIND_RECORD"] ], "firebaseRegistrationToken": token, "notificationEnable": true]
+        let dooo = JSONSerialization.isValidJSONObject(toDo)
         let headers = ["Authorization" : accessToken]
         Alamofire.request(restUrl, method: .post, parameters: toDo,encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{

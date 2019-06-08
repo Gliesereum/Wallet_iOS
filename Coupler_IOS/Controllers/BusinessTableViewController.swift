@@ -120,6 +120,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         }, completion:nil)
         self.utils.setSaredPref(key: "BUISNESSTYPE", value: record.businessType!)
         self.utils.setSaredPref(key: "BUISNESSID", value: record.id!)
+        self.utils.setSaredPref(key: "BUISNESSNAME", value: record.name!)
     self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
