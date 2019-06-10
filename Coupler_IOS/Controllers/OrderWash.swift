@@ -41,7 +41,9 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     var workSpaceId = String()
     var time = String()
     var counter = false
+    var servicesOld = [Serviceice]()
     var selectedServices = [Serviceice]()
+    
     let dialogController = AZDialogViewController(title: "Выберите время", message: "Время не выбрато")
     
     let cellSpacingHeight: CGFloat = 5
@@ -53,7 +55,6 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         utils.setBorder(view: headerView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
         filterServices()
         carServicePrice.tableFooterView = UIView()
-        addsumPriceDurations(price: 0, duration: 0)
         if carWashInfo?.packages?.count != 0 {
             for package in (carWashInfo?.packages)!{
                 packagesList.append(package.name!)
@@ -67,15 +68,20 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         carServicePrice.allowsMultipleSelectionDuringEditing = true
         pacetsSelector.delegate = self
 
-        if packageId != "" {
-            addsumPriceDurations(price: packagePrice, duration: packageDuration)
-            text.text = packageId
-        }
+        voidView()
+       
         // Do any additional setup after loading the view.
         
     }
     
-
+    func voidView(){
+        if packageId != "" {
+            addsumPriceDurations(price: packagePrice, duration: packageDuration)
+            text.text = packageId
+        }
+        
+        addsumPriceDurations(price: 0, duration: 0)
+    }
    
     // MARK: - Navigation
 
@@ -106,6 +112,9 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         guard index != 0 else{
             if text.text != nil{
                 remuvePackage(self)
+                removeAll()
+                selectedServices = servicesOld
+                carServicePrice.reloadData()
                 
             }
             return
@@ -208,6 +217,8 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
          if durationArray.firstIndex(of: duration) != nil {
         durationArray.remove(at: durationArray.firstIndex(of: duration)!)
         }
+        carWashInfo?.servicePrices = servicesOld
+        carServicePrice.reloadData()
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell: CustomServicesPrice = tableView.cellForRow(at: indexPath) as! CustomServicesPrice
@@ -454,25 +465,56 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             removesumPriceDurations(price: self.packagePrice, duration: self.packageDuration)
             
             self.salerLable.text = "0%"
+            
+            removeAll()
+            
         }
         guard packageId != "cancel" else{
 //            self.pacetsSelector?.select()
             return
         }
         guard self.packageId == "" else{
+            removeAll()
             removesumPriceDurations(price: self.packagePrice, duration: self.packageDuration)
             self.packageId = packageId
             self.packagePrice = packagePrice
             self.packageDuration = packageDuration
             self.salerLable.text = "\(discont)%"
-            viewDidLoad()
+            voidView()
+//            viewDidLoad()
+            selectedServices = servicesOld
+            filterServicesByPackages(packageId: packageId)
             return
         }
+        removeAll()
         self.packageId = packageId
         self.packagePrice = packagePrice
         self.packageDuration = packageDuration
         self.salerLable.text = "\(discont)%"
-        viewDidLoad()
+        voidView()
+//        viewDidLoad()
+        selectedServices = servicesOld
+        filterServicesByPackages(packageId: packageId)
+    }
+    func filterServicesByPackages(packageId: String){
+        
+            for packages in (carWashInfo?.packages)!{
+                if packages.id == packageId{
+                    for serviceP in packages.services!{
+                        for serviceS in selectedServices{
+                            if serviceS.id == serviceP.id{
+                                selectedServices.remove2(serviceS)
+                            
+                        }
+                    }
+                }
+            }
+        }
+        carServicePrice.reloadData()
+    }
+    func removeAll(){
+        idServicePrice.removeAll()
+        removesumPriceDurations(price: self.sumPrice, duration: self.sumDurations)
     }
     
     func filterServices(){
@@ -515,6 +557,8 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 }
             }
         }
+        servicesOld.removeAll()
+        servicesOld = selectedServices
     }
     
     override func viewDidAppear(_ animated: Bool) {

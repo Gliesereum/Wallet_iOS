@@ -16,7 +16,7 @@ class CarWashBody: Codable {
     let objectState: String?
     let workTimes: [WorkTime]?
     let spaces: [Space]?
-    let servicePrices: [Serviceice]?
+    var servicePrices: [Serviceice]?
     let packages: [Package]?
     let media: [Media]?
     let comments: [Comment]?

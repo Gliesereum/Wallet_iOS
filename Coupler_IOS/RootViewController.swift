@@ -106,6 +106,15 @@ extension UIViewController {
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         view.window!.layer.add(transition, forKey: kCATransition)
         present(customVcTransition, animated: false, completion: nil)
-    }}
+    }
+    
+}
+extension Array where Element: AnyObject {
+    mutating func remove2(_ object: AnyObject) {
+        if let index = index(where: { $0 === object }) {
+            remove(at: index)
+        }
+    }
+}
 
 
