@@ -21,6 +21,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     @IBOutlet weak var text: UILabel!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var salerLable: UILabel!
+    @IBOutlet weak var selectPackage: UILabel!
     
     @IBOutlet weak var allPrice: UILabel!
 
@@ -112,6 +113,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             if text.text != nil{
                 remuvePackage(self)
                 removeAll()
+                selectPackage.text = "Не выбран"
                 selectedServices = servicesOld
                 carServicePrice.reloadData()
                 
@@ -465,7 +467,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         self.salerLable.text = "0%"
     }
     
-    func Dismiss(packageDuration: Int, packagePrice: Int, packageId: String, discont: Int) {
+    func Dismiss(packageDuration: Int, packagePrice: Int, packageId: String, discont: Int, packageName: String) {
         if self.packagePrice <= 0{
             removesumPriceDurations(price: self.packagePrice, duration: self.packageDuration)
             
@@ -485,6 +487,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             self.packagePrice = packagePrice
             self.packageDuration = packageDuration
             self.salerLable.text = "\(discont)%"
+            self.selectPackage.text = packageName
             voidView()
 //            viewDidLoad()
             selectedServices = servicesOld
@@ -496,6 +499,8 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         self.packagePrice = packagePrice
         self.packageDuration = packageDuration
         self.salerLable.text = "\(discont)%"
+        
+        self.selectPackage.text = packageName
         voidView()
 //        viewDidLoad()
         selectedServices = servicesOld

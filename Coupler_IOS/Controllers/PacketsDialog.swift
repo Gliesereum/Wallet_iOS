@@ -9,7 +9,7 @@
 import UIKit
 
 protocol DialodDismissDelegate: class {
-    func Dismiss(packageDuration: Int, packagePrice: Int, packageId: String, discont: Int)
+    func Dismiss(packageDuration: Int, packagePrice: Int, packageId: String, discont: Int, packageName: String)
 }
 class PacketsDialog: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
@@ -68,14 +68,14 @@ class PacketsDialog: UIViewController, UITableViewDataSource, UITableViewDelegat
 
         id = (package?.id)!
         
-        delegate!.Dismiss(packageDuration: durtion, packagePrice: price, packageId: id, discont: (package?.discount)!)
+        delegate!.Dismiss(packageDuration: durtion, packagePrice: price, packageId: id, discont: (package?.discount)!, packageName: (package?.name)!)
         self.dismiss(animated: true, completion: nil)
    
     popoverPresentationController?.delegate?.popoverPresentationControllerDidDismissPopover?(popoverPresentationController!)
         
         }
     @IBAction func canselBtn(_ sender: Any) {
-        delegate?.Dismiss(packageDuration: 0, packagePrice: 0, packageId: "cancel", discont: 0)
+        delegate?.Dismiss(packageDuration: 0, packagePrice: 0, packageId: "cancel", discont: 0, packageName: "Не выбран")
         dismiss(animated: true, completion: nil)
     }
     
