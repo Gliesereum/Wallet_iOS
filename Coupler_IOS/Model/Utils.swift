@@ -587,6 +587,12 @@ class Utils {
             
         }
     }
+//    func milisecondsToDateA(milliseconds: Int) -> Date {
+//        let date = NSDate(timeIntervalSince1970: TimeInterval(milliseconds))
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "hh:mm aa dd/MM/YYYY"
+//        return formatter.string(from: date as Date)
+//    }
 
 }
 

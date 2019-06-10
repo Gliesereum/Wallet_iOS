@@ -134,7 +134,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
                 ),
                 font: .systemFont(ofSize: 28, weight: .bold),
                 textColor: .black,
-                backgroundColor: #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1),
+                backgroundColor: #colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1),
                 cursorColor: UIColor.black,
                 cornerRadius: 8, borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
             )

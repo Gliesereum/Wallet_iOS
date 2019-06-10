@@ -14,7 +14,6 @@ target 'Coupler_IOS' do
     pod 'AZDialogView'
     pod 'SVGKit'
     pod 'PagedHorizontalView'
-    pod 'DateTimePicker'
     pod 'FloatRatingView'
     pod 'libPhoneNumber-iOS'
     pod 'Firebase/Messaging'

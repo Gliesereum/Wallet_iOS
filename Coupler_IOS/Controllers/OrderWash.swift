@@ -10,7 +10,6 @@ import UIKit
 import EHHorizontalSelectionView
 import AZDialogView
 import Alamofire
-import DateTimePicker
 
 class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableViewDataSource, UITableViewDelegate, DateTimePickerDelegate, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate, DialodDismissDelegate, SetTimeDialogDismissDelegate, OrderDialogDismissDelegate{
     @IBOutlet weak var carServicePrice: UITableView!
@@ -278,6 +277,12 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                     self.view.endEditing(true)
                     SCLAlertView().showWarning("Внимание!", subTitle: self.utils.checkResponseStatusCode(code: errorBody.code!), closeButtonTitle: "Закрыть")
                     }
+                    if selected != 4{
+                        self.view.endEditing(true)
+                        SCLAlertView().showWarning("Внимание!", subTitle: self.utils.checkResponseStatusCode(code: errorBody.code!), closeButtonTitle: "Закрыть")
+                        
+                        self.showDateTimePikerDialog()
+                    }
                     self.stopAnimating()
                     self.currentTime = 0
                     if selected == 0 {
@@ -295,7 +300,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                     self.workSpaceId = currentFreeTime.workingSpaceID!
                 self.time = self.utils.milisecondsToTime(miliseconds: self.currentTime, timeZone: (self.carWashInfo?.timeZone)! )
                     self.dialogController.message = "Выбраное время \(self.time)"
-                if selected == 0 {
+                if selected == 0 || selected == 4 {
                     self.showOrderDialog()
                 }
                 
@@ -340,80 +345,80 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         }
     }
     
-    func showDialog(){
-        
-        time = self.utils.milisecondsToDate(miliseconds: self.currentTime)
-        if counter == true {
-            dialogController.removeAllActions()
-        }
-        self.counter = true
-        
-        
-       
-                    dialogController.dismissDirection = .bottom
-                    dialogController.titleColor = .black
-                    dialogController.messageColor = .black
-                    dialogController.dismissWithOutsideTouch = true
-        
-                    let primary = #colorLiteral(red: 0.9607843137, green: 0.6509803922, blue: 0.137254902, alpha: 1)
-        
-        
-                    dialogController.buttonStyle = { (button,height,position) in
-                        button.tintColor = .black
-                        button.backgroundColor = .white
-                        button.layer.masksToBounds = true
-                        button.setTitleColor(UIColor.black, for: [])
-                        button.layer.masksToBounds = true
-                        button.layer.borderColor = primary.cgColor
-        
-                    }
-        
-        
-                    dialogController.cancelEnabled = true
-                    dialogController.cancelButtonStyle = { (button, height) in
-                        button.tintColor = primary
-                        button.setTitle("Отмена", for: [])
-                        return true
-                    }
-       
-        
-                    dialogController.addAction(AZDialogAction(title: "Ближайшее время", handler: { (dialog) -> (Void) in
-        
-                        self.time = self.utils.milisecondsToDate(miliseconds: self.getCurrentTime(setTime: self.utils.currentTimeInMiliseconds(timeZone: (self.carWashInfo?.timeZone)!), selected: 1))
-                        self.dialogController.message = "Ближайшее время \(self.time)"
-                        
-                    }))
-        
-                    dialogController.addAction(AZDialogAction(title: "Выбрать время", handler: { (dialog) -> (Void) in
-                        let min = Date().addingTimeInterval(-60)
-                        let max = Date().addingTimeInterval(60 * 60 * 24 * 30)
-                        let picker = DateTimePicker.create(minimumDate: min, maximumDate: max)
-                        picker.includeMonth = true // if true the month shows at bottom of date cell
-                        picker.highlightColor = .black
-                        picker.darkColor = UIColor.darkGray
-                        picker.doneButtonTitle = "Выберите время"
-                        picker.doneBackgroundColor = .black
-                        picker.completionHandler = { date in
-                            let formatter = DateFormatter()
-                            formatter.dateFormat = "hh:mm aa dd/MM/YYYY"
-                            self.title = formatter.string(from: date)
-                        }
-                        picker.delegate = self
-//                        picker.delegate = self as! DateTimePickerDelegate
-                        picker.show()
-                      
-                        
-                       
-                    }))
-        
-                    dialogController.addAction(AZDialogAction(title: "Заказать", handler: { (dialog) -> (Void) in
-                        self.orderWash()
-                        dialog.dismiss()
-                    }))
-        
-        
-                    dialogController.show(in: self)
-    }
+//    func showDialog(){
+//
+//        time = self.utils.milisecondsToDate(miliseconds: self.currentTime)
+//        if counter == true {
+//            dialogController.removeAllActions()
+//        }
+//        self.counter = true
+//
+//
+//
+//                    dialogController.dismissDirection = .bottom
+//                    dialogController.titleColor = .black
+//                    dialogController.messageColor = .black
+//                    dialogController.dismissWithOutsideTouch = true
+//
+//                    let primary = #colorLiteral(red: 0.9607843137, green: 0.6509803922, blue: 0.137254902, alpha: 1)
+//
+//
+//                    dialogController.buttonStyle = { (button,height,position) in
+//                        button.tintColor = .black
+//                        button.backgroundColor = .white
+//                        button.layer.masksToBounds = true
+//                        button.setTitleColor(UIColor.black, for: [])
+//                        button.layer.masksToBounds = true
+//                        button.layer.borderColor = primary.cgColor
+//
+//                    }
+//
+//
+//                    dialogController.cancelEnabled = true
+//                    dialogController.cancelButtonStyle = { (button, height) in
+//                        button.tintColor = primary
+//                        button.setTitle("Отмена", for: [])
+//                        return true
+//                    }
+//
+//
+//                    dialogController.addAction(AZDialogAction(title: "Ближайшее время", handler: { (dialog) -> (Void) in
+//
+//                        self.time = self.utils.milisecondsToDate(miliseconds: self.getCurrentTime(setTime: self.utils.currentTimeInMiliseconds(timeZone: (self.carWashInfo?.timeZone)!), selected: 1))
+//                        self.dialogController.message = "Ближайшее время \(self.time)"
+//
+//                    }))
+//
+//                    dialogController.addAction(AZDialogAction(title: "Выбрать время", handler: { (dialog) -> (Void) in
+//                        let min = Date().addingTimeInterval(-60)
+//                        let max = Date().addingTimeInterval(60 * 60 * 24 * 30)
+//                        let picker = DateTimePicker.create(minimumDate: min, maximumDate: max)
+//                        picker.includeMonth = true // if true the month shows at bottom of date cell
+//                        picker.highlightColor = .black
+//                        picker.darkColor = UIColor.darkGray
+//                        picker.doneButtonTitle = "Выберите время"
+//                        picker.doneBackgroundColor = .black
+//                        picker.completionHandler = { date in
+//                            let formatter = DateFormatter()
+//                            formatter.dateFormat = "hh:mm aa dd/MM/YYYY"
+//                            self.title = formatter.string(from: date)
+//                        }
+//                        picker.delegate = self
+////                        picker.delegate = self as! DateTimePickerDelegate
+//                        picker.show()
+//
+//
+//
+//                    }))
+//
+//                    dialogController.addAction(AZDialogAction(title: "Заказать", handler: { (dialog) -> (Void) in
+//                        self.orderWash()
+//                        dialog.dismiss()
+//                    }))
+//
+//
+//                    dialogController.show(in: self)
+//    }
     
     func dateTimePicker(_ picker: DateTimePicker, didSelectDate: Date) {
 //        self.currentTime = self.utils.dateToMillisecond(date: didSelectDate, timeZone: (self.carWashInfo?.timeZone)!)
@@ -618,18 +623,23 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     func showDateTimePikerDialog(){
         let min = Date().addingTimeInterval(-60)
         let max = Date().addingTimeInterval(60 * 60 * 24 * 30)
+        let date = Date(timeIntervalSince1970: TimeInterval(currentTime/1000))
         let picker = DateTimePicker.create(minimumDate: min, maximumDate: max)
         picker.includeMonth = true // if true the month shows at bottom of date cell
         picker.highlightColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         picker.darkColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+        picker.cancelButtonTitle = "Закрыть"
         picker.doneButtonTitle = "Выберите время"
         picker.doneBackgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         picker.completionHandler = { date in
-            let formatter = DateFormatter()
-            formatter.dateFormat = "hh:mm aa dd/MM/YYYY"
-            self.title = formatter.string(from: date)
+            self.currentTime = self.utils.dateToMillisecond(date: date, timeZone: (self.carWashInfo?.timeZone)!)
+            self.getCurrentTime(setTime: self.currentTime, selected: 4)
+//            self.showOrderDialog()
         }
-        picker.dismissHandler = showOrderDialog
+        
+//        picker.completionHandler!(picker.selectedDate)
+        
+//        picker.dismissHandler = self.dis.dismiss()
         picker.delegate = self
         //                        picker.delegate = self as! DateTimePickerDelegate
         picker.show()
