@@ -206,7 +206,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         allPrice.text = "💵" + String(sumPrice) + " грн."
         stopAnimating()
     }
-    func removesumPriceDurations(price: Int, duration: Int)  {
+    func removesumPriceDurations(price: Int, duration: Int, packageService: String)  {
         sumPrice = sumPrice - price
         allPrice.text = "💵" + String(sumPrice) + " грн."
         if priceArray.firstIndex(of: price) != nil {
@@ -218,8 +218,10 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
          if durationArray.firstIndex(of: duration) != nil {
         durationArray.remove(at: durationArray.firstIndex(of: duration)!)
         }
+        if packageService == "PACKAGE"{
         carWashInfo?.servicePrices = servicesOld
         carServicePrice.reloadData()
+        }
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell: CustomServicesPrice = tableView.cellForRow(at: indexPath) as! CustomServicesPrice
@@ -234,7 +236,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             cell.contentView.backgroundColor = .white
             
         }, completion:nil)
-        removesumPriceDurations(price: Int(cell.price.text!)!, duration: Int(cell.time.text!)!)
+        removesumPriceDurations(price: Int(cell.price.text!)!, duration: Int(cell.time.text!)!, packageService: "SERVICE")
         idServicePrice.remove(at: idServicePrice.firstIndex(of: cell.id.text!)!)
       
     }
@@ -462,14 +464,14 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         }
     }
     @IBAction func remuvePackage(_ sender: Any) {
-        removesumPriceDurations(price: packagePrice, duration: packageDuration)
+        removesumPriceDurations(price: packagePrice, duration: packageDuration, packageService: "PACKAGE")
         text.text = nil
         self.salerLable.text = "0%"
     }
     
     func Dismiss(packageDuration: Int, packagePrice: Int, packageId: String, discont: Int, packageName: String) {
         if self.packagePrice <= 0{
-            removesumPriceDurations(price: self.packagePrice, duration: self.packageDuration)
+            removesumPriceDurations(price: self.packagePrice, duration: self.packageDuration, packageService: "PACKAGE")
             
             self.salerLable.text = "0%"
             
@@ -482,7 +484,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         }
         guard self.packageId == "" else{
             removeAll()
-            removesumPriceDurations(price: self.packagePrice, duration: self.packageDuration)
+            removesumPriceDurations(price: self.packagePrice, duration: self.packageDuration, packageService: "PACKAGE")
             self.packageId = packageId
             self.packagePrice = packagePrice
             self.packageDuration = packageDuration
@@ -524,7 +526,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     }
     func removeAll(){
         idServicePrice.removeAll()
-        removesumPriceDurations(price: self.sumPrice, duration: self.sumDurations)
+        removesumPriceDurations(price: self.sumPrice, duration: self.sumDurations, packageService: "PACKAGE")
     }
     
     func filterServices(){
