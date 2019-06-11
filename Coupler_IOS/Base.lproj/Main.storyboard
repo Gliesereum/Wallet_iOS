@@ -143,13 +143,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Фамилия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1NW-nz-Ewm">
-                                                <rect key="frame" x="16" y="118" width="74" height="20"/>
+                                                <rect key="frame" x="16" y="206" width="74" height="20"/>
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите вашу фамилию" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P40-65-f7i" customClass="MDCTextField">
-                                                <rect key="frame" x="16" y="138" width="382" height="56"/>
+                                                <rect key="frame" x="16" y="226" width="382" height="56"/>
                                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="YVi-BM-Mbg"/>
@@ -159,13 +159,13 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Отчество" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGE-kU-Oms">
-                                                <rect key="frame" x="16" y="208" width="74" height="20"/>
+                                                <rect key="frame" x="16" y="296" width="74" height="20"/>
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите ваше имя" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dag-1v-SuC" customClass="MDCTextField">
-                                                <rect key="frame" x="16" y="48" width="382" height="56"/>
+                                                <rect key="frame" x="16" y="136" width="382" height="56"/>
                                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="slZ-CN-t71"/>
@@ -175,13 +175,13 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcE-f6-iFS">
-                                                <rect key="frame" x="16" y="28" width="34" height="20"/>
+                                                <rect key="frame" x="16" y="116" width="34" height="20"/>
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите ваше отчество" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U6D-yp-cIW" customClass="MDCTextField">
-                                                <rect key="frame" x="16" y="228" width="382" height="56"/>
+                                                <rect key="frame" x="16" y="316" width="382" height="56"/>
                                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="SnX-N9-6Ff"/>
@@ -190,14 +190,14 @@
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Страна" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oEI-uH-lS9">
-                                                <rect key="frame" x="16.000000000000004" y="298" width="56.333333333333343" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Страна" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oEI-uH-lS9">
+                                                <rect key="frame" x="16" y="407" width="56.333333333333343" height="20"/>
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите название страны" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PKO-RA-dGG" customClass="MDCTextField">
-                                                <rect key="frame" x="16" y="318" width="382" height="56"/>
+                                                <rect key="frame" x="16" y="406" width="382" height="56"/>
                                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="eaq-EK-wAj"/>
@@ -206,14 +206,14 @@
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Город" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ENf-8q-eQD">
-                                                <rect key="frame" x="16.000000000000004" y="388" width="46.333333333333343" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Город" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ENf-8q-eQD">
+                                                <rect key="frame" x="16" y="497" width="46.333333333333343" height="20"/>
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите название города" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k6L-lH-vTK" customClass="MDCTextField">
-                                                <rect key="frame" x="16" y="408" width="382" height="56"/>
+                                                <rect key="frame" x="16" y="496" width="382" height="56"/>
                                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="Wm5-1n-sYg"/>
@@ -222,14 +222,14 @@
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Адрес" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KiM-gC-AEu">
-                                                <rect key="frame" x="15.999999999999996" y="478" width="46.666666666666657" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Адрес" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KiM-gC-AEu">
+                                                <rect key="frame" x="16" y="587" width="46.666666666666657" height="20"/>
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите ваш адрес" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JzI-bt-7CJ" customClass="MDCTextField">
-                                                <rect key="frame" x="16" y="498" width="382" height="56"/>
+                                                <rect key="frame" x="16" y="586" width="382" height="56"/>
                                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="w1R-5o-foQ"/>
@@ -238,6 +238,43 @@
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
                                             </textField>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zbT-en-XaD">
+                                                <rect key="frame" x="157" y="8" width="100" height="100"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconProfile" translatesAutoresizingMaskIntoConstraints="NO" id="MV9-lx-r9l">
+                                                        <rect key="frame" x="26" y="8" width="48" height="48"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="48" id="p9V-tH-aNM"/>
+                                                            <constraint firstAttribute="width" constant="48" id="zVc-hQ-x9l"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="24"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Изменить" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sUR-eJ-AMu">
+                                                        <rect key="frame" x="10.333333333333343" y="71" width="79.666666666666671" height="20"/>
+                                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="9ph-o9-USr"/>
+                                                    <constraint firstItem="sUR-eJ-AMu" firstAttribute="centerX" secondItem="zbT-en-XaD" secondAttribute="centerX" id="TAf-f8-2qk"/>
+                                                    <constraint firstItem="MV9-lx-r9l" firstAttribute="top" secondItem="zbT-en-XaD" secondAttribute="top" constant="8" id="TOP-Fy-h8l"/>
+                                                    <constraint firstAttribute="width" constant="100" id="geY-ep-Gd9"/>
+                                                    <constraint firstItem="sUR-eJ-AMu" firstAttribute="top" secondItem="MV9-lx-r9l" secondAttribute="bottom" constant="15" id="kRd-Cf-ARD"/>
+                                                    <constraint firstItem="MV9-lx-r9l" firstAttribute="centerX" secondItem="zbT-en-XaD" secondAttribute="centerX" id="sTn-wB-e4a"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -257,9 +294,9 @@
                                             <constraint firstItem="U6D-yp-cIW" firstAttribute="top" secondItem="pGE-kU-Oms" secondAttribute="bottom" id="LSm-Qf-zEm"/>
                                             <constraint firstItem="oEI-uH-lS9" firstAttribute="top" secondItem="U6D-yp-cIW" secondAttribute="bottom" constant="14" id="OJ4-da-VS1"/>
                                             <constraint firstItem="JzI-bt-7CJ" firstAttribute="top" secondItem="KiM-gC-AEu" secondAttribute="bottom" id="Opm-PX-csE"/>
+                                            <constraint firstItem="zbT-en-XaD" firstAttribute="centerX" secondItem="2j8-pO-eeX" secondAttribute="centerX" id="PT2-gz-dLq"/>
                                             <constraint firstAttribute="trailing" secondItem="PKO-RA-dGG" secondAttribute="trailing" constant="16" id="RVq-zX-f94"/>
                                             <constraint firstItem="ENf-8q-eQD" firstAttribute="top" secondItem="PKO-RA-dGG" secondAttribute="bottom" constant="14" id="SFX-3e-caZ"/>
-                                            <constraint firstItem="OcE-f6-iFS" firstAttribute="top" secondItem="2j8-pO-eeX" secondAttribute="top" constant="28" id="SNK-7v-Igb"/>
                                             <constraint firstItem="JzI-bt-7CJ" firstAttribute="top" secondItem="KiM-gC-AEu" secondAttribute="bottom" id="UMU-vB-oOh"/>
                                             <constraint firstItem="pGE-kU-Oms" firstAttribute="top" secondItem="P40-65-f7i" secondAttribute="bottom" constant="14" id="YPF-tS-prj"/>
                                             <constraint firstAttribute="trailing" secondItem="U6D-yp-cIW" secondAttribute="trailing" constant="16" id="blF-Wh-5WD"/>
@@ -271,10 +308,12 @@
                                             <constraint firstItem="1NW-nz-Ewm" firstAttribute="top" secondItem="Dag-1v-SuC" secondAttribute="bottom" constant="14" id="h8g-Bc-O4y"/>
                                             <constraint firstItem="pGE-kU-Oms" firstAttribute="top" secondItem="P40-65-f7i" secondAttribute="bottom" constant="14" id="hsb-hH-FMm"/>
                                             <constraint firstItem="JzI-bt-7CJ" firstAttribute="leading" secondItem="2j8-pO-eeX" secondAttribute="leading" constant="16" id="iBv-W0-wJ2"/>
+                                            <constraint firstItem="zbT-en-XaD" firstAttribute="top" secondItem="2j8-pO-eeX" secondAttribute="top" constant="8" id="iQS-Hc-Wi8"/>
                                             <constraint firstAttribute="trailing" secondItem="P40-65-f7i" secondAttribute="trailing" constant="16" id="j3Z-6h-yU5"/>
                                             <constraint firstItem="P40-65-f7i" firstAttribute="leading" secondItem="2j8-pO-eeX" secondAttribute="leading" constant="16" id="ja0-VX-0G9"/>
                                             <constraint firstItem="oEI-uH-lS9" firstAttribute="leading" secondItem="2j8-pO-eeX" secondAttribute="leading" constant="16" id="oZ8-ne-uuB"/>
                                             <constraint firstAttribute="trailing" secondItem="JzI-bt-7CJ" secondAttribute="trailing" constant="16" id="qNy-EX-5aV"/>
+                                            <constraint firstItem="OcE-f6-iFS" firstAttribute="top" secondItem="zbT-en-XaD" secondAttribute="bottom" constant="8" id="sRX-mD-I2x"/>
                                             <constraint firstItem="Dag-1v-SuC" firstAttribute="leading" secondItem="2j8-pO-eeX" secondAttribute="leading" constant="16" id="uPd-Xu-1qv"/>
                                             <constraint firstItem="ENf-8q-eQD" firstAttribute="leading" secondItem="2j8-pO-eeX" secondAttribute="leading" constant="16" id="uko-Ic-kg1"/>
                                             <constraint firstAttribute="trailing" secondItem="Dag-1v-SuC" secondAttribute="trailing" constant="16" id="uuf-1K-eF0"/>
@@ -357,11 +396,14 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="addAvatarView" destination="zbT-en-XaD" id="pdx-fs-3Bv"/>
                         <outlet property="adress" destination="JzI-bt-7CJ" id="XOJ-JW-kRZ"/>
+                        <outlet property="avatarLable" destination="sUR-eJ-AMu" id="LOt-St-uPM"/>
                         <outlet property="city" destination="k6L-lH-vTK" id="6CT-6g-KL2"/>
                         <outlet property="country" destination="PKO-RA-dGG" id="zKH-dU-7a8"/>
                         <outlet property="editBtn" destination="Fml-ws-xIZ" id="2Yd-fl-Rwl"/>
                         <outlet property="firstName" destination="Dag-1v-SuC" id="DV2-bn-A7L"/>
+                        <outlet property="imageAvatar" destination="MV9-lx-r9l" id="IxG-aS-Rte"/>
                         <outlet property="lastName" destination="P40-65-f7i" id="Yga-U0-whm"/>
                         <outlet property="patronymic" destination="U6D-yp-cIW" id="4vR-z6-QqH"/>
                         <outlet property="saveBtn" destination="h3x-WR-Gc5" id="viW-WH-9cO"/>
@@ -3805,6 +3847,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="IconProfile" width="32" height="32"/>
         <image name="Mask" width="16" height="16"/>
         <image name="StarEmpty" width="14" height="13"/>
         <image name="StarFull" width="14" height="13"/>

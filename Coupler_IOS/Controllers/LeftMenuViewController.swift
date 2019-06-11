@@ -38,12 +38,12 @@ public class LeftMenuViewController: UIViewController{
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
-        checkAccesToken()
         
     }
     public override func viewDidAppear(_ animated: Bool) {
 //       checkAccesToken()
         
+        checkAccesToken()
         checkBuisnes()
         
     }

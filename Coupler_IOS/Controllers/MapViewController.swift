@@ -9,11 +9,10 @@
 import UIKit
 import Alamofire
 import GoogleMaps
-//import GooglePlaces
 import SRAttractionsMap
 import CoreLocation
 
-class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate, FilterDialodDismissDelegate {
+class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate, FilterDialodDismissDelegate{
     
   
     @IBOutlet weak var navTop: UINavigationItem!
@@ -107,6 +106,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
 //        }
        
     }
+    func 
     @IBAction func filterMap(_ sender: Any) {
         addFilter()
     }

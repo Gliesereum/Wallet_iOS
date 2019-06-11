@@ -21,6 +21,10 @@ target 'Coupler_IOS' do
     pod 'Firebase/Analytics'
     pod 'GoogleMaps'
     pod 'MaterialComponents'
+    pod 'Lightbox'
+    
+
+
 
     
 

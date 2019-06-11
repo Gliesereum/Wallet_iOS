@@ -9,14 +9,18 @@
 import UIKit
 import Alamofire
 import MaterialComponents
+import Lightbox
 
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRecognizerDelegate {
+    
+    
     
     let constants = Constants()
     let utils = Utils()
     var frameY = CGFloat()
     var profiModel: ProfileModel?
+    var edited: Bool?
 //    let mapViewController = MapViewController()
     
     @IBOutlet weak var firstName: MDCTextField!
@@ -27,12 +31,19 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var country: MDCTextField!
     @IBOutlet weak var city: MDCTextField!
     @IBOutlet weak var adress: MDCTextField!
+    @IBOutlet weak var addAvatarView: UIView!
+    @IBOutlet weak var imageAvatar: UIImageView!
     
     
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var avatarLable: UILabel!
+    
+    let imagePickerController = ImagePickerController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        imagePickerController.delegate = self
+        imagePickerController.imageLimit = 1
         frameY = self.view.frame.origin.y
         firstName.addDoneCancelToolbar()
         lastName.addDoneCancelToolbar()
@@ -40,7 +51,11 @@ class ProfileViewController: UIViewController {
         country.addDoneCancelToolbar()
         city.addDoneCancelToolbar()
         adress.addDoneCancelToolbar()
-    
+        let swImage = UITapGestureRecognizer(target: self, action: #selector(addAvatar))
+        
+        swImage.delegate = self
+        swImage.numberOfTapsRequired = 1
+        addAvatarView.addGestureRecognizer(swImage)
         getProfile()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -48,6 +63,32 @@ class ProfileViewController: UIViewController {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    @objc func addAvatar(){
+        if edited == true{
+        present(imagePickerController, animated: true, completion: nil)
+        }
+    }
+    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        guard images.count > 0 else { return }
+        
+        let lightboxImages = images.map {
+            return LightboxImage(image: $0)
+        }
+        
+        let lightbox = LightboxController(images: lightboxImages, startIndex: 0)
+        imagePicker.present(lightbox, animated: true, completion: nil)
+    }
+    
+    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        imageAvatar.image = images.first
+        getAvatar(image: images.first!)
+       imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
+        
+        imagePicker.dismiss(animated: true, completion: nil)
     }
     
     @objc func keyboardWillShow(notification:NSNotification){
@@ -98,6 +139,8 @@ class ProfileViewController: UIViewController {
             utils.checkFilds(massage: "Введите ваш адрес", vc: self.view)
             return
         }
+        
+        avatarLable.isHidden = true
         firstName.isEnabled = false
         lastName.isEnabled = false
         patronymic.isEnabled = false
@@ -156,6 +199,8 @@ class ProfileViewController: UIViewController {
     @IBAction func editProfile(_ sender: Any) {
         
         self.view.endEditing(true)
+        edited = true
+        avatarLable.isHidden = false
         country.isEnabled = true
         city.isEnabled = true
         adress.isEnabled = true
@@ -189,6 +234,9 @@ class ProfileViewController: UIViewController {
             self.city.text = profileModel?.city
             self.adress.text = profileModel?.address
             self.profiModel = profileModel
+            if profileModel?.avatarURL != nil{
+                self.imageAvatar.downloaded(from: profileModel!.avatarURL!)
+            }
         }
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -199,6 +247,37 @@ class ProfileViewController: UIViewController {
             
             self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
             return
+        }
+    }
+    func getAvatar(image: UIImage){
+        let imgData = image.sd_imageData()!
+        let restUrl = constants.startUrl + "file/v1/upload"
+      
+        let parameters = ["open": "true"] //Optional for extra parameter
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(imgData, withName: "file",fileName: "file.jpg", mimeType: "image/jpg")
+            for (key, value) in parameters {
+                multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+            } //Optional for extra parameters
+        },
+                         to:restUrl, headers: headers )
+        { (result) in
+            switch result {
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (progress) in
+                    print("Upload Progress: \(progress.fractionCompleted)")
+                })
+                
+                upload.responseUploadImage{ response in
+                    let result = response.result.value
+                    self.profiModel?.avatarURL = result?.url
+                }
+                
+            case .failure(let encodingError):
+                print(encodingError)
+            }
         }
     }
     

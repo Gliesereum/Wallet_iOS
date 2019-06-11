@@ -167,6 +167,25 @@
 		FA07064322A5699F005833DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA07064222A5699F005833DC /* GoogleService-Info.plist */; };
 		FA07064722A56DAA005833DC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA07064622A56DAA005833DC /* Info.plist */; };
 		FA0F616022A684BD00D0273C /* 1024x1024.pdf in Resources */ = {isa = PBXBuildFile; fileRef = FA0F615F22A684BC00D0273C /* 1024x1024.pdf */; };
+		FAE5E94622AFE2BE00F63E80 /* CameraMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93022AFE2BE00F63E80 /* CameraMan.swift */; };
+		FAE5E94722AFE2BE00F63E80 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93122AFE2BE00F63E80 /* CameraView.swift */; };
+		FAE5E94822AFE2BE00F63E80 /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93222AFE2BE00F63E80 /* ImagePickerController.swift */; };
+		FAE5E94922AFE2BE00F63E80 /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93422AFE2BE00F63E80 /* TopView.swift */; };
+		FAE5E94A22AFE2BE00F63E80 /* ConstraintsSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93622AFE2BE00F63E80 /* ConstraintsSetup.swift */; };
+		FAE5E94B22AFE2BE00F63E80 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93822AFE2BE00F63E80 /* StackView.swift */; };
+		FAE5E94C22AFE2BE00F63E80 /* ButtonPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93922AFE2BE00F63E80 /* ButtonPicker.swift */; };
+		FAE5E94D22AFE2BE00F63E80 /* ImageStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93A22AFE2BE00F63E80 /* ImageStack.swift */; };
+		FAE5E94E22AFE2BE00F63E80 /* BottomContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93B22AFE2BE00F63E80 /* BottomContainerView.swift */; };
+		FAE5E94F22AFE2BE00F63E80 /* AssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93C22AFE2BE00F63E80 /* AssetManager.swift */; };
+		FAE5E95022AFE2BE00F63E80 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93D22AFE2BE00F63E80 /* Helper.swift */; };
+		FAE5E95122AFE2BE00F63E80 /* ImageGalleryViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93F22AFE2BE00F63E80 /* ImageGalleryViewDataSource.swift */; };
+		FAE5E95222AFE2BE00F63E80 /* ImageGalleryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E94022AFE2BE00F63E80 /* ImageGalleryLayout.swift */; };
+		FAE5E95322AFE2BE00F63E80 /* ImageGalleryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E94122AFE2BE00F63E80 /* ImageGalleryViewCell.swift */; };
+		FAE5E95422AFE2BE00F63E80 /* ImageGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E94222AFE2BE00F63E80 /* ImageGalleryView.swift */; };
+		FAE5E95522AFE2BE00F63E80 /* VideoInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E94322AFE2BE00F63E80 /* VideoInfoView.swift */; };
+		FAE5E95622AFE2BE00F63E80 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E94422AFE2BE00F63E80 /* LocationManager.swift */; };
+		FAE5E95722AFE2BE00F63E80 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E94522AFE2BE00F63E80 /* Configuration.swift */; };
+		FAE5E95922B002D800F63E80 /* UploadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E95822B002D800F63E80 /* UploadImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -357,6 +376,25 @@
 		FA07064222A5699F005833DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA07064622A56DAA005833DC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA0F615F22A684BC00D0273C /* 1024x1024.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = 1024x1024.pdf; sourceTree = "<group>"; };
+		FAE5E93022AFE2BE00F63E80 /* CameraMan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraMan.swift; sourceTree = "<group>"; };
+		FAE5E93122AFE2BE00F63E80 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		FAE5E93222AFE2BE00F63E80 /* ImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerController.swift; sourceTree = "<group>"; };
+		FAE5E93422AFE2BE00F63E80 /* TopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
+		FAE5E93622AFE2BE00F63E80 /* ConstraintsSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintsSetup.swift; sourceTree = "<group>"; };
+		FAE5E93822AFE2BE00F63E80 /* StackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
+		FAE5E93922AFE2BE00F63E80 /* ButtonPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonPicker.swift; sourceTree = "<group>"; };
+		FAE5E93A22AFE2BE00F63E80 /* ImageStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStack.swift; sourceTree = "<group>"; };
+		FAE5E93B22AFE2BE00F63E80 /* BottomContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomContainerView.swift; sourceTree = "<group>"; };
+		FAE5E93C22AFE2BE00F63E80 /* AssetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetManager.swift; sourceTree = "<group>"; };
+		FAE5E93D22AFE2BE00F63E80 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		FAE5E93F22AFE2BE00F63E80 /* ImageGalleryViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewDataSource.swift; sourceTree = "<group>"; };
+		FAE5E94022AFE2BE00F63E80 /* ImageGalleryLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGalleryLayout.swift; sourceTree = "<group>"; };
+		FAE5E94122AFE2BE00F63E80 /* ImageGalleryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewCell.swift; sourceTree = "<group>"; };
+		FAE5E94222AFE2BE00F63E80 /* ImageGalleryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGalleryView.swift; sourceTree = "<group>"; };
+		FAE5E94322AFE2BE00F63E80 /* VideoInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoInfoView.swift; sourceTree = "<group>"; };
+		FAE5E94422AFE2BE00F63E80 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		FAE5E94522AFE2BE00F63E80 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		FAE5E95822B002D800F63E80 /* UploadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -471,6 +509,7 @@
 				FA07050722A535E1005833DC /* CarWashMarker.swift */,
 				FA07050822A535E1005833DC /* CarClassServices.swift */,
 				FA07050922A535E1005833DC /* ProfileModel.swift */,
+				FAE5E95822B002D800F63E80 /* UploadImage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -478,6 +517,7 @@
 		FA07052722A535F1005833DC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				FAE5E92E22AFE2BE00F63E80 /* ImagePicker */,
 				FA07052822A535F1005833DC /* SRAttractionsMap */,
 				FA07053322A535F1005833DC /* LSDialogViewController */,
 				FA07053A22A535F1005833DC /* PinCodeInputView */,
@@ -777,6 +817,71 @@
 			path = Customs;
 			sourceTree = "<group>";
 		};
+		FAE5E92E22AFE2BE00F63E80 /* ImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				FAE5E92F22AFE2BE00F63E80 /* CameraView */,
+				FAE5E93222AFE2BE00F63E80 /* ImagePickerController.swift */,
+				FAE5E93322AFE2BE00F63E80 /* TopView */,
+				FAE5E93522AFE2BE00F63E80 /* Extensions */,
+				FAE5E93722AFE2BE00F63E80 /* BottomView */,
+				FAE5E93C22AFE2BE00F63E80 /* AssetManager.swift */,
+				FAE5E93D22AFE2BE00F63E80 /* Helper.swift */,
+				FAE5E93E22AFE2BE00F63E80 /* ImageGallery */,
+				FAE5E94422AFE2BE00F63E80 /* LocationManager.swift */,
+				FAE5E94522AFE2BE00F63E80 /* Configuration.swift */,
+			);
+			path = ImagePicker;
+			sourceTree = "<group>";
+		};
+		FAE5E92F22AFE2BE00F63E80 /* CameraView */ = {
+			isa = PBXGroup;
+			children = (
+				FAE5E93022AFE2BE00F63E80 /* CameraMan.swift */,
+				FAE5E93122AFE2BE00F63E80 /* CameraView.swift */,
+			);
+			path = CameraView;
+			sourceTree = "<group>";
+		};
+		FAE5E93322AFE2BE00F63E80 /* TopView */ = {
+			isa = PBXGroup;
+			children = (
+				FAE5E93422AFE2BE00F63E80 /* TopView.swift */,
+			);
+			path = TopView;
+			sourceTree = "<group>";
+		};
+		FAE5E93522AFE2BE00F63E80 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FAE5E93622AFE2BE00F63E80 /* ConstraintsSetup.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		FAE5E93722AFE2BE00F63E80 /* BottomView */ = {
+			isa = PBXGroup;
+			children = (
+				FAE5E93822AFE2BE00F63E80 /* StackView.swift */,
+				FAE5E93922AFE2BE00F63E80 /* ButtonPicker.swift */,
+				FAE5E93A22AFE2BE00F63E80 /* ImageStack.swift */,
+				FAE5E93B22AFE2BE00F63E80 /* BottomContainerView.swift */,
+			);
+			path = BottomView;
+			sourceTree = "<group>";
+		};
+		FAE5E93E22AFE2BE00F63E80 /* ImageGallery */ = {
+			isa = PBXGroup;
+			children = (
+				FAE5E93F22AFE2BE00F63E80 /* ImageGalleryViewDataSource.swift */,
+				FAE5E94022AFE2BE00F63E80 /* ImageGalleryLayout.swift */,
+				FAE5E94122AFE2BE00F63E80 /* ImageGalleryViewCell.swift */,
+				FAE5E94222AFE2BE00F63E80 /* ImageGalleryView.swift */,
+				FAE5E94322AFE2BE00F63E80 /* VideoInfoView.swift */,
+			);
+			path = ImageGallery;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -971,11 +1076,13 @@
 				"${BUILT_PRODUCTS_DIR}/AZDialogView/AZDialogView.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger/AlamofireNetworkActivityLogger.framework",
+				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
-				"${BUILT_PRODUCTS_DIR}/DateTimePicker/DateTimePicker.framework",
 				"${BUILT_PRODUCTS_DIR}/EHHorizontalSelectionView/EHHorizontalSelectionView.framework",
 				"${BUILT_PRODUCTS_DIR}/FloatRatingView/FloatRatingView.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Imaginary/Imaginary.framework",
+				"${BUILT_PRODUCTS_DIR}/Lightbox/Lightbox.framework",
 				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
 				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
 				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
@@ -1000,11 +1107,13 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AZDialogView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityLogger.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateTimePicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EHHorizontalSelectionView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FloatRatingView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Imaginary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lightbox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
@@ -1055,6 +1164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAE5E95522AFE2BE00F63E80 /* VideoInfoView.swift in Sources */,
 				FA07062F22A55006005833DC /* FilterCell.swift in Sources */,
 				FA0705DA22A535F2005833DC /* FlagPhoneNumberDelegate.swift in Sources */,
 				FA0705D522A535F2005833DC /* FPNCountryPickerDelegate.swift in Sources */,
@@ -1063,6 +1173,7 @@
 				FA0705B422A535F1005833DC /* NVActivityIndicatorAnimationBallScale.swift in Sources */,
 				FA0705A222A535F1005833DC /* ItemType.swift in Sources */,
 				FA07050A22A535E1005833DC /* ErrorBody.swift in Sources */,
+				FAE5E95122AFE2BE00F63E80 /* ImageGalleryViewDataSource.swift in Sources */,
 				FA07060922A535FB005833DC /* DrawRouteVC.swift in Sources */,
 				FA07060A22A535FB005833DC /* CarViewController.swift in Sources */,
 				FA0705AC22A535F1005833DC /* NVActivityIndicatorAnimationBallGridPulse.swift in Sources */,
@@ -1089,6 +1200,7 @@
 				FA07051C22A535E1005833DC /* OrderBodyCarWash.swift in Sources */,
 				FA0705BA22A535F1005833DC /* NVActivityIndicatorAnimationSquareSpin.swift in Sources */,
 				FA07051E22A535E1005833DC /* RecordBody.swift in Sources */,
+				FAE5E95022AFE2BE00F63E80 /* Helper.swift in Sources */,
 				FA07063222A55006005833DC /* CastomPacetsCell.swift in Sources */,
 				FA0705EA22A535F2005833DC /* SCLExtensions.swift in Sources */,
 				FA07051122A535E1005833DC /* CurrentFreeTime.swift in Sources */,
@@ -1103,6 +1215,7 @@
 				FA0705AF22A535F1005833DC /* NVActivityIndicatorAnimationBallTrianglePath.swift in Sources */,
 				FA0705CC22A535F2005833DC /* NVActivityIndicatorAnimationOrbit.swift in Sources */,
 				FA07061922A535FB005833DC /* OrderWash.swift in Sources */,
+				FAE5E94D22AFE2BE00F63E80 /* ImageStack.swift in Sources */,
 				FA0705B622A535F1005833DC /* NVActivityIndicatorAnimationBallBeat.swift in Sources */,
 				FA07060622A535FB005833DC /* SiginViewController.swift in Sources */,
 				FA0705C022A535F2005833DC /* NVActivityIndicatorAnimationTriangleSkewSpin.swift in Sources */,
@@ -1122,11 +1235,14 @@
 				FA0705C722A535F2005833DC /* NVActivityIndicatorAnimationCubeTransition.swift in Sources */,
 				FA0705E522A535F2005833DC /* AsyncUtil.swift in Sources */,
 				FA0705AA22A535F1005833DC /* NVActivityIndicatorView.swift in Sources */,
+				FAE5E95422AFE2BE00F63E80 /* ImageGalleryView.swift in Sources */,
 				FA0705D222A535F2005833DC /* FlagPhoneNumberTextField.swift in Sources */,
 				FA07051622A535E1005833DC /* JSON.swift in Sources */,
 				FA0705A622A535F1005833DC /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
+				FAE5E94922AFE2BE00F63E80 /* TopView.swift in Sources */,
 				FA0705DF22A535F2005833DC /* FSPageViewLayout.swift in Sources */,
 				FA0705D422A535F2005833DC /* FlagPhoneNumberTextFieldDelegate.swift in Sources */,
+				FAE5E94B22AFE2BE00F63E80 /* StackView.swift in Sources */,
 				FA07059D22A535F1005833DC /* UIViewController+LSDialogViewController.swift in Sources */,
 				FA07060D22A535FB005833DC /* MapViewController.swift in Sources */,
 				FA0705D322A535F2005833DC /* Bundle+Extension.swift in Sources */,
@@ -1138,9 +1254,13 @@
 				FA07051022A535E1005833DC /* FiltersBody.swift in Sources */,
 				FA0705BD22A535F1005833DC /* NVActivityIndicatorAnimationBlank.swift in Sources */,
 				FA07050C22A535E1005833DC /* AllRecordsCarWash.swift in Sources */,
+				FAE5E94822AFE2BE00F63E80 /* ImagePickerController.swift in Sources */,
+				FAE5E95222AFE2BE00F63E80 /* ImageGalleryLayout.swift in Sources */,
 				FA0705A322A535F1005833DC /* PinCodeInputView.swift in Sources */,
 				FA0705DE22A535F2005833DC /* FSPagerViewLayoutAttributes.swift in Sources */,
 				FA07059922A535F1005833DC /* SRAttractionsMapViewController.swift in Sources */,
+				FAE5E95322AFE2BE00F63E80 /* ImageGalleryViewCell.swift in Sources */,
+				FAE5E95622AFE2BE00F63E80 /* LocationManager.swift in Sources */,
 				FA0705E222A535F2005833DC /* FSPagerCollectionView.swift in Sources */,
 				FA0705BE22A535F1005833DC /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */,
 				FA07051A22A535E1005833DC /* OrderedBodyCarWash.swift in Sources */,
@@ -1156,6 +1276,8 @@
 				FA0705C922A535F2005833DC /* NVActivityIndicatorAnimationLineScaleParty.swift in Sources */,
 				FA07051922A535E1005833DC /* CarYearsList.swift in Sources */,
 				FA0705A422A535F1005833DC /* ItemAppearance.swift in Sources */,
+				FAE5E95722AFE2BE00F63E80 /* Configuration.swift in Sources */,
+				FAE5E94C22AFE2BE00F63E80 /* ButtonPicker.swift in Sources */,
 				FA0705B822A535F1005833DC /* NVActivityIndicatorAnimationBallScaleRipple.swift in Sources */,
 				FA0705CB22A535F2005833DC /* NVActivityIndicatorAnimationBallPulseRise.swift in Sources */,
 				FA03A75722AE435B0008310B /* StepCollectionViewFlowLayout.swift in Sources */,
@@ -1167,6 +1289,7 @@
 				FA0705A722A535F1005833DC /* NVActivityIndicatorPresenter.swift in Sources */,
 				FA07051322A535E1005833DC /* AllCarList.swift in Sources */,
 				FA0705CE22A535F2005833DC /* FPNFormat.swift in Sources */,
+				FAE5E94A22AFE2BE00F63E80 /* ConstraintsSetup.swift in Sources */,
 				FA0705B322A535F1005833DC /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */,
 				FA07051F22A535E1005833DC /* CarModelsList.swift in Sources */,
 				FA07063922A55006005833DC /* ClassServicesCell.swift in Sources */,
@@ -1175,10 +1298,13 @@
 				FA0705B922A535F1005833DC /* NVActivityIndicatorAnimationBallClipRotatePulse.swift in Sources */,
 				FA07059E22A535F1005833DC /* LSAnimationUtils.swift in Sources */,
 				FA0705E422A535F2005833DC /* TinyToastEnum.swift in Sources */,
+				FAE5E94E22AFE2BE00F63E80 /* BottomContainerView.swift in Sources */,
 				FA07063522A55006005833DC /* CustomCommentsCell.swift in Sources */,
 				FA07061A22A535FB005833DC /* LeftMenuViewController.swift in Sources */,
 				FA03A75822AE435B0008310B /* DateTimePicker.swift in Sources */,
 				FA0705C522A535F2005833DC /* NVActivityIndicatorAnimationPacman.swift in Sources */,
+				FAE5E94622AFE2BE00F63E80 /* CameraMan.swift in Sources */,
+				FAE5E94722AFE2BE00F63E80 /* CameraView.swift in Sources */,
 				FA03A75622AE435B0008310B /* FullDateCollectionViewCell.swift in Sources */,
 				FA0705D722A535F2005833DC /* FPNCountryPicker.swift in Sources */,
 				FA07060B22A535FB005833DC /* WorkingTimeDialog.swift in Sources */,
@@ -1192,8 +1318,10 @@
 				FA07061C22A535FB005833DC /* FilterViewController.swift in Sources */,
 				FA07051722A535E1005833DC /* FilterCarWashBody.swift in Sources */,
 				FA0705D622A535F2005833DC /* FPNNibLoadingView.swift in Sources */,
+				FAE5E95922B002D800F63E80 /* UploadImage.swift in Sources */,
 				FA0705A822A535F1005833DC /* NVActivityIndicatorViewable.swift in Sources */,
 				FA0705B222A535F1005833DC /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift in Sources */,
+				FAE5E94F22AFE2BE00F63E80 /* AssetManager.swift in Sources */,
 				FA0705C822A535F2005833DC /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
