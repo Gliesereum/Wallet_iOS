@@ -58,7 +58,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     override func viewDidLoad() {
         super .viewDidLoad()
         // Initialize the location manager.
-        
+        if utils.getSharedPref(key: "FIRSTSTART") != "true"{
+            firstLoad()
+        }
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -106,7 +108,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
 //        }
        
     }
-    func 
+    func firstLoad(){
+        self.utils.setSaredPref(key: "FIRSTSTART", value: "true")
+        utils.checkFilds(massage: "В данный момент интерактивная карта запущена в тестовом режиме. Услуги указанных компаний недоступны. Мы работаем над тем, чтобы как можно скорее наполнить карту нужными вам сервисами.", vc: self.view)
+    }
     @IBAction func filterMap(_ sender: Any) {
         addFilter()
     }
