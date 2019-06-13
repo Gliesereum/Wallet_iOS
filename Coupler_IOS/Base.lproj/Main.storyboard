@@ -121,6 +121,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="menuItem" destination="h1p-Xe-V3k" id="5rV-0q-WCu"/>
                         <outlet property="tableBuisness" destination="UVL-Nj-bwT" id="xs5-jz-173"/>
                     </connections>
                 </viewController>
@@ -1103,6 +1104,7 @@
                         <outlet property="price" destination="vgR-jU-Dcu" id="I7u-NY-MHa"/>
                         <outlet property="serviceLabel" destination="L9v-DD-rEm" id="few-lV-R15"/>
                         <outlet property="serviceTable" destination="ZzU-4w-BbW" id="8kr-Al-2WW"/>
+                        <outlet property="showRoate" destination="alR-Va-RZG" id="AK5-XB-m0Z"/>
                         <outlet property="status" destination="UAj-CH-U8v" id="ruc-n4-cws"/>
                         <outlet property="time" destination="a8u-G4-oMm" id="VE1-ZU-6vA"/>
                         <outlet property="viewCansel" destination="dWF-Wg-tPC" id="iA7-Rc-E8U"/>
@@ -1129,7 +1131,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="700"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E3H-aN-MY7">
-                                                <rect key="frame" x="10" y="322" width="394" height="56"/>
+                                                <rect key="frame" x="16" y="322" width="382" height="56"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="jZx-DR-X9p"/>
                                                 </constraints>
@@ -1226,14 +1228,14 @@
                                             <constraint firstItem="X0L-m5-t8Z" firstAttribute="top" secondItem="4a1-0R-lYH" secondAttribute="bottom" constant="20" id="1KG-Sj-Mv8"/>
                                             <constraint firstAttribute="trailing" secondItem="4a1-0R-lYH" secondAttribute="trailing" constant="16" id="49N-uB-u6x"/>
                                             <constraint firstItem="KJc-JX-yMv" firstAttribute="centerX" secondItem="0Ne-mA-BMX" secondAttribute="centerX" id="4LZ-dM-vfS"/>
-                                            <constraint firstItem="E3H-aN-MY7" firstAttribute="leading" secondItem="0Ne-mA-BMX" secondAttribute="leading" constant="10" id="5fT-68-lgx"/>
+                                            <constraint firstItem="E3H-aN-MY7" firstAttribute="leading" secondItem="0Ne-mA-BMX" secondAttribute="leading" constant="16" id="5fT-68-lgx"/>
                                             <constraint firstItem="E3H-aN-MY7" firstAttribute="centerY" secondItem="0Ne-mA-BMX" secondAttribute="centerY" id="AKM-Eg-5ns"/>
                                             <constraint firstItem="E3H-aN-MY7" firstAttribute="top" secondItem="0sD-8S-ZY9" secondAttribute="bottom" constant="75" id="Ase-c0-OfH"/>
                                             <constraint firstItem="Cm2-EZ-0mw" firstAttribute="centerX" secondItem="0Ne-mA-BMX" secondAttribute="centerX" id="Dd8-bI-bui"/>
                                             <constraint firstItem="pWF-cd-Rbq" firstAttribute="top" secondItem="E3H-aN-MY7" secondAttribute="bottom" constant="30" id="Kl6-g0-fe7"/>
                                             <constraint firstAttribute="height" constant="700" id="MjT-kP-hQA"/>
                                             <constraint firstItem="4a1-0R-lYH" firstAttribute="top" secondItem="E3H-aN-MY7" secondAttribute="bottom" constant="30" id="N20-6e-tWE"/>
-                                            <constraint firstAttribute="trailing" secondItem="E3H-aN-MY7" secondAttribute="trailing" constant="10" id="SPM-GA-amL"/>
+                                            <constraint firstAttribute="trailing" secondItem="E3H-aN-MY7" secondAttribute="trailing" constant="16" id="SPM-GA-amL"/>
                                             <constraint firstItem="0sD-8S-ZY9" firstAttribute="centerX" secondItem="0Ne-mA-BMX" secondAttribute="centerX" id="T7B-9H-F9e"/>
                                             <constraint firstItem="E3H-aN-MY7" firstAttribute="centerX" secondItem="0Ne-mA-BMX" secondAttribute="centerX" id="Zze-fa-Mzs"/>
                                             <constraint firstItem="pWF-cd-Rbq" firstAttribute="leading" secondItem="0Ne-mA-BMX" secondAttribute="leading" constant="16" id="aNY-sg-w5D"/>
@@ -1553,6 +1555,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="filterItem" destination="cyu-Dr-b8z" id="iDn-hT-fcG"/>
                         <outlet property="navTop" destination="3oM-V9-WIT" id="eKr-pv-CB2"/>
                         <segue destination="E87-yq-gwy" kind="show" id="kTm-Gz-Nrm"/>
                     </connections>
@@ -1868,11 +1871,13 @@
                         <outlet property="buttonView" destination="9BM-Vc-r8c" id="m2y-nF-cBG"/>
                         <outlet property="commentsTable" destination="hwb-U3-wua" id="DoB-FJ-Hnc"/>
                         <outlet property="descriptionText" destination="T3W-Th-LUG" id="vPX-eY-eT4"/>
+                        <outlet property="goToOrders" destination="SMq-CC-Zcc" id="mpS-B5-xJj"/>
                         <outlet property="headerView" destination="hLr-Ev-FLF" id="VuZ-gQ-w2d"/>
                         <outlet property="imageScroll" destination="5U1-7R-0lG" id="9OZ-Gp-AVJ"/>
                         <outlet property="logoCarWash" destination="HqL-Rh-LYV" id="kdq-By-OzZ"/>
                         <outlet property="nameCarWash" destination="YBZ-1v-IvX" id="jet-rI-Sup"/>
                         <outlet property="raiting" destination="TZn-qP-5x2" id="Dks-uC-feX"/>
+                        <outlet property="timeImage" destination="4t9-Et-gKt" id="G8F-li-7yp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Pe-4q-0qv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2174,6 +2179,7 @@
                         <outlet property="allPrice" destination="7kM-ZU-6Id" id="RiH-8C-CgF"/>
                         <outlet property="carServicePrice" destination="aMN-Wv-5K9" id="aUq-jz-NdI"/>
                         <outlet property="headerView" destination="nhT-ug-GTT" id="1qj-d5-Cpd"/>
+                        <outlet property="orderButton" destination="lSX-Ed-ajY" id="F9i-QG-nce"/>
                         <outlet property="pacetsSelector" destination="hy4-5E-xHO" id="ahi-Ws-Aft"/>
                         <outlet property="packageLabel" destination="nFy-aC-vRw" id="23z-jw-CgB"/>
                         <outlet property="salerLable" destination="eXb-bx-Uiv" id="uTf-Rc-PUj"/>
@@ -3178,8 +3184,11 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="addCarItem" destination="3UD-bK-oyJ" id="y4o-ZT-Lsn"/>
+                        <outlet property="delateButton" destination="7yC-Qs-63U" id="fWf-OP-7zr"/>
                         <outlet property="pageControl" destination="h0s-ZS-sdS" id="KJH-N5-pFo"/>
                         <outlet property="pageHorizontalView" destination="zG3-k5-X0D" id="cb5-MN-b5V"/>
+                        <outlet property="selectCarButton" destination="NA9-eQ-KWt" id="9RS-N7-9KF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FIu-lh-Kjp" sceneMemberID="firstResponder"/>

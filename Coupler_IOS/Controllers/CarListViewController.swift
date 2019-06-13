@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import PagedHorizontalView
+import MaterialComponents
 
 struct CellCarList {
     let carBrand: String?
@@ -62,6 +63,9 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable{
     var idCar = String()
     var carIndex = Int()
     var loadCar = [String : CellCarList]()
+    @IBOutlet weak var addCarItem: UIBarButtonItem!
+    @IBOutlet weak var delateButton: MDCButton!
+    @IBOutlet weak var selectCarButton: UIButton!
     @IBOutlet weak var pageControl: CustomPageControl!
     let scale: CGFloat = 1.5
 //    let mapViewController = MapViewController()
@@ -250,6 +254,52 @@ extension CarListViewController : UICollectionViewDataSource {
 //            stopAnimating()
 //            return
 //        }
+        if UserDefaults.standard.object(forKey: "CARLISTVC") == nil{
+
+            self.utils.setSaredPref(key: "CARLISTVC", value: "true")
+            self.showTutorial()
+        }
+        
+//                    self.showTutorial()
     }
+    
+    func showTutorial() {
+        let infoDesc = InfoDescriptor(for: "Тут будут показаны ваши машины, если вы их внесете в приложение")
+        var infoTask = PassthroughTask(with: [])
+        infoTask.infoDescriptor = infoDesc
+       
+        
+        let leftDesc = LabelDescriptor(for: "Чтобы удалить машину нажмите сюда")
+        leftDesc.position = .bottom
+        let leftHoleDesc = HoleViewDescriptor(view: delateButton, type: .rect(cornerRadius: 5, margin: 10))
+        leftHoleDesc.labelDescriptor = leftDesc
+        let rightLeftTask = PassthroughTask(with: [leftHoleDesc])
+        
+        
+        let leftDesc1 = LabelDescriptor(for: "Чтобы выбрать машину нажмите сюда")
+        leftDesc1.position = .bottom
+        let leftHoleDesc1 = HoleViewDescriptor(view: selectCarButton, type: .rect(cornerRadius: 5, margin: 10))
+        leftHoleDesc1.labelDescriptor = leftDesc1
+        let rightLeftTask1 = PassthroughTask(with: [leftHoleDesc1])
+        
+        let buttonItemView = addCarItem.value(forKey: "view") as? UIView
+        let leftDesc2 = LabelDescriptor(for: "Чтобы добавить машину нажмите сюда")
+        leftDesc2.position = .left
+        let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .circle)
+        leftHoleDesc2.labelDescriptor = leftDesc2
+        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
+        
+      
+        
+        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask, rightLeftTask1, rightLeftTask2]) {
+            isUserSkipDemo in
+            
+            print("isUserSkipDemo: \(isUserSkipDemo)")
+        }
+    }
+        
+    
+        
+    
 }
 

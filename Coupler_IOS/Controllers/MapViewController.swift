@@ -15,6 +15,7 @@ import CoreLocation
 class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate, FilterDialodDismissDelegate{
     
   
+    @IBOutlet weak var filterItem: UIBarButtonItem!
     @IBOutlet weak var navTop: UINavigationItem!
     var filterList = FilterMarkerBody()
     let constants = Constants()
@@ -496,8 +497,30 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-       
+        if UserDefaults.standard.object(forKey: "MAPVC") == nil{
+            
+            self.utils.setSaredPref(key: "MAPVC", value: "true")
+            self.showTutorial()
+        }
 //        utils.checkPushNot(vc: self)
+    }
+    func showTutorial() {
+        let infoDesc = InfoDescriptor(for: "На этой карте расположены различные маркера сервисов. Вы можете выбрать нужный вам сервис нажатием на маркер. При нажатии на маркер появится детально окно с названием сервиса. Чтобы открыть данный сервис просто нажмите на его название ")
+        var infoTask = PassthroughTask(with: [])
+        infoTask.infoDescriptor = infoDesc
+        
+        let buttonItemView = filterItem.value(forKey: "view") as? UIView
+        let leftDesc2 = LabelDescriptor(for: "Чтобы выбрать услуги и отфильровать карту по ним нажмите сюда")
+        leftDesc2.position = .left
+        let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .circle)
+        leftHoleDesc2.labelDescriptor = leftDesc2
+        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
+        PassthroughManager.shared.display(tasks: [infoTask]) {
+            isUserSkipDemo in
+            
+            print("isUserSkipDemo: \(isUserSkipDemo)")
+        }
+        
     }
    
 }

@@ -33,6 +33,7 @@ public class LeftMenuViewController: UIViewController{
     @IBOutlet weak var version: UILabel!
     
     
+    let utils = Utils()
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -40,9 +41,12 @@ public class LeftMenuViewController: UIViewController{
     public override func viewWillDisappear(_ animated: Bool) {
         
     }
+    public override func viewWillAppear(_ animated: Bool) {
+        
+    }
     public override func viewDidAppear(_ animated: Bool) {
 //       checkAccesToken()
-        
+       
         checkAccesToken()
         checkBuisnes()
         
@@ -258,4 +262,6 @@ public class LeftMenuViewController: UIViewController{
             
         }, completion:nil)
     }
+    
+    
 }

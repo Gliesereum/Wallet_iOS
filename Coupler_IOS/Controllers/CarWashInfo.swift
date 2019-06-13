@@ -11,6 +11,7 @@ import Alamofire
 import SDWebImage
 import EHHorizontalSelectionView
 import FloatRatingView
+import MaterialComponents
 
 
 class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate, FSPagerViewDataSource, NVActivityIndicatorViewable, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate, FilterDialodDismissDelegate, ImageShowDismissDelegate, WorkingTimeDismissDelegate {
@@ -34,6 +35,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     @IBOutlet weak var adressCW: UILabel!
     @IBOutlet weak var logoCarWash: UIImageView!
     @IBOutlet weak var descriptionText: UILabel!
+    @IBOutlet weak var goToOrders: MDCButton!
     @IBOutlet weak var imageScroll: FSPagerView!{
         didSet {
     self.imageScroll.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -44,6 +46,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var buttonView: UIView!
     
+    @IBOutlet weak var timeImage: UIButton!
     var carWashInfo: CarWashBody? = nil
     var carWashId: String = ""
     let utils = Utils()
@@ -241,6 +244,48 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
             stopAnimating()
             return
         }
+        if UserDefaults.standard.object(forKey: "CARWASHINFOVC") == nil{
+            
+            self.utils.setSaredPref(key: "CARWASHINFOVC", value: "true")
+            self.showTutorial()
+        }
+        
+        //                    self.showTutorial()
+    }
+    
+    func showTutorial() {
+        let infoDesc = InfoDescriptor(for: "Тут вы можете ознакомится с временем работы данной точки, ее адрес и прочее")
+        var infoTask = PassthroughTask(with: [])
+        infoTask.infoDescriptor = infoDesc
+        
+        
+        let leftDesc = LabelDescriptor(for: "Чтобы добавить коментарий нажмите сюда")
+        leftDesc.position = .bottom
+        let leftHoleDesc = HoleViewDescriptor(view: addCommentsBtn, type: .rect(cornerRadius: 5, margin: 10))
+        leftHoleDesc.labelDescriptor = leftDesc
+        let rightLeftTask = PassthroughTask(with: [leftHoleDesc])
+        
+        
+        let leftDesc1 = LabelDescriptor(for: "Чтобы перейти к услугам нажмите сюда")
+        leftDesc1.position = .bottom
+        let leftHoleDesc1 = HoleViewDescriptor(view: goToOrders, type: .rect(cornerRadius: 5, margin: 10))
+        leftHoleDesc1.labelDescriptor = leftDesc1
+        let rightLeftTask1 = PassthroughTask(with: [leftHoleDesc1])
+        
+//        let buttonItemView = addCarItem.value(forKey: "view") as? UIView
+        let leftDesc2 = LabelDescriptor(for: "Чтобы увидеть время работы нажмите сюда")
+        leftDesc2.position = .bottom
+        let leftHoleDesc2 = HoleViewDescriptor(view: timeImage, type: .circle)
+        leftHoleDesc2.labelDescriptor = leftDesc2
+        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
+        
+        
+        
+        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask, rightLeftTask1, rightLeftTask2]) {
+            isUserSkipDemo in
+            
+            print("isUserSkipDemo: \(isUserSkipDemo)")
+        }
     }
     @objc func showWorkTime(){
         let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "workingTimeDialog") as! WorkingTimeDialog
@@ -253,8 +298,5 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         self.present(customAlert, animated: true, completion: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-//        utils.checkPushNot(vc: self)
-    }
+   
 }

@@ -256,6 +256,33 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
 //        utils.checkPushNot(vc: self)
         NotificationCenter.default.removeObserver("reloadTheTable")
 
+        if UserDefaults.standard.object(forKey: "ORDERTABLEVC") == nil{
+            
+            self.utils.setSaredPref(key: "ORDERTABLEVC", value: "true")
+            self.showTutorial()
+        }
+        
+        //                    self.showTutorial()
+    }
+    
+    func showTutorial() {
+        let infoDesc = InfoDescriptor(for: "В этом разделе Вы можете видеть все свои заказы")
+        var infoTask = PassthroughTask(with: [])
+        infoTask.infoDescriptor = infoDesc
+        
+        
+        let cellDesc = LabelDescriptor(for: "Вы можете узнать подробности заказа нажав на него")
+        cellDesc.position = .bottom
+        let cellHoleDesc = CellViewDescriptor(tableView: self.recordTableView, indexPath: IndexPath(row: 0, section: 0), forOrientation: .any)
+        cellHoleDesc.labelDescriptor = cellDesc
+        let cellTask = PassthroughTask(with: [cellHoleDesc])
+        
+        
+        PassthroughManager.shared.display(tasks: [infoTask, cellTask]) {
+            isUserSkipDemo in
+            
+            print("isUserSkipDemo: \(isUserSkipDemo)")
+        }
     }
 
 }

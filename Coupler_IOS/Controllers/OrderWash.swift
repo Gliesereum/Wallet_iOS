@@ -10,6 +10,7 @@ import UIKit
 import EHHorizontalSelectionView
 import AZDialogView
 import Alamofire
+import MaterialComponents
 
 class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableViewDataSource, UITableViewDelegate, DateTimePickerDelegate, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate, DialodDismissDelegate, SetTimeDialogDismissDelegate, OrderDialogDismissDelegate{
     @IBOutlet weak var carServicePrice: UITableView!
@@ -22,6 +23,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var salerLable: UILabel!
     @IBOutlet weak var selectPackage: UILabel!
+    @IBOutlet weak var orderButton: MDCButton!
     
     @IBOutlet weak var allPrice: UILabel!
 
@@ -581,6 +583,46 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
             stopAnimating()
             return
+        }
+        if UserDefaults.standard.object(forKey: "ORDERWASHVC") == nil{
+            
+            self.utils.setSaredPref(key: "ORDERWASHVC", value: "true")
+            self.showTutorial()
+        }
+        
+        //                    self.showTutorial()
+    }
+    
+    func showTutorial() {
+        let infoDesc = InfoDescriptor(for: "Тут Вы можете выбрать нужные вам услуги, или пакеты услуг, выбрать подходящее время и сделать заказ")
+        var infoTask = PassthroughTask(with: [])
+        infoTask.infoDescriptor = infoDesc
+        
+        
+        let leftDesc = LabelDescriptor(for: "Тут Вы можете выбрать пакет услуг, или просмотреть его. Чтобы отменить выбраный пакет, выберите пункт 'Не Выбран' ")
+        leftDesc.position = .bottom
+        let leftHoleDesc = HoleViewDescriptor(view: pacetsSelector, type: .rect(cornerRadius: 5, margin: 10))
+        leftHoleDesc.labelDescriptor = leftDesc
+        let rightLeftTask = PassthroughTask(with: [leftHoleDesc])
+        
+        
+        let leftDesc1 = LabelDescriptor(for: "Нажмите сюда если хотите выбрать время и завершить заказ ")
+        leftDesc1.position = .bottom
+        let leftHoleDesc1 = HoleViewDescriptor(view: orderButton, type: .rect(cornerRadius: 5, margin: 10))
+        leftHoleDesc1.labelDescriptor = leftDesc1
+        let rightLeftTask1 = PassthroughTask(with: [leftHoleDesc1])
+      
+        let cellDesc = LabelDescriptor(for: "Вы можете выбрать интересующие Вас услуги из данного списка")
+        cellDesc.position = .bottom
+        let cellHoleDesc = CellViewDescriptor(tableView: self.carServicePrice, indexPath: IndexPath(row: 0, section: 0), forOrientation: .any)
+        cellHoleDesc.labelDescriptor = cellDesc
+        let cellTask = PassthroughTask(with: [cellHoleDesc])
+        
+        
+        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask, cellTask, rightLeftTask1]) {
+            isUserSkipDemo in
+            
+            print("isUserSkipDemo: \(isUserSkipDemo)")
         }
     }
     

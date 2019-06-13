@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import MaterialComponents
 
 class SingleOrdersServiceCell: UITableViewCell{
     
@@ -44,6 +45,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     @IBOutlet weak var viewPackege: UIView!
     @IBOutlet weak var viewService: UIView!
     @IBOutlet weak var viewCansel: UIView!
+    @IBOutlet weak var showRoate: MDCButton!
     
     var currentTable = UITableView()
     var record: RecordsBodyElement? = nil
@@ -272,6 +274,48 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
             self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
             stopAnimating()
             return
+        }
+        if UserDefaults.standard.object(forKey: "SINGLEORDERVC") == nil{
+            
+            self.utils.setSaredPref(key: "SINGLEORDERVC", value: "true")
+            self.showTutorial()
+        }
+        
+        //                    self.showTutorial()
+    }
+    
+    func showTutorial() {
+        let infoDesc = InfoDescriptor(for: "Тут вы можете увидеть разширенную информацию о вашем заказе")
+        var infoTask = PassthroughTask(with: [])
+        infoTask.infoDescriptor = infoDesc
+        
+        
+        let leftDesc = LabelDescriptor(for: "Чтобы проложить маршрут нажмите сюда")
+        leftDesc.position = .bottom
+        let leftHoleDesc = HoleViewDescriptor(view: showRoate, type: .rect(cornerRadius: 5, margin: 10))
+        leftHoleDesc.labelDescriptor = leftDesc
+        let rightLeftTask = PassthroughTask(with: [leftHoleDesc])
+        
+        
+        let leftDesc1 = LabelDescriptor(for: "Чтобы отменить заказ нажмите сюда")
+        leftDesc1.position = .bottom
+        let leftHoleDesc1 = HoleViewDescriptor(view: canselBtn, type: .rect(cornerRadius: 5, margin: 10))
+        leftHoleDesc1.labelDescriptor = leftDesc1
+        let rightLeftTask1 = PassthroughTask(with: [leftHoleDesc1])
+        
+//        let buttonItemView = addCarItem.value(forKey: "view") as? UIView
+//        let leftDesc2 = LabelDescriptor(for: "Чтобы добавить машину нажмите сюда")
+//        leftDesc2.position = .left
+//        let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .circle)
+//        leftHoleDesc2.labelDescriptor = leftDesc2
+//        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
+//
+        
+        
+        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask, rightLeftTask1]) {
+            isUserSkipDemo in
+            
+            print("isUserSkipDemo: \(isUserSkipDemo)")
         }
     }
     func checkNil(){
