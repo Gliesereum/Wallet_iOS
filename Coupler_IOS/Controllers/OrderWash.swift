@@ -126,16 +126,6 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         
     
     }
-
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return self.arrayPacets.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pacetsCell", for: indexPath as IndexPath) as! CastomPacetsCell
-//        cell.pacets.text = self.arrayPacets[indexPath.item] as! String
-//        return cell
-//    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return selectedServices.count
     }
@@ -279,11 +269,11 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                         self.stopAnimating()
                         return
                     }
-                    if selected != 3{
+                    if selected != 3 || selected == 4{
                     self.view.endEditing(true)
                     SCLAlertView().showWarning("Внимание!", subTitle: self.utils.checkResponseStatusCode(code: errorBody.code!), closeButtonTitle: "Закрыть")
                     }
-                    if selected != 4{
+                    if selected == 4{
                         self.view.endEditing(true)
                         SCLAlertView().showWarning("Внимание!", subTitle: self.utils.checkResponseStatusCode(code: errorBody.code!), closeButtonTitle: "Закрыть")
                         
@@ -351,80 +341,6 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         }
     }
     
-//    func showDialog(){
-//
-//        time = self.utils.milisecondsToDate(miliseconds: self.currentTime)
-//        if counter == true {
-//            dialogController.removeAllActions()
-//        }
-//        self.counter = true
-//
-//
-//
-//                    dialogController.dismissDirection = .bottom
-//                    dialogController.titleColor = .black
-//                    dialogController.messageColor = .black
-//                    dialogController.dismissWithOutsideTouch = true
-//
-//                    let primary = #colorLiteral(red: 0.9607843137, green: 0.6509803922, blue: 0.137254902, alpha: 1)
-//
-//
-//                    dialogController.buttonStyle = { (button,height,position) in
-//                        button.tintColor = .black
-//                        button.backgroundColor = .white
-//                        button.layer.masksToBounds = true
-//                        button.setTitleColor(UIColor.black, for: [])
-//                        button.layer.masksToBounds = true
-//                        button.layer.borderColor = primary.cgColor
-//
-//                    }
-//
-//
-//                    dialogController.cancelEnabled = true
-//                    dialogController.cancelButtonStyle = { (button, height) in
-//                        button.tintColor = primary
-//                        button.setTitle("Отмена", for: [])
-//                        return true
-//                    }
-//
-//
-//                    dialogController.addAction(AZDialogAction(title: "Ближайшее время", handler: { (dialog) -> (Void) in
-//
-//                        self.time = self.utils.milisecondsToDate(miliseconds: self.getCurrentTime(setTime: self.utils.currentTimeInMiliseconds(timeZone: (self.carWashInfo?.timeZone)!), selected: 1))
-//                        self.dialogController.message = "Ближайшее время \(self.time)"
-//
-//                    }))
-//
-//                    dialogController.addAction(AZDialogAction(title: "Выбрать время", handler: { (dialog) -> (Void) in
-//                        let min = Date().addingTimeInterval(-60)
-//                        let max = Date().addingTimeInterval(60 * 60 * 24 * 30)
-//                        let picker = DateTimePicker.create(minimumDate: min, maximumDate: max)
-//                        picker.includeMonth = true // if true the month shows at bottom of date cell
-//                        picker.highlightColor = .black
-//                        picker.darkColor = UIColor.darkGray
-//                        picker.doneButtonTitle = "Выберите время"
-//                        picker.doneBackgroundColor = .black
-//                        picker.completionHandler = { date in
-//                            let formatter = DateFormatter()
-//                            formatter.dateFormat = "hh:mm aa dd/MM/YYYY"
-//                            self.title = formatter.string(from: date)
-//                        }
-//                        picker.delegate = self
-////                        picker.delegate = self as! DateTimePickerDelegate
-//                        picker.show()
-//
-//
-//
-//                    }))
-//
-//                    dialogController.addAction(AZDialogAction(title: "Заказать", handler: { (dialog) -> (Void) in
-//                        self.orderWash()
-//                        dialog.dismiss()
-//                    }))
-//
-//
-//                    dialogController.show(in: self)
-//    }
     
     func dateTimePicker(_ picker: DateTimePicker, didSelectDate: Date) {
 //        self.currentTime = self.utils.dateToMillisecond(date: didSelectDate, timeZone: (self.carWashInfo?.timeZone)!)
@@ -437,18 +353,6 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     }
     func addCategory(package: Package) {
         
-//        let popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "packetsDialog") as! PacketsDialog
-//        popoverContent.package = package
-//        popoverContent.carWashInfo = carWashInfo
-//        let nav = UINavigationController(rootViewController: popoverContent)
-//        nav.modalPresentationStyle = UIModalPresentationStyle.popover
-//        let popover = nav.popoverPresentationController
-//        popover!.delegate = self
-//        popover!.sourceView = self.view
-//        popover!.sourceRect = CGRect(x: 100, y: 100, width: 0, height: 0)
-//
-//        self.present(nav, animated: true, completion: nil)
-//        popover?.dismissalTransitionDidEnd(true)
         let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "packetsDialog") as! PacketsDialog
         customAlert.package = package
         customAlert.providesPresentationContextTransitionStyle = true
@@ -529,6 +433,10 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     func removeAll(){
         idServicePrice.removeAll()
         removesumPriceDurations(price: self.sumPrice, duration: self.sumDurations, packageService: "PACKAGE")
+        self.sumPrice = 0
+        self.sumDurations = 0
+        self.durationArray.removeAll()
+        self.priceArray.removeAll()
     }
     
     func filterServices(){

@@ -14,6 +14,7 @@ protocol FilterDialodDismissDelegate: class {
 }
 class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate, NVActivityIndicatorViewable {
     
+    @IBOutlet weak var remuveChouse: UIButton!
     @IBOutlet weak var filterTable: UITableView!
     @IBOutlet weak var filterName: UILabel!
     @IBOutlet weak var filterId: UILabel!
@@ -91,6 +92,10 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func ramuveChouses(_ sender: Any) {
+        delegate?.Dismiss(filterListId: filterListId as! [String], filterOn: false)
+        dismiss(animated: true, completion: nil)
+    }
     @IBAction func addFilters(_ sender: Any) {
         guard filterListId.count != 0 else {
             self.utils.checkFilds(massage: "Выберите фильтр", vc: self.view)

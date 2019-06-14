@@ -111,7 +111,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         let carwashCommets = carWashInfo?.comments?[indexPath.section]
         cell.commets.text = carwashCommets?.text
         cell.rating.rating = Double(exactly: (carwashCommets?.rating)!)!
-        cell.date.text = utils.milisecondsToDate(miliseconds: (carwashCommets?.dateCreated)!)
+        cell.date.text = utils.milisecondsToDateB(miliseconds: (carwashCommets?.dateCreated)!)
         cell.user.text = (carwashCommets?.firstName)!
         
         

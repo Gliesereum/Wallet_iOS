@@ -242,7 +242,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zbT-en-XaD">
                                                 <rect key="frame" x="157" y="8" width="100" height="100"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconProfile" translatesAutoresizingMaskIntoConstraints="NO" id="MV9-lx-r9l">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconProfile" translatesAutoresizingMaskIntoConstraints="NO" id="MV9-lx-r9l">
                                                         <rect key="frame" x="26" y="8" width="48" height="48"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="48" id="p9V-tH-aNM"/>
@@ -443,7 +443,7 @@
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Модель машины" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuc-ps-CVm">
-                                                <rect key="frame" x="16" y="69" width="136" height="21"/>
+                                                <rect key="frame" x="16" y="69" width="132.33333333333334" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="84u-5j-tlW"/>
                                                 </constraints>
@@ -465,7 +465,7 @@
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Год выпуска" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VxO-bN-1HB">
-                                                <rect key="frame" x="16" y="129" width="97" height="21"/>
+                                                <rect key="frame" x="15.999999999999993" y="129" width="100.33333333333331" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="X4t-Ph-C1Z"/>
                                                 </constraints>
@@ -487,7 +487,7 @@
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Салон" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MwV-eI-m95">
-                                                <rect key="frame" x="16" y="189" width="49" height="21"/>
+                                                <rect key="frame" x="16.000000000000004" y="189" width="50.333333333333343" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="Sq4-k2-1Np"/>
                                                 </constraints>
@@ -509,7 +509,7 @@
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Кузов машины" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Lz-ZM-lPW">
-                                                <rect key="frame" x="16.000000000000007" y="249" width="119.66666666666669" height="21"/>
+                                                <rect key="frame" x="15.999999999999993" y="249" width="117.33333333333331" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="a78-RA-ywn"/>
                                                 </constraints>
@@ -531,7 +531,7 @@
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Цвет машины" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zpe-Cr-Ifd">
-                                                <rect key="frame" x="16" y="309" width="112" height="21"/>
+                                                <rect key="frame" x="15.999999999999993" y="309" width="108.33333333333331" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="jso-lL-ZPn"/>
                                                 </constraints>
@@ -553,7 +553,7 @@
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Регистрационный номер машины" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4j-IE-h05">
-                                                <rect key="frame" x="16" y="369" width="275" height="21"/>
+                                                <rect key="frame" x="16" y="369" width="267.66666666666669" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="gai-sd-ryg"/>
                                                 </constraints>
@@ -572,7 +572,7 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="namePhonePad" returnKeyType="continue"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дополнительное описание" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZXZ-cd-07x">
-                                                <rect key="frame" x="16" y="429" width="217.33333333333334" height="21"/>
+                                                <rect key="frame" x="16" y="429" width="214.33333333333334" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="Hpe-cN-awP"/>
                                                 </constraints>
@@ -591,7 +591,7 @@
                                                 <textInputTraits key="textInputTraits" returnKeyType="continue"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Клас Сервисов" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fek-jh-lZ8">
-                                                <rect key="frame" x="15.999999999999993" y="489" width="117.33333333333331" height="21"/>
+                                                <rect key="frame" x="15.999999999999993" y="489" width="122.33333333333331" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="EAI-Pg-yUd"/>
                                                 </constraints>
@@ -613,7 +613,7 @@
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Марка машины" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWO-aY-Knu">
-                                                <rect key="frame" x="15.999999999999993" y="10" width="125.33333333333331" height="20"/>
+                                                <rect key="frame" x="16" y="10" width="122" height="20"/>
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
@@ -744,7 +744,7 @@
                                 <rect key="frame" x="16" y="52" width="382" height="189"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lWy-Um-jJv">
-                                        <rect key="frame" x="10" y="33" width="32" height="17.666666666666671"/>
+                                        <rect key="frame" x="10" y="33" width="34" height="17.666666666666671"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <nil key="highlightedColor"/>
@@ -768,7 +768,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Продолжительность" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBa-6C-ifg">
-                                        <rect key="frame" x="10" y="84.333333333333343" width="144" height="17.666666666666671"/>
+                                        <rect key="frame" x="10" y="84.333333333333343" width="146" height="17.666666666666671"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <nil key="highlightedColor"/>
@@ -792,7 +792,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Авто" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rJ-BT-X3A">
-                                        <rect key="frame" x="10" y="135.66666666666666" width="32.333333333333336" height="18.666666666666657"/>
+                                        <rect key="frame" x="10" y="135.66666666666666" width="33.666666666666664" height="18.666666666666657"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <nil key="highlightedColor"/>
@@ -810,7 +810,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Статус" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LSd-XK-UC9">
-                                        <rect key="frame" x="10.000000000000004" y="162.33333333333334" width="44.333333333333343" height="18.666666666666657"/>
+                                        <rect key="frame" x="10.000000000000004" y="162.33333333333334" width="48.333333333333343" height="18.666666666666657"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <nil key="highlightedColor"/>
@@ -1217,7 +1217,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+7732882345" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJc-JX-yMv">
-                                                <rect key="frame" x="155.66666666666666" y="283" width="102.99999999999997" height="20"/>
+                                                <rect key="frame" x="154.66666666666666" y="283" width="104.99999999999997" height="20"/>
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1573,7 +1573,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1M-YZ-Ltq">
-                                <rect key="frame" x="0.0" y="180.66666666666669" width="414" height="615.33333333333326"/>
+                                <rect key="frame" x="0.0" y="198" width="414" height="598"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QMB-oB-jSL">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
@@ -1584,10 +1584,10 @@
                                                 <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5U1-7R-0lG" customClass="FSPagerView" customModule="Coupler_IOS" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="44" width="382" height="128"/>
+                                            <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="5U1-7R-0lG" customClass="FSPagerView" customModule="Coupler_IOS" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="44" width="382" height="140"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="128" id="s1q-Uv-iFd"/>
+                                                    <constraint firstAttribute="height" constant="140" id="s1q-Uv-iFd"/>
                                                 </constraints>
                                                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
                                                 <connections>
@@ -1596,7 +1596,7 @@
                                                 </connections>
                                             </view>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hwb-U3-wua">
-                                                <rect key="frame" x="16" y="268" width="382" height="432"/>
+                                                <rect key="frame" x="16" y="280" width="382" height="432"/>
                                                 <color key="backgroundColor" red="0.9882352941176471" green="0.9882352941176471" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="432" id="nnr-zl-hue"/>
@@ -1638,8 +1638,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="slD-h0-31g">
-                                                                    <rect key="frame" x="29.999999999999996" y="6" width="46.666666666666657" height="21"/>
-                                                                    <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="19"/>
+                                                                    <rect key="frame" x="29.999999999999996" y="6" width="50.666666666666657" height="21"/>
+                                                                    <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="21"/>
                                                                     <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -1679,13 +1679,13 @@
                                                 </connections>
                                             </tableView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Комментарии:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qQZ-Ze-jLE">
-                                                <rect key="frame" x="16" y="240.00000000000003" width="153.66666666666666" height="19.999999999999972"/>
+                                                <rect key="frame" x="16" y="252" width="153.66666666666666" height="20"/>
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9BM-Vc-r8c">
-                                                <rect key="frame" x="16" y="178.00000000000003" width="382" height="56"/>
+                                                <rect key="frame" x="16" y="190" width="382" height="56"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcC-Zm-MjP" customClass="MDCButton">
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
@@ -1767,29 +1767,29 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hLr-Ev-FLF">
-                                <rect key="frame" x="16" y="49.000000000000007" width="382" height="126.66666666666669"/>
+                                <rect key="frame" x="16" y="49" width="382" height="144"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_v1SmallLogo" translatesAutoresizingMaskIntoConstraints="NO" id="HqL-Rh-LYV">
-                                        <rect key="frame" x="0.0" y="26" width="100" height="100"/>
+                                        <rect key="frame" x="0.0" y="43.333333333333329" width="100" height="99.999999999999986"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="1U6-bN-TwY"/>
                                             <constraint firstAttribute="height" constant="100" id="71F-EG-MX1"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBZ-1v-IvX">
-                                        <rect key="frame" x="5" y="0.0" width="372" height="25.666666666666668"/>
-                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="22"/>
+                                        <rect key="frame" x="5" y="16" width="372" height="27"/>
+                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="23"/>
                                         <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DCb-4H-imY">
-                                        <rect key="frame" x="105" y="67.666666666666671" width="267" height="16.333333333333329"/>
+                                        <rect key="frame" x="105" y="85" width="267" height="16.333333333333329"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="14"/>
                                         <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TZn-qP-5x2" customClass="FloatRatingView" customModule="FloatRatingView">
-                                        <rect key="frame" x="105" y="41.666666666666671" width="120" height="17"/>
+                                        <rect key="frame" x="105" y="59" width="120" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="Lyb-kJ-3N3"/>
                                             <constraint firstAttribute="height" constant="17" id="iN7-xZ-AN2"/>
@@ -1807,13 +1807,13 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Время работы" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5i-0N-C8Y">
-                                        <rect key="frame" x="105" y="94" width="100.33333333333331" height="17.666666666666671"/>
+                                        <rect key="frame" x="105" y="111.33333333333334" width="100.33333333333331" height="17.666666666666657"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4t9-Et-gKt">
-                                        <rect key="frame" x="210.33333333333334" y="90.333333333333343" width="25" height="25"/>
+                                        <rect key="frame" x="210.33333333333334" y="107.66666666666666" width="25" height="25"/>
                                         <state key="normal" image="clockIcon"/>
                                         <connections>
                                             <action selector="showTimes:" destination="q3Z-o6-kIB" eventType="touchUpInside" id="Qv6-0N-o4V"/>
@@ -1825,7 +1825,7 @@
                                     <constraint firstItem="YBZ-1v-IvX" firstAttribute="leading" secondItem="hLr-Ev-FLF" secondAttribute="leading" constant="5" id="4Ee-Jk-efB"/>
                                     <constraint firstItem="DCb-4H-imY" firstAttribute="leading" secondItem="HqL-Rh-LYV" secondAttribute="trailing" constant="5" id="6nj-p8-kjP"/>
                                     <constraint firstItem="HqL-Rh-LYV" firstAttribute="top" secondItem="YBZ-1v-IvX" secondAttribute="bottom" constant="0.33333333333333215" id="81l-hA-A12"/>
-                                    <constraint firstItem="YBZ-1v-IvX" firstAttribute="top" secondItem="hLr-Ev-FLF" secondAttribute="top" id="GQI-DF-O3g"/>
+                                    <constraint firstItem="YBZ-1v-IvX" firstAttribute="top" secondItem="hLr-Ev-FLF" secondAttribute="top" constant="16" id="GQI-DF-O3g"/>
                                     <constraint firstItem="TZn-qP-5x2" firstAttribute="leading" secondItem="HqL-Rh-LYV" secondAttribute="trailing" constant="5" id="IFz-JY-pAv"/>
                                     <constraint firstAttribute="trailing" secondItem="YBZ-1v-IvX" secondAttribute="trailing" constant="5" id="JIk-dn-xgK"/>
                                     <constraint firstItem="h5i-0N-C8Y" firstAttribute="leading" secondItem="HqL-Rh-LYV" secondAttribute="trailing" constant="5" id="K90-HB-xNk"/>
@@ -1964,7 +1964,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TbB-LN-Zmr">
-                                                    <rect key="frame" x="15" y="8" width="33.666666666666664" height="21"/>
+                                                    <rect key="frame" x="15.000000000000004" y="8" width="34.333333333333343" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="NdJ-nd-ahj"/>
                                                     </constraints>
@@ -1973,7 +1973,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgC-iX-MNR">
-                                                    <rect key="frame" x="105.66666666666667" y="8" width="42.000000000000014" height="21"/>
+                                                    <rect key="frame" x="106.33333333333333" y="8" width="41.999999999999986" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="fD9-lB-Fdc"/>
                                                     </constraints>
@@ -2018,7 +2018,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" мин." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yfm-Fy-xyf">
-                                                    <rect key="frame" x="258" y="35" width="35" height="21"/>
+                                                    <rect key="frame" x="258" y="35" width="33.333333333333314" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="Cdt-26-Zhu"/>
                                                     </constraints>
@@ -2107,24 +2107,24 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Скидка" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wLQ-oW-Dpc">
-                                        <rect key="frame" x="324.66666666666669" y="16" width="49.333333333333314" height="17.666666666666671"/>
+                                        <rect key="frame" x="322" y="16" width="52" height="17.666666666666671"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="15"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eXb-bx-Uiv">
-                                        <rect key="frame" x="335.33333333333331" y="41.666666666666671" width="28" height="23"/>
+                                        <rect key="frame" x="332.33333333333331" y="41.666666666666671" width="31.333333333333314" height="23"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="20"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Не выбран" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ql-VQ-fuL">
-                                        <rect key="frame" x="152.66666666666666" y="84" width="77" height="17.666666666666671"/>
+                                        <rect key="frame" x="153" y="84" width="76" height="17.666666666666671"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пакет:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGR-52-7FC">
-                                        <rect key="frame" x="8" y="83.666666666666657" width="44" height="18"/>
+                                        <rect key="frame" x="8" y="83.666666666666657" width="46" height="18"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -2511,14 +2511,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xo0-lf-00d">
-                                        <rect key="frame" x="17" y="42" width="380" height="710"/>
+                                        <rect key="frame" x="16" y="42" width="382" height="640"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationLevel="2" indentationWidth="10" reuseIdentifier="filterCell" rowHeight="70" id="Qer-ml-R1p" customClass="FilterCell" customModule="Coupler_IOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="380" height="70"/>
+                                                <rect key="frame" x="0.0" y="28" width="382" height="70"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qer-ml-R1p" id="9Of-6B-caG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="69.666666666666671"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="69.666666666666671"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNn-oV-a5H">
@@ -2561,7 +2561,7 @@
                                         </connections>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mdo-ic-bgd">
-                                        <rect key="frame" x="17" y="752" width="380" height="56"/>
+                                        <rect key="frame" x="16" y="682" width="382" height="56"/>
                                         <color key="backgroundColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="VXn-TW-nhv"/>
@@ -2597,18 +2597,40 @@
                                             <action selector="canselBtn:" destination="NmG-Wy-Wcp" eventType="touchUpInside" id="CjJ-iS-cxW"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NfR-00-P95">
+                                        <rect key="frame" x="16" y="754" width="382" height="56"/>
+                                        <color key="backgroundColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="56" id="qjh-XZ-pWw"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="16"/>
+                                        <state key="normal" title="ОТМЕНИТЬ ВЫБОР">
+                                            <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="ramuveChouses:" destination="NmG-Wy-Wcp" eventType="touchUpInside" id="14b-vl-0fF"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="xo0-lf-00d" firstAttribute="leading" secondItem="B6u-fm-RB9" secondAttribute="leading" constant="17" id="4A6-YB-8Fr"/>
+                                    <constraint firstItem="xo0-lf-00d" firstAttribute="leading" secondItem="B6u-fm-RB9" secondAttribute="leading" constant="16" id="4A6-YB-8Fr"/>
                                     <constraint firstItem="gEn-nb-cLr" firstAttribute="leading" secondItem="B6u-fm-RB9" secondAttribute="leading" constant="18" id="4tH-FA-kre"/>
-                                    <constraint firstAttribute="bottom" secondItem="mdo-ic-bgd" secondAttribute="bottom" constant="10" id="5BH-Eu-yWD"/>
-                                    <constraint firstAttribute="trailing" secondItem="xo0-lf-00d" secondAttribute="trailing" constant="17" id="ADC-sg-gux"/>
+                                    <constraint firstAttribute="trailing" secondItem="xo0-lf-00d" secondAttribute="trailing" constant="16" id="ADC-sg-gux"/>
                                     <constraint firstItem="xo0-lf-00d" firstAttribute="top" secondItem="UvL-wj-i54" secondAttribute="bottom" constant="8" id="BWb-Vd-Nrl"/>
+                                    <constraint firstAttribute="bottom" secondItem="NfR-00-P95" secondAttribute="bottom" constant="8" id="Myp-Ov-K2I"/>
+                                    <constraint firstAttribute="trailing" secondItem="NfR-00-P95" secondAttribute="trailing" constant="16" id="Nhf-Qr-4dB"/>
                                     <constraint firstItem="UvL-wj-i54" firstAttribute="top" secondItem="B6u-fm-RB9" secondAttribute="top" constant="8" id="PST-Gt-Vgd"/>
-                                    <constraint firstItem="mdo-ic-bgd" firstAttribute="leading" secondItem="B6u-fm-RB9" secondAttribute="leading" constant="17" id="Wn2-jL-prQ"/>
+                                    <constraint firstItem="NfR-00-P95" firstAttribute="top" secondItem="mdo-ic-bgd" secondAttribute="bottom" constant="16" id="ViN-u9-6Na"/>
+                                    <constraint firstItem="mdo-ic-bgd" firstAttribute="leading" secondItem="B6u-fm-RB9" secondAttribute="leading" constant="16" id="Wn2-jL-prQ"/>
                                     <constraint firstItem="UvL-wj-i54" firstAttribute="leading" secondItem="gEn-nb-cLr" secondAttribute="trailing" id="ZQp-TG-Q3I"/>
-                                    <constraint firstAttribute="trailing" secondItem="mdo-ic-bgd" secondAttribute="trailing" constant="17" id="m52-oc-xTD"/>
+                                    <constraint firstItem="NfR-00-P95" firstAttribute="leading" secondItem="B6u-fm-RB9" secondAttribute="leading" constant="16" id="jwz-3f-x3z"/>
+                                    <constraint firstAttribute="trailing" secondItem="mdo-ic-bgd" secondAttribute="trailing" constant="16" id="m52-oc-xTD"/>
                                     <constraint firstAttribute="trailing" secondItem="UvL-wj-i54" secondAttribute="trailing" constant="17" id="p1z-uz-NlM"/>
                                     <constraint firstItem="mdo-ic-bgd" firstAttribute="top" secondItem="xo0-lf-00d" secondAttribute="bottom" id="yVU-gv-gcV"/>
                                     <constraint firstItem="gEn-nb-cLr" firstAttribute="top" secondItem="B6u-fm-RB9" secondAttribute="top" constant="9" id="zql-P1-HiK"/>
@@ -2628,6 +2650,7 @@
                     </view>
                     <connections>
                         <outlet property="filterTable" destination="xo0-lf-00d" id="zHD-aJ-OLB"/>
+                        <outlet property="remuveChouse" destination="NfR-00-P95" id="Sqd-R5-Njr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ybQ-jj-63D" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2650,64 +2673,49 @@
                                 <rect key="frame" x="0.0" y="200" width="414" height="696"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y6Z-qe-06q">
-                                        <rect key="frame" x="-40" y="72" width="280" height="56"/>
+                                        <rect key="frame" x="0.0" y="72" width="248" height="56"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="280" id="IOL-8G-eeM"/>
+                                            <constraint firstAttribute="width" constant="248" id="IOL-8G-eeM"/>
                                             <constraint firstAttribute="height" constant="56" id="jf3-an-bhz"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="28"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mKz-Cq-4TC">
-                                        <rect key="frame" x="-40" y="128" width="280" height="56"/>
+                                        <rect key="frame" x="0.0" y="128" width="248" height="56"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="I0e-Qb-fTa"/>
-                                            <constraint firstAttribute="width" constant="280" id="RDu-l3-W74"/>
+                                            <constraint firstAttribute="width" constant="248" id="RDu-l3-W74"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="28"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hI9-x3-rXs">
-                                        <rect key="frame" x="-40" y="318" width="280" height="56"/>
+                                        <rect key="frame" x="0.0" y="318" width="248" height="56"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="C7e-fe-ejW"/>
-                                            <constraint firstAttribute="width" constant="280" id="Ytk-0z-War"/>
+                                            <constraint firstAttribute="width" constant="248" id="Ytk-0z-War"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="28"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Njq-kA-Yo4">
-                                        <rect key="frame" x="-40" y="184" width="280" height="56"/>
+                                        <rect key="frame" x="0.0" y="184" width="248" height="56"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="F0b-61-xWR"/>
-                                            <constraint firstAttribute="width" constant="280" id="aKb-ic-zAN"/>
+                                            <constraint firstAttribute="width" constant="248" id="aKb-ic-zAN"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="28"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sIP-5C-l6Z">
-                                        <rect key="frame" x="-40" y="16" width="280" height="56"/>
+                                        <rect key="frame" x="0.0" y="16" width="248" height="56"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="280" id="Pml-hR-6sY"/>
+                                            <constraint firstAttribute="width" constant="248" id="Pml-hR-6sY"/>
                                             <constraint firstAttribute="height" constant="56" id="dRz-M5-Qz2"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="28"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="explore-24pxblack" translatesAutoresizingMaskIntoConstraints="NO" id="Nns-q3-r8L">
                                         <rect key="frame" x="16" y="32" width="24" height="24"/>
@@ -2858,10 +2866,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="hI9-x3-rXs" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" constant="-40" id="3VV-uc-mPo"/>
+                                    <constraint firstItem="hI9-x3-rXs" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" id="3VV-uc-mPo"/>
                                     <constraint firstItem="6c7-jg-1UV" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" constant="16" id="4h9-WC-U86"/>
                                     <constraint firstItem="1tB-9B-Yoe" firstAttribute="leading" secondItem="Vcj-nE-5LH" secondAttribute="trailing" constant="32" id="4t3-MK-xcm"/>
                                     <constraint firstAttribute="trailing" secondItem="JAt-BQ-adD" secondAttribute="trailing" id="5ka-0E-AtS"/>
@@ -2870,18 +2878,18 @@
                                     <constraint firstItem="54C-9v-qg8" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" constant="16" id="CYY-m7-g7F"/>
                                     <constraint firstItem="kWu-O9-ufq" firstAttribute="top" secondItem="hI9-x3-rXs" secondAttribute="bottom" constant="8" id="DdY-P8-3gE"/>
                                     <constraint firstItem="kCt-VF-ptj" firstAttribute="leading" secondItem="JpP-s1-VKu" secondAttribute="trailing" constant="32" id="EBF-Bh-X9l"/>
-                                    <constraint firstItem="mKz-Cq-4TC" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" constant="-40" id="IXq-gd-aSV"/>
+                                    <constraint firstItem="mKz-Cq-4TC" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" id="IXq-gd-aSV"/>
                                     <constraint firstItem="JAt-BQ-adD" firstAttribute="top" secondItem="fdS-Yj-E28" secondAttribute="bottom" id="IgH-9h-TFc"/>
                                     <constraint firstAttribute="trailing" secondItem="fdS-Yj-E28" secondAttribute="trailing" id="LSA-kN-2II"/>
                                     <constraint firstItem="KtY-Lq-hGF" firstAttribute="top" secondItem="vbx-vq-NDs" secondAttribute="top" constant="16" id="MlV-Ly-c5U"/>
-                                    <constraint firstItem="Njq-kA-Yo4" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" constant="-40" id="NPl-WN-AJn"/>
+                                    <constraint firstItem="Njq-kA-Yo4" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" id="NPl-WN-AJn"/>
                                     <constraint firstItem="5lM-c6-A15" firstAttribute="leading" secondItem="Vcj-nE-5LH" secondAttribute="trailing" constant="32" id="OhM-Kd-y8j"/>
                                     <constraint firstItem="Nns-q3-r8L" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" constant="16" id="Qek-is-Y23"/>
                                     <constraint firstItem="Nns-q3-r8L" firstAttribute="centerY" secondItem="KtY-Lq-hGF" secondAttribute="centerY" id="RKQ-rq-Mvr"/>
                                     <constraint firstItem="U8D-bp-cxa" firstAttribute="top" secondItem="6uF-mO-YBB" secondAttribute="bottom" constant="10" id="SIm-rb-RwE"/>
                                     <constraint firstItem="6uF-mO-YBB" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" id="Scz-3R-2ZC"/>
                                     <constraint firstItem="1tB-9B-Yoe" firstAttribute="top" secondItem="JAt-BQ-adD" secondAttribute="bottom" id="W1p-vL-46l"/>
-                                    <constraint firstItem="sIP-5C-l6Z" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" constant="-40" id="W8R-36-KST"/>
+                                    <constraint firstItem="sIP-5C-l6Z" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" id="W8R-36-KST"/>
                                     <constraint firstItem="Vcj-nE-5LH" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" constant="16" id="WS3-qo-Aar"/>
                                     <constraint firstItem="5lM-c6-A15" firstAttribute="leading" secondItem="Vcj-nE-5LH" secondAttribute="trailing" constant="32" id="WTI-Oh-V3C"/>
                                     <constraint firstItem="Njq-kA-Yo4" firstAttribute="centerY" secondItem="JAt-BQ-adD" secondAttribute="centerY" id="Xf9-zs-OcT"/>
@@ -2890,7 +2898,7 @@
                                     <constraint firstAttribute="trailing" secondItem="U8D-bp-cxa" secondAttribute="trailing" id="cGw-TK-CEh"/>
                                     <constraint firstItem="fdS-Yj-E28" firstAttribute="leading" secondItem="54C-9v-qg8" secondAttribute="trailing" constant="32" id="e6O-8A-aNy"/>
                                     <constraint firstAttribute="trailing" secondItem="5lM-c6-A15" secondAttribute="trailing" id="eRQ-gt-PNV"/>
-                                    <constraint firstItem="y6Z-qe-06q" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" constant="-40" id="efT-it-ZbU"/>
+                                    <constraint firstItem="y6Z-qe-06q" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" id="efT-it-ZbU"/>
                                     <constraint firstItem="kWu-O9-ufq" firstAttribute="leading" secondItem="vbx-vq-NDs" secondAttribute="leading" constant="16" id="fNH-po-5W2"/>
                                     <constraint firstItem="5lM-c6-A15" firstAttribute="top" secondItem="JAt-BQ-adD" secondAttribute="bottom" id="g1x-iQ-6oC"/>
                                     <constraint firstItem="Vcj-nE-5LH" firstAttribute="centerY" secondItem="1tB-9B-Yoe" secondAttribute="centerY" id="gdV-zY-1d8"/>
@@ -2918,7 +2926,7 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_pattmenutitle" translatesAutoresizingMaskIntoConstraints="NO" id="gM0-el-28e">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_v1SmallLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Yul-jP-TEe">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_v1SmallLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Yul-jP-TEe">
                                         <rect key="frame" x="16" y="77" width="48" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="bNb-bi-otI"/>
@@ -3288,7 +3296,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пожайлуста, сделайте свой выбор" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBv-aj-kkU">
-                                        <rect key="frame" x="66" y="84.666666666666686" width="241" height="17.666666666666671"/>
+                                        <rect key="frame" x="63.333333333333329" y="84.666666666666686" width="246.33333333333337" height="17.666666666666671"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -3389,7 +3397,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:28" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbY-rC-c2a">
-                                        <rect key="frame" x="116.99999999999999" y="62.333333333333307" width="138.66666666666663" height="65.333333333333314"/>
+                                        <rect key="frame" x="116.33333333333333" y="62.333333333333307" width="140.33333333333337" height="65.333333333333314"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="56"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -3451,19 +3459,19 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пн" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KmJ-r8-6Eu">
-                                        <rect key="frame" x="56.333333333333329" y="32" width="17" height="16"/>
+                                        <rect key="frame" x="53.666666666666671" y="32" width="17" height="16"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="13"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вт" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hiF-5W-HIR">
-                                        <rect key="frame" x="95.333333333333329" y="32" width="14" height="16.333333333333329"/>
+                                        <rect key="frame" x="92.666666666666671" y="32" width="15" height="16.333333333333329"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="13"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ср" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jog-L8-Zx8">
-                                        <rect key="frame" x="131.33333333333334" y="32" width="15.666666666666657" height="16.333333333333329"/>
+                                        <rect key="frame" x="129.66666666666666" y="32" width="17.333333333333343" height="16.333333333333329"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="13"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3475,25 +3483,25 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сб" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Tg-Fn-UnK">
-                                        <rect key="frame" x="242.33333333333331" y="32" width="15.333333333333314" height="16.333333333333329"/>
+                                        <rect key="frame" x="242.33333333333331" y="32" width="17" height="16.333333333333329"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="13"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вс" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1T-fM-tZw">
-                                        <rect key="frame" x="279.66666666666669" y="32" width="14.333333333333314" height="16.333333333333329"/>
+                                        <rect key="frame" x="281.33333333333331" y="32" width="16" height="16.333333333333329"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="13"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="08:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCL-gL-VfC">
-                                        <rect key="frame" x="49.999999999999993" y="49" width="29.666666666666664" height="14"/>
+                                        <rect key="frame" x="47.333333333333329" y="49" width="29.666666666666671" height="14"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="12"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOi-fK-Kjf">
-                                        <rect key="frame" x="49.999999999999993" y="67" width="29.666666666666664" height="14"/>
+                                        <rect key="frame" x="47.333333333333329" y="67" width="29.666666666666671" height="14"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="12"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3505,25 +3513,25 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="08:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfY-r5-2OC">
-                                        <rect key="frame" x="87.333333333333329" y="49.333333333333314" width="29.666666666666671" height="14"/>
+                                        <rect key="frame" x="85.333333333333329" y="49.333333333333314" width="29.666666666666671" height="14"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="12"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7L-2x-zcL">
-                                        <rect key="frame" x="87.333333333333329" y="67.333333333333314" width="29.666666666666671" height="14"/>
+                                        <rect key="frame" x="85.333333333333329" y="67.333333333333314" width="29.666666666666671" height="14"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="12"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="08:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dk5-bC-yCQ">
-                                        <rect key="frame" x="124.33333333333336" y="49.333333333333314" width="29.666666666666671" height="14"/>
+                                        <rect key="frame" x="123.33333333333336" y="49.333333333333314" width="29.666666666666671" height="14"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="12"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AlV-6m-miO">
-                                        <rect key="frame" x="124.33333333333336" y="67.333333333333314" width="29.666666666666671" height="14"/>
+                                        <rect key="frame" x="123.33333333333336" y="67.333333333333314" width="29.666666666666671" height="14"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="12"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3553,25 +3561,25 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="08:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWf-e8-ohg">
-                                        <rect key="frame" x="235" y="49.333333333333314" width="29.666666666666686" height="14"/>
+                                        <rect key="frame" x="236" y="49.333333333333314" width="29.666666666666686" height="14"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="12"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeW-ha-4Si">
-                                        <rect key="frame" x="235" y="67.333333333333314" width="29.666666666666686" height="14"/>
+                                        <rect key="frame" x="236" y="67.333333333333314" width="29.666666666666686" height="14"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="12"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="08:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJ6-2d-H6i">
-                                        <rect key="frame" x="272" y="49.333333333333314" width="29.666666666666686" height="14"/>
+                                        <rect key="frame" x="274.33333333333331" y="49.333333333333314" width="29.666666666666686" height="14"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="12"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mo1-Bt-T1g">
-                                        <rect key="frame" x="272" y="67.333333333333314" width="29.666666666666686" height="14"/>
+                                        <rect key="frame" x="274.33333333333331" y="67.333333333333314" width="29.666666666666686" height="14"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="12"/>
                                         <color key="textColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3735,13 +3743,13 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Статус заказа:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNT-bl-x2W">
-                                                            <rect key="frame" x="84" y="80" width="97.333333333333314" height="18"/>
+                                                            <rect key="frame" x="84" y="80" width="104" height="18"/>
                                                             <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="15"/>
                                                             <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xa0-PY-GLS">
-                                                            <rect key="frame" x="189" y="80" width="37" height="18"/>
+                                                            <rect key="frame" x="195.66666666666666" y="80" width="37" height="18"/>
                                                             <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="15"/>
                                                             <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                             <nil key="highlightedColor"/>

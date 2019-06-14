@@ -43,11 +43,11 @@ public class LeftMenuViewController: UIViewController{
     }
     public override func viewWillAppear(_ animated: Bool) {
         
+        checkAccesToken()
     }
     public override func viewDidAppear(_ animated: Bool) {
 //       checkAccesToken()
        
-        checkAccesToken()
         checkBuisnes()
         
     }
@@ -201,40 +201,41 @@ public class LeftMenuViewController: UIViewController{
 //        checkAccesToken()
     }
     func changeButton(button: UIButton){
+        let selectImage = UIImage(named: "bgSelectMenuItem")!
         switch button {
         case orderList:
             setDefaulButton()
             UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
                 self.orderListImage.image = UIImage(named: "list_alt-24pxorange")
-                self.orderListView.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.9372549057, blue: 0.9568627477, alpha: 1)
+                self.orderListView.backgroundColor = UIColor(patternImage: selectImage)
                 button.setTitleColor(#colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), for: .normal)
             }, completion:nil)
         case mapButton:
             setDefaulButton()
             UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
                 self.mapImage.image = UIImage(named: "explore-24pxorange")
-                self.mapView.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.9372549057, blue: 0.9568627477, alpha: 1)
+                self.mapView.backgroundColor = UIColor(patternImage: selectImage)
                 button.setTitleColor(#colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), for: .normal)
             }, completion:nil)
         case businessBtn:
             setDefaulButton()
             UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
                 self.buisnesListImage.image = UIImage(named: "store-24pxorange")
-                self.buisnesView.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.9372549057, blue: 0.9568627477, alpha: 1)
+                self.buisnesView.backgroundColor = UIColor(patternImage: selectImage)
                 button.setTitleColor(#colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), for: .normal)
             }, completion:nil)
         case carList:
             setDefaulButton()
             UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
                 self.carImage.image = UIImage(named: "car-24pxorange")
-                self.carView.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.9372549057, blue: 0.9568627477, alpha: 1)
+                self.carView.backgroundColor = UIColor(patternImage: selectImage)
                 button.setTitleColor(#colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), for: .normal)
             }, completion:nil)
         case aboutButton:
             setDefaulButton()
             UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
                 self.aboutUsImage.image = UIImage(named: "info-24pxorange")
-                self.aboutUsView.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.9372549057, blue: 0.9568627477, alpha: 1)
+                self.aboutUsView.backgroundColor = UIColor(patternImage: selectImage)
                 button.setTitleColor(#colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), for: .normal)
             }, completion:nil)
         default:
@@ -245,19 +246,19 @@ public class LeftMenuViewController: UIViewController{
         
         UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
             self.orderListImage.image = UIImage(named: "list_alt-24pxblack")
-            self.orderListView.backgroundColor = #colorLiteral(red: 0.9844431281, green: 0.9844661355, blue: 0.9844536185, alpha: 1)
+            self.orderListView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             self.orderList.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
             self.carImage.image = UIImage(named: "car-24pxblack")
-            self.carView.backgroundColor = #colorLiteral(red: 0.9844431281, green: 0.9844661355, blue: 0.9844536185, alpha: 1)
+            self.carView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             self.carList.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
             self.buisnesListImage.image = UIImage(named: "store-24pxblack")
-            self.buisnesView.backgroundColor = #colorLiteral(red: 0.9844431281, green: 0.9844661355, blue: 0.9844536185, alpha: 1)
+            self.buisnesView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             self.businessBtn.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
             self.mapImage.image = UIImage(named: "explore-24pxblack")
-            self.mapView.backgroundColor = #colorLiteral(red: 0.9844431281, green: 0.9844661355, blue: 0.9844536185, alpha: 1)
+            self.mapView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             self.mapButton.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
             self.aboutUsImage.image = UIImage(named: "info-24pxblack")
-            self.aboutUsView.backgroundColor = #colorLiteral(red: 0.9844431281, green: 0.9844661355, blue: 0.9844536185, alpha: 1)
+            self.aboutUsView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             self.aboutButton.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
             
         }, completion:nil)

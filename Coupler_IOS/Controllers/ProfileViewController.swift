@@ -37,6 +37,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var avatarLable: UILabel!
+    var avatarUrl = ""
     
     let imagePickerController = ImagePickerController()
     
@@ -149,13 +150,17 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         adress.isEnabled = false
         saveBtn.isHidden = true
         editBtn.isHidden = false
-        ragistrarion(firstName: firstName.text!, lastName: lastName.text!, middleName: patronymic.text!, country: country.text!, city: city.text!, adress: adress.text!)
+        if avatarUrl != ""{
+            ragistrarion(firstName: firstName.text!, lastName: lastName.text!, middleName: patronymic.text!, country: country.text!, city: city.text!, adress: adress.text!, avatarUrl: avatarUrl)
+        }else{
+            ragistrarion(firstName: firstName.text!, lastName: lastName.text!, middleName: patronymic.text!, country: country.text!, city: city.text!, adress: adress.text!, avatarUrl: nil)
+        }
     }
     //MARK: get carwash list
-    func ragistrarion(firstName: String, lastName: String, middleName: String, country: String, city: String, adress: String){
+    func ragistrarion(firstName: String, lastName: String, middleName: String, country: String, city: String, adress: String, avatarUrl: String?){
         print(firstName)
         if profiModel == nil {
-            profiModel = ProfileModel(id: nil, firstName: firstName, lastName: lastName, middleName: middleName, position: nil, country: country, city: city, address: adress, addAddress: nil, avatarURL: nil, coverURL: nil, gender: nil, banStatus: nil, verifiedStatus: nil, userType: nil)
+            profiModel = ProfileModel(id: nil, firstName: firstName, lastName: lastName, middleName: middleName, position: nil, country: country, city: city, address: adress, addAddress: nil, avatarURL: avatarUrl, coverURL: nil, gender: nil, banStatus: nil, verifiedStatus: nil, userType: nil)
         } else {
             profiModel?.firstName = firstName
             profiModel?.lastName = lastName
@@ -163,6 +168,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             profiModel?.country = country
             profiModel?.city = city
             profiModel?.address = adress
+            profiModel?.avatarURL = avatarUrl
         }
         let parameters = try! JSONEncoder().encode(profiModel)
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
@@ -235,6 +241,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             self.adress.text = profileModel?.address
             self.profiModel = profileModel
             if profileModel?.avatarURL != nil{
+                self.avatarUrl = profileModel!.avatarURL!
                 self.imageAvatar.downloaded(from: profileModel!.avatarURL!)
             }
         }
@@ -252,6 +259,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     func getAvatar(image: UIImage){
         let imgData = image.sd_imageData()!
         let restUrl = constants.startUrl + "file/v1/upload"
+        self.avatarUrl = ""
       
         let parameters = ["open": "true"] //Optional for extra parameter
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
@@ -272,6 +280,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
                 
                 upload.responseUploadImage{ response in
                     let result = response.result.value
+                    self.avatarUrl = (result?.url)!
                     self.profiModel?.avatarURL = result?.url
                 }
                 

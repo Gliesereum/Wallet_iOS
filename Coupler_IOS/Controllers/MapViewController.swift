@@ -12,7 +12,18 @@ import GoogleMaps
 import SRAttractionsMap
 import CoreLocation
 
-class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate, FilterDialodDismissDelegate{
+
+//class POIItem: NSObject, GMUClusterItem {
+//    var position: CLLocationCoordinate2D
+//    var name: String!
+//
+//    init(position: CLLocationCoordinate2D, name: String) {
+//        self.position = position
+//        self.name = name
+//    }
+//}
+
+class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate, FilterDialodDismissDelegate{ //, GMUClusterManagerDelegate
     
   
     @IBOutlet weak var filterItem: UIBarButtonItem!
@@ -28,6 +39,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     var zoomLevel: Float = 15.0
     var serviceSelect: [String] = []
     var pushRecordId = ""
+//    var clusterManager: GMUClusterManager!
 //    override var preferredStatusBarStyle: UIStatusBarStyle {
 //        return .default
 //    }
@@ -107,7 +119,39 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
 //            self.navigationController?.pushViewController(vc, animated: true)
 //            
 //        }
-       
+        // Set up the cluster manager with the supplied icon generator and
+        // renderer.
+//        let iconGenerator = GMUDefaultClusterIconGenerator()
+//        let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
+//        let renderer = GMUDefaultClusterRenderer(mapView: mapView,
+//                                                 clusterIconGenerator: iconGenerator)
+//        clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm,
+//                                           renderer: renderer)
+//
+//        // Generate and add random items to the cluster manager.
+//        generateClusterItems()
+//
+//        // Call cluster() after items have been added to perform the clustering
+//        // and rendering on map.
+//        clusterManager.cluster()
+    }
+    /// Randomly generates cluster items within some extent of the camera and
+    /// adds them to the cluster manager.
+//    private func generateClusterItems() {
+//        let extent = 0.2
+//        for index in 1...kClusterItemCount {
+//            let lat = kCameraLatitude + extent * randomScale()
+//            let lng = kCameraLongitude + extent * randomScale()
+//            let name = "Item \(index)"
+//            let item =
+//                POIItem(position: CLLocationCoordinate2DMake(lat, lng), name: name)
+//            clusterManager.addItem(item)
+//        }
+//    }
+    
+    /// Returns a random value between -1.0 and 1.0.
+    private func randomScale() -> Double {
+        return Double(arc4random()) / Double(UINT32_MAX) * 2.0 - 1.0
     }
     func firstLoad(){
         self.utils.setSaredPref(key: "FIRSTSTART", value: "true")
@@ -197,7 +241,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         marker.tracksInfoWindowChanges = true
         marker.map = mapView
         marker.userData = logo
-        marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.3)
+        marker.infoWindowAnchor = CGPoint(x: 0.6, y: 0.5)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -467,6 +511,10 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     
     func addFilter() {
+        if serviceSelect.count != 0{
+            serviceSelect.removeAll()
+            checkCarInfo()
+        }
         guard UserDefaults.standard.object(forKey: "BUISNESSID") != nil else{
             
             self.utils.checkFilds(massage: "Выберите сервис", vc: self.view)
@@ -491,9 +539,15 @@ extension MapViewController: CLLocationManagerDelegate {
     }
    
     func Dismiss(filterListId: [String], filterOn: Bool) {
-        
-        serviceSelect = filterListId
-        checkCarInfo()
+        if filterOn == true{
+            serviceSelect = filterListId
+            checkCarInfo()
+        } else {
+            if serviceSelect.count != 0{
+            serviceSelect.removeAll()
+            }
+            checkCarInfo()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -515,7 +569,7 @@ extension MapViewController: CLLocationManagerDelegate {
         let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .circle)
         leftHoleDesc2.labelDescriptor = leftDesc2
         let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
-        PassthroughManager.shared.display(tasks: [infoTask]) {
+        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask2]) {
             isUserSkipDemo in
             
             print("isUserSkipDemo: \(isUserSkipDemo)")
