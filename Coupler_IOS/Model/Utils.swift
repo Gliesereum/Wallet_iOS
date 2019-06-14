@@ -252,7 +252,7 @@ class Utils {
             return "CarWash don't work this day"
 //            showToast(message: "CarWash don't work this day", viewController: viewController)
         case 1435:
-            return "Автомойка на этот раз не работает"
+            return "Точка не работает в это время"
 //            showToast(message: "CarWash don't work this time", viewController: viewController)
         case 1436:
             return "Time working already exist in this car wash"
@@ -264,7 +264,7 @@ class Utils {
             return "Current user don't have permission to action this record"
 //            showToast(message: "Current user don't have permission to action this record", viewController: viewController)
         case 1439:
-            return "Попробуйте выбрать прошедшее время"
+            return "Вы выбираете прошедшее время"
 //            showToast(message: "Try to choose past time", viewController: viewController)
         case 1440:
             return "Анонимный пользователь не может комментировать"

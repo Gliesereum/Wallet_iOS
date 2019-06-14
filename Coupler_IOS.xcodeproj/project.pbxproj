@@ -760,7 +760,6 @@
 				FA07052822A535F1005833DC /* SRAttractionsMap */,
 				FA07053322A535F1005833DC /* LSDialogViewController */,
 				FA07053A22A535F1005833DC /* PinCodeInputView */,
-				FA07054122A535F1005833DC /* FSPagerView */,
 				FA07054222A535F1005833DC /* NVActivityIndicatorView */,
 				FA07056D22A535F1005833DC /* FlagPhoneNumber */,
 				FA07057F22A535F1005833DC /* FSPageView */,
@@ -840,13 +839,6 @@
 				FA07054022A535F1005833DC /* String+Validation.swift */,
 			);
 			path = PinCodeInputView;
-			sourceTree = "<group>";
-		};
-		FA07054122A535F1005833DC /* FSPagerView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = FSPagerView;
 			sourceTree = "<group>";
 		};
 		FA07054222A535F1005833DC /* NVActivityIndicatorView */ = {

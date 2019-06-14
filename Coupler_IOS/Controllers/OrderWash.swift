@@ -269,16 +269,11 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                         self.stopAnimating()
                         return
                     }
-                    if selected != 3 || selected == 4{
+                    if selected != 3 || selected != 4{
                     self.view.endEditing(true)
                     SCLAlertView().showWarning("Внимание!", subTitle: self.utils.checkResponseStatusCode(code: errorBody.code!), closeButtonTitle: "Закрыть")
                     }
-                    if selected == 4{
-//                        self.view.endEditing(true)
-//                        SCLAlertView().showWarning("Внимание!", subTitle: self.utils.checkResponseStatusCode(code: errorBody.code!), closeButtonTitle: "Закрыть")
-                        
-                        self.showDateTimePikerDialog()
-                    }
+                   
                     self.stopAnimating()
                     self.currentTime = 0
                     if selected == 0 {
@@ -344,7 +339,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     
     func dateTimePicker(_ picker: DateTimePicker, didSelectDate: Date) {
 //        self.currentTime = self.utils.dateToMillisecond(date: didSelectDate, timeZone: (self.carWashInfo?.timeZone)!)
-        guard self.getSelectTime(setTime: self.utils.dateToMillisecond(date: didSelectDate, timeZone: (self.carWashInfo?.timeZone)!)) != 0 else{
+        guard self.getSelectTime(setTime: self.utils.dateToMillisecond(date: didSelectDate, timeZone: (self.carWashInfo?.timeZone)!), select: 0) != 0 else{
             picker.doneButtonTitle = "Выберите другое время"
 //             TinyToast.shared.show(message: "Мойка не работает в данное время. Выберите другое время", valign: .center, duration: 1)
             return
@@ -590,7 +585,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         picker.doneBackgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         picker.completionHandler = { date in
             self.currentTime = self.utils.dateToMillisecond(date: date, timeZone: (self.carWashInfo?.timeZone)!)
-            self.getCurrentTime(setTime: self.currentTime, selected: 4)
+            self.getSelectTime(setTime: self.currentTime, select: 4)
 //            self.showOrderDialog()
         }
         
@@ -606,7 +601,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         
         utils.checkPushNot(vc: self)
     }
-    func getSelectTime(setTime: Int) -> Int {
+    func getSelectTime(setTime: Int, select: Int) -> Int {
         let restUrl = constants.startUrl + "karma/v1/record/free-time"
         //       utils.currentTimeInMiliseconds(timeZone: (carWashInfo?.timeZone)!)
         startAnimating()
@@ -632,14 +627,20 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 guard response.response?.statusCode != 400 else {
                     self.stopAnimating()
                     self.currentTime = 0
-                    //                    TinyToast.shared.show(message: errorBody.message!, valign: .bottom, duration: .normal)
+                    if select == 4 {
+                        self.showDateTimePikerDialog()
+                        TinyToast.shared.show(message: "Точка не работает в это время", valign: .center, duration: 1)
+                    }
+                    
                     return
                 }
                 if let currentFreeTime = response.result.value{
                 guard currentFreeTime.begin != nil else{
                     return
                 }
-                
+                    if select == 4 {
+                        self.showOrderDialog()
+                    }
                 self.currentTime = currentFreeTime.begin!
                 self.workSpaceId = currentFreeTime.workingSpaceID!
                 self.time = self.utils.milisecondsToTime(miliseconds: self.currentTime, timeZone: (self.carWashInfo?.timeZone)! )

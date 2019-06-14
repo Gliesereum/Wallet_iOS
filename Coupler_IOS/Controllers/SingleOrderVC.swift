@@ -63,6 +63,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         serviceTable.rowHeight = UITableView.automaticDimension
         serviceTable.allowsMultipleSelection = true
         serviceTable.allowsMultipleSelectionDuringEditing = true
+//            serviceTable.bottomAnchor.constraint(equalTo:self.view.centerYAnchor, constant:-7).isActive=true
         print(packetServiceTable.contentSize.height )
         
         status.text = utils.checkStatus(status: (record?.statusProcess)!)
