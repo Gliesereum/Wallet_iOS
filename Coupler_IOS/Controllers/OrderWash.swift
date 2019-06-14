@@ -274,8 +274,8 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                     SCLAlertView().showWarning("Внимание!", subTitle: self.utils.checkResponseStatusCode(code: errorBody.code!), closeButtonTitle: "Закрыть")
                     }
                     if selected == 4{
-                        self.view.endEditing(true)
-                        SCLAlertView().showWarning("Внимание!", subTitle: self.utils.checkResponseStatusCode(code: errorBody.code!), closeButtonTitle: "Закрыть")
+//                        self.view.endEditing(true)
+//                        SCLAlertView().showWarning("Внимание!", subTitle: self.utils.checkResponseStatusCode(code: errorBody.code!), closeButtonTitle: "Закрыть")
                         
                         self.showDateTimePikerDialog()
                     }

@@ -19,7 +19,10 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
     @IBOutlet weak var filterName: UILabel!
     @IBOutlet weak var filterId: UILabel!
     var filterListId = [String?]()
+    
+    var filterListIdOld = [String?]()
     var filterList = FilterMarkerBody()
+    var index = [IndexPath]()
     
     var delegate: FilterDialodDismissDelegate?
     
@@ -68,6 +71,12 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
         utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.0417380137), borderWidth: 1, cornerRadius: 4)
         cell.serviceName.text = filterService.name!
         cell.serviceId.text = filterService.id!
+        for id in filterListIdOld{
+            if id == filterService.id!{
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            }
+        }
+        
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -125,6 +134,7 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
                 
                 self.filterTable.reloadData()
                 self.stopAnimating()
+//                self.selectedFilter()
                 
             }
             catch{
@@ -133,6 +143,17 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
             }
             
             
+        }
+        
+    }
+    func selectedFilter(){
+        do{
+            for id in self.index{
+                self.filterTable.selectRow(at: id, animated: true, scrollPosition: UITableView.ScrollPosition.middle)
+            }
+            self.filterListIdOld.removeAll()
+        }catch{
+            print(error)
         }
     }
     

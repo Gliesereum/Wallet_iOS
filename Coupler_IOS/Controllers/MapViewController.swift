@@ -34,6 +34,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     lazy var mapView = GMSMapView()
+    var carWoshInfos = CarWashMarker()
     var drawRoute: String = ""
 //    var placesClient: GMSPlacesClient!
     var zoomLevel: Float = 15.0
@@ -100,25 +101,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
             
         }
         
-//        mapView.isHidden = true
-        
-//        listLikelyPlaces()
-
-//         listLikelyPlaces()
-//        do {
-//            // Set the map style by passing a valid JSON string.
-//            mapView.mapStyle = try GMSMapStyle(jsonString: constants.mapStyle)
-//        } catch {
-//            NSLog("One or more of the map styles failed to load. \(error)")
-//        }
         getAllCars()
         checkCarInfo()
-//        if pushRecordId != "" {
-//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "singleOrderVC") as! SingleOrderVC
-//            vc.pushRecordId = pushRecordId
-//            self.navigationController?.pushViewController(vc, animated: true)
-//            
-//        }
+//
         // Set up the cluster manager with the supplied icon generator and
         // renderer.
 //        let iconGenerator = GMUDefaultClusterIconGenerator()
@@ -194,14 +179,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
                 
                 let responseBody = try JSONDecoder().decode(CarWashMarker.self, from: response.data!)
                 self.mapView.clear()
+//                if self.carWoshInfos === responseBody {
+//                    self.carWoshInfos = responseBody
                 for carWash: CarWashMarkerElement in responseBody{
-                    if carWash.logoURL != nil {
+                        if carWash.logoURL != nil {
                        
-                        self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: carWash.logoURL!, buisness: (carWash.businessCategory?.id)!)
-                    }else {
-                        self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: "", buisness: (carWash.businessCategory?.id)!)
+                            self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: carWash.logoURL!, buisness: (carWash.businessCategory?.id)!)
+                        }else {
+                            self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: "", buisness: (carWash.businessCategory?.id)!)
+                        }
                     }
-            }
+//                }
             }
             catch{
                 
@@ -247,45 +235,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-//    class func instanceFromNib() -> CustomMarkers {
-//        return UINib(nibName: "CustomMarker", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! CustomMarkers
-//    }
-//
-//    var tappedMarker = GMSMarker()
-//    var infoWindow = CustomMarkers()
-//    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-//        let index:Int! = Int(marker.accessibilityLabel!)
-//        print(index)
-//
-//        let location = CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)
-//
-//        tappedMarker = marker
-//        infoWindow.removeFromSuperview()
-//
-//        infoWindow = MapViewController.instanceFromNib()
-//
-//
-//
-//        infoWindow.infoMarkerTitle.text = marker.title
-//        infoWindow.infoMarkerSnipper.text = marker.snippet
-//        infoWindow.infoMarkerSnipper.isHidden = true
-//
-//        infoWindow.center = mapView.projection.point(for: location)
-//
-//        infoWindow.center.y = infoWindow.center.y - 107
-//
-//        self.view.addSubview(infoWindow)
-//
-//        return false
-//    }
-//    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-//
-//        let location = CLLocationCoordinate2D(latitude: tappedMarker.position.latitude, longitude: tappedMarker.position.longitude)
-//        infoWindow.center = mapView.projection.point(for: location)
-//        infoWindow.center.y = infoWindow.center.y - 107
-//
-//
-//    }
 
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
 
@@ -511,10 +460,10 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     
     func addFilter() {
-        if serviceSelect.count != 0{
-            serviceSelect.removeAll()
-            checkCarInfo()
-        }
+//        if serviceSelect.count != 0{
+//            serviceSelect.removeAll()
+//            checkCarInfo()
+//        }
         guard UserDefaults.standard.object(forKey: "BUISNESSID") != nil else{
             
             self.utils.checkFilds(massage: "Выберите сервис", vc: self.view)
@@ -530,6 +479,7 @@ extension MapViewController: CLLocationManagerDelegate {
         customAlert.modalPresentationStyle = UIModalPresentationStyle.fullScreen
         customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         customAlert.delegate = self
+        customAlert.filterListIdOld = serviceSelect
         transitionVc(vc: customAlert, duration: 0.5, type: .fromRight)
 //        self.present(customAlert, animated: true, completion: nil)
         
