@@ -15,6 +15,8 @@
 		FA03A75622AE435B0008310B /* FullDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03A75222AE435B0008310B /* FullDateCollectionViewCell.swift */; };
 		FA03A75722AE435B0008310B /* StepCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03A75322AE435B0008310B /* StepCollectionViewFlowLayout.swift */; };
 		FA03A75822AE435B0008310B /* DateTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03A75422AE435B0008310B /* DateTimePicker.swift */; };
+		FA04616822C20E0600CC0113 /* UIViewController+SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04616622C20E0500CC0113 /* UIViewController+SideMenu.swift */; };
+		FA04616922C20E0600CC0113 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04616722C20E0600CC0113 /* SideMenu.swift */; };
 		FA059DD522B37A74004A501D /* GMUClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DBA22B37A74004A501D /* GMUClusterManager.m */; };
 		FA059DD622B37A74004A501D /* GMUGridBasedClusterAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DBE22B37A74004A501D /* GMUGridBasedClusterAlgorithm.m */; };
 		FA059DD722B37A74004A501D /* GMUWrappingDictionaryKey.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DC122B37A74004A501D /* GMUWrappingDictionaryKey.m */; };
@@ -176,7 +178,7 @@
 		FA07061922A535FB005833DC /* OrderWash.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07060222A535FB005833DC /* OrderWash.swift */; };
 		FA07061A22A535FB005833DC /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07060322A535FB005833DC /* LeftMenuViewController.swift */; };
 		FA07061B22A535FB005833DC /* BusinessTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07060422A535FB005833DC /* BusinessTableViewController.swift */; };
-		FA07061E22A53641005833DC /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07061D22A53640005833DC /* RootViewController.swift */; };
+		FA07061E22A53641005833DC /* RootViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07061D22A53640005833DC /* RootViewController1.swift */; };
 		FA07062F22A55006005833DC /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07062222A55006005833DC /* FilterCell.swift */; };
 		FA07063022A55006005833DC /* CustomMarkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07062322A55006005833DC /* CustomMarkers.swift */; };
 		FA07063222A55006005833DC /* CastomPacetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07062522A55006005833DC /* CastomPacetsCell.swift */; };
@@ -193,6 +195,8 @@
 		FA07063E22A5626E005833DC /* imageLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = FA07063D22A5626E005833DC /* imageLogo.png */; };
 		FA07064322A5699F005833DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA07064222A5699F005833DC /* GoogleService-Info.plist */; };
 		FA07064722A56DAA005833DC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA07064622A56DAA005833DC /* Info.plist */; };
+		FA0C107022BA597B00FDE376 /* CreateCarDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C106F22BA597B00FDE376 /* CreateCarDialog.swift */; };
+		FA0CE35522BD0D32003AA719 /* CreateCarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CE35422BD0D32003AA719 /* CreateCarCell.swift */; };
 		FA0F616022A684BD00D0273C /* 1024x1024.pdf in Resources */ = {isa = PBXBuildFile; fileRef = FA0F615F22A684BC00D0273C /* 1024x1024.pdf */; };
 		FAE5E94622AFE2BE00F63E80 /* CameraMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93022AFE2BE00F63E80 /* CameraMan.swift */; };
 		FAE5E94722AFE2BE00F63E80 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93122AFE2BE00F63E80 /* CameraView.swift */; };
@@ -244,6 +248,8 @@
 		FA03A75222AE435B0008310B /* FullDateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullDateCollectionViewCell.swift; sourceTree = "<group>"; };
 		FA03A75322AE435B0008310B /* StepCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		FA03A75422AE435B0008310B /* DateTimePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimePicker.swift; sourceTree = "<group>"; };
+		FA04616622C20E0500CC0113 /* UIViewController+SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+SideMenu.swift"; path = "../../../../../Downloads/SimpleSideMenu-master/src/UIViewController+SideMenu.swift"; sourceTree = "<group>"; };
+		FA04616722C20E0600CC0113 /* SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenu.swift; path = "../../../../../Downloads/SimpleSideMenu-master/src/SideMenu.swift"; sourceTree = "<group>"; };
 		FA059DBA22B37A74004A501D /* GMUClusterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUClusterManager.m; sourceTree = "<group>"; };
 		FA059DBB22B37A74004A501D /* GMUStaticCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUStaticCluster.h; sourceTree = "<group>"; };
 		FA059DBC22B37A74004A501D /* GMUMarkerClustering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUMarkerClustering.h; sourceTree = "<group>"; };
@@ -453,7 +459,7 @@
 		FA07060222A535FB005833DC /* OrderWash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderWash.swift; sourceTree = "<group>"; };
 		FA07060322A535FB005833DC /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		FA07060422A535FB005833DC /* BusinessTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessTableViewController.swift; sourceTree = "<group>"; };
-		FA07061D22A53640005833DC /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		FA07061D22A53640005833DC /* RootViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController1.swift; sourceTree = "<group>"; };
 		FA07062222A55006005833DC /* FilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		FA07062322A55006005833DC /* CustomMarkers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMarkers.swift; sourceTree = "<group>"; };
 		FA07062422A55006005833DC /* CustomPageControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPageControler.swift; sourceTree = "<group>"; };
@@ -471,6 +477,8 @@
 		FA07063F22A56358005833DC /* Coupler_IOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Coupler_IOS.entitlements; sourceTree = "<group>"; };
 		FA07064222A5699F005833DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA07064622A56DAA005833DC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA0C106F22BA597B00FDE376 /* CreateCarDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCarDialog.swift; sourceTree = "<group>"; };
+		FA0CE35422BD0D32003AA719 /* CreateCarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCarCell.swift; sourceTree = "<group>"; };
 		FA0F615F22A684BC00D0273C /* 1024x1024.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = 1024x1024.pdf; sourceTree = "<group>"; };
 		FAE5E93022AFE2BE00F63E80 /* CameraMan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraMan.swift; sourceTree = "<group>"; };
 		FAE5E93122AFE2BE00F63E80 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -708,7 +716,7 @@
 				FA07052722A535F1005833DC /* Sources */,
 				FA0704EB22A535E1005833DC /* Model */,
 				FA0704BB22A5314E005833DC /* AppDelegate.swift */,
-				FA07061D22A53640005833DC /* RootViewController.swift */,
+				FA07061D22A53640005833DC /* RootViewController1.swift */,
 				FA0704BF22A5314E005833DC /* Main.storyboard */,
 				FA0704C222A53150005833DC /* Assets.xcassets */,
 				FA07063D22A5626E005833DC /* imageLogo.png */,
@@ -754,6 +762,7 @@
 		FA07052722A535F1005833DC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				FA117E2C22C0CCFA00A5BD01 /* SideMenu */,
 				FA059C2122B374CF004A501D /* Google-Maps-iOS-Utils */,
 				FA02839122B115EA00107106 /* Tutorial */,
 				FAE5E92E22AFE2BE00F63E80 /* ImagePicker */,
@@ -1022,6 +1031,7 @@
 				FA07060222A535FB005833DC /* OrderWash.swift */,
 				FA07060322A535FB005833DC /* LeftMenuViewController.swift */,
 				FA07060422A535FB005833DC /* BusinessTableViewController.swift */,
+				FA0C106F22BA597B00FDE376 /* CreateCarDialog.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1042,8 +1052,18 @@
 				FA07062C22A55006005833DC /* ClassServicesCell.swift */,
 				FA07062D22A55006005833DC /* CustomServicesPrice.xib */,
 				FA07062E22A55006005833DC /* AddCommentsCastom.xib */,
+				FA0CE35422BD0D32003AA719 /* CreateCarCell.swift */,
 			);
 			path = Customs;
+			sourceTree = "<group>";
+		};
+		FA117E2C22C0CCFA00A5BD01 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				FA04616722C20E0600CC0113 /* SideMenu.swift */,
+				FA04616622C20E0500CC0113 /* UIViewController+SideMenu.swift */,
+			);
+			path = SideMenu;
 			sourceTree = "<group>";
 		};
 		FAE5E92E22AFE2BE00F63E80 /* ImagePicker */ = {
@@ -1468,7 +1488,7 @@
 				FA07050E22A535E1005833DC /* BuisnessBody.swift in Sources */,
 				FA059E1822B383F0004A501D /* GMUPair.m in Sources */,
 				FA07059F22A535F1005833DC /* LSDialogBackgroundView.swift in Sources */,
-				FA07061E22A53641005833DC /* RootViewController.swift in Sources */,
+				FA07061E22A53641005833DC /* RootViewController1.swift in Sources */,
 				FA0705C722A535F2005833DC /* NVActivityIndicatorAnimationCubeTransition.swift in Sources */,
 				FA0705E522A535F2005833DC /* AsyncUtil.swift in Sources */,
 				FA0705AA22A535F1005833DC /* NVActivityIndicatorView.swift in Sources */,
@@ -1493,6 +1513,7 @@
 				FA07051022A535E1005833DC /* FiltersBody.swift in Sources */,
 				FA0705BD22A535F1005833DC /* NVActivityIndicatorAnimationBlank.swift in Sources */,
 				FA07050C22A535E1005833DC /* AllRecordsCarWash.swift in Sources */,
+				FA0CE35522BD0D32003AA719 /* CreateCarCell.swift in Sources */,
 				FAE5E94822AFE2BE00F63E80 /* ImagePickerController.swift in Sources */,
 				FAE5E95222AFE2BE00F63E80 /* ImageGalleryLayout.swift in Sources */,
 				FA059DD722B37A74004A501D /* GMUWrappingDictionaryKey.m in Sources */,
@@ -1527,6 +1548,7 @@
 				FA03A75722AE435B0008310B /* StepCollectionViewFlowLayout.swift in Sources */,
 				FA07061522A535FB005833DC /* CarWashInfo.swift in Sources */,
 				FA059E0B22B383F0004A501D /* GMUWeightedLatLng.m in Sources */,
+				FA0C107022BA597B00FDE376 /* CreateCarDialog.swift in Sources */,
 				FA0705C222A535F2005833DC /* NVActivityIndicatorAnimationBallScaleMultiple.swift in Sources */,
 				FA0705E722A535F2005833DC /* TinyToastWindow.swift in Sources */,
 				FA0705BB22A535F1005833DC /* NVActivityIndicatorAnimationBallRotateChase.swift in Sources */,
@@ -1556,7 +1578,9 @@
 				FA03A75622AE435B0008310B /* FullDateCollectionViewCell.swift in Sources */,
 				FA0705D722A535F2005833DC /* FPNCountryPicker.swift in Sources */,
 				FA07060B22A535FB005833DC /* WorkingTimeDialog.swift in Sources */,
+				FA04616822C20E0600CC0113 /* UIViewController+SideMenu.swift in Sources */,
 				FA0705CD22A535F2005833DC /* FPNSearchCountryViewController.swift in Sources */,
+				FA04616922C20E0600CC0113 /* SideMenu.swift in Sources */,
 				FA07051422A535E1005833DC /* CarBrandsList.swift in Sources */,
 				FA059E0C22B383F0004A501D /* GMUGradient.m in Sources */,
 				FA0705E122A535F2005833DC /* FSPagerViewObjcCompat.m in Sources */,

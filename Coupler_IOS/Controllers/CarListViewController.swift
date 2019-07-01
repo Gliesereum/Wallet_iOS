@@ -87,7 +87,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable{
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/car/user"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
             stopAnimating()
             return
@@ -135,7 +135,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable{
         startAnimating()
             let restUrl = constants.startUrl + "karma/v1/car/\(self.idCar)"
             guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-                self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
                 self.sideMenuViewController!.hideMenuViewController()
                 stopAnimating()
                 return
@@ -181,7 +181,7 @@ extension CarListViewController : UICollectionViewDataSource {
         let carInfo = SelectedCarInfo.init(carId: (selectedCar?.carId)!, carInfo: (selectedCar?.carBrand)! + " " + (selectedCar?.carModel)!, carAttributes: (selectedCar?.carAttributes)!, carServices: selectedCar!.carServices)
         setFavoriteCar(carId: (selectedCar?.carId)!)
         utils.setCarInfo(key: "CARID", value: carInfo)
-        self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
+        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
 
@@ -239,7 +239,7 @@ extension CarListViewController : UICollectionViewDataSource {
         
 //        utils.checkPushNot(vc: self)
         guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
             
             self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)

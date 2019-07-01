@@ -45,6 +45,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         super.viewDidLoad()
         imagePickerController.delegate = self
         imagePickerController.imageLimit = 1
+        imagePickerController.cameraController.startOnFrontCamera = true
         frameY = self.view.frame.origin.y
         firstName.addDoneCancelToolbar()
         lastName.addDoneCancelToolbar()
@@ -174,7 +175,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
         let restUrl = constants.startUrl + "account/v1/user"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
             return
         }
@@ -220,7 +221,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         
         let restUrl = constants.startUrl + "account/v1/user/me"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
             return
         }
@@ -249,7 +250,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     override func viewDidAppear(_ animated: Bool) {
 //        utils.checkPushNot(vc: self)
         guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
             
             self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)

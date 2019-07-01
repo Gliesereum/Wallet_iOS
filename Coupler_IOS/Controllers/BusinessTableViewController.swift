@@ -114,7 +114,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         self.utils.setSaredPref(key: "BUISNESSTYPE", value: record.businessType!)
         self.utils.setSaredPref(key: "BUISNESSID", value: record.id!)
         self.utils.setSaredPref(key: "BUISNESSNAME", value: record.name!)
-    self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
+        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -177,7 +177,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         
         let buttonItemView = menuItem.value(forKey: "view") as? UIView
         let leftDesc2 = LabelDescriptor(for: "Кнопка вызова меню")
-        leftDesc2.position = .left
+        leftDesc2.position = .bottom
         let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .circle)
         leftHoleDesc2.labelDescriptor = leftDesc2
         let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])

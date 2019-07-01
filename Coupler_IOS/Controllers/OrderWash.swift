@@ -42,6 +42,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     var currentTime = Int()
     var workSpaceId = String()
     var time = String()
+    var indexPackage = UInt()
     var counter = false
     var servicesOld = [Serviceice]()
     var selectedServices = [Serviceice]()
@@ -105,6 +106,9 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 
     func titleForItem(at index: UInt, forHorisontalSelection hSelView: EHHorizontalSelectionView) -> String? {
 //        return arrayPacets[Int(index)] as! String
+        if packagesList[Int(index)] == "Не выбран"{
+            self.indexPackage = index
+        }
         return packagesList[Int(index)]
     }
     
@@ -241,7 +245,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
         Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
             do{
-                guard response.response?.statusCode != 500 else{ self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
+                guard response.response?.statusCode != 500 else{ self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
                 self.sideMenuViewController!.hideMenuViewController()
                 SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
                 //            TinyToast.shared.show(message: "Нет связи с сервером", valign: .bottom, duration: .normal)
@@ -327,7 +331,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //            let newViewController = self.storyboard?.instantiateViewController(withIdentifier: "mapViewController") as! MapViewController
 //          self.navigationController?.pushViewController(newViewController, animated: true)
             self.utils.doneMassage(massage: "Заказ сделан", vc: self.view)
-        self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "ordersTableViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "ordersTableViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
 //            self.sideMenuViewController!.hideMenuViewController()
 //            let newViewController = MapViewController()
@@ -380,6 +384,8 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             
         }
         guard packageId != "cancel" else{
+//            self.pacetsSelector.selectItem(at: indexPackage, animated: true, scrollPosition: UICollectionView.ScrollPosition(rawValue: 0))
+            self.pacetsSelector.select(indexPackage)
 //            self.pacetsSelector?.select()
             return
         }
@@ -480,7 +486,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     
     override func viewDidAppear(_ animated: Bool) {
         guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
             
             self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
@@ -608,7 +614,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         let parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: utils.getSharedPref(key: "CARID"), workingSpaceID: nil))
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
         Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseCurrentFreeTime { response  in
-                guard response.response?.statusCode != 500 else{ self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
+            guard response.response?.statusCode != 500 else{ self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
                     self.sideMenuViewController!.hideMenuViewController()
                     SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
                     //            TinyToast.shared.show(message: "Нет связи с сервером", valign: .bottom, duration: .normal)

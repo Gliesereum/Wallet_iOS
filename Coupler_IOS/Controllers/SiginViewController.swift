@@ -304,12 +304,12 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
                 self.setFireBaseToken(token: token!, userId: (sigInModel.user?.id)!, accessToken: "Bearer " + sigInModel.tokenInfo!.accessToken!)
                 guard sigInModel.user?.firstName != nil else{
                     
-                self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "profileViewController")), animated: true)
+                    self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "profileViewController")), animated: true)
                     self.sideMenuViewController!.hideMenuViewController()
                     
                     return
                 }
-            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
+                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
                 self.sideMenuViewController!.hideMenuViewController()
             }
             catch{

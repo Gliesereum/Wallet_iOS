@@ -102,7 +102,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         }
         
         getAllCars()
-        checkCarInfo()
 //
         // Set up the cluster manager with the supplied icon generator and
         // renderer.
@@ -263,7 +262,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     func getCarWashInfo(carWashId: String){
         startAnimating()
         guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
             utils.setSaredPref(key: "CARWASHID", value: carWashId)
             self.sideMenuViewController!.hideMenuViewController()
             
@@ -272,7 +271,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
             return
         }
         guard utils.getCarInfo(key: "CARID") != nil else{
-            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
             
             utils.setSaredPref(key: "CARWASHID", value: carWashId)
             self.sideMenuViewController!.hideMenuViewController()
@@ -375,6 +374,7 @@ extension MapViewController: CLLocationManagerDelegate {
             
             
             do{
+                self.checkCarInfo()
                 let carList = try JSONDecoder().decode(AllCarList.self, from: response.data!)
                 
                 for element in carList{
@@ -467,7 +467,7 @@ extension MapViewController: CLLocationManagerDelegate {
         guard UserDefaults.standard.object(forKey: "BUISNESSID") != nil else{
             
             self.utils.checkFilds(massage: "Выберите сервис", vc: self.view)
-            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "businessTableViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "businessTableViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
             stopAnimating()
             return
@@ -513,13 +513,13 @@ extension MapViewController: CLLocationManagerDelegate {
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
         
-        let buttonItemView = filterItem.value(forKey: "view") as? UIView
-        let leftDesc2 = LabelDescriptor(for: "Чтобы выбрать услуги и отфильровать карту по ним нажмите сюда")
-        leftDesc2.position = .left
-        let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .circle)
-        leftHoleDesc2.labelDescriptor = leftDesc2
-        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
-        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask2]) {
+//        let buttonItemView = filterItem.value(forKey: "view") as? UIView
+//        let leftDesc2 = LabelDescriptor(for: "Чтобы выбрать услуги и отфильровать карту по ним нажмите сюда")
+//        leftDesc2.position = .left
+////        let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .circle)
+//        leftHoleDesc2.labelDescriptor = leftDesc2
+//        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
+        PassthroughManager.shared.display(tasks: [infoTask]) {
             isUserSkipDemo in
             
             print("isUserSkipDemo: \(isUserSkipDemo)")

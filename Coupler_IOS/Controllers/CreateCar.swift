@@ -10,9 +10,7 @@ import UIKit
 import Alamofire
 import RSSelectionMenu
 
-class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, NVActivityIndicatorViewable{
-   
-  
+class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewable, CreateCarDialogDismissDelegate{
     
     
     
@@ -67,11 +65,11 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
 //    //MARK: REST API request
     func getCarBrands(){
 
-        startAnimating()
+//        startAnimating()
         let restUrl = constants.startUrl + "karma/v1/car/brands"
         Alamofire.request(restUrl, method: .get, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+//                self.stopAnimating()
                 return
             }
             do{
@@ -84,12 +82,17 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
                     self.arrayItems.append(carBrandsListElement.name!)
                     self.arrayId.append(carBrandsListElement.id!)
                 }
+                if self.brandsTextView.text != ""{
+                    self.showDialogItem(selectionItem: self.arrayItems, selectionCategory: "BRANDS")
+                }
+                
+                
             }
             catch{
 
             }
 
-            self.stopAnimating()
+//            self.stopAnimating()
 
             self.picker.reloadAllComponents()
         }
@@ -97,11 +100,11 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
 
     func getCwarModels(brandId: String){
 
-        startAnimating()
+//        startAnimating()
         let restUrl = constants.startUrl + "karma/v1/car/models/by-brand/" + brandId
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+//                self.stopAnimating()
                 return
             }
             do{
@@ -112,6 +115,8 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
                     self.arrayItems.append(carModelsListElement.name!)
                     self.arrayId.append(carModelsListElement.id!)
                 }
+                
+                self.showDialogItem(selectionItem: self.arrayItems, selectionCategory: "MODEL")
 
 
             }
@@ -119,7 +124,7 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
 
             }
 
-            self.stopAnimating()
+//            self.stopAnimating()
 
             self.picker.reloadAllComponents()
         }
@@ -127,11 +132,11 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
     }
 
     func getCarYears(){
-        startAnimating()
+//        startAnimating()
         let restUrl = constants.startUrl + "karma/v1/car/years"
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+//                self.stopAnimating()
                 return
             }
             do{
@@ -143,13 +148,14 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
 
                     self.arrayId.append(carYearsListElement.id!)
                 }
+                self.showDialogItem(selectionItem: self.arrayItems, selectionCategory: "YEARS")
 
             }
             catch{
 
             }
 
-            self.stopAnimating()
+//            self.stopAnimating()
 
             self.picker.reloadAllComponents()
         }
@@ -159,19 +165,19 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
 
 
     func getFilters(){
-        startAnimating()
+//        startAnimating()
         let restUrl = constants.startUrl + "karma/v1/filter/by-business-category"
         guard UserDefaults.standard.object(forKey: "BUISNESSID") != nil else{
-            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "businessTableViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "businessTableViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
             self.utils.checkFilds(massage: "Выберите сервис", vc: self.view)
-            stopAnimating()
+//            stopAnimating()
             return
         }
         let toDo: [String: Any]  = ["businessCategoryId": UserDefaults.standard.object(forKey: "BUISNESSID")!]
         Alamofire.request(restUrl, method: .get, parameters: toDo, encoding: URLEncoding(destination: .queryString)).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+//                self.stopAnimating()
                 return
             }
             do{
@@ -328,7 +334,7 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
                 self.setCarAttributes(carId: (responsebody.id)!, attributeId: colour)
 
 
-                self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
+                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
                 self.sideMenuViewController!.hideMenuViewController()
 
             }
@@ -351,50 +357,80 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
         // Pass the selected object to the new view controller.
     }
     */
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if currentTextField == interiorTextView{
-            return arrayInteriors.count
-        }else if currentTextField == carBodyTextVIew{
-            return arrayCarBodies.count
-        }else if currentTextField == carColorTextView{
-            return arrayCarColors.count
-        }
-        return arrayItems.count
-    }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if currentTextField == interiorTextView{
-            return arrayInterior[row]
-        }else if currentTextField == carBodyTextVIew{
-            return arrayCarBodie[row]
-        }else if currentTextField == carColorTextView{
-            return arrayCarColor[row]
-        }
-        return arrayItems[row]
-    }
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if currentTextField == brandsTextView{
-
-            brandsTextView.text = arrayItems[row]
-            brandsId = arrayId[row]
-        }else if currentTextField == modelTextView{
-            modelTextView.text = arrayItems[row]
-            modelId = arrayId[row]
-        }else if currentTextField == yearTextView{
-            yearTextView.text = arrayItems[row]
-            yearsId = arrayId[row]
-        }else if currentTextField == interiorTextView{
-            interiorTextView.text = arrayInterior[row]
-            interiorId = arrayInterior[row]
-        }else if currentTextField == carBodyTextVIew{
-            carBodyTextVIew.text = arrayCarBodie[row]
-            carBodyId = arrayCarBodie[row]
-        }else if currentTextField == carColorTextView{
-            carColorTextView.text = arrayCarColor[row]
-            carColorId = arrayCarColor[row]
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        return 1
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        if currentTextField == interiorTextView{
+//            return arrayInteriors.count
+//        }else if currentTextField == carBodyTextVIew{
+//            return arrayCarBodies.count
+//        }else if currentTextField == carColorTextView{
+//            return arrayCarColors.count
+//        }
+//        return arrayItems.count
+//    }
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        if currentTextField == interiorTextView{
+//            return arrayInterior[row]
+//        }else if currentTextField == carBodyTextVIew{
+//            return arrayCarBodie[row]
+//        }else if currentTextField == carColorTextView{
+//            return arrayCarColor[row]
+//        }
+//        return arrayItems[row]
+//    }
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        if currentTextField == brandsTextView{
+//
+//            brandsTextView.text = arrayItems[row]
+//            brandsId = arrayId[row]
+//        }else if currentTextField == modelTextView{
+//            modelTextView.text = arrayItems[row]
+//            modelId = arrayId[row]
+//        }else if currentTextField == yearTextView{
+//            yearTextView.text = arrayItems[row]
+//            yearsId = arrayId[row]
+//        }else if currentTextField == interiorTextView{
+//            interiorTextView.text = arrayInterior[row]
+//            interiorId = arrayInterior[row]
+//        }else if currentTextField == carBodyTextVIew{
+//            carBodyTextVIew.text = arrayCarBodie[row]
+//            carBodyId = arrayCarBodie[row]
+//        }else if currentTextField == carColorTextView{
+//            carColorTextView.text = arrayCarColor[row]
+//            carColorId = arrayCarColor[row]
+//        }
+//    }
+    func setSelectedItem(index: Int, selectedCategory: String){
+        switch selectedCategory {
+        case "BRANDS":
+            brandsTextView.text = arrayItems[index]
+            brandsId = arrayId[index]
+            break
+        case "MODEL":
+            modelTextView.text = arrayItems[index]
+            modelId = arrayId[index]
+            break
+        case "YEARS":
+            yearTextView.text = arrayItems[index]
+            yearsId = arrayId[index]
+            break
+        case "INTERIOR":
+            interiorTextView.text = arrayInterior[index]
+            interiorId = arrayInterior[index]
+            break
+        case "CARBODY":
+            carBodyTextVIew.text = arrayCarBodie[index]
+            carBodyId = arrayCarBodie[index]
+            break
+        case "CARCOLOR":
+            carColorTextView.text = arrayCarColor[index]
+            carColorId = arrayCarColor[index]
+            break
+        default:
+            break
         }
     }
 //    func textFieldDidEndEditing(_ textField: UITextField) {
@@ -409,21 +445,38 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
 //        }else if currentTextField == carColorTextView{
 //        }
 //    }
+    func showDialogItem(selectionItem: [String?], selectionCategory: String) {
+       
+        
+        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "createCarDialog") as! CreateCarDialog
+        customAlert.providesPresentationContextTransitionStyle = true
+        customAlert.definesPresentationContext = true
+        customAlert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        customAlert.delegate = self
+        customAlert.selectonItem = selectionItem
+        customAlert.selectionCategory = selectionCategory
+//        transitionVc(vc: customAlert, duration: 0.1, type: .fromTop)
+                self.present(customAlert, animated: true, completion: nil)
+        
+    }
     func textFieldDidBeginEditing(_ textField: UITextField) {
 
 
-        self.picker.delegate = self
-        self.picker.dataSource = self
-        self.picker.backgroundColor = .white
-//        self.currentTextField.inputAccessoryView = toolBar
+//        self.picker.delegate = self
+//        self.picker.dataSource = self
+//        self.picker.backgroundColor = .white
+////        self.currentTextField.inputAccessoryView = toolBar
         currentTextField = textField
-        currentTextField.addDoneCancelToolbar()
+//        currentTextField.addDoneCancelToolbar()
         if currentTextField == brandsTextView{
             if brandsTextView.text != ""{
                 getCarBrands()
             }
-            currentTextField.inputView = picker
-
+//            currentTextField.inputView = picker
+            if brandsTextView.text?.count == 0{
+                self.showDialogItem(selectionItem: self.arrayItems, selectionCategory: "BRANDS")
+            }
             self.modelTextView.isEnabled = true
             self.yearTextView.isEnabled = false
             self.interiorTextView.isEnabled = false
@@ -440,9 +493,14 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
             self.regNumberTextView.text?.removeAll()
             self.otherTextView.text?.removeAll()
         }else if currentTextField == modelTextView{
+            guard self.brandsId != nil else{
+                 self.brandsTextView.becomeFirstResponder()
+                return
+            }
             getCwarModels(brandId: self.brandsId!)
            
-            currentTextField.inputView = picker
+//            currentTextField.inputView = picker
+            
             self.modelTextView.isEnabled = true
             self.yearTextView.isEnabled = true
             self.interiorTextView.isEnabled = false
@@ -459,7 +517,12 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
             self.otherTextView.text?.removeAll()
         }else if currentTextField == yearTextView{
             getCarYears()
-            currentTextField.inputView = picker
+            if arrayInteriors.count == 0{
+                getFilters()
+            }
+//            currentTextField.inputView = picker
+            
+            
             self.modelTextView.isEnabled = true
             self.yearTextView.isEnabled = true
             self.interiorTextView.isEnabled = true
@@ -474,7 +537,10 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
             self.regNumberTextView.text?.removeAll()
             self.otherTextView.text?.removeAll()
         }else if currentTextField == interiorTextView{
-            currentTextField.inputView = picker
+           
+//            currentTextField.inputView = picker
+            
+            showDialogItem(selectionItem: arrayInterior, selectionCategory: "INTERIOR")
             self.modelTextView.isEnabled = true
             self.yearTextView.isEnabled = true
             self.interiorTextView.isEnabled = true
@@ -488,7 +554,9 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
             self.regNumberTextView.text?.removeAll()
             self.otherTextView.text?.removeAll()
         }else if currentTextField == carBodyTextVIew{
-            currentTextField.inputView = picker
+//            currentTextField.inputView = picker
+            
+            showDialogItem(selectionItem: arrayCarBodie, selectionCategory: "CARBODY")
             self.modelTextView.isEnabled = true
             self.yearTextView.isEnabled = true
             self.interiorTextView.isEnabled = true
@@ -501,7 +569,9 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
             self.regNumberTextView.text?.removeAll()
             self.otherTextView.text?.removeAll()
         }else if currentTextField == carColorTextView{
-            currentTextField.inputView = picker
+//            currentTextField.inputView = picker
+            
+            showDialogItem(selectionItem: arrayCarColor, selectionCategory: "CARCOLOR")
             self.modelTextView.isEnabled = true
             self.yearTextView.isEnabled = true
             self.interiorTextView.isEnabled = true
@@ -590,4 +660,9 @@ class CreateCar: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
             self.picker.reloadAllComponents()
         }
     }
+    func Dismiss(index: Int, selectionCategory: String) {
+        setSelectedItem(index: index, selectedCategory: selectionCategory)
+    }
+    
+   
 }

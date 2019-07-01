@@ -41,6 +41,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     self.imageScroll.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
         }
     }
+    @IBOutlet weak var isWorkLable: UILabel!
     @IBOutlet weak var commentsTable: UITableView!
     @IBOutlet weak var statusLable: UILabel!
     @IBOutlet weak var headerView: UIView!
@@ -77,6 +78,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         if carWashInfo?.media?.count == 0 {
             imageScroll.visiblity(gone: true)
         }
+        timeShow()
                 // Do any additional setup after loading the view.
         
     }
@@ -237,7 +239,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     }
     override func viewDidAppear(_ animated: Bool) {
         guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
             
             self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
@@ -259,11 +261,11 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         infoTask.infoDescriptor = infoDesc
         
         
-        let leftDesc = LabelDescriptor(for: "Чтобы добавить коментарий нажмите сюда")
-        leftDesc.position = .bottom
-        let leftHoleDesc = HoleViewDescriptor(view: addCommentsBtn, type: .rect(cornerRadius: 5, margin: 10))
-        leftHoleDesc.labelDescriptor = leftDesc
-        let rightLeftTask = PassthroughTask(with: [leftHoleDesc])
+//        let leftDesc = LabelDescriptor(for: "Чтобы добавить коментарий нажмите сюда")
+//        leftDesc.position = .bottom
+//        let leftHoleDesc = HoleViewDescriptor(view: addCommentsBtn, type: .rect(cornerRadius: 5, margin: 10))
+//        leftHoleDesc.labelDescriptor = leftDesc
+//        let rightLeftTask = PassthroughTask(with: [leftHoleDesc])
         
         
         let leftDesc1 = LabelDescriptor(for: "Чтобы перейти к услугам нажмите сюда")
@@ -281,7 +283,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         
         
         
-        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask, rightLeftTask1, rightLeftTask2]) {
+        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask1, rightLeftTask2]) {
             isUserSkipDemo in
             
             print("isUserSkipDemo: \(isUserSkipDemo)")
@@ -297,6 +299,48 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         customAlert.delegate = self
         self.present(customAlert, animated: true, completion: nil)
     }
-    
+    func timeShow(){
+            var nowDay = ""
+            let timeDate = Date().dayNumberOfWeek()
+            switch timeDate{
+            case 3:
+                nowDay = "TUESDAY"
+                break
+            case 5:
+                nowDay = "THURSDAY"
+                break
+            case 2:
+                nowDay = "MONDAY"
+                break
+            case 7:
+                nowDay = "SATURDAY"
+                break
+            case 1:
+                nowDay = "SUNDAY"
+                break
+            case 6:
+                nowDay = "FRIDAY"
+                break
+            case 4:
+                nowDay = "WEDNESDAY"
+                break
+            default:
+                break
+            }
+        
+        for day in (carWashInfo?.workTimes)! {
+            if day.isWork! == true , day.dayOfWeek! == nowDay{
+                let timeNow = self.utils.currentTimeInMiliseconds(timeZone: (self.carWashInfo?.timeZone)!)
+                if timeNow > day.from!, timeNow < day.to!{
+                    isWorkLable.text = "работает"
+                    isWorkLable.textColor = #colorLiteral(red: 0, green: 0.5603182912, blue: 0, alpha: 1)
+                }else{
+                    isWorkLable.text = "закрыто"
+                    isWorkLable.textColor = .red
+                }
+                
+            }
+        }
+    }
    
 }

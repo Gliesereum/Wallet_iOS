@@ -413,7 +413,7 @@ class Utils {
         
             vc.view.endEditing(true)
             
-        vc.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: vc.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
+            vc.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: vc.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
             vc.sideMenuViewController!.hideMenuViewController()
             SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
 //            TinyToast.shared.show(message: "Нет связи с сервером", valign: .bottom, duration: .normal)

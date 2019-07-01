@@ -59,6 +59,8 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         packetServiceTable.rowHeight = UITableView.automaticDimension
         packetServiceTable.allowsMultipleSelection = true
         packetServiceTable.allowsMultipleSelectionDuringEditing = true
+            
+//            packetServiceTable.bottomAnchor.constraint(equalTo:self.view.centerYAnchor, constant:-7).isActive=true
         
         serviceTable.rowHeight = UITableView.automaticDimension
         serviceTable.allowsMultipleSelection = true
@@ -235,7 +237,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
                 self.stopAnimating()
                 return
             }
-            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "ordersTableViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "ordersTableViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
             
             self.stopAnimating()
@@ -269,7 +271,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         
 //        utils.checkPushNot(vc: self)
         guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
             
             self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
@@ -352,7 +354,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
             UserDefaults.standard.removeObject(forKey: "OBJECTID")
         let restUrl = constants.startUrl + "karma/v1/record/\(pushRecordId)"
             guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-                self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
                 self.sideMenuViewController!.hideMenuViewController()
                 stopAnimating()
                 return
