@@ -7,42 +7,59 @@
 //
 
 import UIKit
-import AKSideMenu
+//import AKSideMenu
 
-public class RootViewController: AKSideMenu, AKSideMenuDelegate {
+//public class RootViewController: AKSideMenu, AKSideMenuDelegate {
+
+public class RootViewController: SideMenu, SideMenuDelegate {
 
     override public func awakeFromNib() {
-        super.awakeFromNib()
-        self.menuPreferredStatusBarStyle = .lightContent
-        self.contentViewShadowColor = .black
-        self.contentViewShadowOffset = CGSize(width: 0, height: 0)
-        self.contentViewShadowOpacity = 0.6
-        self.contentViewShadowRadius = 12
+//        super.awakeFromNib()
+//        self.menuPreferredStatusBarStyle = .lightContent
+//        self.contentViewShadowColor = .black
+//        self.contentViewShadowOffset = CGSize(width: 0, height: 0)
+//        self.contentViewShadowOpacity = 0.6
+//        self.contentViewShadowRadius = 12
+//        self.contentViewShadowEnabled = true
+        self.menuPreferredStatusBarStyle = UIStatusBarStyle.lightContent
         self.contentViewShadowEnabled = true
+        self.scaleMenuView = false
+        self.scaleContentView = false
+        self.scaleBackgroundImageView = false
+        self.contentViewInPortraitOffsetCenterX = 120
+        self.contentViewInLandscapeOffsetCenterX = 240
 
         self.delegate = self
 
-        if let storyboard = self.storyboard {
+//        if let storyboard = self.storyboard {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil);
             self.contentViewController = storyboard.instantiateViewController(withIdentifier: "contentViewController")
             self.leftMenuViewController = storyboard.instantiateViewController(withIdentifier: "leftMenuViewController")
-        }
+//        }
+//        let mainSB = UIStoryboard(name: "Main", bundle: nil);
+//        self.contentViewController = mainSB.instantiateInitialViewController()
+//
+//        // Side Menu
+//        let sideMenuSB = UIStoryboard(name: "SideMenu", bundle: nil);
+//        self.leftMenuViewController = sideMenuSB.instantiateViewController(withIdentifier: "LeftTableNavigationController")
+        self.rightMenuViewController = nil;
     }
 
     // MARK: - <AKSideMenuDelegate>
 
-    public func sideMenu(_ sideMenu: AKSideMenu, willShowMenuViewController menuViewController: UIViewController) {
+    public func sideMenu(sideMenu: SideMenu, willShowMenuViewController menuViewController: UIViewController) {
         print("willShowMenuViewController")
     }
 
-    public func sideMenu(_ sideMenu: AKSideMenu, didShowMenuViewController menuViewController: UIViewController) {
+    public func sideMenu(sideMenu: SideMenu, didShowMenuViewController menuViewController: UIViewController) {
         print("didShowMenuViewController")
     }
 
-    public func sideMenu(_ sideMenu: AKSideMenu, willHideMenuViewController menuViewController: UIViewController) {
+    public func sideMenu(sideMenu: SideMenu, willHideMenuViewController menuViewController: UIViewController) {
         print("willHideMenuViewController")
     }
 
-    public func sideMenu(_ sideMenu: AKSideMenu, didHideMenuViewController menuViewController: UIViewController) {
+    public func sideMenu(sideMenu: SideMenu, didHideMenuViewController menuViewController: UIViewController) {
         print("didHideMenuViewController")
     }
 }
@@ -122,6 +139,11 @@ extension UIImageView {
         let radius = self.frame.width / 2
         self.layer.cornerRadius = radius
         self.layer.masksToBounds = true
+    }
+}
+extension Date {
+    func dayNumberOfWeek() -> Int? {
+        return Calendar.current.dateComponents([.weekday], from: self).weekday
     }
 }
 
