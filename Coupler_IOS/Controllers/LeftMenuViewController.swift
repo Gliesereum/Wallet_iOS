@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 public class LeftMenuViewController: UIViewController{
     @IBOutlet weak var carList: UIButton!
@@ -35,6 +36,8 @@ public class LeftMenuViewController: UIViewController{
     
     
     let utils = Utils()
+    
+    let constants = Constants()
     var userAvatar = ""
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -81,12 +84,7 @@ public class LeftMenuViewController: UIViewController{
         exitBtn.isHidden = true
         exitBtn.isEnabled = false
         self.sideMenuViewController!.hideMenuViewController()
-        UserDefaults.standard.removeObject(forKey: "accessToken")
-        UserDefaults.standard.removeObject(forKey: "refreshToken")
-        UserDefaults.standard.removeObject(forKey: "CARID")
-        UserDefaults.standard.removeObject(forKey: "USERAVATAR")
-        UserDefaults.standard.removeObject(forKey: "USER")
-        
+        deleteToken()
         self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
         return
@@ -106,7 +104,7 @@ public class LeftMenuViewController: UIViewController{
         }
    
         changeButton(button: carList)
-        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
+        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController1")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
     
@@ -288,5 +286,21 @@ public class LeftMenuViewController: UIViewController{
 //        }
 //    }
     
-    
+    func deleteToken(){
+        let token = utils.getSharedPref(key: "REGISTRATIONTOKEN")
+        let restUrl = constants.startUrl + "notification/v1/user-device?registrationToken=\(token!)"
+        Alamofire.request(restUrl, method: .delete, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
+            guard self.utils.checkResponse(response: response, vc: self) == true else{
+                return
+            }
+            
+            UserDefaults.standard.removeObject(forKey: "accessToken")
+            UserDefaults.standard.removeObject(forKey: "refreshToken")
+            UserDefaults.standard.removeObject(forKey: "CARID")
+            UserDefaults.standard.removeObject(forKey: "USERAVATAR")
+            UserDefaults.standard.removeObject(forKey: "USER")
+            UserDefaults.standard.removeObject(forKey: "REGISTRATIONTOKEN")
+        
+        }
+    }
 }

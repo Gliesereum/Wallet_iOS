@@ -322,6 +322,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
     func setFireBaseToken(token: String, userId: String, accessToken: String){
         startAnimating()
         print(token)
+        utils.setSaredPref(key: "REGISTRATIONTOKEN", value: token)
         let restUrl = constants.startUrl + "notification/v1/user-device"
 //        let userSubscribe = [String: Any]()
         var destination = [UserPushNot]()
