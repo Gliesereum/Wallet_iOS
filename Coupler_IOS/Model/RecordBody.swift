@@ -549,6 +549,34 @@ extension Business {
         return String(data: try self.jsonData(), encoding: encoding)
     }
 }
+class BusinessCategory: Codable {
+    let id: String?
+    let code: String?
+    let name: String?
+    let businessCategoryDescription: String?
+    let imageURL: String?
+    let businessType: String?
+    let active: Bool?
+    let orderIndex: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case id, code, name
+        case businessCategoryDescription = "description"
+        case imageURL = "imageUrl"
+        case businessType, active, orderIndex
+    }
+    
+    init(id: String?, code: String?, name: String?, businessCategoryDescription: String?, imageURL: String?, businessType: String?, active: Bool?, orderIndex: Int?) {
+        self.id = id
+        self.code = code
+        self.name = name
+        self.businessCategoryDescription = businessCategoryDescription
+        self.imageURL = imageURL
+        self.businessType = businessType
+        self.active = active
+        self.orderIndex = orderIndex
+    }
+}
 
 // MARK: - BusinessCategory
 //class BusinessCategory: Codable {

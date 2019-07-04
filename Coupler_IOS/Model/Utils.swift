@@ -593,6 +593,27 @@ class Utils {
 //        formatter.dateFormat = "hh:mm aa dd/MM/YYYY"
 //        return formatter.string(from: date as Date)
 //    }
-
+    
+    //Set CarWashMarker to Shared Preferens
+    func setBusinesList(key: String, value: CarWashMarker) {
+        let userDefaults = UserDefaults.standard
+        if let data = try? JSONEncoder().encode(value) {
+            UserDefaults.standard.set(data, forKey: key)
+            
+            userDefaults.synchronize()
+        }
+        
+    }
+    
+    //Get CarWashMarker from Shared Preferens
+    func getBusinesList(key: String) -> CarWashMarker? {
+        
+        if let data = UserDefaults.standard.value(forKey: key) as? Data,
+            let configuration = try? JSONDecoder().decode(CarWashMarker.self, from: data) {
+            return configuration
+        }else{
+        return nil
+        }
+    }
 }
 

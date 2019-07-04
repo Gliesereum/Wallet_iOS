@@ -100,7 +100,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         } catch{
             
         }
-        
+        if utils.getBusinesList(key: "BUSINESSLIST") != nil{
+            setBusinesMarker()
+        }
         getAllCars()
 //
         // Set up the cluster manager with the supplied icon generator and
@@ -165,37 +167,79 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         }
         startAnimating()
         
-        self.mapView.clear()
-        let restUrl = constants.startUrl + "karma/v1/business/search"
+        let restUrl = constants.startUrl + "karma/v1/business/search/document"
         let parameters = try! JSONEncoder().encode(filterBody)
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
-        Alamofire.request(restUrl, method: .post,parameters: params, encoding: JSONEncoding.default).responseJSON { response  in
-            guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
-                return
-            }
-            do{
-                
-                let responseBody = try JSONDecoder().decode(CarWashMarker.self, from: response.data!)
-                self.mapView.clear()
-//                if self.carWoshInfos === responseBody {
-//                    self.carWoshInfos = responseBody
-                for carWash: CarWashMarkerElement in responseBody{
-                        if carWash.logoURL != nil {
-                       
-                            self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: carWash.logoURL!, buisness: (carWash.businessCategory?.id)!)
-                        }else {
-                            self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: "", buisness: (carWash.businessCategory?.id)!)
-                        }
-                    }
-//                }
-            }
-            catch{
-                
-                print(error)
+        if  self.utils.getSharedPref(key: "accessToken") != nil{
+            let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
+            Alamofire.request(restUrl, method: .post,parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
+                guard self.utils.checkResponse(response: response, vc: self) == true else{
+                    self.stopAnimating()
+                    return
                 }
-          
-             self.stopAnimating()
+                do{
+                    let businessList = self.utils.getBusinesList(key: "BUSINESSLIST")
+                    
+                    let responseBody = try JSONDecoder().decode(CarWashMarker.self, from: response.data!)
+                    if self.utils.getBusinesList(key: "BUSINESSLIST") != nil{
+                        if (businessList! == responseBody){
+                            
+                        }else{
+                            self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
+                            self.setBusinesMarker()
+                        }
+                    }else{
+                        self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
+                        self.setBusinesMarker()
+                    }
+                   
+                }
+                catch{
+                    
+                    print(error)
+                }
+                
+                self.stopAnimating()
+            }
+        }else {
+            Alamofire.request(restUrl, method: .post,parameters: params, encoding: JSONEncoding.default).responseJSON { response  in
+                guard self.utils.checkResponse(response: response, vc: self) == true else{
+                    self.stopAnimating()
+                    return
+                }
+                do{
+                    let businessList = self.utils.getBusinesList(key: "BUSINESSLIST")
+                    
+                    let responseBody = try JSONDecoder().decode(CarWashMarker.self, from: response.data!)
+                    if (businessList! == responseBody){
+                        
+                    }else{
+                        self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
+                        self.setBusinesMarker()
+                    }
+                }
+                catch{
+                    
+                    print(error)
+                }
+                
+                self.stopAnimating()
+            }
+        }
+        
+    }
+    func setBusinesMarker(){
+        let businessList = self.utils.getBusinesList(key: "BUSINESSLIST")
+        self.mapView.clear()
+        //                if self.carWoshInfos === responseBody {
+        //                    self.carWoshInfos = responseBody
+        for carWash: CarWashMarkerElement in businessList!{
+            if carWash.logoURL != nil {
+                
+                self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: carWash.logoURL!, buisness: (carWash.businessCategoryID)!)
+            }else {
+                self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: "", buisness: (carWash.businessCategoryID)!)
+            }
         }
     }
     

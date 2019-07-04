@@ -234,11 +234,15 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
         //        cell.imageView.image = UIImage(named: item.image)
         
         //        loadCar.updateValue(item, forKey: item.carId!)
-        utils.setBorder(view: cell.selectBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 1, cornerRadius: 4)
-         utils.setBorder(view: cell.informationBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 1, cornerRadius: 4)
+        utils.setBorder(view: cell.falseSelectBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 2, cornerRadius: 4)
+         utils.setBorder(view: cell.flaseInformationBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 2, cornerRadius: 4)
         //        cell.imageView.image = utils.getImageFromSVG(name: "MustCarCardVector")
         cell.carInfoLable.text = item.carBrand! + " " + item.carModel! + " " + item.carNumber!
         cell.carId.text = item.carId
+        
+        cell.selectBtn.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+         utils.setBorder(view: cell.informationBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 2, cornerRadius: 4)
+        cell.informationBtn.titleLabel?.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
 //        self.idCar = item.carId!
 //        carImage = "MustCarCardVector"
 //        carIdLable = item.carId!
@@ -261,14 +265,12 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cels = cell as! CarLisrCell
         if cell.isSelected{
-            cels.selectBtn.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
-            cels.informationBtn.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            cels.informationBtn.titleLabel?.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
-        } else {
             
-            cels.selectBtn.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 0)
-            cels.informationBtn.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 0)
-            cels.informationBtn.titleLabel?.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            cels.falseSelectBtn.isHidden = true
+            cels.flaseInformationBtn.isHidden = true
+            cels.selectBtn.isHidden = false
+            cels.informationBtn.isHidden = false
+        } else {
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -280,10 +282,11 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
         //        sumPrice = priceArray.reduce(0, +)
         //        allPrice.text = "💵" + String(sumPrice) + " грн."
         UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
-            cell.selectBtn.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
-            cell.informationBtn.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            cell.informationBtn.titleLabel?.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
-            
+            cell.falseSelectBtn.isHidden = true
+            cell.flaseInformationBtn.isHidden = true
+            cell.selectBtn.isHidden = false
+            cell.informationBtn.isHidden = false
+
         }, completion:nil)
         
     }
@@ -291,9 +294,11 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "carLisrCell", for: indexPath) as! CarLisrCell
         UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
-            cell.selectBtn.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 0)
-            cell.informationBtn.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 0)
-            cell.informationBtn.titleLabel?.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            
+            cell.falseSelectBtn.isHidden = false
+            cell.flaseInformationBtn.isHidden = false
+            cell.selectBtn.isHidden = true
+            cell.informationBtn.isHidden = true
             
         }, completion:nil)
     }

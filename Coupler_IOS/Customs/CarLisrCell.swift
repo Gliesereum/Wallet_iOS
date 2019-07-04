@@ -14,6 +14,7 @@ import MaterialComponents
 
 class CarLisrCell: UITableViewCell {
     
+    @IBOutlet weak var favoriteImage: UIImageView!
     @IBOutlet weak var carId: UILabel!
     @IBOutlet weak var carInfoLable: UILabel!
     @IBOutlet weak var informationBtn: MDCButton!
@@ -21,4 +22,6 @@ class CarLisrCell: UITableViewCell {
     @IBOutlet weak var selectedLable: UILabel!
     @IBOutlet weak var selectImage: UIImageView!
     @IBOutlet weak var carImage: UIImageView!
+    @IBOutlet weak var falseSelectBtn: MDCButton!
+    @IBOutlet weak var flaseInformationBtn: MDCButton!
 }

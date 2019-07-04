@@ -4045,6 +4045,36 @@
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </imageView>
+                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yub-49-bBo" customClass="MDCButton">
+                                                                    <rect key="frame" x="198.66666666666663" y="145" width="147.33333333333337" height="56"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="56" id="u6E-zi-lab"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="16"/>
+                                                                    <state key="normal" title="Выбрать">
+                                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                            <integer key="value" value="4"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKT-es-u1m" customClass="MDCButton">
+                                                                    <rect key="frame" x="36" y="145" width="147.66666666666666" height="56"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="56" id="UkT-kU-wat"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="16"/>
+                                                                    <state key="normal" title="Информация">
+                                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                            <integer key="value" value="4"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </button>
                                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGW-o9-cjC">
                                                                     <rect key="frame" x="20" y="87" width="42" height="20"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -4052,7 +4082,7 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5b-eP-Bxn" customClass="MDCButton">
+                                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5b-eP-Bxn" customClass="MDCButton">
                                                                     <rect key="frame" x="198.66666666666663" y="145" width="147.33333333333337" height="56"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="56" id="YYq-KQ-RdX"/>
@@ -4067,7 +4097,7 @@
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9AG-hD-ALM" customClass="MDCButton">
+                                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9AG-hD-ALM" customClass="MDCButton">
                                                                     <rect key="frame" x="36" y="145" width="147.66666666666666" height="56"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="56" id="6eV-Dz-egN"/>
@@ -4101,14 +4131,25 @@
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checked_v1" translatesAutoresizingMaskIntoConstraints="NO" id="p0R-Zx-mWK">
+                                                                    <rect key="frame" x="344" y="16.000000000000014" width="22" height="22"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="22" id="eHf-yX-jjI"/>
+                                                                        <constraint firstAttribute="height" constant="22" id="p9V-pQ-bPS"/>
+                                                                    </constraints>
+                                                                </imageView>
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="L8r-g2-tsW" firstAttribute="top" secondItem="WaW-rs-spY" secondAttribute="bottom" constant="2" id="2Cv-vo-73x"/>
                                                                 <constraint firstItem="EyH-KJ-nu7" firstAttribute="top" secondItem="ssm-0x-vu3" secondAttribute="top" constant="16" id="9TQ-er-t7c"/>
+                                                                <constraint firstAttribute="trailingMargin" secondItem="yub-49-bBo" secondAttribute="trailing" constant="16" id="CqQ-Mi-em2"/>
+                                                                <constraint firstAttribute="trailing" secondItem="p0R-Zx-mWK" secondAttribute="trailing" constant="16" id="DO9-iD-VvQ"/>
                                                                 <constraint firstItem="9AG-hD-ALM" firstAttribute="leading" secondItem="ssm-0x-vu3" secondAttribute="leadingMargin" constant="16" id="ESH-yf-a4b"/>
                                                                 <constraint firstItem="oyR-DP-dnX" firstAttribute="leading" secondItem="ssm-0x-vu3" secondAttribute="leading" id="LBD-V2-mNu"/>
                                                                 <constraint firstItem="H5b-eP-Bxn" firstAttribute="leading" secondItem="9AG-hD-ALM" secondAttribute="trailing" constant="15" id="LIq-Dh-90O"/>
                                                                 <constraint firstAttribute="bottomMargin" secondItem="9AG-hD-ALM" secondAttribute="bottom" constant="16" id="W8w-qS-FZQ"/>
+                                                                <constraint firstItem="p0R-Zx-mWK" firstAttribute="top" secondItem="ssm-0x-vu3" secondAttribute="top" constant="16" id="X48-Uy-5dJ"/>
+                                                                <constraint firstItem="yub-49-bBo" firstAttribute="leading" secondItem="KKT-es-u1m" secondAttribute="trailing" constant="15" id="Zpp-PW-dcf"/>
                                                                 <constraint firstAttribute="bottom" secondItem="oyR-DP-dnX" secondAttribute="bottom" id="Zyp-Yd-OGU"/>
                                                                 <constraint firstAttribute="trailing" secondItem="EyH-KJ-nu7" secondAttribute="trailing" constant="16" id="bda-sk-skM"/>
                                                                 <constraint firstAttribute="trailing" secondItem="oyR-DP-dnX" secondAttribute="trailing" id="fio-jX-hNj"/>
@@ -4119,12 +4160,17 @@
                                                                 <constraint firstAttribute="bottomMargin" secondItem="H5b-eP-Bxn" secondAttribute="bottom" constant="16" id="ukG-I3-1GE"/>
                                                                 <constraint firstItem="H5b-eP-Bxn" firstAttribute="width" secondItem="9AG-hD-ALM" secondAttribute="width" id="w4f-ec-Gp4"/>
                                                                 <constraint firstAttribute="trailingMargin" secondItem="H5b-eP-Bxn" secondAttribute="trailing" constant="16" id="wyG-tM-SJr"/>
+                                                                <constraint firstItem="yub-49-bBo" firstAttribute="width" secondItem="KKT-es-u1m" secondAttribute="width" id="yxY-r8-JsW"/>
+                                                                <constraint firstItem="KKT-es-u1m" firstAttribute="leading" secondItem="ssm-0x-vu3" secondAttribute="leadingMargin" constant="16" id="z0Q-2D-ME1"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
                                                             <outlet property="carId" destination="VGW-o9-cjC" id="B0e-rl-diU"/>
                                                             <outlet property="carImage" destination="oyR-DP-dnX" id="49D-il-nCS"/>
                                                             <outlet property="carInfoLable" destination="WaW-rs-spY" id="Hv7-2U-Gbq"/>
+                                                            <outlet property="falseSelectBtn" destination="yub-49-bBo" id="0c1-WX-xug"/>
+                                                            <outlet property="favoriteImage" destination="p0R-Zx-mWK" id="EmR-vR-PFV"/>
+                                                            <outlet property="flaseInformationBtn" destination="KKT-es-u1m" id="42Z-KP-YdX"/>
                                                             <outlet property="informationBtn" destination="9AG-hD-ALM" id="QeX-MW-m6w"/>
                                                             <outlet property="selectBtn" destination="H5b-eP-Bxn" id="nSe-ff-HVM"/>
                                                             <outlet property="selectImage" destination="EyH-KJ-nu7" id="AG4-Dw-l8h"/>
@@ -4205,6 +4251,7 @@
         <image name="arrow-right" width="100" height="100"/>
         <image name="car-24pxblack" width="24" height="24"/>
         <image name="carImage" width="2048" height="1360"/>
+        <image name="checked_v1" width="22" height="22"/>
         <image name="client_logo_group_work" width="128" height="172"/>
         <image name="clockIcon" width="25" height="25"/>
         <image name="delete_Icon" width="28" height="28"/>
