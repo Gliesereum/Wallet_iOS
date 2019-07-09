@@ -104,7 +104,7 @@ public class LeftMenuViewController: UIViewController{
         }
    
         changeButton(button: carList)
-        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController1")), animated: true)
+        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
     

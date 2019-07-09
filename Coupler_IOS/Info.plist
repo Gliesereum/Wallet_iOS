@@ -23,7 +23,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.2</string>
 	<key>CFBundleVersion</key>
-	<string>12</string>
+	<string>13</string>
 	<key>LSApplicationCategoryType</key>
 	<string>Coupler</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -41,6 +41,10 @@
 	<string>This app wants to take current location to show in the map</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app wants to use your photos to set avatar</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SF-Pro-Text-Light.otf</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
@@ -72,9 +76,5 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>SF-Pro-Text-Light.otf</string>
-	</array>
 </dict>
 </plist>

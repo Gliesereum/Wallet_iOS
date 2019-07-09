@@ -51,7 +51,7 @@ class SelectedCarInfo: NSObject, NSCoding {
 }
 
 
-class CarListViewController: UIViewController, NVActivityIndicatorViewable{
+class CarListViewController1: UIViewController, NVActivityIndicatorViewable{
     var carImage: String?
     var carIdLable : String?
     var carInfoLable : String?
@@ -172,7 +172,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable{
         super.didReceiveMemoryWarning()
     }
 }
-extension CarListViewController : UICollectionViewDataSource {
+extension CarListViewController1 : UICollectionViewDataSource {
     
     @objc func selectCar() {
         let index = self.pageHorizontalView.collectionView.indexPathsForVisibleItems

@@ -9,11 +9,18 @@
 import UIKit
 import Alamofire
 import RSSelectionMenu
+import MaterialComponents
 
-class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewable, CreateCarDialogDismissDelegate{
+class ClassServicCell: UITableViewCell{
+    @IBOutlet weak var servicesName: UILabel!
+    @IBOutlet weak var servicesId: UILabel!
+    @IBOutlet weak var checkImage: UIImageView!
     
-    
-    
+}
+
+
+class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewable, CreateCarDialogDismissDelegate, UITableViewDelegate, UITableViewDataSource{
+   
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var brandsTextView: UITextField!
     @IBOutlet weak var modelTextView: UITextField!
@@ -23,11 +30,17 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
     @IBOutlet weak var carColorTextView: UITextField!
     @IBOutlet weak var regNumberTextView: UITextField!
     @IBOutlet weak var otherTextView: UITextField!
-    @IBOutlet weak var selectedClassServices: UITextField!
+//    @IBOutlet weak var selectedClassServices: UITextField!
+    @IBOutlet weak var whellRadius: UITextField!
+    @IBOutlet weak var addCarBrnView: MDCButton!
+    @IBOutlet weak var classServicesTable: UITableView!
+    @IBOutlet weak var deleteCarImage: UIButton!
     
     let constants = Constants()
     let utils = Utils()
+    var classServices = [CarClassService]()
     var currentTextField = UITextField()
+    var selectedCar: AllCarListElement?
     var picker = UIPickerView()
     var arrayItems: [String] = []
     var arrayId: [String] = []
@@ -35,17 +48,79 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
     var arrayClassServicesId: [String] = []
     var arrayInterior: [String] = []
     var arrayCarBodie: [String] = []
+    var arrayRadius: [String] = []
     var arrayCarColor: [String] = []
     var arrayInteriors: [String : String] = [:]
+    var arrayRadiusWheel: [String : String] = [:]
     var arrayCarBodies: [String : String] = [:]
     var arrayCarColors: [String : String] = [:]
-    var brandsId, modelId, yearsId, interiorId, carBodyId, carColorId, carServiceId: String?
+    var brandsId, modelId, yearsId, interiorId, carBodyId, carColorId, carServiceId, whellRadiusId: String?
     var openVC: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         getCarBrands()
+        getFilters()
+        getClassServices()
+        
+        classServicesTable.tableFooterView = UIView()
+        classServicesTable.rowHeight = UITableView.automaticDimension
+        self.definesPresentationContext = true
+        regNumberTextView.addDoneCancelToolbar()
+        otherTextView.addDoneCancelToolbar()
+        if selectedCar != nil{
+            deleteCarImage.isHidden = false
+            deleteCarImage.isEnabled = true
+            brandsTextView.isEnabled = false
+            addCarBrnView.setTitle("Сохранить", for: .normal)
+            brandsTextView.text = selectedCar?.brand?.name
+            brandsId = selectedCar?.brandID
+            modelTextView.isEnabled = false
+            modelTextView.text = selectedCar?.model?.name
+            modelId = selectedCar?.modelID
+            yearTextView.isEnabled = false
+            yearTextView.text = "\(selectedCar?.year?.name)"
+            yearsId = selectedCar?.yearID
+            for atribut in (selectedCar?.attributes)!{
+                if atribut.filterID == "0ef64c98-767b-42ba-a9de-171c6d455fff" {
+                    
+                    interiorTextView.isEnabled = true
+                    interiorTextView.text = atribut.title
+                    interiorId = atribut.id
+                }
+                if atribut.filterID == "b8d3f705-6277-44cb-a5b1-0ded8e19e691" {
+                    
+                    carColorTextView.isEnabled = true
+                    carColorTextView.text = atribut.title
+                    carColorId = atribut.id
+                }
+                if atribut.filterID == "b62b2fef-17cc-4a9b-b076-9055b26137c4" {
+                    
+                    carBodyTextVIew.isEnabled = true
+                    carBodyTextVIew.text = atribut.title
+                    carBodyId = atribut.id
+                }
+                if atribut.filterID == "ad2d57da-b0a1-4cc8-a6be-4786589df53c" {
+                    whellRadius.isEnabled = true
+                    whellRadius.text = atribut.title
+                    whellRadiusId = atribut.id
+                }
+            }
+            if let regNumber = selectedCar?.registrationNumber{
+                regNumberTextView.text = regNumber
+            }
+            if let otherText = selectedCar?.description{
+                otherTextView.text = otherText
+            }
+            for service in (selectedCar?.services)!{
+                arrayClassServices.append(service.name!)
+            }
+//            self.selectedClassServices.text = self.arrayClassServices.joined(separator: ",")
+            regNumberTextView.isEnabled = true
+            otherTextView.isEnabled = true
+            self.view.endEditing(true)
+        }else{
         modelTextView.isEnabled = false
         yearTextView.isEnabled = false
         interiorTextView.isEnabled = false
@@ -53,9 +128,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
         carColorTextView.isEnabled = false
         regNumberTextView.isEnabled = false
         otherTextView.isEnabled = false
-        regNumberTextView.addDoneCancelToolbar()
-        otherTextView.addDoneCancelToolbar()
-        getFilters()
+        }
         
        
         // Do any additional setup after loading the view.
@@ -82,7 +155,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
                     self.arrayItems.append(carBrandsListElement.name!)
                     self.arrayId.append(carBrandsListElement.id!)
                 }
-                if self.brandsTextView.text != ""{
+                if self.brandsTextView.text!.isEmpty{
                     self.showDialogItem(selectionItem: self.arrayItems, selectionCategory: "BRANDS")
                 }
                 
@@ -166,7 +239,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 
     func getFilters(){
 //        startAnimating()
-        let restUrl = constants.startUrl + "karma/v1/filter/by-business-category"
+        let restUrl = constants.startUrl + "karma/v1/filter/by-business-type"
         guard UserDefaults.standard.object(forKey: "BUISNESSID") != nil else{
             self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "businessTableViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
@@ -174,7 +247,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 //            stopAnimating()
             return
         }
-        let toDo: [String: Any]  = ["businessCategoryId": UserDefaults.standard.object(forKey: "BUISNESSID")!]
+        let toDo: [String: Any]  = ["businessType":"CAR"]
         Alamofire.request(restUrl, method: .get, parameters: toDo, encoding: URLEncoding(destination: .queryString)).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
 //                self.stopAnimating()
@@ -212,6 +285,13 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
                             self.arrayCarBodie.append(title.title!)
                         }
                         break
+                    case "CAR_WHEEL_RADIUS":
+                        
+                        for title in filterBodyElement.attributes!{
+                            self.arrayRadiusWheel.updateValue(title.id!, forKey: title.title!)
+                            self.arrayRadius.append(title.title!)
+                        }
+                        break
                     default:
                         break
                     }
@@ -241,43 +321,45 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             }
             do{
                 let carClassServices = try JSONDecoder().decode(CarClassServices.self, from: response.data!)
-                var carServicesClass:[String: String] = [:]
-                var carServicesClassNames:[String] = []
+                self.classServices = carClassServices
+                self.classServicesTable.reloadData()
+//                var carServicesClass:[String: String] = [:]
+//                var carServicesClassNames:[String] = []
 
                 //
                 //            var listClassServices = [ClassServices]()
                 //            var selectedClassServices = [ClassServices]()
                 //            listClassServices.removeAll()
                 //            selectedClassServices.removeAll()
-                carServicesClassNames.removeAll()
-                carServicesClass.removeAll()
-                self.arrayClassServicesId.removeAll()
-                self.arrayClassServices.removeAll()
-                for element in carClassServices{
-                    //
-
-                    carServicesClass.updateValue(element.id!, forKey: element.name!)
-                    carServicesClassNames.append(element.name!)
-                    //
-                    //                let classServices = ClassServices(id: element.id!, classServiceName: element.name!)
-                    //                listClassServices.append(classServices)
-                }
-                let selectionMenu = RSSelectionMenu(selectionStyle: .multiple, dataSource: carServicesClassNames) { (cell, name, indexPath) in
-
-                    cell.textLabel?.text = name
-
-
-                    cell.tintColor =  _ColorLiteralType(red: 0, green: 0, blue: 0, alpha: 1)
-                }
-                selectionMenu.setSelectedItems(items: self.arrayClassServices) { [weak self] (item, index, isSelected, selectedItems) in
-                    self?.arrayClassServices = selectedItems
-                    for selected in selectedItems{
-                        self!.arrayClassServicesId.append(carServicesClass[selected]!)
-                    }
-                    self!.selectedClassServices.text = self!.arrayClassServices.joined(separator: ",")
-
-                }
-                selectionMenu.show(style: .alert(title: "Select", action: "Done", height: nil), from: self)
+//                carServicesClassNames.removeAll()
+//                carServicesClass.removeAll()
+//                self.arrayClassServicesId.removeAll()
+//                self.arrayClassServices.removeAll()
+//                for element in carClassServices{
+//                    //
+//
+//                    carServicesClass.updateValue(element.id!, forKey: element.name!)
+//                    carServicesClassNames.append(element.name!)
+//                    //
+//                    //                let classServices = ClassServices(id: element.id!, classServiceName: element.name!)
+//                    //                listClassServices.append(classServices)
+//                }
+//                let selectionMenu = RSSelectionMenu(selectionStyle: .multiple, dataSource: carServicesClassNames) { (cell, name, indexPath) in
+//
+//                    cell.textLabel?.text = name
+//
+//
+//                    cell.tintColor =  _ColorLiteralType(red: 0, green: 0, blue: 0, alpha: 1)
+//                }
+//                selectionMenu.setSelectedItems(items: self.arrayClassServices) { [weak self] (item, index, isSelected, selectedItems) in
+//                    self?.arrayClassServices = selectedItems
+//                    for selected in selectedItems{
+//                        self!.arrayClassServicesId.append(carServicesClass[selected]!)
+//                    }
+//                    self!.selectedClassServices.text = self!.arrayClassServices.joined(separator: ",")
+//
+//                }
+//                selectionMenu.show(style: .alert(title: "Select", action: "Done", height: nil), from: self)
 
             }
             catch{
@@ -294,7 +376,42 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
         self.view.endEditing(true)
 
     }
-
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.classServices.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "classServicCell", for: indexPath) as! ClassServicCell
+        let carService = classServices[indexPath.row]
+        cell.servicesName.text = carService.name
+        cell.servicesId.text = carService.id
+        if selectedCar != nil {
+            for service in (selectedCar?.services)!{
+                if service.id == carService.id{
+                     tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                    arrayClassServices.append(cell.servicesName.text!)
+                    arrayClassServicesId.append(cell.servicesId.text!)
+                    cell.checkImage.isHidden = false
+                }
+            }
+        }
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell: ClassServicCell = tableView.cellForRow(at: indexPath) as! ClassServicCell
+        arrayClassServices.append(cell.servicesName.text!)
+        arrayClassServicesId.append(cell.servicesId.text!)
+        cell.checkImage.isHidden = false
+    }
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell: ClassServicCell = tableView.cellForRow(at: indexPath) as! ClassServicCell
+        
+        cell.checkImage.isHidden = true
+        arrayClassServices.removeAll(where: { $0 == cell.servicesName.text! })
+        
+        arrayClassServicesId.removeAll(where: { $0 == cell.servicesId.text! })
+    }
 
     func addCar(idService : String, carId: String){
 
@@ -312,11 +429,44 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 
     }
 
-    func addCarInfo(brandId : String , modelId : String, yearId : String, registrationNumber : String, description : String, interior : String, carBody : String, colour : String){
+    func addCarInfo(brandId : String , modelId : String, yearId : String, registrationNumber : String, description : String, interior : String, carBody : String, colour : String, whellRadius: String){
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/car"
 
-        let toDo: [String: Any]  = ["brandId": brandId, "modelId": modelId, "yearId": yearId, "registrationNumber": registrationNumber, "description": description, "interior": interior, "carBody": carBody, "colour": colour]
+        
+        if selectedCar != nil{
+            let toDo: [String: String]  = ["brandId": brandId, "modelId": modelId, "yearId": yearId, "registrationNumber": registrationNumber, "description": description, "id": (selectedCar?.id)!]
+            Alamofire.request(restUrl, method: .put, parameters: toDo, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
+                guard self.utils.checkResponse(response: response, vc: self) == true else{
+                    self.stopAnimating()
+                    return
+                }
+                do{
+                    let responsebody = try JSONDecoder().decode(AddCarInfo.self, from: response.data!)
+                    
+                    for servId in self.arrayClassServicesId{
+                        
+                        self.addCar(idService: servId, carId: (responsebody.id)!)
+                    }
+                    self.setCarAttributes(carId: (responsebody.id)!, attributeId: interior)
+                    self.setCarAttributes(carId: (responsebody.id)!, attributeId: carBody)
+                    self.setCarAttributes(carId: (responsebody.id)!, attributeId: colour)
+                    self.setCarAttributes(carId: (responsebody.id)!, attributeId: whellRadius)
+                    
+                    
+                    self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
+                    self.sideMenuViewController!.hideMenuViewController()
+                    
+                }
+                catch{
+                    
+                }
+                
+                self.stopAnimating()
+                
+            }
+        }else {
+            let toDo: [String: Any]  = ["brandId": brandId, "modelId": modelId, "yearId": yearId, "registrationNumber": registrationNumber, "description": description]
         Alamofire.request(restUrl, method: .post, parameters: toDo, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
@@ -332,6 +482,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
                 self.setCarAttributes(carId: (responsebody.id)!, attributeId: interior)
                 self.setCarAttributes(carId: (responsebody.id)!, attributeId: carBody)
                 self.setCarAttributes(carId: (responsebody.id)!, attributeId: colour)
+                self.setCarAttributes(carId: (responsebody.id)!, attributeId: whellRadius)
 
 
                 self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
@@ -345,9 +496,13 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             self.stopAnimating()
 
         }
+        }
 
     }
-
+    @IBAction func deleteCarButton(_ sender: Any) {
+        deleteCar()
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -419,15 +574,19 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             break
         case "INTERIOR":
             interiorTextView.text = arrayInterior[index]
-            interiorId = arrayInterior[index]
+            interiorId = arrayInteriors[arrayInterior[index]]
             break
         case "CARBODY":
             carBodyTextVIew.text = arrayCarBodie[index]
-            carBodyId = arrayCarBodie[index]
+            carBodyId = arrayCarBodies[arrayCarBodie[index]]
             break
         case "CARCOLOR":
             carColorTextView.text = arrayCarColor[index]
-            carColorId = arrayCarColor[index]
+            carColorId = arrayCarColors[arrayCarColor[index]]
+            break
+        case "CAR_WHEEL_RADIUS":
+            whellRadius.text = arrayRadius[index]
+            carColorId = arrayRadiusWheel[arrayRadius[index]]
             break
         default:
             break
@@ -474,7 +633,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
                 getCarBrands()
             }
 //            currentTextField.inputView = picker
-            if brandsTextView.text?.count == 0{
+            if brandsTextView.text!.isEmpty{
                 self.showDialogItem(selectionItem: self.arrayItems, selectionCategory: "BRANDS")
             }
             self.modelTextView.isEnabled = true
@@ -482,6 +641,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             self.interiorTextView.isEnabled = false
             self.carBodyTextVIew.isEnabled = false
             self.carColorTextView.isEnabled = false
+            self.whellRadius.isEnabled = false
             self.regNumberTextView.isEnabled = false
             self.otherTextView.isEnabled = false
             
@@ -490,6 +650,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             self.interiorTextView.text?.removeAll()
             self.carBodyTextVIew.text?.removeAll()
             self.carColorTextView.text?.removeAll()
+            self.whellRadius.text?.removeAll()
             self.regNumberTextView.text?.removeAll()
             self.otherTextView.text?.removeAll()
         }else if currentTextField == modelTextView{
@@ -506,6 +667,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             self.interiorTextView.isEnabled = false
             self.carBodyTextVIew.isEnabled = false
             self.carColorTextView.isEnabled = false
+            self.whellRadius.isEnabled = false
             self.regNumberTextView.isEnabled = false
             self.otherTextView.isEnabled = false
             
@@ -513,6 +675,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             self.interiorTextView.text?.removeAll()
             self.carBodyTextVIew.text?.removeAll()
             self.carColorTextView.text?.removeAll()
+            self.whellRadius.text?.removeAll()
             self.regNumberTextView.text?.removeAll()
             self.otherTextView.text?.removeAll()
         }else if currentTextField == yearTextView{
@@ -528,12 +691,14 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             self.interiorTextView.isEnabled = true
             self.carBodyTextVIew.isEnabled = false
             self.carColorTextView.isEnabled = false
+            self.whellRadius.isEnabled = false
             self.regNumberTextView.isEnabled = false
             self.otherTextView.isEnabled = false
             
             self.interiorTextView.text?.removeAll()
             self.carBodyTextVIew.text?.removeAll()
             self.carColorTextView.text?.removeAll()
+            self.whellRadius.text?.removeAll()
             self.regNumberTextView.text?.removeAll()
             self.otherTextView.text?.removeAll()
         }else if currentTextField == interiorTextView{
@@ -546,13 +711,15 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             self.interiorTextView.isEnabled = true
             self.carBodyTextVIew.isEnabled = true
             self.carColorTextView.isEnabled = false
+            self.whellRadius.isEnabled = false
             self.regNumberTextView.isEnabled = false
             self.otherTextView.isEnabled = false
             
-            self.carBodyTextVIew.text?.removeAll()
-            self.carColorTextView.text?.removeAll()
-            self.regNumberTextView.text?.removeAll()
-            self.otherTextView.text?.removeAll()
+//            self.carBodyTextVIew.text?.removeAll()
+//            self.carColorTextView.text?.removeAll()
+//            self.whellRadius.text?.removeAll()
+//            self.regNumberTextView.text?.removeAll()
+//            self.otherTextView.text?.removeAll()
         }else if currentTextField == carBodyTextVIew{
 //            currentTextField.inputView = picker
             
@@ -562,12 +729,14 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             self.interiorTextView.isEnabled = true
             self.carBodyTextVIew.isEnabled = true
             self.carColorTextView.isEnabled = true
+            self.whellRadius.isEnabled = false
             self.regNumberTextView.isEnabled = false
             self.otherTextView.isEnabled = false
             
-            self.carColorTextView.text?.removeAll()
-            self.regNumberTextView.text?.removeAll()
-            self.otherTextView.text?.removeAll()
+//            self.carColorTextView.text?.removeAll()
+//            self.whellRadius.text?.removeAll()
+//            self.regNumberTextView.text?.removeAll()
+//            self.otherTextView.text?.removeAll()
         }else if currentTextField == carColorTextView{
 //            currentTextField.inputView = picker
             
@@ -577,23 +746,41 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             self.interiorTextView.isEnabled = true
             self.carBodyTextVIew.isEnabled = true
             self.carColorTextView.isEnabled = true
+            self.whellRadius.isEnabled = true
+            self.regNumberTextView.isEnabled = false
+            self.otherTextView.isEnabled = false
+//
+//            self.regNumberTextView.text?.removeAll()
+//            self.otherTextView.text?.removeAll()
+//            self.whellRadius.text?.removeAll()
+        }else if currentTextField == whellRadius{
+            //            currentTextField.inputView = picker
+            
+            showDialogItem(selectionItem: arrayRadius, selectionCategory: "CAR_WHEEL_RADIUS")
+            self.modelTextView.isEnabled = true
+            self.yearTextView.isEnabled = true
+            self.interiorTextView.isEnabled = true
+            self.carBodyTextVIew.isEnabled = true
+            self.carColorTextView.isEnabled = true
+            self.whellRadius.isEnabled = true
             self.regNumberTextView.isEnabled = true
             self.otherTextView.isEnabled = true
             
-            self.otherTextView.text?.removeAll()
         }else if currentTextField == regNumberTextView{
             self.modelTextView.isEnabled = true
             self.yearTextView.isEnabled = true
             self.interiorTextView.isEnabled = true
             self.carBodyTextVIew.isEnabled = true
             self.carColorTextView.isEnabled = true
+            self.whellRadius.isEnabled = true
             self.regNumberTextView.isEnabled = true
             self.otherTextView.isEnabled = true
         }else if currentTextField == otherTextView{
 
-        }else if currentTextField == selectedClassServices{
-            getClassServices()
         }
+//        else if currentTextField == selectedClassServices{
+//            getClassServices()
+//        }
     }
     @IBAction func addCarBtn(_ sender: Any) {
         
@@ -601,6 +788,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
         let carInterior = arrayInteriors[self.interiorTextView.text!]
         let carBody = arrayCarBodies[self.carBodyTextVIew.text!]
         let carColor = arrayCarColors[self.carColorTextView.text!]
+        let carRadius = arrayRadiusWheel[self.whellRadius.text!]
 
         guard brandsId != nil else {
             //            utils.showToast(message: "Выберите марку машины",viewController: self)
@@ -633,7 +821,12 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             TinyToast.shared.show(message: "Выберите цвет машины", valign: .bottom, duration: .normal)
             return
         }
-        addCarInfo(brandId: brandsId!, modelId: modelId!, yearId: yearsId!, registrationNumber: self.regNumberTextView.text!, description: self.otherTextView.text!, interior: carInterior!, carBody: carBody!, colour: carColor!)
+        guard carRadius != nil else {
+            //            utils.showToast(message: "Выберите цвет машины",viewController: self)
+            TinyToast.shared.show(message: "Выберите  радиус дисков машины", valign: .bottom, duration: .normal)
+            return
+        }
+        addCarInfo(brandId: brandsId!, modelId: modelId!, yearId: yearsId!, registrationNumber: self.regNumberTextView.text!, description: self.otherTextView.text!, interior: carInterior!, carBody: carBody!, colour: carColor!, whellRadius: carRadius!)
     }
 
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -665,4 +858,32 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
     }
     
    
+    @objc func deleteCar(){
+        startAnimating()
+        let restUrl = constants.startUrl + "karma/v1/car/\((selectedCar?.id)!)"
+        guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+            self.sideMenuViewController!.hideMenuViewController()
+            stopAnimating()
+            return
+        }
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
+        Alamofire.request(restUrl, method: .delete, headers: headers).responseJSON { response  in
+            guard response.result.error == nil else {
+                // got an error in getting the data, need to handle it
+                print("error calling POST on /todos/1")
+                print(response.result.error!)
+                self.stopAnimating()
+                return
+            }
+            // make sure we got some JSON since that's what we expect
+            guard response.result.value != nil else{
+                self.stopAnimating()
+                return
+            }
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
+            self.sideMenuViewController!.hideMenuViewController()
+            self.stopAnimating()
+        }
+    }
 }

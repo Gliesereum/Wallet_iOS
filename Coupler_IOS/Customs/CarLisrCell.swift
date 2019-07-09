@@ -22,6 +22,6 @@ class CarLisrCell: UITableViewCell {
     @IBOutlet weak var selectedLable: UILabel!
     @IBOutlet weak var selectImage: UIImageView!
     @IBOutlet weak var carImage: UIImageView!
-    @IBOutlet weak var falseSelectBtn: MDCButton!
-    @IBOutlet weak var flaseInformationBtn: MDCButton!
+    
+    
 }

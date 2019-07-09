@@ -46,12 +46,15 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     @IBOutlet weak var viewService: UIView!
     @IBOutlet weak var viewCansel: UIView!
     @IBOutlet weak var showRoate: MDCButton!
+    @IBOutlet weak var autoLable: UILabel!
+    @IBOutlet weak var autoView: UIView!
     
     var currentTable = UITableView()
     var record: RecordsBodyElement? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
        NotificationCenter.default.addObserver(self, selector: #selector(getPushNatRecord), name: Notification.Name(rawValue: "reloadTheTable"), object: nil)
 //        utils.checkPushNot(vc: self)
         if record != nil{
@@ -84,6 +87,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
             let pushRecordId = (self.utils.getSharedPref(key: "OBJECTID"))!
             getPushRecord(pushRecordId: pushRecordId)
         }
+        chackTarget()
         
         // Do any additional setup after loading the view.
     }
@@ -201,6 +205,10 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     func getCarInfo(){
         startAnimating()
         let carId = record?.targetID
+        guard carId != nil else{
+            self.stopAnimating()
+            return
+        }
         let restUrl = constants.startUrl + "karma/v1/car/\(carId!)"
         var carInfo = ""
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
@@ -385,5 +393,11 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
             }
         }
 
+    func chackTarget(){
+        if record?.targetID == nil {
+            
+            self.autoView.visiblity(gone: true)
+        }
+    }
     
 }

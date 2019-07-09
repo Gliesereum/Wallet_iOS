@@ -18,6 +18,7 @@ struct CellCarList1 {
     let carId: String?
     let carAttributes: [String?]
     let carServices: [String?]
+    let favorite: Bool?
     //    let logo: String?
 }
 class SelectedCarInfo1: NSObject, NSCoding {
@@ -51,7 +52,7 @@ class SelectedCarInfo1: NSObject, NSCoding {
 }
 
 
-class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UITableViewDelegate, UITableViewDataSource{
+class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate{
    
     
     
@@ -65,6 +66,7 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
     let utils = Utils()
     var idCar = String()
     var carIndex = Int()
+    var allCars = AllCarList()
     var loadCar = [String : CellCarList1]()
     @IBOutlet weak var addCarView: UIView!
     @IBOutlet weak var carListTable: UITableView!
@@ -74,7 +76,7 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
 //    @IBOutlet weak var pageControl: CustomPageControl!
     let scale: CGFloat = 1.5
     //    let mapViewController = MapViewController()
-    
+
 //    @IBOutlet weak var carId: UILabel!
 //    @IBOutlet weak var carInfo: UILabel!
     override func viewDidLoad() {
@@ -92,12 +94,17 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
        
         var yourViewBorder = CAShapeLayer()
         yourViewBorder.strokeColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
-        yourViewBorder.lineDashPattern = [6, 4]
+        yourViewBorder.lineDashPattern = [8, 3]
         yourViewBorder.frame = addCarView.bounds
         yourViewBorder.fillColor = nil
-        yourViewBorder.cornerRadius = 8
-        yourViewBorder.path = UIBezierPath(rect: addCarView.bounds).cgPath
+//        yourViewBorder.cornerRadius = 8
+        yourViewBorder.path = UIBezierPath(roundedRect: addCarView.bounds, cornerRadius: 8).cgPath
         addCarView.layer.addSublayer(yourViewBorder)
+        let swImage = UITapGestureRecognizer(target: self, action: #selector(addCar(_:)))
+        
+        swImage.delegate = self
+        swImage.numberOfTapsRequired = 1
+        addCarView.addGestureRecognizer(swImage)
     }
     func getAllCars(){
         startAnimating()
@@ -123,7 +130,7 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
             
             do{
                 let carList = try JSONDecoder().decode(AllCarList.self, from: response.data!)
-                
+                self.allCars = carList
                 self.carListData.removeAll()
                 for element in carList{
                     var carAttributes = [String]()
@@ -134,7 +141,7 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
                     for servicesClass in element.services! {
                         servicesClasses.append(servicesClass.id!)
                     }
-                    self.carListData.append(CellCarList1.init(carBrand: element.brand?.name, carNumber: element.registrationNumber!, carModel: element.model?.name, carId: element.id!, carAttributes: carAttributes, carServices: servicesClasses))
+                    self.carListData.append(CellCarList1.init(carBrand: element.brand?.name, carNumber: element.registrationNumber!, carModel: element.model?.name, carId: element.id!, carAttributes: carAttributes, carServices: servicesClasses, favorite: element.favorite))
                 }
 //                self.pageHorizontalView.collectionView.reloadData()
 //                self.pageHorizontalView.pageControl?.numberOfPages = carList.count
@@ -147,31 +154,6 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
             self.stopAnimating()
             
             
-        }
-    }
-    @objc func deleteCar(){
-        startAnimating()
-        let restUrl = constants.startUrl + "karma/v1/car/\(self.idCar)"
-        guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
-            stopAnimating()
-            return
-        }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
-        Alamofire.request(restUrl, method: .delete, headers: headers).responseJSON { response  in
-            guard response.result.error == nil else {
-                // got an error in getting the data, need to handle it
-                print("error calling POST on /todos/1")
-                print(response.result.error!)
-                return
-            }
-            // make sure we got some JSON since that's what we expect
-            guard response.result.value != nil else{
-                
-                return
-            }
-            self.getAllCars()
         }
     }
     @IBAction func addCar(_ sender: Any) {
@@ -192,10 +174,10 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
 //}
 //extension CarListViewController1 : UICollectionViewDataSource {
     
-    @objc func selectCar() {
+    @objc func selectCar(sender: UIButton) {
 //        let index = self.pageHorizontalView.collectionView.indexPathsForVisibleItems
 
-        let index = carIndex
+        let index = sender.tag
         selectedCar = carListData[index]
         //        selectedCar = loadCar[]
         let carInfo = SelectedCarInfo.init(carId: (selectedCar?.carId)!, carInfo: (selectedCar?.carBrand)! + " " + (selectedCar?.carModel)!, carAttributes: (selectedCar?.carAttributes)!, carServices: selectedCar!.carServices)
@@ -204,6 +186,14 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
         self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
+    @objc func infoCar(sender: UIButton) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "createCar") as! CreateCar
+        let index = sender.tag
+        vc.selectedCar = allCars[index]
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
     
 //
 //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -234,15 +224,22 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
         //        cell.imageView.image = UIImage(named: item.image)
         
         //        loadCar.updateValue(item, forKey: item.carId!)
-        utils.setBorder(view: cell.falseSelectBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 2, cornerRadius: 4)
-         utils.setBorder(view: cell.flaseInformationBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 2, cornerRadius: 4)
+        
+        utils.setBorder(view: cell.informationBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 2, cornerRadius: 4)
+        if item.favorite == true{
+            utils.setBorder(view: cell.selectBtn, backgroundColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 2, cornerRadius: 4)
+            cell.selectBtn.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+            cell.selectedLable.isHidden = false
+            cell.favoriteImage.isHidden = false
+        }else{
+         utils.setBorder(view: cell.selectBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 2, cornerRadius: 4)
+        }
         //        cell.imageView.image = utils.getImageFromSVG(name: "MustCarCardVector")
         cell.carInfoLable.text = item.carBrand! + " " + item.carModel! + " " + item.carNumber!
         cell.carId.text = item.carId
-        
-        cell.selectBtn.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
-         utils.setBorder(view: cell.informationBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 2, cornerRadius: 4)
-        cell.informationBtn.titleLabel?.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+        cell.selectBtn.tag = indexPath.section
+        cell.informationBtn.tag = indexPath.section
+       
 //        self.idCar = item.carId!
 //        carImage = "MustCarCardVector"
 //        carIdLable = item.carId!
@@ -250,8 +247,14 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
 //        carInfoLable = item.carBrand! + " " + item.carModel! + " " + item.carNumber!
         //        cell.addCarButton.addTarget(self, action: #selector(openAddCarViewController), for: .touchUpInside)
 //        cell.removeCarButton.addTarget(self, action: #selector(deleteCar), for: .touchUpInside)
-        cell.selectBtn.addTarget(self, action: #selector(selectCar), for: .touchUpInside)
+        cell.selectBtn.addTarget(self, action: #selector(selectCar(sender:)), for: .touchUpInside)
+        cell.informationBtn.addTarget(self, action: #selector(infoCar(sender:)), for: .touchUpInside)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        carIndex = indexPath.row
+        return indexPath
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
@@ -259,69 +262,9 @@ class CarListViewController1: UIViewController, NVActivityIndicatorViewable, UIT
         return headerView
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 8
+        return 16
         
     }
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cels = cell as! CarLisrCell
-        if cell.isSelected{
-            
-            cels.falseSelectBtn.isHidden = true
-            cels.flaseInformationBtn.isHidden = true
-            cels.selectBtn.isHidden = false
-            cels.informationBtn.isHidden = false
-        } else {
-        }
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         let cell = tableView.dequeueReusableCell(withIdentifier: "carLisrCell", for: indexPath) as! CarLisrCell
-        //        durationArray.append(Int(cell.time.text!)!)
-        //        sumDurations = durationArray.reduce(0, +)
-        //        allDurations.text = "\u{231B}" + String(sumDurations) + " мин."
-        //        priceArray.append(Int(cell.price.text!)!)
-        //        sumPrice = priceArray.reduce(0, +)
-        //        allPrice.text = "💵" + String(sumPrice) + " грн."
-        UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
-            cell.falseSelectBtn.isHidden = true
-            cell.flaseInformationBtn.isHidden = true
-            cell.selectBtn.isHidden = false
-            cell.informationBtn.isHidden = false
-
-        }, completion:nil)
-        
-    }
-     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "carLisrCell", for: indexPath) as! CarLisrCell
-        UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
-            
-            cell.falseSelectBtn.isHidden = false
-            cell.flaseInformationBtn.isHidden = false
-            cell.selectBtn.isHidden = true
-            cell.informationBtn.isHidden = true
-            
-        }, completion:nil)
-    }
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
-//        let item = carListData[indexPath.item]
-//        //        cell.imageView.image = UIImage(named: item.image)
-//
-//        //        loadCar.updateValue(item, forKey: item.carId!)
-//        utils.setBorder(view: cell.imageView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), borderWidth: 1, cornerRadius: 4)
-//        //        cell.imageView.image = utils.getImageFromSVG(name: "MustCarCardVector")
-//        cell.label.text = item.carBrand! + " " + item.carModel! + " " + item.carNumber!
-//        cell.carId.text = item.carId
-//        self.idCar = item.carId!
-//        carImage = "MustCarCardVector"
-//        carIdLable = item.carId!
-//        self.carIndex = (indexPath as NSIndexPath).item
-//        carInfoLable = item.carBrand! + " " + item.carModel! + " " + item.carNumber!
-//        //        cell.addCarButton.addTarget(self, action: #selector(openAddCarViewController), for: .touchUpInside)
-//        cell.removeCarButton.addTarget(self, action: #selector(deleteCar), for: .touchUpInside)
-//        cell.selectCar.addTarget(self, action: #selector(selectCar), for: .touchUpInside)
-//        return cell
-//    }
     
     func setFavoriteCar(carId: String) {
         
