@@ -8,10 +8,9 @@
 
 import UIKit
 import Alamofire
-import PagedHorizontalView
 import MaterialComponents
 
-struct CellCarList1 {
+struct CellCarList {
     let carBrand: String?
     let carNumber: String?
     let carModel: String?
@@ -21,7 +20,7 @@ struct CellCarList1 {
     let favorite: Bool?
     //    let logo: String?
 }
-class SelectedCarInfo1: NSObject, NSCoding {
+class SelectedCarInfo: NSObject, NSCoding {
     let carInfo: String?
     let carAttributes: [String?]
     let carServices: [String?]
@@ -60,14 +59,14 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
     var carIdLable : String?
     var carInfoLable : String?
 //    @IBOutlet weak var pageHorizontalView: PagedHorizontalView!
-    var carListData = [CellCarList1]()
+    var carListData = [CellCarList]()
     let constants = Constants()
-    var selectedCar: CellCarList1?
+    var selectedCar: CellCarList?
     let utils = Utils()
     var idCar = String()
     var carIndex = Int()
     var allCars = AllCarList()
-    var loadCar = [String : CellCarList1]()
+    var loadCar = [String : CellCarList]()
     @IBOutlet weak var addCarView: UIView!
     @IBOutlet weak var carListTable: UITableView!
     @IBOutlet weak var addCarItem: UIBarButtonItem!
@@ -141,7 +140,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
                     for servicesClass in element.services! {
                         servicesClasses.append(servicesClass.id!)
                     }
-                    self.carListData.append(CellCarList1.init(carBrand: element.brand?.name, carNumber: element.registrationNumber!, carModel: element.model?.name, carId: element.id!, carAttributes: carAttributes, carServices: servicesClasses, favorite: element.favorite))
+                    self.carListData.append(CellCarList.init(carBrand: element.brand?.name, carNumber: element.registrationNumber!, carModel: element.model?.name, carId: element.id!, carAttributes: carAttributes, carServices: servicesClasses, favorite: element.favorite))
                 }
 //                self.pageHorizontalView.collectionView.reloadData()
 //                self.pageHorizontalView.pageControl?.numberOfPages = carList.count

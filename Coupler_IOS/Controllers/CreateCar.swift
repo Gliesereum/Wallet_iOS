@@ -121,7 +121,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             otherTextView.isEnabled = true
             self.view.endEditing(true)
         }else{
-        modelTextView.isEnabled = false
+        modelTextView.isEnabled = true
         yearTextView.isEnabled = false
         interiorTextView.isEnabled = false
         carBodyTextVIew.isEnabled = false

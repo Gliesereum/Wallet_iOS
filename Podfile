@@ -13,7 +13,6 @@ target 'Coupler_IOS' do
     pod 'EHHorizontalSelectionView'
     pod 'AZDialogView'
     pod 'SVGKit'
-    pod 'PagedHorizontalView'
     pod 'FloatRatingView'
     pod 'libPhoneNumber-iOS'
     pod 'Firebase/Messaging'

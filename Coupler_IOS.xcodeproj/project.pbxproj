@@ -162,7 +162,6 @@
 		FA07060822A535FB005833DC /* AboutUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0705F022A535FB005833DC /* AboutUs.swift */; };
 		FA07060922A535FB005833DC /* DrawRouteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0705F122A535FB005833DC /* DrawRouteVC.swift */; };
 		FA07060B22A535FB005833DC /* WorkingTimeDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0705F322A535FB005833DC /* WorkingTimeDialog.swift */; };
-		FA07060C22A535FB005833DC /* CarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0705F422A535FB005833DC /* CarListViewController.swift */; };
 		FA07060D22A535FB005833DC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0705F522A535FB005833DC /* MapViewController.swift */; };
 		FA07060E22A535FB005833DC /* CreateCar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0705F622A535FB005833DC /* CreateCar.swift */; };
 		FA07060F22A535FB005833DC /* MenuCastomCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0705F722A535FB005833DC /* MenuCastomCellTableViewCell.swift */; };
@@ -491,7 +490,6 @@
 		FA0705F022A535FB005833DC /* AboutUs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUs.swift; sourceTree = "<group>"; };
 		FA0705F122A535FB005833DC /* DrawRouteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawRouteVC.swift; sourceTree = "<group>"; };
 		FA0705F322A535FB005833DC /* WorkingTimeDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkingTimeDialog.swift; sourceTree = "<group>"; };
-		FA0705F422A535FB005833DC /* CarListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarListViewController.swift; sourceTree = "<group>"; };
 		FA0705F522A535FB005833DC /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FA0705F622A535FB005833DC /* CreateCar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateCar.swift; sourceTree = "<group>"; };
 		FA0705F722A535FB005833DC /* MenuCastomCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCastomCellTableViewCell.swift; sourceTree = "<group>"; };
@@ -1111,7 +1109,6 @@
 				FA0705F022A535FB005833DC /* AboutUs.swift */,
 				FA0705F122A535FB005833DC /* DrawRouteVC.swift */,
 				FA0705F322A535FB005833DC /* WorkingTimeDialog.swift */,
-				FA0705F422A535FB005833DC /* CarListViewController.swift */,
 				FA0705F522A535FB005833DC /* MapViewController.swift */,
 				FA0705F622A535FB005833DC /* CreateCar.swift */,
 				FA0705F722A535FB005833DC /* MenuCastomCellTableViewCell.swift */,
@@ -1537,7 +1534,6 @@
 				"${BUILT_PRODUCTS_DIR}/MotionInterchange/MotionInterchange.framework",
 				"${BUILT_PRODUCTS_DIR}/MotionTransitioning/MotionTransitioning.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/PagedHorizontalView/PagedHorizontalView.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RSSelectionMenu/RSSelectionMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -1568,7 +1564,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionInterchange.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionTransitioning.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PagedHorizontalView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RSSelectionMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -1630,7 +1625,6 @@
 				FA07063C22A55596005833DC /* CustomPageControler.swift in Sources */,
 				FA07059522A535F1005833DC /* SRCalloutView.swift in Sources */,
 				FA02839622B1167F00107106 /* PassthroughEntities.swift in Sources */,
-				FA07060C22A535FB005833DC /* CarListViewController.swift in Sources */,
 				FA0705A122A535F1005833DC /* ItemView.swift in Sources */,
 				FA07061022A535FB005833DC /* SingleOrderVC.swift in Sources */,
 				FA07061622A535FB005833DC /* OrderDialog.swift in Sources */,

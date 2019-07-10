@@ -102,6 +102,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         }
         if utils.getBusinesList(key: "BUSINESSLIST") != nil{
             setBusinesMarker()
+        }else {
+            checkCarInfo()
+            
         }
         getAllCars()
 //
@@ -147,24 +150,24 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         addFilter()
     }
     
-    func drawPath(from polyStr: String){
-        let path = GMSPath(fromEncodedPath: polyStr)
-        let polyline = GMSPolyline(path: path)
-        polyline.strokeColor = .black
-        polyline.strokeWidth = 10.0
-        polyline.map = mapView // Google MapView
-        self.drawRoute = ""
-        return
-    }
+//    func drawPath(from polyStr: String){
+//        let path = GMSPath(fromEncodedPath: polyStr)
+//        let polyline = GMSPolyline(path: path)
+//        polyline.strokeColor = .black
+//        polyline.strokeWidth = 10.0
+//        polyline.map = mapView // Google MapView
+//        self.drawRoute = ""
+//        return
+//    }
     
 
 
     //MARK: get carwash list
     func getCarWashList(filterBody: FilterCarWashBody){
-        guard self.drawRoute == "" else{
-             drawPath(from: drawRoute)
-            return
-        }
+//        guard self.drawRoute == "" else{
+//             drawPath(from: drawRoute)
+//            return
+//        }
         startAnimating()
         
         let restUrl = constants.startUrl + "karma/v1/business/search/document"
@@ -211,8 +214,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
                     let businessList = self.utils.getBusinesList(key: "BUSINESSLIST")
                     
                     let responseBody = try JSONDecoder().decode(CarWashMarker.self, from: response.data!)
-                    if (businessList! == responseBody){
-                        
+                    if businessList != nil{
+                        if (businessList! == responseBody){
+                            
+                        }else{
+                            self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
+                            self.setBusinesMarker()
+                        }
                     }else{
                         self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
                         self.setBusinesMarker()
