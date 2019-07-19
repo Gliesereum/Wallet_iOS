@@ -21,6 +21,7 @@ class CarWashBody: Codable {
     let media: [Media]?
     let comments: [Comment]?
     let records: [JSONAny]?
+    let businessCategory: BusinessCategoryCWB?
     
     enum CodingKeys: String, CodingKey {
         case id, name
@@ -28,10 +29,10 @@ class CarWashBody: Codable {
         case businessID = "businessId"
         case description
         case logoURL = "logoUrl"
-        case address, phone, addPhone, latitude, longitude, timeZone, rating, objectState, workTimes, spaces, servicePrices, packages, media, comments, records
+        case businessCategory, address, phone, addPhone, latitude, longitude, timeZone, rating, objectState, workTimes, spaces, servicePrices, packages, media, comments, records
     }
     
-    init(id: String?, name: String?, corporationID: String?, businessID: String?, description: String?, logoURL: String?, address: String?, phone: String?, addPhone: String?, latitude: Double?, longitude: Double?, timeZone: Int?, rating: Rating?, objectState: String?, workTimes: [WorkTime]?, spaces: [Space]?, servicePrices: [Serviceice]?, packages: [Package]?, media: [Media]?, comments: [Comment]?, records: [JSONAny]?) {
+    init(id: String?, name: String?, corporationID: String?, businessID: String?, description: String?, logoURL: String?, address: String?, phone: String?, addPhone: String?, latitude: Double?, longitude: Double?, timeZone: Int?, rating: Rating?, objectState: String?, workTimes: [WorkTime]?, spaces: [Space]?, servicePrices: [Serviceice]?, packages: [Package]?, media: [Media]?, comments: [Comment]?, records: [JSONAny]?, businessCategory: BusinessCategoryCWB?) {
         self.id = id
         self.name = name
         self.corporationID = corporationID
@@ -53,9 +54,89 @@ class CarWashBody: Codable {
         self.media = media
         self.comments = comments
         self.records = records
+        self.businessCategory = businessCategory
+    }
+}
+// MARK: - BusinessCategory
+class BusinessCategoryCWB: Codable {
+    let id, code, name, businessCategoryDescription: String?
+    let imageURL: String?
+    let businessType: String?
+    let active: Bool?
+    let orderIndex: Int?
+    let descriptions: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id, code, name
+        case businessCategoryDescription = "description"
+        case imageURL = "imageUrl"
+        case businessType, active, orderIndex, descriptions
+    }
+    
+    init(id: String?, code: String?, name: String?, businessCategoryDescription: String?, imageURL: String?, businessType: String?, active: Bool?, orderIndex: Int?, descriptions: String?) {
+        self.id = id
+        self.code = code
+        self.name = name
+        self.businessCategoryDescription = businessCategoryDescription
+        self.imageURL = imageURL
+        self.businessType = businessType
+        self.active = active
+        self.orderIndex = orderIndex
+        self.descriptions = descriptions
     }
 }
 
+// MARK: BusinessCategory convenience initializers and mutators
+
+extension BusinessCategoryCWB {
+    convenience init(data: Data) throws {
+        let me = try newJSONDecoder().decode(BusinessCategoryCWB.self, from: data)
+        self.init(id: me.id, code: me.code, name: me.name, businessCategoryDescription: me.businessCategoryDescription, imageURL: me.imageURL, businessType: me.businessType, active: me.active, orderIndex: me.orderIndex, descriptions: me.descriptions)
+    }
+    
+    convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
+        guard let data = json.data(using: encoding) else {
+            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
+        }
+        try self.init(data: data)
+    }
+    
+    convenience init(fromURL url: URL) throws {
+        try self.init(data: try Data(contentsOf: url))
+    }
+    
+    func with(
+        id: String?? = nil,
+        code: String?? = nil,
+        name: String?? = nil,
+        businessCategoryDescription: String?? = nil,
+        imageURL: String?? = nil,
+        businessType: String?? = nil,
+        active: Bool?? = nil,
+        orderIndex: Int?? = nil,
+        descriptions: String?? = nil
+        ) -> BusinessCategoryCWB {
+        return BusinessCategoryCWB(
+            id: id ?? self.id,
+            code: code ?? self.code,
+            name: name ?? self.name,
+            businessCategoryDescription: businessCategoryDescription ?? self.businessCategoryDescription,
+            imageURL: imageURL ?? self.imageURL,
+            businessType: businessType ?? self.businessType,
+            active: active ?? self.active,
+            orderIndex: orderIndex ?? self.orderIndex,
+            descriptions: descriptions ?? self.descriptions
+        )
+    }
+    
+    func jsonData() throws -> Data {
+        return try newJSONEncoder().encode(self)
+    }
+    
+    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
+        return String(data: try self.jsonData(), encoding: encoding)
+    }
+}
 class Comment: Codable {
     let id, objectID, text: String?
     let rating: Int?
@@ -298,7 +379,7 @@ class WorkTime: Codable {
 extension CarWashBody {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(CarWashBody.self, from: data)
-        self.init(id: me.id, name: me.name, corporationID: me.corporationID, businessID: me.businessID, description: me.description, logoURL: me.logoURL, address: me.address, phone: me.phone, addPhone: me.addPhone, latitude: me.latitude, longitude: me.longitude, timeZone: me.timeZone, rating: me.rating, objectState: me.objectState, workTimes: me.workTimes, spaces: me.spaces, servicePrices: me.servicePrices, packages: me.packages, media: me.media, comments: me.comments, records: me.records)
+        self.init(id: me.id, name: me.name, corporationID: me.corporationID, businessID: me.businessID, description: me.description, logoURL: me.logoURL, address: me.address, phone: me.phone, addPhone: me.addPhone, latitude: me.latitude, longitude: me.longitude, timeZone: me.timeZone, rating: me.rating, objectState: me.objectState, workTimes: me.workTimes, spaces: me.spaces, servicePrices: me.servicePrices, packages: me.packages, media: me.media, comments: me.comments, records: me.records, businessCategory: me.businessCategory)
     }
     
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -333,7 +414,8 @@ extension CarWashBody {
         packages: [Package]?? = nil,
         media: [Media]?? = nil,
         comments: [Comment]?? = nil,
-        records: [JSONAny]?? = nil
+        records: [JSONAny]?? = nil,
+        businessCategory: BusinessCategoryCWB?? = nil
         ) -> CarWashBody {
         return CarWashBody(
             id: id ?? self.id,
@@ -356,7 +438,8 @@ extension CarWashBody {
             packages: packages ?? self.packages,
             media: media ?? self.media,
             comments: comments ?? self.comments,
-            records: records ?? self.records
+            records: records ?? self.records,
+            businessCategory: businessCategory ?? self.businessCategory
         )
     }
     

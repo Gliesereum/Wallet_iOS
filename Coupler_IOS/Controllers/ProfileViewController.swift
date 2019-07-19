@@ -179,7 +179,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             self.sideMenuViewController!.hideMenuViewController()
             return
         }
-        Alamofire.request(restUrl, method: .put, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseProfileModel { response  in
+        Alamofire.request(restUrl, method: .put, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseProfileModel { response  in
             guard response.result.error == nil else {
                 // got an error in getting the data, need to handle it
                 print("error calling POST on /todos/1")
@@ -225,7 +225,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             self.sideMenuViewController!.hideMenuViewController()
             return
         }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
         Alamofire.request(restUrl, method: .get, headers: headers).responseProfileModel { response in
             
             let profileModel = response.result.value
@@ -263,7 +263,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         self.avatarUrl = ""
       
         let parameters = ["open": "true"] //Optional for extra parameter
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
         Alamofire.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(imgData, withName: "file",fileName: "file.jpg", mimeType: "image/jpg")
             for (key, value) in parameters {

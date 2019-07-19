@@ -197,7 +197,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         let carWashId: String = (carWashInfo?.businessID)!
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/business/\(carWashId)/comment/current-user"
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard response.response?.statusCode != 200 else{
                 self.buttonView.visiblity(gone: true)
@@ -217,7 +217,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     }
     func getCarWashInfoComments(){
         
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
         let restUrl = constants.startUrl + "karma/v1/business/\( String((carWashInfo?.id)!))/full-model"
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{

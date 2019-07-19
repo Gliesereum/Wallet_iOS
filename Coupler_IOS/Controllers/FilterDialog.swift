@@ -74,6 +74,7 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
         for id in filterListIdOld{
             if id == filterService.id!{
                 tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                filterListId.append(cell.serviceId.text!)
             }
         }
         
@@ -119,7 +120,7 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
        
         let toDo: [String: Any]  = ["businessCategoryId": UserDefaults.standard.object(forKey: "BUISNESSID")!]
         
-        Alamofire.request(restUrl, method: .get, parameters: toDo).responseJSON { response  in
+        Alamofire.request(restUrl, method: .get, parameters: toDo, headers: self.constants.appID).responseJSON { response  in
             
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()

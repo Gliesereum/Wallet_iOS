@@ -260,7 +260,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
     func phoneAutorithation(phone: String, isNew: Bool){
         let restUrl = constants.startUrl + "account/v1/phone/code"
         let toDo: [String: Any]  = ["phone": phone, "isNew": isNew]
-        Alamofire.request(restUrl, method: .get, parameters: toDo, encoding: URLEncoding(destination: .queryString)).responseJSON { response  in
+        Alamofire.request(restUrl, method: .get, parameters: toDo, encoding: URLEncoding(destination: .queryString), headers: self.constants.appID).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return
@@ -283,7 +283,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
         startAnimating()
         let restUrl = constants.startUrl + "account/v1/auth/signin"
         let toDo: [String: Any]  = ["value": phone, "code": code, "type": "PHONE"]
-        Alamofire.request(restUrl, method: .post, parameters: toDo, encoding: JSONEncoding.default).responseJSON { response  in
+        Alamofire.request(restUrl, method: .post, parameters: toDo, encoding: JSONEncoding.default, headers: self.constants.appID).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return
@@ -332,7 +332,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
         
         let toDo: [String: Any]  = ["userId": userId,"subscribes": [["notificationEnable": true, "subscribeDestination": "KARMA_USER_RECORD"],["notificationEnable": true, "subscribeDestination": "KARMA_USER_REMIND_RECORD"] ], "firebaseRegistrationToken": token, "notificationEnable": true]
         let dooo = JSONSerialization.isValidJSONObject(toDo)
-        let headers = ["Authorization" : accessToken]
+        let headers = ["Authorization" : accessToken, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
         Alamofire.request(restUrl, method: .post, parameters: toDo,encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()

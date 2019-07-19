@@ -45,10 +45,11 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
     
     let constants = Constants()
     let utils = Utils()
-    var recordListData = RecordsBody()
-    var selectedRecord: RecordsBodyElement? = nil
+    var recordListData = [ContentRB]()
+    var selectedRecord: ContentRB? = nil
     var defoultLogo = UIImage()
-    
+    var loadMore = false
+    var page = 0
     var pushRecordId = ""
     
     override func viewDidLoad() {
@@ -82,7 +83,7 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
     
     @objc func getAllCars(){
         startAnimating()
-        let restUrl = constants.startUrl + "karma/v1/record/client/all"
+        let restUrl = constants.startUrl + "karma/v1/record/client/all?page=\(page)&size=20"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
@@ -98,7 +99,7 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
 //            return
 //        }
 //        let toDo: [String: Any]  = ["businessCategoryId": UserDefaults.standard.object(forKey: "BUISNESSID")!]
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
         Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
             guard response.response?.statusCode != 204 else{
                 //                self.recordTableView.
@@ -119,11 +120,15 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
           
             do{
                 let carList = try JSONDecoder().decode(RecordsBody.self, from: response.data!)
-                self.recordListData.removeAll()
+//                self.recordListData.removeAll()
 //                for element in carList{
 //                    self.recordListData.append(RecordData.init(carwoshImage: element.business?.logoURL, orderDate: element.begin, carwashName: element.business?.name, orderPrice: element.price, carwoshLatitude: element.business?.latitude, carwashLongitude: element.business?.longitude, orderStatus: element.statusProcess))
 //                }
-                self.recordListData = carList
+                if self.loadMore == true{
+                    self.recordListData = self.recordListData + carList.content!
+                }else{
+                    self.recordListData = carList.content!
+                }
                 
             }
             catch{
@@ -197,7 +202,12 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
         return cell
     }
    
-
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastElement = recordListData.count - 1
+        if indexPath.section == lastElement {
+            loadMoreItems()
+        }
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -283,6 +293,12 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
             
             print("isUserSkipDemo: \(isUserSkipDemo)")
         }
+    }
+    
+    func loadMoreItems(){
+        self.loadMore = true
+        self.page = self.page + 1
+        getAllCars()
     }
 
 }

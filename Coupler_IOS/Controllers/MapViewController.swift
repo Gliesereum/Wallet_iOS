@@ -23,7 +23,7 @@ import CoreLocation
 //    }
 //}
 
-class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate, FilterDialodDismissDelegate{ //, GMUClusterManagerDelegate
+class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicatorViewable{ //, GMUClusterManagerDelegate
     
   
     @IBOutlet weak var filterItem: UIBarButtonItem!
@@ -72,8 +72,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     override func viewDidLoad() {
         super .viewDidLoad()
         // Initialize the location manager.
-        if utils.getSharedPref(key: "FIRSTSTART") != "true"{
-            firstLoad()
+        if utils.getBusinesList(key: "BUSINESSLIST") != nil{
+            setBusinesMarker()
         }
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -100,13 +100,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         } catch{
             
         }
-        if utils.getBusinesList(key: "BUSINESSLIST") != nil{
-            setBusinesMarker()
-        }else {
-            checkCarInfo()
-            
-        }
-        getAllCars()
+       setBusinesMarker()
 //
         // Set up the cluster manager with the supplied icon generator and
         // renderer.
@@ -142,13 +136,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     private func randomScale() -> Double {
         return Double(arc4random()) / Double(UINT32_MAX) * 2.0 - 1.0
     }
-    func firstLoad(){
-        self.utils.setSaredPref(key: "FIRSTSTART", value: "true")
-        utils.checkFilds(massage: "В данный момент интерактивная карта запущена в тестовом режиме. Услуги указанных компаний недоступны. Мы работаем над тем, чтобы как можно скорее наполнить карту нужными вам сервисами.", vc: self.view)
-    }
-    @IBAction func filterMap(_ sender: Any) {
-        addFilter()
-    }
+   
     
 //    func drawPath(from polyStr: String){
 //        let path = GMSPath(fromEncodedPath: polyStr)
@@ -163,79 +151,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
 
 
     //MARK: get carwash list
-    func getCarWashList(filterBody: FilterCarWashBody){
-//        guard self.drawRoute == "" else{
-//             drawPath(from: drawRoute)
-//            return
-//        }
-        startAnimating()
-        
-        let restUrl = constants.startUrl + "karma/v1/business/search/document"
-        let parameters = try! JSONEncoder().encode(filterBody)
-        let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
-        if  self.utils.getSharedPref(key: "accessToken") != nil{
-            let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
-            Alamofire.request(restUrl, method: .post,parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
-                guard self.utils.checkResponse(response: response, vc: self) == true else{
-                    self.stopAnimating()
-                    return
-                }
-                do{
-                    let businessList = self.utils.getBusinesList(key: "BUSINESSLIST")
-                    
-                    let responseBody = try JSONDecoder().decode(CarWashMarker.self, from: response.data!)
-                    if self.utils.getBusinesList(key: "BUSINESSLIST") != nil{
-                        if (businessList! == responseBody){
-                            
-                        }else{
-                            self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
-                            self.setBusinesMarker()
-                        }
-                    }else{
-                        self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
-                        self.setBusinesMarker()
-                    }
-                   
-                }
-                catch{
-                    
-                    print(error)
-                }
-                
-                self.stopAnimating()
-            }
-        }else {
-            Alamofire.request(restUrl, method: .post,parameters: params, encoding: JSONEncoding.default).responseJSON { response  in
-                guard self.utils.checkResponse(response: response, vc: self) == true else{
-                    self.stopAnimating()
-                    return
-                }
-                do{
-                    let businessList = self.utils.getBusinesList(key: "BUSINESSLIST")
-                    
-                    let responseBody = try JSONDecoder().decode(CarWashMarker.self, from: response.data!)
-                    if businessList != nil{
-                        if (businessList! == responseBody){
-                            
-                        }else{
-                            self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
-                            self.setBusinesMarker()
-                        }
-                    }else{
-                        self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
-                        self.setBusinesMarker()
-                    }
-                }
-                catch{
-                    
-                    print(error)
-                }
-                
-                self.stopAnimating()
-            }
-        }
-        
-    }
+   
     func setBusinesMarker(){
         let businessList = self.utils.getBusinesList(key: "BUSINESSLIST")
         self.mapView.clear()
@@ -322,30 +238,34 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
             stopAnimating()
             return
         }
-        guard utils.getCarInfo(key: "CARID") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
-            
-            utils.setSaredPref(key: "CARWASHID", value: carWashId)
-            self.sideMenuViewController!.hideMenuViewController()
-            
-//            self.utils.checkFilds(massage: "Выберите машину", vc: self.view)
-            stopAnimating()
-            return
-        }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
+        if self.utils.getSharedPref(key: "CARWASHID") != nil{
+        
+        UserDefaults.standard.removeObject(forKey: "CARWASHID")
+    }
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
         let restUrl = constants.startUrl + "karma/v1/business/\(carWashId)/full-model"
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return
             }
-            if self.utils.getSharedPref(key: "CARWASHID") != nil{
-                
-                UserDefaults.standard.removeObject(forKey: "CARWASHID")
-            }
+           
             do{
                
                 let responseBody = try JSONDecoder().decode(CarWashBody.self, from: response.data!)
+                
+                if responseBody.businessCategory?.businessType == "CAR" {
+                    guard self.utils.getCarInfo(key: "CARID") != nil else{
+                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
+                        
+//                        self.utils.setSaredPref(key: "CARWASHID", value: carWashId)
+                    self.sideMenuViewController!.hideMenuViewController()
+                        
+                        //            self.utils.checkFilds(massage: "Выберите машину", vc: self.view)
+                        self.stopAnimating()
+                    return
+                }
+                }
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "carWashInfo") as! CarWashInfo
                 vc.carWashInfo = responseBody
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -408,176 +328,14 @@ extension MapViewController: CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
         print("Error: \(error)")
     }
-    func getAllCars(){
-        startAnimating()
-        let restUrl = constants.startUrl + "karma/v1/car/user"
-        guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-           
-            stopAnimating()
-            return
-        }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
-        Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
-            
-            guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
-                return
-            }
-            
-            
-            do{
-                self.checkCarInfo()
-                let carList = try JSONDecoder().decode(AllCarList.self, from: response.data!)
-                
-                for element in carList{
-                    
-                    if element.favorite == true {
-                        var carAttributes = [String]()
-                        for attribute in element.attributes!{
-                            carAttributes.append(attribute.id!)
-                        }
-                        var servicesClasses = [String]()
-                        for servicesClass in element.services! {
-                            servicesClasses.append(servicesClass.id!)
-                        }
-                        let carInfo = SelectedCarInfo.init(carId: (element.id)!, carInfo: (element.brand?.name)! + " " + (element.model?.name)!, carAttributes: carAttributes, carServices: servicesClasses)
-                        
-                        
-                        self.utils.setCarInfo(key: "CARID", value: carInfo)
-                    }
-                }
-            }
-            catch{
-                
-            }
-            self.checkCarInfo()
-            self.stopAnimating()
-            
-            
-        }
-    }
-    
-    func checkCarInfo(){
-        if utils.getCarInfo(key: "CARID") != nil{
-            let carInfo = utils.getCarInfo(key: "CARID")
-            self.navTop.title = carInfo?.carInfo
-            self.navTop.titleView?.tintColor = .white
-            if serviceSelect.count != 0{
-                if UserDefaults.standard.object(forKey: "BUISNESSID") != nil{
-                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: serviceSelect, targetID: carInfo?.carId, businessCategoryID: UserDefaults.standard.object(forKey: "BUISNESSID") as? String))
-                }else{
-                getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: serviceSelect, targetID: carInfo?.carId, businessCategoryID: nil))
-                }
-            
-            } else{
-                if UserDefaults.standard.object(forKey: "BUISNESSID") != nil{
-                getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: carInfo?.carId, businessCategoryID: UserDefaults.standard.object(forKey: "BUISNESSID") as? String))
-                }else{
-                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: carInfo?.carId, businessCategoryID: nil))
-                }
-            }
-            
-        }else {
-            if serviceSelect.count != 0{
-                if UserDefaults.standard.object(forKey: "BUISNESSID") != nil{
-                    
-                    self.navTop.title = "Машина не выбрана"
-                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: serviceSelect, targetID: nil, businessCategoryID: UserDefaults.standard.object(forKey: "BUISNESSID") as? String))
-                }else{
-                self.navTop.title = "Машина не выбрана"
-                getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: nil, businessCategoryID: nil))
-                }
-            
-            } else{
-                if UserDefaults.standard.object(forKey: "BUISNESSID") != nil{
-                    
-                    self.navTop.title = "Машина не выбрана"
-                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: nil, businessCategoryID: UserDefaults.standard.object(forKey: "BUISNESSID") as? String))
-                }else{
-                    self.navTop.title = "Машина не выбрана"
-                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: nil, businessCategoryID: nil))
-                }
-            }
-        
-        }
-        guard self.utils.getSharedPref(key: "CARWASHID") == nil else{
-            
-            getCarWashInfo(carWashId: self.utils.getSharedPref(key: "CARWASHID")!)
-            return
-        }
-    }
-    
+   
     override func viewDidAppear(_ animated: Bool) {
         
     }
     
-    func addFilter() {
-//        if serviceSelect.count != 0{
-//            serviceSelect.removeAll()
-//            checkCarInfo()
-//        }
-        guard UserDefaults.standard.object(forKey: "BUISNESSID") != nil else{
-            
-            self.utils.checkFilds(massage: "Выберите сервис", vc: self.view)
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "businessTableViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
-            stopAnimating()
-            return
-        }
-      
-        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "filterDialog") as! FilterDialog
-        customAlert.providesPresentationContextTransitionStyle = true
-        customAlert.definesPresentationContext = true
-        customAlert.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-        customAlert.delegate = self
-        customAlert.filterListIdOld = serviceSelect
-        transitionVc(vc: customAlert, duration: 0.5, type: .fromRight)
-//        self.present(customAlert, animated: true, completion: nil)
-        
-    }
-    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
-       
-    }
    
-    func Dismiss(filterListId: [String], filterOn: Bool) {
-        if filterOn == true{
-            serviceSelect = filterListId
-            checkCarInfo()
-        } else {
-            if serviceSelect.count != 0{
-            serviceSelect.removeAll()
-            }
-            checkCarInfo()
-        }
-    }
     
-    override func viewWillAppear(_ animated: Bool) {
-        if UserDefaults.standard.object(forKey: "MAPVC") == nil{
-            
-            self.utils.setSaredPref(key: "MAPVC", value: "true")
-            self.showTutorial()
-        }
-//        utils.checkPushNot(vc: self)
-    }
-    func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "На этой карте расположены различные маркера сервисов. Вы можете выбрать нужный вам сервис нажатием на маркер. При нажатии на маркер появится детально окно с названием сервиса. Чтобы открыть данный сервис просто нажмите на его название ")
-        var infoTask = PassthroughTask(with: [])
-        infoTask.infoDescriptor = infoDesc
-        
-//        let buttonItemView = filterItem.value(forKey: "view") as? UIView
-//        let leftDesc2 = LabelDescriptor(for: "Чтобы выбрать услуги и отфильровать карту по ним нажмите сюда")
-//        leftDesc2.position = .left
-////        let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .circle)
-//        leftHoleDesc2.labelDescriptor = leftDesc2
-//        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
-        PassthroughManager.shared.display(tasks: [infoTask]) {
-            isUserSkipDemo in
-            
-            print("isUserSkipDemo: \(isUserSkipDemo)")
-        }
-        
-    }
+    
    
 }
 

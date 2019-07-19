@@ -50,7 +50,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     @IBOutlet weak var autoView: UIView!
     
     var currentTable = UITableView()
-    var record: RecordsBodyElement? = nil
+    var record: ContentRB? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -211,7 +211,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         }
         let restUrl = constants.startUrl + "karma/v1/car/\(carId!)"
         var carInfo = ""
-        Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return
@@ -240,7 +240,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         startAnimating()
         let toDo: [String: Any]  = ["idRecord": (record?.id)!]
         let restUrl = constants.startUrl + "karma/v1/record/record/canceled"
-        Alamofire.request(restUrl, method: .put, parameters: toDo, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .put, parameters: toDo, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return
@@ -367,7 +367,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
                 stopAnimating()
                 return
             }
-            let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
+            let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
             Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
                 
                 guard self.utils.checkResponse(response: response, vc: self) == true else{
@@ -376,7 +376,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
                 }
                 
                 do{
-                    let carList = try JSONDecoder().decode(RecordsBodyElement.self, from: response.data!)
+                    let carList = try JSONDecoder().decode(ContentRB.self, from: response.data!)
                     self.record = carList
                     self.packetServiceTable.reloadData()
                     self.serviceTable.reloadData()

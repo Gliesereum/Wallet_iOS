@@ -243,7 +243,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         startAnimating()
         let parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: utils.getSharedPref(key: "CARID"), workingSpaceID: nil))
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
-        Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
             do{
                 guard response.response?.statusCode != 500 else{ self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
                 self.sideMenuViewController!.hideMenuViewController()
@@ -319,7 +319,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         let carInfo = utils.getCarInfo(key: "CARID")!
         let parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: currentTime, businessID: carWashInfo?.businessID, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: carInfo.carId, workingSpaceID: self.workSpaceId))
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
-        Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return
@@ -613,7 +613,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         startAnimating()
         let parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: utils.getSharedPref(key: "CARID"), workingSpaceID: nil))
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
-        Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseCurrentFreeTime { response  in
+        Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseCurrentFreeTime { response  in
             guard response.response?.statusCode != 500 else{ self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
                     self.sideMenuViewController!.hideMenuViewController()
                     SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")

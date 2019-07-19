@@ -114,11 +114,12 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
             stopAnimating()
             return
         }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
         Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
             guard response.response?.statusCode != 204 else{
                 self.stopAnimating()
-                self.openAddCarViewController()
+                self.carListTable.visiblity(gone: true)
+//                self.openAddCarViewController()
                 return
             }
             guard self.utils.checkResponse(response: response, vc: self) == true else{
@@ -215,7 +216,24 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cells = cell as! CarLisrCell
+        
+        let item = carListData[indexPath.section]
+        utils.setBorder(view: cells.informationBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 2, cornerRadius: 4)
+        if item.favorite == true{
+            utils.setBorder(view: cells.selectBtn, backgroundColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 2, cornerRadius: 4)
+            cells.selectBtn.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+            cells.selectedLable.isHidden = false
+            cells.favoriteImage.isHidden = false
+        }else{
+            utils.setBorder(view: cells.selectBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 2, cornerRadius: 4)
+            
+            cells.selectBtn.setTitleColor(#colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), for: .normal)
+            cells.selectedLable.isHidden = true
+            cells.favoriteImage.isHidden = true
+        }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "carLisrCell", for: indexPath) as! CarLisrCell
@@ -232,6 +250,10 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
             cell.favoriteImage.isHidden = false
         }else{
          utils.setBorder(view: cell.selectBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 2, cornerRadius: 4)
+            
+            cell.selectBtn.setTitleColor(#colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), for: .normal)
+            cell.selectedLable.isHidden = true
+            cell.favoriteImage.isHidden = true
         }
         //        cell.imageView.image = utils.getImageFromSVG(name: "MustCarCardVector")
         cell.carInfoLable.text = item.carBrand! + " " + item.carModel! + " " + item.carNumber!
@@ -268,7 +290,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
     func setFavoriteCar(carId: String) {
         
         let restUrl = constants.startUrl + "karma/v1/car/set-favorite/" + carId
-        Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return

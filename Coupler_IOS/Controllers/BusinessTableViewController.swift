@@ -130,7 +130,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
     func getAllBuisness(){
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/business-category"
-        Alamofire.request(restUrl, method: .get).responseJSON { response  in
+        Alamofire.request(restUrl, method: .get, headers: constants.appID).responseJSON { response  in
             
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()

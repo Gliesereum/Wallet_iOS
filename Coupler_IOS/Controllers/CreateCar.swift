@@ -121,7 +121,8 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             otherTextView.isEnabled = true
             self.view.endEditing(true)
         }else{
-        modelTextView.isEnabled = true
+        brandsTextView.isEnabled = true
+        modelTextView.isEnabled = false
         yearTextView.isEnabled = false
         interiorTextView.isEnabled = false
         carBodyTextVIew.isEnabled = false
@@ -156,6 +157,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
                     self.arrayId.append(carBrandsListElement.id!)
                 }
                 if self.brandsTextView.text!.isEmpty{
+                    self.view.endEditing(true)
                     self.showDialogItem(selectionItem: self.arrayItems, selectionCategory: "BRANDS")
                 }
                 
@@ -240,13 +242,13 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
     func getFilters(){
 //        startAnimating()
         let restUrl = constants.startUrl + "karma/v1/filter/by-business-type"
-        guard UserDefaults.standard.object(forKey: "BUISNESSID") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "businessTableViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
-            self.utils.checkFilds(massage: "Выберите сервис", vc: self.view)
-//            stopAnimating()
-            return
-        }
+//        guard UserDefaults.standard.object(forKey: "BUISNESSID") != nil else{
+//            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "businessTableViewController")), animated: true)
+//            self.sideMenuViewController!.hideMenuViewController()
+//            self.utils.checkFilds(massage: "Выберите сервис", vc: self.view)
+////            stopAnimating()
+//            return
+//        }
         let toDo: [String: Any]  = ["businessType":"CAR"]
         Alamofire.request(restUrl, method: .get, parameters: toDo, encoding: URLEncoding(destination: .queryString)).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
@@ -314,7 +316,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
     func getClassServices(){
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/class"
-        Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default).responseJSON { response  in
+        Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: constants.appID).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return
@@ -417,7 +419,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/car/service/" + carId + "/" + idService
-        Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return
@@ -436,7 +438,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
         
         if selectedCar != nil{
             let toDo: [String: String]  = ["brandId": brandId, "modelId": modelId, "yearId": yearId, "registrationNumber": registrationNumber, "description": description, "id": (selectedCar?.id)!]
-            Alamofire.request(restUrl, method: .put, parameters: toDo, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
+            Alamofire.request(restUrl, method: .put, parameters: toDo, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
                 guard self.utils.checkResponse(response: response, vc: self) == true else{
                     self.stopAnimating()
                     return
@@ -467,7 +469,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             }
         }else {
             let toDo: [String: Any]  = ["brandId": brandId, "modelId": modelId, "yearId": yearId, "registrationNumber": registrationNumber, "description": description]
-        Alamofire.request(restUrl, method: .post, parameters: toDo, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .post, parameters: toDo, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return
@@ -563,6 +565,8 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
         case "BRANDS":
             brandsTextView.text = arrayItems[index]
             brandsId = arrayId[index]
+            
+            self.modelTextView.isEnabled = true
             break
         case "MODEL":
             modelTextView.text = arrayItems[index]
@@ -636,6 +640,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             if brandsTextView.text!.isEmpty{
                 self.showDialogItem(selectionItem: self.arrayItems, selectionCategory: "BRANDS")
             }
+            self.view.endEditing(true)
             self.modelTextView.isEnabled = true
             self.yearTextView.isEnabled = false
             self.interiorTextView.isEnabled = false
@@ -662,6 +667,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
            
 //            currentTextField.inputView = picker
             
+            self.view.endEditing(true)
             self.modelTextView.isEnabled = true
             self.yearTextView.isEnabled = true
             self.interiorTextView.isEnabled = false
@@ -686,6 +692,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 //            currentTextField.inputView = picker
             
             
+            self.view.endEditing(true)
             self.modelTextView.isEnabled = true
             self.yearTextView.isEnabled = true
             self.interiorTextView.isEnabled = true
@@ -715,6 +722,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             self.regNumberTextView.isEnabled = false
             self.otherTextView.isEnabled = false
             
+            self.view.endEditing(true)
 //            self.carBodyTextVIew.text?.removeAll()
 //            self.carColorTextView.text?.removeAll()
 //            self.whellRadius.text?.removeAll()
@@ -724,6 +732,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 //            currentTextField.inputView = picker
             
             showDialogItem(selectionItem: arrayCarBodie, selectionCategory: "CARBODY")
+            self.view.endEditing(true)
             self.modelTextView.isEnabled = true
             self.yearTextView.isEnabled = true
             self.interiorTextView.isEnabled = true
@@ -741,6 +750,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 //            currentTextField.inputView = picker
             
             showDialogItem(selectionItem: arrayCarColor, selectionCategory: "CARCOLOR")
+            self.view.endEditing(true)
             self.modelTextView.isEnabled = true
             self.yearTextView.isEnabled = true
             self.interiorTextView.isEnabled = true
@@ -757,6 +767,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             //            currentTextField.inputView = picker
             
             showDialogItem(selectionItem: arrayRadius, selectionCategory: "CAR_WHEEL_RADIUS")
+            self.view.endEditing(true)
             self.modelTextView.isEnabled = true
             self.yearTextView.isEnabled = true
             self.interiorTextView.isEnabled = true
@@ -843,7 +854,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
     func setCarAttributes(carId: String, attributeId: String) {
 
         let restUrl = constants.startUrl + "karma/v1/car/filter-attribute/" + carId + "/" + attributeId
-        Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return
@@ -867,7 +878,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             stopAnimating()
             return
         }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
         Alamofire.request(restUrl, method: .delete, headers: headers).responseJSON { response  in
             guard response.result.error == nil else {
                 // got an error in getting the data, need to handle it
@@ -881,7 +892,11 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
                 self.stopAnimating()
                 return
             }
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
+            if self.selectedCar?.favorite == true{
+                
+                UserDefaults.standard.removeObject(forKey: "CARID")
+            }
+        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
             self.stopAnimating()
         }

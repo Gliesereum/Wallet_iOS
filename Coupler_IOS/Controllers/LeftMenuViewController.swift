@@ -70,7 +70,7 @@ public class LeftMenuViewController: UIViewController{
         
 //        navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.tintColor = .white
-        
+       
     }
     
     @IBAction func btnExit(_ sender: Any) {
@@ -93,7 +93,7 @@ public class LeftMenuViewController: UIViewController{
     @IBAction func mapBtn(_ sender: Any) {
    
         changeButton(button: mapButton)
-        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
+        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
     @IBAction func carListBtn(_ sender: Any) {
@@ -289,7 +289,7 @@ public class LeftMenuViewController: UIViewController{
     func deleteToken(){
         let token = utils.getSharedPref(key: "REGISTRATIONTOKEN")
         let restUrl = constants.startUrl + "notification/v1/user-device?registrationToken=\(token!)"
-        Alamofire.request(restUrl, method: .delete, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .delete, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 return
             }
