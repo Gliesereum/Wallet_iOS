@@ -23,20 +23,19 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     var edited: Bool?
 //    let mapViewController = MapViewController()
     
+    @IBOutlet weak var editItem: UIBarButtonItem!
     @IBOutlet weak var firstName: MDCTextField!
     @IBOutlet weak var lastName: MDCTextField!
     @IBOutlet weak var patronymic: MDCTextField!
     @IBOutlet weak var saveBtn: MDCButton!
-    @IBOutlet weak var editBtn: MDCButton!
     @IBOutlet weak var country: MDCTextField!
     @IBOutlet weak var city: MDCTextField!
     @IBOutlet weak var adress: MDCTextField!
-    @IBOutlet weak var addAvatarView: UIView!
     @IBOutlet weak var imageAvatar: UIImageView!
+    @IBOutlet weak var addAvatarView: UIImageView!
     
     
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var avatarLable: UILabel!
     var avatarUrl = ""
     
     let imagePickerController = ImagePickerController()
@@ -53,11 +52,6 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         country.addDoneCancelToolbar()
         city.addDoneCancelToolbar()
         adress.addDoneCancelToolbar()
-        let swImage = UITapGestureRecognizer(target: self, action: #selector(addAvatar))
-        
-        swImage.delegate = self
-        swImage.numberOfTapsRequired = 1
-        addAvatarView.addGestureRecognizer(swImage)
         getProfile()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -109,6 +103,10 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         let contentInset:UIEdgeInsets = UIEdgeInsets.zero
         scrollView.contentInset = contentInset
     }
+    @IBAction func backARROW(_ sender: Any) {
+        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "profileViewController")), animated: true)
+        self.sideMenuViewController!.hideMenuViewController()
+    }
     @IBAction func regBtn(_ sender: Any) {
         
         self.view.endEditing(true)
@@ -142,15 +140,21 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             return
         }
         
-        avatarLable.isHidden = true
+        addAvatarView.isHidden = true
         firstName.isEnabled = false
+        firstName.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         lastName.isEnabled = false
+        lastName.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         patronymic.isEnabled = false
+        patronymic.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         country.isEnabled = false
+        country.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         city.isEnabled = false
+        city.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         adress.isEnabled = false
+        adress.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         saveBtn.isHidden = true
-        editBtn.isHidden = false
+        editItem.isEnabled = true
         if avatarUrl != ""{
             ragistrarion(firstName: firstName.text!, lastName: lastName.text!, middleName: patronymic.text!, country: country.text!, city: city.text!, adress: adress.text!, avatarUrl: avatarUrl)
         }else{
@@ -161,7 +165,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     func ragistrarion(firstName: String, lastName: String, middleName: String, country: String, city: String, adress: String, avatarUrl: String?){
         print(firstName)
         if profiModel == nil {
-            profiModel = ProfileModel(id: nil, firstName: firstName, lastName: lastName, middleName: middleName, position: nil, country: country, city: city, address: adress, addAddress: nil, avatarURL: avatarUrl, coverURL: nil, gender: nil, banStatus: nil, verifiedStatus: nil, userType: nil)
+            profiModel = ProfileModel(id: nil, phone: nil, firstName: firstName, lastName: lastName, middleName: middleName, position: nil, country: country, city: city, address: adress, addAddress: nil, avatarURL: avatarUrl, coverURL: nil, gender: nil, banStatus: nil, verifiedStatus: nil, userType: nil)
         } else {
             profiModel?.firstName = firstName
             profiModel?.lastName = lastName
@@ -207,15 +211,27 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         
         self.view.endEditing(true)
         edited = true
-        avatarLable.isHidden = false
+        addAvatarView.isHidden = false
         country.isEnabled = true
+        country.textColor = .black
         city.isEnabled = true
+        city.textColor = .black
         adress.isEnabled = true
+        adress.textColor = .black
         firstName.isEnabled = true
+        firstName.textColor = .black
         lastName.isEnabled = true
+        lastName.textColor = .black
         patronymic.isEnabled = true
+        patronymic.textColor = .black
         saveBtn.isHidden = false
-        editBtn.isHidden = true
+        editItem.isEnabled = false
+        let swImage = UITapGestureRecognizer(target: self, action: #selector(addAvatar))
+        
+        swImage.delegate = self
+        swImage.numberOfTapsRequired = 1
+        addAvatarView.isUserInteractionEnabled = true
+        addAvatarView.addGestureRecognizer(swImage)
     }
     func getProfile(){
         
@@ -291,5 +307,22 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         }
     }
     
+    func setProfile(){
+        guard profiModel!.firstName != nil else{
+            self.editProfile(self)
+            self.utils.checkFilds(massage: "Заполните свой профиль", vc: self.view)
+            return
+        }
+        self.firstName.text =  profiModel?.firstName
+        self.lastName.text = profiModel?.lastName
+        self.patronymic.text = profiModel?.middleName
+        self.country.text = profiModel?.country
+        self.city.text = profiModel?.city
+        self.adress.text = profiModel?.address
+        if profiModel?.avatarURL != nil{
+            self.avatarUrl = profiModel!.avatarURL!
+            self.imageAvatar.downloaded(from: profiModel!.avatarURL!)
+        }
+    }
     
 }

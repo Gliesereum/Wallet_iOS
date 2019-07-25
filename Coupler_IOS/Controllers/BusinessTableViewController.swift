@@ -175,12 +175,12 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         infoTask2.infoDescriptor = infoDesc2
 
         
-        let buttonItemView = menuItem.value(forKey: "view") as? UIView
+//        let buttonItemView = menuItem.value(forKey: "view") as? UIView
         let leftDesc2 = LabelDescriptor(for: "Кнопка вызова меню")
         leftDesc2.position = .bottom
-        let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .circle)
-        leftHoleDesc2.labelDescriptor = leftDesc2
-        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
+//        let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .circle)
+//        leftHoleDesc2.labelDescriptor = leftDesc2
+//        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
 //        let rotationTask = createDemoTextPositionBottomTopTask()
 
 //        let rightDesc = LabelDescriptor(for: "From right")
@@ -215,7 +215,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
 //        var infoTask3 = PassthroughTask(with: [])
 //        infoTask3.infoDescriptor = infoDesc3
 
-        PassthroughManager.shared.display(tasks: [infoTask, infoTask2, cellTask, rightLeftTask2]) {
+        PassthroughManager.shared.display(tasks: [infoTask, infoTask2, cellTask]) {
             isUserSkipDemo in
 
             print("isUserSkipDemo: \(isUserSkipDemo)")

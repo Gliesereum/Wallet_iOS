@@ -43,6 +43,10 @@
 		FA059E1A22B383F0004A501D /* GMUGeoJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059E0122B383F0004A501D /* GMUGeoJSONParser.m */; };
 		FA059E1B22B383F0004A501D /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059E0422B383F0004A501D /* GQTPointQuadTree.m */; };
 		FA059E1C22B383F0004A501D /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059E0622B383F0004A501D /* GQTPointQuadTreeChild.m */; };
+		FA06A72522E9C1C9006A26FE /* ReferralCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA06A72422E9C1C9006A26FE /* ReferralCode.swift */; };
+		FA06A72722E9C320006A26FE /* QRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA06A72622E9C320006A26FE /* QRCodeVC.swift */; };
+		FA06A73722E9E35B006A26FE /* DCQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA06A73522E9E35B006A26FE /* DCQRCode.swift */; };
+		FA06A73822E9E35B006A26FE /* FunctionalCoreImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA06A73622E9E35B006A26FE /* FunctionalCoreImage.swift */; };
 		FA0704BC22A5314E005833DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0704BB22A5314E005833DC /* AppDelegate.swift */; };
 		FA0704C122A5314E005833DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA0704BF22A5314E005833DC /* Main.storyboard */; };
 		FA0704C322A53150005833DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA0704C222A53150005833DC /* Assets.xcassets */; };
@@ -195,6 +199,8 @@
 		FA07064322A5699F005833DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA07064222A5699F005833DC /* GoogleService-Info.plist */; };
 		FA07064722A56DAA005833DC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA07064622A56DAA005833DC /* Info.plist */; };
 		FA080FC822DDDFCF00142345 /* BusinessListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA080FC722DDDFCF00142345 /* BusinessListVC.swift */; };
+		FA08112422E6FC5A00EAA8E0 /* ProfileStartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA08112322E6FC5A00EAA8E0 /* ProfileStartVC.swift */; };
+		FA08112622E7354100EAA8E0 /* ScoreBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA08112522E7354100EAA8E0 /* ScoreBody.swift */; };
 		FA09BDD322D8C2B100D3F2BC /* SelectSingleBuisnesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09BDD222D8C2B100D3F2BC /* SelectSingleBuisnesVC.swift */; };
 		FA0C107022BA597B00FDE376 /* CreateCarDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C106F22BA597B00FDE376 /* CreateCarDialog.swift */; };
 		FA0CE35522BD0D32003AA719 /* CreateCarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CE35422BD0D32003AA719 /* CreateCarCell.swift */; };
@@ -366,6 +372,10 @@
 		FA059E0822B383F0004A501D /* GQTPointQuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTree.h; sourceTree = "<group>"; };
 		FA059E0922B383F0004A501D /* GQTPointQuadTreeChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeChild.h; sourceTree = "<group>"; };
 		FA059E0A22B383F0004A501D /* GQTBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTBounds.h; sourceTree = "<group>"; };
+		FA06A72422E9C1C9006A26FE /* ReferralCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralCode.swift; sourceTree = "<group>"; };
+		FA06A72622E9C320006A26FE /* QRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeVC.swift; sourceTree = "<group>"; };
+		FA06A73522E9E35B006A26FE /* DCQRCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DCQRCode.swift; sourceTree = "<group>"; };
+		FA06A73622E9E35B006A26FE /* FunctionalCoreImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalCoreImage.swift; sourceTree = "<group>"; };
 		FA0704B822A5314E005833DC /* Coupler_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Coupler_IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA0704BB22A5314E005833DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA0704C022A5314E005833DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -526,6 +536,8 @@
 		FA07064222A5699F005833DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA07064622A56DAA005833DC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA080FC722DDDFCF00142345 /* BusinessListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessListVC.swift; sourceTree = "<group>"; };
+		FA08112322E6FC5A00EAA8E0 /* ProfileStartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStartVC.swift; sourceTree = "<group>"; };
+		FA08112522E7354100EAA8E0 /* ScoreBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreBody.swift; sourceTree = "<group>"; };
 		FA09BDD222D8C2B100D3F2BC /* SelectSingleBuisnesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSingleBuisnesVC.swift; sourceTree = "<group>"; };
 		FA0C106F22BA597B00FDE376 /* CreateCarDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCarDialog.swift; sourceTree = "<group>"; };
 		FA0CE35422BD0D32003AA719 /* CreateCarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCarCell.swift; sourceTree = "<group>"; };
@@ -783,6 +795,15 @@
 			path = QuadTree;
 			sourceTree = "<group>";
 		};
+		FA06A73422E9E35B006A26FE /* DCQRCode */ = {
+			isa = PBXGroup;
+			children = (
+				FA06A73522E9E35B006A26FE /* DCQRCode.swift */,
+				FA06A73622E9E35B006A26FE /* FunctionalCoreImage.swift */,
+			);
+			path = DCQRCode;
+			sourceTree = "<group>";
+		};
 		FA0704AF22A5314E005833DC = {
 			isa = PBXGroup;
 			children = (
@@ -853,6 +874,8 @@
 				FA07050822A535E1005833DC /* CarClassServices.swift */,
 				FA07050922A535E1005833DC /* ProfileModel.swift */,
 				FAE5E95822B002D800F63E80 /* UploadImage.swift */,
+				FA08112522E7354100EAA8E0 /* ScoreBody.swift */,
+				FA06A72422E9C1C9006A26FE /* ReferralCode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -860,6 +883,7 @@
 		FA07052722A535F1005833DC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				FA06A73422E9E35B006A26FE /* DCQRCode */,
 				FA117E2C22C0CCFA00A5BD01 /* SideMenu */,
 				FA059C2122B374CF004A501D /* Google-Maps-iOS-Utils */,
 				FA02839122B115EA00107106 /* Tutorial */,
@@ -1132,6 +1156,8 @@
 				FA0EF21622CA38BF005B312F /* CarListVC.swift */,
 				FA09BDD222D8C2B100D3F2BC /* SelectSingleBuisnesVC.swift */,
 				FA080FC722DDDFCF00142345 /* BusinessListVC.swift */,
+				FA08112322E6FC5A00EAA8E0 /* ProfileStartVC.swift */,
+				FA06A72622E9C320006A26FE /* QRCodeVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1651,6 +1677,7 @@
 				FA0705BA22A535F1005833DC /* NVActivityIndicatorAnimationSquareSpin.swift in Sources */,
 				FA07051E22A535E1005833DC /* RecordBody.swift in Sources */,
 				FAE5E95022AFE2BE00F63E80 /* Helper.swift in Sources */,
+				FA06A72522E9C1C9006A26FE /* ReferralCode.swift in Sources */,
 				FA07063222A55006005833DC /* CastomPacetsCell.swift in Sources */,
 				FA0705EA22A535F2005833DC /* SCLExtensions.swift in Sources */,
 				FA07051122A535E1005833DC /* CurrentFreeTime.swift in Sources */,
@@ -1677,6 +1704,7 @@
 				FA0705AD22A535F1005833DC /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */,
 				FA0705DD22A535F2005833DC /* FSPagerViewCell.swift in Sources */,
 				FA059E0D22B383F0004A501D /* GMUHeatmapTileLayer.m in Sources */,
+				FA08112422E6FC5A00EAA8E0 /* ProfileStartVC.swift in Sources */,
 				FA059E0E22B383F0004A501D /* GMUKMLParser.m in Sources */,
 				FA0705C422A535F2005833DC /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift in Sources */,
 				FA059E1B22B383F0004A501D /* GQTPointQuadTree.m in Sources */,
@@ -1694,6 +1722,7 @@
 				FAE5E95422AFE2BE00F63E80 /* ImageGalleryView.swift in Sources */,
 				FA0705D222A535F2005833DC /* FlagPhoneNumberTextField.swift in Sources */,
 				FA07051622A535E1005833DC /* JSON.swift in Sources */,
+				FA06A73722E9E35B006A26FE /* DCQRCode.swift in Sources */,
 				FA059E1422B383F0004A501D /* GMUFeature.m in Sources */,
 				FA0705A622A535F1005833DC /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				FAE5E94922AFE2BE00F63E80 /* TopView.swift in Sources */,
@@ -1757,12 +1786,14 @@
 				FA0705A722A535F1005833DC /* NVActivityIndicatorPresenter.swift in Sources */,
 				FA07051322A535E1005833DC /* AllCarList.swift in Sources */,
 				FA0705CE22A535F2005833DC /* FPNFormat.swift in Sources */,
+				FA08112622E7354100EAA8E0 /* ScoreBody.swift in Sources */,
 				FAE5E94A22AFE2BE00F63E80 /* ConstraintsSetup.swift in Sources */,
 				FA0705B322A535F1005833DC /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */,
 				FA07051F22A535E1005833DC /* CarModelsList.swift in Sources */,
 				FA07063922A55006005833DC /* ClassServicesCell.swift in Sources */,
 				FA07061322A535FB005833DC /* FilterDialog.swift in Sources */,
 				FA02839722B1167F00107106 /* PassthroughController.swift in Sources */,
+				FA06A73822E9E35B006A26FE /* FunctionalCoreImage.swift in Sources */,
 				FA0705AB22A535F1005833DC /* NVActivityIndicatorAnimationBallRotate.swift in Sources */,
 				FA080FC822DDDFCF00142345 /* BusinessListVC.swift in Sources */,
 				FA0705B922A535F1005833DC /* NVActivityIndicatorAnimationBallClipRotatePulse.swift in Sources */,
@@ -1777,6 +1808,7 @@
 				FA0705C522A535F2005833DC /* NVActivityIndicatorAnimationPacman.swift in Sources */,
 				FAE5E94622AFE2BE00F63E80 /* CameraMan.swift in Sources */,
 				FAE5E94722AFE2BE00F63E80 /* CameraView.swift in Sources */,
+				FA06A72722E9C320006A26FE /* QRCodeVC.swift in Sources */,
 				FA03A75622AE435B0008310B /* FullDateCollectionViewCell.swift in Sources */,
 				FA0705D722A535F2005833DC /* FPNCountryPicker.swift in Sources */,
 				FA07060B22A535FB005833DC /* WorkingTimeDialog.swift in Sources */,

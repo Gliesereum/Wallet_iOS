@@ -16,17 +16,18 @@ import Alamofire
 class ProfileModel: Codable {
     var id, firstName, lastName, middleName: String?
     var position, country, city, address: String?
-    var addAddress, avatarURL, coverURL, gender: String?
+    var addAddress, avatarURL, coverURL, gender, phone: String?
     let banStatus, verifiedStatus, userType: String?
     
     enum CodingKeys: String, CodingKey {
-        case id, firstName, lastName, middleName, position, country, city, address, addAddress
+        case id, phone, firstName, lastName, middleName, position, country, city, address, addAddress
         case avatarURL = "avatarUrl"
         case coverURL = "coverUrl"
         case gender, banStatus, verifiedStatus, userType
     }
-    init(id: String?, firstName: String?, lastName: String?, middleName: String?, position: String?, country: String?, city: String?, address: String?, addAddress: String?, avatarURL: String?, coverURL: String?, gender: String?, banStatus: String?, verifiedStatus: String?, userType: String?) {
+    init(id: String?, phone: String?, firstName: String?, lastName: String?, middleName: String?, position: String?, country: String?, city: String?, address: String?, addAddress: String?, avatarURL: String?, coverURL: String?, gender: String?, banStatus: String?, verifiedStatus: String?, userType: String?) {
         self.id = id
+        self.phone = phone
         self.firstName = firstName
         self.lastName = lastName
         self.middleName = middleName
@@ -49,7 +50,7 @@ class ProfileModel: Codable {
 extension ProfileModel {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(ProfileModel.self, from: data)
-        self.init(id: me.id, firstName: me.firstName, lastName: me.lastName, middleName: me.middleName, position: me.position, country: me.country, city: me.city, address: me.address, addAddress: me.addAddress, avatarURL: me.avatarURL, coverURL: me.coverURL, gender: me.gender, banStatus: me.banStatus, verifiedStatus: me.verifiedStatus, userType: me.userType)
+        self.init(id: me.id, phone: me.phone, firstName: me.firstName, lastName: me.lastName, middleName: me.middleName, position: me.position, country: me.country, city: me.city, address: me.address, addAddress: me.addAddress, avatarURL: me.avatarURL, coverURL: me.coverURL, gender: me.gender, banStatus: me.banStatus, verifiedStatus: me.verifiedStatus, userType: me.userType)
     }
     
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -65,6 +66,7 @@ extension ProfileModel {
     
     func with(
         id: String? = nil,
+        phone: String?? = nil,
         firstName: String? = nil,
         lastName: String? = nil,
         middleName: String? = nil,
@@ -82,6 +84,7 @@ extension ProfileModel {
         ) -> ProfileModel {
         return ProfileModel(
             id: id ?? self.id,
+            phone: phone ?? self.phone,
             firstName: firstName ?? self.firstName,
             lastName: lastName ?? self.lastName,
             middleName: middleName ?? self.middleName,

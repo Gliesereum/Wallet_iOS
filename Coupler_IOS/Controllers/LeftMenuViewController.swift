@@ -10,14 +10,12 @@ import UIKit
 import Alamofire
 
 public class LeftMenuViewController: UIViewController{
-    @IBOutlet weak var carList: UIButton!
     @IBOutlet weak var orderList: UIButton!
 //    @IBOutlet weak var profile: UIButton!
     @IBOutlet weak var sigIn: UIButton!
     @IBOutlet weak var exitBtn: UIButton!
     @IBOutlet weak var businessBtn: UIButton!
     @IBOutlet weak var mapImage: UIImageView!
-    @IBOutlet weak var carImage: UIImageView!
     @IBOutlet weak var orderListImage: UIImageView!
     @IBOutlet weak var buisnesListImage: UIImageView!
     @IBOutlet weak var exitImage: UIImageView!
@@ -25,7 +23,6 @@ public class LeftMenuViewController: UIViewController{
     @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var buisnesView: UIView!
     @IBOutlet weak var orderListView: UIView!
-    @IBOutlet weak var carView: UIView!
     @IBOutlet weak var aboutUsView: UIView!
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var aboutButton: UIButton!
@@ -74,7 +71,6 @@ public class LeftMenuViewController: UIViewController{
     }
     
     @IBAction func btnExit(_ sender: Any) {
-        carList.isEnabled = false
         orderList.isEnabled = false
         profileBtn.isEnabled = false
 //        userInfo.text = "Coupler"
@@ -96,17 +92,7 @@ public class LeftMenuViewController: UIViewController{
         self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
-    @IBAction func carListBtn(_ sender: Any) {
-        guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
-            return
-        }
    
-        changeButton(button: carList)
-        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
-        self.sideMenuViewController!.hideMenuViewController()
-    }
     
     @IBAction func orderListBtn(_ sender: Any) {
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
@@ -128,7 +114,7 @@ public class LeftMenuViewController: UIViewController{
         
        
         changeButton(button: profileBtn)
-    self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "profileViewController")), animated: true)
+    self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "profileStartVC")), animated: true)
     self.sideMenuViewController!.hideMenuViewController()
     }
     
@@ -169,11 +155,9 @@ public class LeftMenuViewController: UIViewController{
 //                userImage.image = UIImage(named: "IconProfile")
 //            }
 //
-            carList.isEnabled = true
             orderList.isEnabled = true
             profileBtn.isEnabled = true
 //            profile.isHidden = false
-            carList.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             orderList.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             sigIn.isHidden = true
             sigIn.isEnabled = false
@@ -185,11 +169,9 @@ public class LeftMenuViewController: UIViewController{
 //            }
 //            userInfo.text = "Coupler"
 //            userImage.image = UIImage(named: "logo_v1SmallLogo")
-            carList.isEnabled = false
             orderList.isEnabled = false
             profileBtn.isEnabled = false
 //            profile.isHidden = true
-            carList.titleLabel?.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
             orderList.titleLabel?.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
             sigIn.isHidden = false
             sigIn.isEnabled = true
@@ -226,13 +208,6 @@ public class LeftMenuViewController: UIViewController{
                 self.buisnesView.backgroundColor = UIColor(patternImage: selectImage)
                 button.setTitleColor(#colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), for: .normal)
             }, completion:nil)
-        case carList:
-            setDefaulButton()
-            UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
-                self.carImage.image = UIImage(named: "car-24pxorange")
-                self.carView.backgroundColor = UIColor(patternImage: selectImage)
-                button.setTitleColor(#colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), for: .normal)
-            }, completion:nil)
         case aboutButton:
             setDefaulButton()
             UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
@@ -258,9 +233,6 @@ public class LeftMenuViewController: UIViewController{
             self.orderListImage.image = UIImage(named: "list_alt-24pxblack")
             self.orderListView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             self.orderList.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
-            self.carImage.image = UIImage(named: "car-24pxblack")
-            self.carView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            self.carList.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
             self.buisnesListImage.image = UIImage(named: "store-24pxblack")
             self.buisnesView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             self.businessBtn.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
