@@ -462,7 +462,7 @@ class Utils {
     func refreshToken(){
         let restUrl = constants.startUrl + "account/v1/auth/refresh"
         let toDo: [String: String]  = ["refreshToken": getSharedPref(key: "refreshToken")!]
-        Alamofire.request(restUrl, method: .post, parameters: toDo).responseJSON { response  in
+        Alamofire.request(restUrl, method: .post, parameters: toDo, headers: self.constants.appID).responseJSON { response  in
             
             guard response.response?.statusCode != 400 else{
                 UserDefaults.standard.removeObject(forKey: "accessToken")

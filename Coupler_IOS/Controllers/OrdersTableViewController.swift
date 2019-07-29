@@ -103,6 +103,7 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
         Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
             guard response.response?.statusCode != 204 else{
                 //                self.recordTableView.
+                if self.page == 0 {
                 let notOrder = UILabel()
                 notOrder.frame = CGRect(x: 0, y: 0, width: 300, height: 40)
                 notOrder.center = self.recordTableView.center
@@ -110,6 +111,8 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
                 notOrder.font = .systemFont(ofSize: 50)
                 notOrder.text = "Нет заказов"
                 self.recordTableView.addSubview(notOrder)
+                }
+                
                 self.stopAnimating()
                 return
             }

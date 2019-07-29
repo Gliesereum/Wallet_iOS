@@ -141,7 +141,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 
 //        startAnimating()
         let restUrl = constants.startUrl + "karma/v1/car/brands"
-        Alamofire.request(restUrl, method: .get, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .get, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
 //                self.stopAnimating()
                 return
@@ -177,7 +177,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 
 //        startAnimating()
         let restUrl = constants.startUrl + "karma/v1/car/models/by-brand/" + brandId
-        Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default).responseJSON { response  in
+        Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: constants.appID).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
 //                self.stopAnimating()
                 return
@@ -209,7 +209,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
     func getCarYears(){
 //        startAnimating()
         let restUrl = constants.startUrl + "karma/v1/car/years"
-        Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default).responseJSON { response  in
+        Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: constants.appID).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
 //                self.stopAnimating()
                 return
@@ -250,7 +250,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 //            return
 //        }
         let toDo: [String: Any]  = ["businessType":"CAR"]
-        Alamofire.request(restUrl, method: .get, parameters: toDo, encoding: URLEncoding(destination: .queryString)).responseJSON { response  in
+        Alamofire.request(restUrl, method: .get, parameters: toDo, encoding: URLEncoding(destination: .queryString), headers: constants.appID).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
 //                self.stopAnimating()
                 return

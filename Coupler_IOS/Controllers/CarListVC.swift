@@ -117,9 +117,15 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
         Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
             guard response.response?.statusCode != 204 else{
+                //                self.recordTableView.
+                let notOrder = UILabel()
+                notOrder.frame = CGRect(x: 0, y: 0, width: 300, height: 40)
+                notOrder.center = self.carListTable.center
+                notOrder.textColor = .black
+                notOrder.font = .systemFont(ofSize: 50)
+                notOrder.text = "Нет авто"
+                self.carListTable.addSubview(notOrder)
                 self.stopAnimating()
-                self.carListTable.visiblity(gone: true)
-//                self.openAddCarViewController()
                 return
             }
             guard self.utils.checkResponse(response: response, vc: self) == true else{
@@ -130,6 +136,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
             
             do{
                 let carList = try JSONDecoder().decode(AllCarList.self, from: response.data!)
+               
                 self.allCars = carList
                 self.carListData.removeAll()
                 for element in carList{

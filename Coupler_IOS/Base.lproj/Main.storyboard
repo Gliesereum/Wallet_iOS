@@ -2043,6 +2043,7 @@
                         <segue destination="89t-QT-Cp2" kind="show" id="FO7-ek-iib"/>
                         <segue destination="dYu-jy-3bk" kind="show" id="Ikg-PZ-OPs"/>
                         <segue destination="AuG-8s-aHp" kind="show" id="RgC-B2-weB"/>
+                        <segue destination="3rZ-9v-wsG" kind="show" id="3jr-bM-qbF"/>
                     </connections>
                 </navigationController>
                 <navigationItem id="S2f-ET-l0M">
@@ -4556,5 +4557,8 @@
         <image name="unchecked_v2" width="22" height="22"/>
         <image name="website-50" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="3jr-bM-qbF"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

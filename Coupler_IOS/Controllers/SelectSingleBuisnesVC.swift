@@ -219,7 +219,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
             
             
             do{
-                self.checkCarInfo()
+//                self.checkCarInfo()
                 let carList = try JSONDecoder().decode(AllCarList.self, from: response.data!)
                 
                 for element in carList{

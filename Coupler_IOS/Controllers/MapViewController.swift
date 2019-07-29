@@ -180,6 +180,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         case "6a7d64fd-1538-430d-be52-c92ef28d2d3a":
             
             markerImage = UIImage(named: "markerSTO")!
+            
+        case "b355c8ae-6173-49d6-8dca-4adb22d36e9b":
+            
+            markerImage = UIImage(named: "beauty")!
         default:
             
             markerImage = UIImage(named: "marker")!

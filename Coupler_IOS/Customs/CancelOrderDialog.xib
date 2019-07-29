@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="DroidSansMerged-Regular.ttf">
+            <string>DroidSans</string>
+        </array>
+        <array key="SF-Pro-Text-Regular.otf">
+            <string>SFProText-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CancelOrderDialog" customModule="Coupler_IOS" customModuleProvider="target">
+            <connections>
+                <outlet property="canselBtn" destination="lP9-98-W7B" id="P78-Mc-I1U"/>
+                <outlet property="comments" destination="bvK-JW-oNY" id="hVC-nc-V9D"/>
+                <outlet property="okBtn" destination="JiX-1b-8ON" id="KvT-bu-oCw"/>
+                <outlet property="view" destination="D9P-6k-6sN" id="Or5-SH-2ZA"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleAspectFit" id="D9P-6k-6sN">
+            <rect key="frame" x="0.0" y="0.0" width="260" height="212"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите причину отмены заказа" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="bvK-JW-oNY" customClass="MDCTextField">
+                    <rect key="frame" x="10" y="113.5" width="240" height="32.5"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lP9-98-W7B">
+                    <rect key="frame" x="10" y="151" width="112" height="56"/>
+                    <color key="backgroundColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="MJH-pn-HkZ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
+                    <state key="normal" title="ОТМЕНА">
+                        <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="clouse:" destination="-1" eventType="touchUpInside" id="Oua-Y9-IjW"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Отмена заказа" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iy-ED-85B">
+                    <rect key="frame" x="67.5" y="52" width="125" height="20"/>
+                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Для отмены заказа укажите причину по которой Вы отменяете заказ" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ucJ-sp-bmg">
+                    <rect key="frame" x="8" y="80" width="244" height="31.5"/>
+                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="13"/>
+                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JiX-1b-8ON">
+                    <rect key="frame" x="132" y="151" width="112" height="56"/>
+                    <color key="backgroundColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="cWC-KM-rbX"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
+                    <state key="normal" title="ОК">
+                        <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="addComments:" destination="-1" eventType="touchUpInside" id="GiW-vn-vXT"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <accessibility key="accessibilityConfiguration" identifier="CancelOrderDialogXib"/>
+            <constraints>
+                <constraint firstItem="JiX-1b-8ON" firstAttribute="width" secondItem="lP9-98-W7B" secondAttribute="width" id="0Hx-9C-Nc2"/>
+                <constraint firstAttribute="bottom" secondItem="lP9-98-W7B" secondAttribute="bottom" constant="5" id="4b8-hN-kWe"/>
+                <constraint firstItem="2iy-ED-85B" firstAttribute="centerX" secondItem="8Qa-VT-c8w" secondAttribute="centerX" id="4sc-ds-X02"/>
+                <constraint firstItem="lP9-98-W7B" firstAttribute="leading" secondItem="8Qa-VT-c8w" secondAttribute="leading" constant="10" id="AKM-6q-CtF"/>
+                <constraint firstItem="ucJ-sp-bmg" firstAttribute="leading" secondItem="D9P-6k-6sN" secondAttribute="leading" constant="8" id="Aes-bB-lMn"/>
+                <constraint firstAttribute="trailing" secondItem="ucJ-sp-bmg" secondAttribute="trailing" constant="8" id="Olp-zQ-6Tu"/>
+                <constraint firstAttribute="bottom" secondItem="lP9-98-W7B" secondAttribute="bottom" constant="5" id="VFs-jW-XJd"/>
+                <constraint firstItem="bvK-JW-oNY" firstAttribute="top" secondItem="ucJ-sp-bmg" secondAttribute="bottom" constant="2" id="VKg-12-Ssp"/>
+                <constraint firstItem="lP9-98-W7B" firstAttribute="top" secondItem="bvK-JW-oNY" secondAttribute="bottom" constant="5" id="Vmz-GZ-ZIE"/>
+                <constraint firstItem="8Qa-VT-c8w" firstAttribute="trailing" secondItem="JiX-1b-8ON" secondAttribute="trailing" constant="16" id="YwX-jY-T3Y"/>
+                <constraint firstItem="JiX-1b-8ON" firstAttribute="top" secondItem="bvK-JW-oNY" secondAttribute="bottom" constant="5" id="afE-g6-DaP"/>
+                <constraint firstItem="2iy-ED-85B" firstAttribute="top" secondItem="8Qa-VT-c8w" secondAttribute="top" constant="8" id="bNc-zL-6rl"/>
+                <constraint firstItem="JiX-1b-8ON" firstAttribute="leading" secondItem="lP9-98-W7B" secondAttribute="trailing" constant="10" id="cZN-vM-3e3"/>
+                <constraint firstItem="8Qa-VT-c8w" firstAttribute="trailing" secondItem="bvK-JW-oNY" secondAttribute="trailing" constant="10" id="dSO-Cr-ABB"/>
+                <constraint firstItem="ucJ-sp-bmg" firstAttribute="centerX" secondItem="2iy-ED-85B" secondAttribute="centerX" id="g6s-uh-t1A"/>
+                <constraint firstItem="ucJ-sp-bmg" firstAttribute="top" secondItem="2iy-ED-85B" secondAttribute="bottom" constant="8" id="kK1-og-hze"/>
+                <constraint firstAttribute="bottom" secondItem="JiX-1b-8ON" secondAttribute="bottom" constant="5" id="lh1-hm-NYi"/>
+                <constraint firstItem="bvK-JW-oNY" firstAttribute="leading" secondItem="8Qa-VT-c8w" secondAttribute="leading" constant="10" id="tSW-ua-iwt"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="8Qa-VT-c8w"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                    <integer key="value" value="10"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="-3278.2608695652175" y="199.55357142857142"/>
+        </view>
+    </objects>
+</document>

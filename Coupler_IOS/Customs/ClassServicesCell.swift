@@ -1,4 +1,5 @@
-//
+
+var delegate: CarWashInfo?//
 //  CustomClassServicesTableViewCell.swift
 //  Karma
 //

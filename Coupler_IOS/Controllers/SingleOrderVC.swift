@@ -19,7 +19,7 @@ class SingleOrdersPackegeServiceCell: UITableViewCell{
     @IBOutlet weak var service: UILabel!
 }
 
-class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicatorViewable {
+class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate {
     
     let constants = Constants()
     let utils = Utils()
@@ -51,6 +51,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     
     var currentTable = UITableView()
     var record: ContentRB? = nil
+    var cancelMessage: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,14 +128,16 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     }
     
     @IBAction func cancelOrder(_ sender: Any) {
-            let aler = SCLAlertView()
-        aler.addButton("Да"){
-            self.cancelRecord()
-        }
-        aler.showNotice("Внимание!", subTitle: "Вы уверены что хотите отменить заказ?", closeButtonTitle: "Закрыть")
+        
+        showDialog(.slideLeftRight)
         
     }
-    
+    func showDialog(_ animationPattern: LSAnimationPattern) {
+        let dialogViewController = CancelOrderDialog(nibName: "CancelOrderDialog", bundle: nil)
+        dialogViewController.delegate = self
+        dialogViewController.id = record?.id
+        presentDialogViewController(dialogViewController, animationPattern: animationPattern)
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         currentTable = tableView
         if currentTable == packetServiceTable{
@@ -170,7 +173,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
             let cell = tableView.dequeueReusableCell(withIdentifier: "singleOrdersPackegeServiceCell", for: indexPath) as! SingleOrdersPackegeServiceCell
             
             utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
-            let packegeService = record?.packageDto?.services?[indexPath.section]
+        let packegeService = record?.packageDto?.services?[indexPath.section]
             cell.service.text = packegeService?.name
             return cell
         } else if currentTable == serviceTable{
@@ -236,21 +239,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         }
     }
     
-    @objc func cancelRecord(){
-        startAnimating()
-        let toDo: [String: Any]  = ["idRecord": (record?.id)!]
-        let restUrl = constants.startUrl + "karma/v1/record/record/canceled"
-        Alamofire.request(restUrl, method: .put, parameters: toDo, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
-            guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
-                return
-            }
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "ordersTableViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
-            
-            self.stopAnimating()
-        }
-    }
+   
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x != 0 {
             scrollView.contentOffset.x = 0
@@ -275,6 +264,15 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
 //        return cell
 //        }
 //    }
+    func dismissDialog(chouse: Bool) {
+        dismissDialogViewController(LSAnimationPattern.fadeInOut)
+        if chouse == true {
+//            getCarWashInfoComments()
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "ordersTableViewController")), animated: true)
+            self.sideMenuViewController!.hideMenuViewController()
+        }
+        
+    }
     override func viewDidAppear(_ animated: Bool) {
         
 //        utils.checkPushNot(vc: self)

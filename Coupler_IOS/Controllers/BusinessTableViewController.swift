@@ -114,7 +114,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         self.utils.setSaredPref(key: "BUISNESSTYPE", value: record.businessType!)
         self.utils.setSaredPref(key: "BUISNESSID", value: record.id!)
         self.utils.setSaredPref(key: "BUISNESSNAME", value: record.name!)
-        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
+        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

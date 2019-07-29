@@ -91,7 +91,7 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
             
             let profileModel = response.result.value
             guard profileModel?.firstName != nil else{
-                self.carListBtn()
+                self.goToProfile()
                 self.stopAnimating()
                 return
             }
