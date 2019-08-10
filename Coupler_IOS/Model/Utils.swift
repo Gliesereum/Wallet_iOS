@@ -66,6 +66,14 @@ class Utils {
         
     }
     
+    func setBusiness(key: String, value: BuisnessBodyElement) {
+        let userDefaults = UserDefaults.standard
+        let encodedData: Data?
+        encodedData = try! NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: false)
+        userDefaults.set(encodedData, forKey: key)
+        userDefaults.synchronize()
+        
+    }
     //Set any to Shared Preferens
     func setAny(key: String, value: Any) {
         let userDefaults = UserDefaults.standard
@@ -83,6 +91,15 @@ class Utils {
             return nil
         }
         let decodedTeams = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(decoded) as! SelectedCarInfo
+        
+        return decodedTeams
+    }
+    func getBuisness(key: String) -> BuisnessBodyElement? {
+        let userDefaults = UserDefaults.standard
+        guard let decoded  = userDefaults.object(forKey: key) as? Data else{
+            return nil
+        }
+        let decodedTeams = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(decoded) as! BuisnessBodyElement
         
         return decodedTeams
     }
@@ -413,7 +430,7 @@ class Utils {
         
             vc.view.endEditing(true)
             
-            vc.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: vc.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
+            vc.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: vc.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
             vc.sideMenuViewController!.hideMenuViewController()
             SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
 //            TinyToast.shared.show(message: "Нет связи с сервером", valign: .bottom, duration: .normal)

@@ -15,13 +15,14 @@ import Alamofire
 
 class OrderBodyCarWash: Codable {
     var begin: Int?
-    var businessID, description, packageID: String?
+    var businessID, description, packageID, workerId: String?
     var servicesIDS: [String]?
     var targetID: String?
     let workingSpaceID: String?
 
     enum CodingKeys: String, CodingKey {
         case begin
+        case workerId
         case businessID = "businessId"
         case description
         case packageID = "packageId"
@@ -30,9 +31,10 @@ class OrderBodyCarWash: Codable {
         case workingSpaceID = "workingSpaceId"
     }
     
-    init(begin: Int?, businessID: String?, description: String?, packageID: String?, servicesIDS: [String]?, targetID: String?, workingSpaceID: String?) {
+    init(begin: Int?, businessID: String?, workerId: String?, description: String?, packageID: String?, servicesIDS: [String]?, targetID: String?, workingSpaceID: String?) {
         self.begin = begin
         self.businessID = businessID
+        self.workerId = workerId
         self.description = description
         self.packageID = packageID
         self.servicesIDS = servicesIDS
@@ -46,7 +48,7 @@ class OrderBodyCarWash: Codable {
 extension OrderBodyCarWash {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(OrderBodyCarWash.self, from: data)
-        self.init(begin: me.begin, businessID: me.businessID, description: me.description, packageID: me.packageID, servicesIDS: me.servicesIDS, targetID: me.targetID, workingSpaceID: me.workingSpaceID)
+        self.init(begin: me.begin, businessID: me.businessID, workerId: me.workerId, description: me.description, packageID: me.packageID, servicesIDS: me.servicesIDS, targetID: me.targetID, workingSpaceID: me.workingSpaceID)
     }
     
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -63,6 +65,7 @@ extension OrderBodyCarWash {
     func with(
         begin: Int?,
         businessID: String?,
+        workerId: String?,
         description: String?,
         packageID: String?,
         servicesIDS: [String]?,
@@ -72,6 +75,7 @@ extension OrderBodyCarWash {
         return OrderBodyCarWash(
             begin: begin ?? self.begin,
             businessID: businessID ?? self.businessID,
+            workerId: workerId ?? self.workerId,
             description: description ?? self.description,
             packageID: packageID ?? self.packageID,
             servicesIDS: servicesIDS ?? self.servicesIDS,

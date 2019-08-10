@@ -80,7 +80,7 @@ class CommentsDialog: UIViewController, NVActivityIndicatorViewable, FloatRating
         let carWashId: String = (delegate?.carWashInfo?.businessID)!
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/business/\(carWashId)/comment"
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         let params: [String: Any]  = ["rating": ratingText, "text": comments.text]
        Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
         guard self.utils.checkResponse(response: response, vc: self) == true else{

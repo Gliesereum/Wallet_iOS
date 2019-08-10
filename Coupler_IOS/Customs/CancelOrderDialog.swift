@@ -70,8 +70,8 @@ class CancelOrderDialog: UIViewController, NVActivityIndicatorViewable{
     @objc func cancelRecord(){
         startAnimating()
         let toDo: [String: Any]  = ["idRecord": id!, "message": (comments.text)!]
-        let restUrl = constants.startUrl + "karma/v1/record/record/canceled"
-        Alamofire.request(restUrl, method: .put, parameters: toDo, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
+        let restUrl = constants.startUrl + "karma/v1/record/canceled-record"
+        Alamofire.request(restUrl, method: .put, parameters: toDo, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return

@@ -141,7 +141,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 
 //        startAnimating()
         let restUrl = constants.startUrl + "karma/v1/car/brands"
-        Alamofire.request(restUrl, method: .get, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .get, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
 //                self.stopAnimating()
                 return
@@ -419,7 +419,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/car/service/" + carId + "/" + idService
-        Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return
@@ -438,7 +438,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
         
         if selectedCar != nil{
             let toDo: [String: String]  = ["brandId": brandId, "modelId": modelId, "yearId": yearId, "registrationNumber": registrationNumber, "description": description, "id": (selectedCar?.id)!]
-            Alamofire.request(restUrl, method: .put, parameters: toDo, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
+            Alamofire.request(restUrl, method: .put, parameters: toDo, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
                 guard self.utils.checkResponse(response: response, vc: self) == true else{
                     self.stopAnimating()
                     return
@@ -469,7 +469,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             }
         }else {
             let toDo: [String: Any]  = ["brandId": brandId, "modelId": modelId, "yearId": yearId, "registrationNumber": registrationNumber, "description": description]
-        Alamofire.request(restUrl, method: .post, parameters: toDo, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .post, parameters: toDo, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return
@@ -854,7 +854,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
     func setCarAttributes(carId: String, attributeId: String) {
 
         let restUrl = constants.startUrl + "karma/v1/car/filter-attribute/" + carId + "/" + attributeId
-        Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return
@@ -878,7 +878,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             stopAnimating()
             return
         }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .delete, headers: headers).responseJSON { response  in
             guard response.result.error == nil else {
                 // got an error in getting the data, need to handle it

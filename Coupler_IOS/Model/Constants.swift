@@ -16,6 +16,7 @@ class Constants {
 //    let startUrl = "https://karma.gliesereum.com/api/"
 //    let startUrl = "http://192.168.0.107:8200/api/"
     let appID = ["Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
+    let iosId = "041a8a6e-6873-49af-9614-1dc9826a4c01"
     //Service Type
     let serviceType = "CAR_WASH"
     //Nil object

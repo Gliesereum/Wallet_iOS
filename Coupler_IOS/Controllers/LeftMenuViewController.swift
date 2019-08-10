@@ -81,14 +81,14 @@ public class LeftMenuViewController: UIViewController{
         exitBtn.isEnabled = false
         self.sideMenuViewController!.hideMenuViewController()
         deleteToken()
-        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
+        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
         return
     }
     
     @IBAction func mapBtn(_ sender: Any) {
    
-        changeButton(button: mapButton)
+//        changeButton(button: mapButton)
         self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
@@ -100,7 +100,7 @@ public class LeftMenuViewController: UIViewController{
             self.sideMenuViewController!.hideMenuViewController()
             return
         }
-        changeButton(button: orderList)
+//        changeButton(button: orderList)
         self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "ordersTableViewController")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
@@ -113,14 +113,14 @@ public class LeftMenuViewController: UIViewController{
         }
         
        
-        changeButton(button: profileBtn)
+//        changeButton(button: profileBtn)
     self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "profileStartVC")), animated: true)
     self.sideMenuViewController!.hideMenuViewController()
     }
     
     @IBAction func aboutUsBtn(_ sender: Any) {
        
-        changeButton(button: aboutButton)
+//        changeButton(button: aboutButton)
         self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "aboutUs")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
@@ -134,7 +134,7 @@ public class LeftMenuViewController: UIViewController{
     
     @IBAction func businessBtn(_ sender: Any) {
        
-        changeButton(button: businessBtn)
+//        changeButton(button: businessBtn)
         self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "businessTableViewController")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
@@ -173,6 +173,8 @@ public class LeftMenuViewController: UIViewController{
             profileBtn.isEnabled = false
 //            profile.isHidden = true
             orderList.titleLabel?.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+            
+            profileBtn.titleLabel?.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
             sigIn.isHidden = false
             sigIn.isEnabled = true
             exitBtn.isHidden = true
@@ -261,7 +263,7 @@ public class LeftMenuViewController: UIViewController{
     func deleteToken(){
         let token = utils.getSharedPref(key: "REGISTRATIONTOKEN")
         let restUrl = constants.startUrl + "notification/v1/user-device?registrationToken=\(token!)"
-        Alamofire.request(restUrl, method: .delete, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .delete, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 return
             }

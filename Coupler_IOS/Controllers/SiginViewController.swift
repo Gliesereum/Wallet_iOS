@@ -309,7 +309,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
                     
                     return
                 }
-                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
+                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
                 self.sideMenuViewController!.hideMenuViewController()
             }
             catch{
@@ -332,7 +332,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
         
         let toDo: [String: Any]  = ["userId": userId,"subscribes": [["notificationEnable": true, "subscribeDestination": "KARMA_USER_RECORD"],["notificationEnable": true, "subscribeDestination": "KARMA_USER_REMIND_RECORD"] ], "firebaseRegistrationToken": token, "notificationEnable": true]
         let dooo = JSONSerialization.isValidJSONObject(toDo)
-        let headers = ["Authorization" : accessToken, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
+        let headers = ["Authorization" : accessToken, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .post, parameters: toDo,encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()

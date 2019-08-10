@@ -114,7 +114,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
             stopAnimating()
             return
         }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
             guard response.response?.statusCode != 204 else{
                 //                self.recordTableView.
@@ -190,7 +190,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         let carInfo = SelectedCarInfo.init(carId: (selectedCar?.carId)!, carInfo: (selectedCar?.carBrand)! + " " + (selectedCar?.carModel)!, carAttributes: (selectedCar?.carAttributes)!, carServices: selectedCar!.carServices)
         setFavoriteCar(carId: (selectedCar?.carId)!)
         utils.setCarInfo(key: "CARID", value: carInfo)
-        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "mapViewController")), animated: true)
+        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
     @objc func infoCar(sender: UIButton) {
@@ -297,7 +297,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
     func setFavoriteCar(carId: String) {
         
         let restUrl = constants.startUrl + "karma/v1/car/set-favorite/" + carId
-        Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return

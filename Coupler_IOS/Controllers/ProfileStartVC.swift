@@ -86,7 +86,7 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
             self.stopAnimating()
             return
         }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .get, headers: headers).responseProfileModel { response in
             
             let profileModel = response.result.value
@@ -114,7 +114,7 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
             self.stopAnimating()
             return
         }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
@@ -141,7 +141,7 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
             self.stopAnimating()
             return
         }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()

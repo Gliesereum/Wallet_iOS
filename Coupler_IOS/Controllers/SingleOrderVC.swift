@@ -81,7 +81,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         name.text = record?.business?.name
         checkNil()
         status.text = utils.checkStatus(status: (record?.statusProcess)!) 
-        utils.setBorder(view: canselBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
+        utils.setBorder(view: canselBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 8)
         }
         if (self.utils.getSharedPref(key: "OBJECTID")) != nil{
             
@@ -214,7 +214,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         }
         let restUrl = constants.startUrl + "karma/v1/car/\(carId!)"
         var carInfo = ""
-        Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseJSON { response  in
+        Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
                 return
@@ -360,12 +360,12 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
             UserDefaults.standard.removeObject(forKey: "OBJECTID")
         let restUrl = constants.startUrl + "karma/v1/record/\(pushRecordId)"
             guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
                 self.sideMenuViewController!.hideMenuViewController()
                 stopAnimating()
                 return
             }
-            let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
+            let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
             Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
                 
                 guard self.utils.checkResponse(response: response, vc: self) == true else{

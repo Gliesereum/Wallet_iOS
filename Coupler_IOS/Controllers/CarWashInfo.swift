@@ -29,6 +29,14 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     
    
     
+    @IBOutlet weak var snTime: UILabel!
+    @IBOutlet weak var stTime: UILabel!
+    @IBOutlet weak var frTime: UILabel!
+    @IBOutlet weak var thTime: UILabel!
+    @IBOutlet weak var wnTime: UILabel!
+    @IBOutlet weak var tuTime: UILabel!
+    @IBOutlet weak var mnTime: UILabel!
+    @IBOutlet weak var callUsBtn: UIButton!
     @IBOutlet weak var addCommentsBtn: UIButton!
     @IBOutlet weak var raiting: FloatRatingView!
     @IBOutlet weak var nameCarWash: UILabel!
@@ -41,13 +49,14 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     self.imageScroll.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
         }
     }
-    @IBOutlet weak var isWorkLable: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
+    //    @IBOutlet weak var isWorkLable: UILabel!
     @IBOutlet weak var commentsTable: UITableView!
-    @IBOutlet weak var statusLable: UILabel!
-    @IBOutlet weak var headerView: UIView!
+//    @IBOutlet weak var statusLable: UILabel!
+//    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var buttonView: UIView!
     
-    @IBOutlet weak var timeImage: UIButton!
+//    @IBOutlet weak var timeImage: UIButton!
     var carWashInfo: CarWashBody? = nil
     var carWashId: String = ""
     let utils = Utils()
@@ -57,9 +66,12 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     
     override func viewDidLoad() {
         
-        utils.setBorder(view: headerView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
+//        utils.setBorder(view: headerView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
+        utils.setBorder(view: addCommentsBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 8)
+        utils.setBorder(view: callUsBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 8)
         let swImage = UITapGestureRecognizer(target: self, action: #selector(showImage))
-            
+        
+        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: 1600)
         swImage.delegate = self
         swImage.numberOfTapsRequired = 1
         imageScroll.interitemSpacing = 20
@@ -85,9 +97,9 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     
 
   
-    @IBAction func showTimes(_ sender: Any) {
-        showWorkTime()
-    }
+//    @IBAction func showTimes(_ sender: Any) {
+//        showWorkTime()
+//    }
     
     @IBAction func addComment(_ sender: Any) {
 //        guard self.isComment != false else {
@@ -115,7 +127,10 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         cell.rating.rating = Double(exactly: (carwashCommets?.rating)!)!
         cell.date.text = utils.milisecondsToDateB(miliseconds: (carwashCommets?.dateCreated)!)
         cell.user.text = (carwashCommets?.firstName)!
-        
+    
+        if let userImage = carwashCommets?.avatarURL {
+            cell.userImage.downloaded(from: userImage)
+        }
         
         return cell
     }
@@ -194,10 +209,16 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     }
     
     func getMyComment(){
+        guard utils.getSharedPref(key: "accessToken") != nil else{
+            
+            self.buttonView.visiblity(gone: true)
+            stopAnimating()
+            return
+        }
         let carWashId: String = (carWashInfo?.businessID)!
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/business/\(carWashId)/comment/current-user"
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard response.response?.statusCode != 200 else{
                 self.buttonView.visiblity(gone: true)
@@ -217,8 +238,8 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     }
     func getCarWashInfoComments(){
         
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
-        let restUrl = constants.startUrl + "karma/v1/business/\( String((carWashInfo?.id)!))/full-model"
+        let headers = ["Application-Id":self.constants.iosId]
+        let restUrl = constants.startUrl + "karma/v1/business/full-model-by-id?id=\((carWashInfo?.id)!)"
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
@@ -238,20 +259,20 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         }
     }
     override func viewDidAppear(_ animated: Bool) {
-        guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
-            
-            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
-            stopAnimating()
-            return
-        }
-        if UserDefaults.standard.object(forKey: "CARWASHINFOVC") == nil{
-            
-            self.utils.setSaredPref(key: "CARWASHINFOVC", value: "true")
-            self.showTutorial()
-        }
-        
+//        guard utils.getSharedPref(key: "accessToken") != nil else{
+//            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+//            self.sideMenuViewController!.hideMenuViewController()
+//
+//            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
+//            stopAnimating()
+//            return
+//        }
+//        if UserDefaults.standard.object(forKey: "CARWASHINFOVC") == nil{
+//
+//            self.utils.setSaredPref(key: "CARWASHINFOVC", value: "true")
+//            self.showTutorial()
+//        }
+//
         //                    self.showTutorial()
     }
     
@@ -277,13 +298,13 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
 //        let buttonItemView = addCarItem.value(forKey: "view") as? UIView
         let leftDesc2 = LabelDescriptor(for: "Чтобы увидеть время работы нажмите сюда")
         leftDesc2.position = .bottom
-        let leftHoleDesc2 = HoleViewDescriptor(view: timeImage, type: .circle)
-        leftHoleDesc2.labelDescriptor = leftDesc2
-        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
+//        let leftHoleDesc2 = HoleViewDescriptor(view: timeImage, type: .circle)
+//        leftHoleDesc2.labelDescriptor = leftDesc2
+//        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
         
         
         
-        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask1, rightLeftTask2]) {
+        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask1]) {
             isUserSkipDemo in
             
             print("isUserSkipDemo: \(isUserSkipDemo)")
@@ -299,46 +320,85 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         customAlert.delegate = self
         self.present(customAlert, animated: true, completion: nil)
     }
+//    func timeShow(){
+//            var nowDay = ""
+//            let timeDate = Date().dayNumberOfWeek()
+//            switch timeDate{
+//            case 3:
+//                nowDay = "TUESDAY"
+//                break
+//            case 5:
+//                nowDay = "THURSDAY"
+//                break
+//            case 2:
+//                nowDay = "MONDAY"
+//                break
+//            case 7:
+//                nowDay = "SATURDAY"
+//                break
+//            case 1:
+//                nowDay = "SUNDAY"
+//                break
+//            case 6:
+//                nowDay = "FRIDAY"
+//                break
+//            case 4:
+//                nowDay = "WEDNESDAY"
+//                break
+//            default:
+//                break
+//            }
+//        
+//        for day in (carWashInfo?.workTimes)! {
+//            if day.isWork! == true , day.dayOfWeek! == nowDay{
+//                let timeNow = self.utils.currentTimeInMiliseconds(timeZone: (self.carWashInfo?.timeZone)!)
+//                if timeNow > day.from!, timeNow < day.to!{
+//                    isWorkLable.text = "работает"
+//                    isWorkLable.textColor = #colorLiteral(red: 0, green: 0.5603182912, blue: 0, alpha: 1)
+//                }else{
+//                    isWorkLable.text = "закрыто"
+//                    isWorkLable.textColor = .red
+//                }
+//                
+//            }
+//        }
+//    }
+    
+    func getProfTime(day: WorkTime, start: UILabel){
+        if day.isWork == true {
+            start.text = utils.milisecondsToTime(miliseconds: day.from!, timeZone: (carWashInfo?.timeZone)!) + " - " + utils.milisecondsToTime(miliseconds: day.to!, timeZone: (carWashInfo?.timeZone)!)
+//            end.text = utils.milisecondsToTime(miliseconds: day.to!, timeZone: (carWashInfo?.timeZone)!)
+        }else {
+            start.text = "Выходной"
+        }
+    }
+    
     func timeShow(){
-            var nowDay = ""
-            let timeDate = Date().dayNumberOfWeek()
-            switch timeDate{
-            case 3:
-                nowDay = "TUESDAY"
+        for day in (carWashInfo?.workTimes)! {
+            switch day.dayOfWeek{
+            case "TUESDAY":
+                getProfTime(day: day, start: self.tuTime)
                 break
-            case 5:
-                nowDay = "THURSDAY"
+            case "THURSDAY":
+                getProfTime(day: day, start: self.thTime)
                 break
-            case 2:
-                nowDay = "MONDAY"
+            case "MONDAY":
+                getProfTime(day: day, start: self.mnTime)
                 break
-            case 7:
-                nowDay = "SATURDAY"
+            case "SATURDAY":
+                getProfTime(day: day, start: self.stTime)
                 break
-            case 1:
-                nowDay = "SUNDAY"
+            case "SUNDAY":
+                getProfTime(day: day, start: self.snTime)
                 break
-            case 6:
-                nowDay = "FRIDAY"
+            case "FRIDAY":
+                getProfTime(day: day, start: self.frTime)
                 break
-            case 4:
-                nowDay = "WEDNESDAY"
+            case "WEDNESDAY":
+                getProfTime(day: day, start: self.wnTime)
                 break
             default:
                 break
-            }
-        
-        for day in (carWashInfo?.workTimes)! {
-            if day.isWork! == true , day.dayOfWeek! == nowDay{
-                let timeNow = self.utils.currentTimeInMiliseconds(timeZone: (self.carWashInfo?.timeZone)!)
-                if timeNow > day.from!, timeNow < day.to!{
-                    isWorkLable.text = "работает"
-                    isWorkLable.textColor = #colorLiteral(red: 0, green: 0.5603182912, blue: 0, alpha: 1)
-                }else{
-                    isWorkLable.text = "закрыто"
-                    isWorkLable.textColor = .red
-                }
-                
             }
         }
     }

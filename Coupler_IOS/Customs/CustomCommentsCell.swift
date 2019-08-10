@@ -15,4 +15,5 @@ class CustomCommetsCell: UITableViewCell {
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var user: UILabel!
     @IBOutlet weak var commets: UILabel!
+    @IBOutlet weak var userImage: UIImageView!
 }

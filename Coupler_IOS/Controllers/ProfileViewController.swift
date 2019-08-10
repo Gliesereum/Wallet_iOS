@@ -42,6 +42,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ColorOrange()
         imagePickerController.delegate = self
         imagePickerController.imageLimit = 1
         imagePickerController.cameraController.startOnFrontCamera = true
@@ -107,6 +108,14 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "profileViewController")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
+    func ColorOrange(){
+        firstName.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+        lastName.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+        patronymic.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+        country.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+        city.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+        adress.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+    }
     @IBAction func regBtn(_ sender: Any) {
         
         self.view.endEditing(true)
@@ -139,20 +148,14 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             utils.checkFilds(massage: "Введите ваш адрес", vc: self.view)
             return
         }
-        
+        ColorOrange()
         addAvatarView.isHidden = true
         firstName.isEnabled = false
-        firstName.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         lastName.isEnabled = false
-        lastName.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         patronymic.isEnabled = false
-        patronymic.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         country.isEnabled = false
-        country.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         city.isEnabled = false
-        city.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         adress.isEnabled = false
-        adress.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         saveBtn.isHidden = true
         editItem.isEnabled = true
         if avatarUrl != ""{
@@ -183,7 +186,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             self.sideMenuViewController!.hideMenuViewController()
             return
         }
-        Alamofire.request(restUrl, method: .put, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]).responseProfileModel { response  in
+        Alamofire.request(restUrl, method: .put, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseProfileModel { response  in
             guard response.result.error == nil else {
                 // got an error in getting the data, need to handle it
                 print("error calling POST on /todos/1")
@@ -241,7 +244,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             self.sideMenuViewController!.hideMenuViewController()
             return
         }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .get, headers: headers).responseProfileModel { response in
             
             let profileModel = response.result.value
@@ -279,7 +282,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         self.avatarUrl = ""
       
         let parameters = ["open": "true"] //Optional for extra parameter
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         Alamofire.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(imgData, withName: "file",fileName: "file.jpg", mimeType: "image/jpg")
             for (key, value) in parameters {

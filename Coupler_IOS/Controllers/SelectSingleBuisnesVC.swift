@@ -46,26 +46,25 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
     
     override func viewDidLoad() {
         
+        
         super.viewDidLoad()
+//        checkCarInfo()
 //        changeButton.initUI()
         changeButton.layer.borderColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         changeButton.layer.borderWidth = 1
         changeButton.layer.cornerRadius = 4
 //        utils.setBorder(view: changeButton, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
 //        utils.setBorder(view: changeButton, backgroundColor: <#T##UIColor#>, borderColor: <#T##CGColor#>, borderWidth: <#T##CGFloat#>, cornerRadius: <#T##CGFloat#>)
-        changeButton.selectedSegmentIndex = TabIndex.firstChildTab.rawValue
-        displayCurrentTab(TabIndex.firstChildTab.rawValue)
         if utils.getSharedPref(key: "FIRSTSTART") != "true"{
             firstLoad()
         }
-        checkCarInfo()
+        
 //        if utils.getBusinesList(key: "BUSINESSLIST") != nil{
 //            setBusinesMarker()
 //        }else {
 //            checkCarInfo()
         
 //        }
-        getAllCars()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -125,30 +124,61 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
         let restUrl = constants.startUrl + "karma/v1/business/search/document"
         let parameters = try! JSONEncoder().encode(filterBody)
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
+        var headers = ["":""]
         if  self.utils.getSharedPref(key: "accessToken") != nil{
-            let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
+            headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
+        } else {
+            headers = [ "Application-Id":self.constants.iosId]
+        }
             Alamofire.request(restUrl, method: .post,parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
+                guard response.response?.statusCode != 204 else{
+                    //                self.recordTableView.
+                    
+                    
+                    UserDefaults.standard.removeObject(forKey: "BUSINESSLIST")
+                    self.stopAnimating()
+                    return
+                }
                 guard self.utils.checkResponse(response: response, vc: self) == true else{
                     self.stopAnimating()
                     return
                 }
+                
+                self.stopAnimating()
+                
+//                self.changeButton.selectedSegmentIndex = TabIndex.secondChildTab.rawValue
+//                self.displayCurrentTab(TabIndex.secondChildTab.rawValue)
                 do{
                     let businessList = self.utils.getBusinesList(key: "BUSINESSLIST")
                     
                     let responseBody = try JSONDecoder().decode(CarWashMarker.self, from: response.data!)
+                    
+                    self.changeButton.selectedSegmentIndex = TabIndex.firstChildTab.rawValue
+                    self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
                     if self.utils.getBusinesList(key: "BUSINESSLIST") != nil{
                         if (businessList! == responseBody){
                             
                         }else{
                             self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
                             if self.changeButton.selectedSegmentIndex == 0{
+//                            self.contentView.layoutIfNeeded()
+//                            self.mapView.mapView.layoutIfNeeded()
                             self.mapView.setBusinesMarker()
+//                                self.mapView.mapView.clear()
+//                                self.
+                                
+//                                self.changeButton.selectedSegmentIndex = TabIndex.firstChildTab.rawValue
+//                                self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
+
                             }
                             if self.changeButton.selectedSegmentIndex == 1{
                             self.listView.refreshTable()
                             }
+//                            self.changeButton.selectedSegmentIndex = TabIndex.secondChildTab.rawValue
+//                            self.displayCurrentTab(TabIndex.secondChildTab.rawValue)
                         }
                     }else{
+                        
                         self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
                         if self.changeButton.selectedSegmentIndex == 0{
                             self.mapView.setBusinesMarker()
@@ -157,7 +187,6 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                             self.listView.refreshTable()
                         }
                     }
-                    
                 }
                 catch{
                     
@@ -166,38 +195,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                 
                 self.stopAnimating()
             }
-        }else {
-            Alamofire.request(restUrl, method: .post,parameters: params, encoding: JSONEncoding.default, headers: constants.appID).responseJSON { response  in
-                guard self.utils.checkResponse(response: response, vc: self) == true else{
-                    self.stopAnimating()
-                    return
-                }
-                do{
-                    let businessList = self.utils.getBusinesList(key: "BUSINESSLIST")
-                    
-                    let responseBody = try JSONDecoder().decode(CarWashMarker.self, from: response.data!)
-                    if businessList != nil{
-                        if (businessList! == responseBody){
-                            
-                        }else{
-                            self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
-                            self.mapView.setBusinesMarker()
-//                            self.setBusinesMarker()
-                        }
-                    }else{
-                        self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
-                        self.mapView.setBusinesMarker()
-//                        self.setBusinesMarker()
-                    }
-                }
-                catch{
-                    
-                    print(error)
-                }
-                
-                self.stopAnimating()
-            }
-        }
+        
         
     }
     
@@ -206,13 +204,17 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
         let restUrl = constants.startUrl + "karma/v1/car/user"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             
+            self.checkCarInfo()
             stopAnimating()
             return
         }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
+       
         Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
             
             guard self.utils.checkResponse(response: response, vc: self) == true else{
+                
+                self.checkCarInfo()
                 self.stopAnimating()
                 return
             }
@@ -254,7 +256,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
         if self.utils.getSharedPref(key: "CARWASHID") != nil {
            mapView.getCarWashInfo(carWashId: self.utils.getSharedPref(key: "CARWASHID")!)
         }
-        if utils.getCarInfo(key: "CARID") != nil{
+        if utils.getCarInfo(key: "CARID") != nil && self.utils.getSharedPref(key: "BUISNESSTYPE") == "CAR"{
             let carInfo = utils.getCarInfo(key: "CARID")
 //            self.navTop.title = carInfo?.carInfo
 //            self.navTop.titleView?.tintColor = .white
@@ -331,12 +333,12 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
     func Dismiss(filterListId: [String], filterOn: Bool) {
         if filterOn == true{
             serviceSelect = filterListId
-            checkCarInfo()
+//            checkCarInfo()
         } else {
             if serviceSelect.count != 0{
                 serviceSelect.removeAll()
             }
-            checkCarInfo()
+//            checkCarInfo()
         }
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -345,6 +347,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
             self.utils.setSaredPref(key: "MAPVC", value: "true")
             self.showTutorial()
         }
+        getAllCars()
         //        utils.checkPushNot(vc: self)
     }
     func showTutorial() {

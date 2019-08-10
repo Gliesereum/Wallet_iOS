@@ -72,9 +72,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     override func viewDidLoad() {
         super .viewDidLoad()
         // Initialize the location manager.
-        if utils.getBusinesList(key: "BUSINESSLIST") != nil{
-            setBusinesMarker()
-        }
+       
+        print("viewDidLoad")
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -100,59 +99,18 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         } catch{
             
         }
-       setBusinesMarker()
-//
-        // Set up the cluster manager with the supplied icon generator and
-        // renderer.
-//        let iconGenerator = GMUDefaultClusterIconGenerator()
-//        let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
-//        let renderer = GMUDefaultClusterRenderer(mapView: mapView,
-//                                                 clusterIconGenerator: iconGenerator)
-//        clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm,
-//                                           renderer: renderer)
-//
-//        // Generate and add random items to the cluster manager.
-//        generateClusterItems()
-//
-//        // Call cluster() after items have been added to perform the clustering
-//        // and rendering on map.
-//        clusterManager.cluster()
     }
-    /// Randomly generates cluster items within some extent of the camera and
-    /// adds them to the cluster manager.
-//    private func generateClusterItems() {
-//        let extent = 0.2
-//        for index in 1...kClusterItemCount {
-//            let lat = kCameraLatitude + extent * randomScale()
-//            let lng = kCameraLongitude + extent * randomScale()
-//            let name = "Item \(index)"
-//            let item =
-//                POIItem(position: CLLocationCoordinate2DMake(lat, lng), name: name)
-//            clusterManager.addItem(item)
-//        }
-//    }
-    
-    /// Returns a random value between -1.0 and 1.0.
     private func randomScale() -> Double {
         return Double(arc4random()) / Double(UINT32_MAX) * 2.0 - 1.0
     }
-   
-    
-//    func drawPath(from polyStr: String){
-//        let path = GMSPath(fromEncodedPath: polyStr)
-//        let polyline = GMSPolyline(path: path)
-//        polyline.strokeColor = .black
-//        polyline.strokeWidth = 10.0
-//        polyline.map = mapView // Google MapView
-//        self.drawRoute = ""
-//        return
-//    }
-    
-
-
     //MARK: get carwash list
    
     func setBusinesMarker(){
+        guard self.utils.getBusinesList(key: "BUSINESSLIST") != nil else{
+            let rootVC = SelectSingleBuisnesVC()
+            rootVC.checkCarInfo()
+            return
+        }
         let businessList = self.utils.getBusinesList(key: "BUSINESSLIST")
         self.mapView.clear()
         //                if self.carWoshInfos === responseBody {
@@ -165,6 +123,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
                 self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: "", buisness: (carWash.businessCategoryID)!)
             }
         }
+//        self.view.layoutIfNeeded()
+        self.view = mapView
     }
     
     func addMarkerOnMap(getlatitude: Double, getlongitude: Double, title: String, sniper: String, logo: String, buisness: String) {
@@ -233,21 +193,21 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     //MARK: get carwash list
     func getCarWashInfo(carWashId: String){
         startAnimating()
-        guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            utils.setSaredPref(key: "CARWASHID", value: carWashId)
-            self.sideMenuViewController!.hideMenuViewController()
-            
-//            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
-            stopAnimating()
-            return
-        }
+//        guard utils.getSharedPref(key: "accessToken") != nil else{
+////            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+////            utils.setSaredPref(key: "CARWASHID", value: carWashId)
+////            self.sideMenuViewController!.hideMenuViewController()
+////
+////            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
+//            stopAnimating()
+//            return
+//        }
         if self.utils.getSharedPref(key: "CARWASHID") != nil{
         
         UserDefaults.standard.removeObject(forKey: "CARWASHID")
     }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
-        let restUrl = constants.startUrl + "karma/v1/business/\(carWashId)/full-model"
+        let headers = [ "Application-Id":self.constants.iosId]
+        let restUrl = constants.startUrl + "karma/v1/business/full-model-by-id?id=\(carWashId)"
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
@@ -258,18 +218,19 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
                
                 let responseBody = try JSONDecoder().decode(CarWashBody.self, from: response.data!)
                 
-                if responseBody.businessCategory?.businessType == "CAR" {
-                    guard self.utils.getCarInfo(key: "CARID") != nil else{
-                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
-                        
-//                        self.utils.setSaredPref(key: "CARWASHID", value: carWashId)
-                    self.sideMenuViewController!.hideMenuViewController()
-                        
-                        //            self.utils.checkFilds(massage: "Выберите машину", vc: self.view)
-                        self.stopAnimating()
-                    return
-                }
-                }
+//                if responseBody.businessCategory?.businessType == "CAR" {
+//                    guard self.utils.getCarInfo(key: "CARID") != nil else{
+//                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
+//
+////                        self.utils.setSaredPref(key: "CARWASHID", value: carWashId)
+//                    self.sideMenuViewController!.hideMenuViewController()
+//
+//                        //            self.utils.checkFilds(massage: "Выберите машину", vc: self.view)
+//                        self.stopAnimating()
+//                    return
+//                }
+//                }
+                //Thread 1: EXC_BAD_INSTRUCTION (code=EXC_I386_INVOP, subcode=0x0)
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "carWashInfo") as! CarWashInfo
                 vc.carWashInfo = responseBody
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -333,7 +294,36 @@ extension MapViewController: CLLocationManagerDelegate {
         print("Error: \(error)")
     }
    
+//    override func viewWillAppear(_ animated: Bool) {
+//        setBusinesMarker()
+//    }
+    override func viewWillAppear(_ animated: Bool) {
+
+        print("viewWillAppear")
+//        setBusinesMarker()
+    }
     override func viewDidAppear(_ animated: Bool) {
+                setBusinesMarker()
+        print("viewDidAppear")
+    }
+    
+    override func viewWillLayoutSubviews() {
+//        setBusinesMarker()
+        print("viewWillLayoutSubviews")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+//        setBusinesMarker()
+        print("viewWillDisappear")
+    }
+    
+    override func viewDidLayoutSubviews() {
+//        setBusinesMarker()
+        print("viewDidLayoutSubviews")
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+//        setBusinesMarker()
+        print("viewDidDisappear")
         
     }
     

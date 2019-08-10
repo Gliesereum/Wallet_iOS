@@ -83,7 +83,7 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
     
     @objc func getAllCars(){
         startAnimating()
-        let restUrl = constants.startUrl + "karma/v1/record/client/all?page=\(page)&size=20"
+        let restUrl = constants.startUrl + "karma/v1/record/by-current-user?page=\(page)&size=20"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
@@ -99,7 +99,7 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
 //            return
 //        }
 //        let toDo: [String: Any]  = ["businessCategoryId": UserDefaults.standard.object(forKey: "BUISNESSID")!]
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
             guard response.response?.statusCode != 204 else{
                 //                self.recordTableView.

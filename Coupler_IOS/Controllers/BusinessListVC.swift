@@ -35,9 +35,7 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if utils.getBusinesList(key: "BUSINESSLIST") != nil {
-            markerList = utils.getBusinesList(key: "BUSINESSLIST")!
-        }
+        
         // Do any additional setup after loading the view.
     }
     
@@ -82,9 +80,12 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func refreshTable(){
         if utils.getBusinesList(key: "BUSINESSLIST") != nil {
+            
+            let fff = utils.getBusinesList(key: "BUSINESSLIST")!
             markerList = utils.getBusinesList(key: "BUSINESSLIST")!
+            
+           
         }
-        self.refresh = true
 //        do{
 //            self.businesTable.reloadData()
 //        }catch{
@@ -113,21 +114,22 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     func getCarWashInfo(carWashId: String){
         startAnimating()
-        guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            utils.setSaredPref(key: "CARWASHID", value: carWashId)
-            self.sideMenuViewController!.hideMenuViewController()
-            
-            //            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
-            stopAnimating()
-            return
-        }
+//        guard utils.getSharedPref(key: "accessToken") != nil else{
+//            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+//            utils.setSaredPref(key: "CARWASHID", value: carWashId)
+//            self.sideMenuViewController!.hideMenuViewController()
+//
+//            //            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
+//            stopAnimating()
+//            return
+//        }
         if self.utils.getSharedPref(key: "CARWASHID") != nil{
             
             UserDefaults.standard.removeObject(forKey: "CARWASHID")
         }
-        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":"041a8a6e-6873-49af-9614-1dc9826a4c01"]
-        let restUrl = constants.startUrl + "karma/v1/business/\(carWashId)/full-model"
+        let headers = ["Application-Id" : self.constants.iosId]
+        
+        let restUrl = self.constants.startUrl + "karma/v1/business/full-model-by-id?id=\(carWashId)"
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 self.stopAnimating()
@@ -163,10 +165,10 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if refresh == true{
-            businesTable.reloadData()
-            refresh = false
+        if utils.getBusinesList(key: "BUSINESSLIST") != nil {
+            markerList = utils.getBusinesList(key: "BUSINESSLIST")!
         }
+        self.businesTable.reloadData()
     }
 
 }

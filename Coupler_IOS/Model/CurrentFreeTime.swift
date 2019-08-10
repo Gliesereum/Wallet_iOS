@@ -14,52 +14,78 @@ import Foundation
 import Alamofire
 
 class CurrentFreeTime: Codable {
-    let id: JSONNull?
-    let targetID, packageID, businessID: String?
-    let price, begin, finish: Int?
-    let description: String?
-    let packageDto, business, statusPay, statusProcess: JSONNull?
-    let statusRecord, serviceType: JSONNull?
-    let services, servicesIDS: [JSONAny]?
+    let statusPay: String?
+    let packageID: String?
+    let business: String?
+    let notificationSend: Bool?
+    let workerID: String?
+    let targetID, payType: String?
+    let specifiedWorkingSpace: Bool?
+    let client: String?
+    let businessID: String?
+    let statusProcess, packageDto, statusRecord, id: String?
+    let begin: Int?
+    let services: [JSONAny]?
+    let finish: Int?
     let workingSpaceID: String?
+    let businessCategoryID, clientID, canceledDescription: String?
+    let price: Int?
+    let recordNumber: String?
+    let servicesIDS: [String]?
+    let currentFreeTimeDescription: String?
     
     enum CodingKeys: String, CodingKey {
-        case id
-        case targetID = "targetId"
+        case statusPay
         case packageID = "packageId"
+        case business, notificationSend
+        case workerID = "workerId"
+        case targetID = "targetId"
+        case payType, specifiedWorkingSpace, client
         case businessID = "businessId"
-        case price, begin, finish, description, packageDto, business, statusPay, statusProcess, statusRecord, serviceType, services
-        case servicesIDS = "servicesIds"
+        case statusProcess, packageDto, statusRecord, id, begin, services, finish
         case workingSpaceID = "workingSpaceId"
+        case businessCategoryID = "businessCategoryId"
+        case clientID = "clientId"
+        case canceledDescription, price, recordNumber
+        case servicesIDS = "servicesIds"
+        case currentFreeTimeDescription = "description"
     }
     
-    init(id: JSONNull?, targetID: String?, packageID: String?, businessID: String?, price: Int?, begin: Int?, finish: Int?, description: String?, packageDto: JSONNull?, business: JSONNull?, statusPay: JSONNull?, statusProcess: JSONNull?, statusRecord: JSONNull?, serviceType: JSONNull?, services: [JSONAny]?, servicesIDS: [JSONAny]?, workingSpaceID: String?) {
-        self.id = id
-        self.targetID = targetID
-        self.packageID = packageID
-        self.businessID = businessID
-        self.price = price
-        self.begin = begin
-        self.finish = finish
-        self.description = description
-        self.packageDto = packageDto
-        self.business = business
+    init(statusPay: String?, packageID: String?, business: String?, notificationSend: Bool?, workerID: String?, targetID: String?, payType: String?, specifiedWorkingSpace: Bool?, client: String?, businessID: String?, statusProcess: String?, packageDto: String?, statusRecord: String?, id: String?, begin: Int?, services: [JSONAny]?, finish: Int?, workingSpaceID: String?, businessCategoryID: String?, clientID: String?, canceledDescription: String?, price: Int?, recordNumber: String?, servicesIDS: [String]?, currentFreeTimeDescription: String?) {
         self.statusPay = statusPay
+        self.packageID = packageID
+        self.business = business
+        self.notificationSend = notificationSend
+        self.workerID = workerID
+        self.targetID = targetID
+        self.payType = payType
+        self.specifiedWorkingSpace = specifiedWorkingSpace
+        self.client = client
+        self.businessID = businessID
         self.statusProcess = statusProcess
+        self.packageDto = packageDto
         self.statusRecord = statusRecord
-        self.serviceType = serviceType
+        self.id = id
+        self.begin = begin
         self.services = services
-        self.servicesIDS = servicesIDS
+        self.finish = finish
         self.workingSpaceID = workingSpaceID
+        self.businessCategoryID = businessCategoryID
+        self.clientID = clientID
+        self.canceledDescription = canceledDescription
+        self.price = price
+        self.recordNumber = recordNumber
+        self.servicesIDS = servicesIDS
+        self.currentFreeTimeDescription = currentFreeTimeDescription
     }
 }
 
-// MARK: Convenience initializers and mutators
+// MARK: CurrentFreeTime convenience initializers and mutators
 
 extension CurrentFreeTime {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(CurrentFreeTime.self, from: data)
-        self.init(id: me.id, targetID: me.targetID, packageID: me.packageID, businessID: me.businessID, price: me.price, begin: me.begin, finish: me.finish, description: me.description, packageDto: me.packageDto, business: me.business, statusPay: me.statusPay, statusProcess: me.statusProcess, statusRecord: me.statusRecord, serviceType: me.serviceType, services: me.services, servicesIDS: me.servicesIDS, workingSpaceID: me.workingSpaceID)
+        self.init(statusPay: me.statusPay, packageID: me.packageID, business: me.business, notificationSend: me.notificationSend, workerID: me.workerID, targetID: me.targetID, payType: me.payType, specifiedWorkingSpace: me.specifiedWorkingSpace, client: me.client, businessID: me.businessID, statusProcess: me.statusProcess, packageDto: me.packageDto, statusRecord: me.statusRecord, id: me.id, begin: me.begin, services: me.services, finish: me.finish, workingSpaceID: me.workingSpaceID, businessCategoryID: me.businessCategoryID, clientID: me.clientID, canceledDescription: me.canceledDescription, price: me.price, recordNumber: me.recordNumber, servicesIDS: me.servicesIDS, currentFreeTimeDescription: me.currentFreeTimeDescription)
     }
     
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -74,42 +100,58 @@ extension CurrentFreeTime {
     }
     
     func with(
-        id: JSONNull?,
-        targetID: String?,
-        packageID: String?,
-        businessID: String?,
-        price: Int?,
-        begin: Int?,
-        finish: Int?,
-        description: String?,
-        packageDto: JSONNull?,
-        business: JSONNull?,
-        statusPay: JSONNull?,
-        statusProcess: JSONNull?,
-        statusRecord: JSONNull?,
-        serviceType: JSONNull?,
-        services: [JSONAny]?,
-        servicesIDS: [JSONAny]?,
-        workingSpaceID: String?
+        statusPay: String?? = nil,
+        packageID: String?? = nil,
+        business: String?? = nil,
+        notificationSend: Bool?? = nil,
+        workerID: String?? = nil,
+        targetID: String?? = nil,
+        payType: String?? = nil,
+        specifiedWorkingSpace: Bool?? = nil,
+        client: String?? = nil,
+        businessID: String?? = nil,
+        statusProcess: String?? = nil,
+        packageDto: String?? = nil,
+        statusRecord: String?? = nil,
+        id: String?? = nil,
+        begin: Int?? = nil,
+        services: [JSONAny]?? = nil,
+        finish: Int?? = nil,
+        workingSpaceID: String?? = nil,
+        businessCategoryID: String?? = nil,
+        clientID: String?? = nil,
+        canceledDescription: String?? = nil,
+        price: Int?? = nil,
+        recordNumber: String?? = nil,
+        servicesIDS: [String]?? = nil,
+        currentFreeTimeDescription: String?? = nil
         ) -> CurrentFreeTime {
         return CurrentFreeTime(
-            id: id ?? self.id,
-            targetID: targetID ?? self.targetID,
-            packageID: packageID ?? self.packageID,
-            businessID: businessID ?? self.businessID,
-            price: price ?? self.price,
-            begin: begin ?? self.begin,
-            finish: finish ?? self.finish,
-            description: description ?? self.description,
-            packageDto: packageDto ?? self.packageDto,
-            business: business ?? self.business,
             statusPay: statusPay ?? self.statusPay,
+            packageID: packageID ?? self.packageID,
+            business: business ?? self.business,
+            notificationSend: notificationSend ?? self.notificationSend,
+            workerID: workerID ?? self.workerID,
+            targetID: targetID ?? self.targetID,
+            payType: payType ?? self.payType,
+            specifiedWorkingSpace: specifiedWorkingSpace ?? self.specifiedWorkingSpace,
+            client: client ?? self.client,
+            businessID: businessID ?? self.businessID,
             statusProcess: statusProcess ?? self.statusProcess,
+            packageDto: packageDto ?? self.packageDto,
             statusRecord: statusRecord ?? self.statusRecord,
-            serviceType: serviceType ?? self.serviceType,
+            id: id ?? self.id,
+            begin: begin ?? self.begin,
             services: services ?? self.services,
+            finish: finish ?? self.finish,
+            workingSpaceID: workingSpaceID ?? self.workingSpaceID,
+            businessCategoryID: businessCategoryID ?? self.businessCategoryID,
+            clientID: clientID ?? self.clientID,
+            canceledDescription: canceledDescription ?? self.canceledDescription,
+            price: price ?? self.price,
+            recordNumber: recordNumber ?? self.recordNumber,
             servicesIDS: servicesIDS ?? self.servicesIDS,
-            workingSpaceID: workingSpaceID ?? self.workingSpaceID
+            currentFreeTimeDescription: currentFreeTimeDescription ?? self.currentFreeTimeDescription
         )
     }
     
