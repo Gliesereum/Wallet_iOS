@@ -12,7 +12,15 @@ import AZDialogView
 import Alamofire
 import MaterialComponents
 
-class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableViewDataSource, UITableViewDelegate, DateTimePickerDelegate, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate, DialodDismissDelegate, SetTimeDialogDismissDelegate, OrderDialogDismissDelegate{
+protocol CreateCarDissmisDelegete: class {
+    func CreateCarDismiss()
+}
+
+class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableViewDataSource, UITableViewDelegate, DateTimePickerDelegate, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate, DialodDismissDelegate, SetTimeDialogDismissDelegate, OrderDialogDismissDelegate, WorkersListDelegate, CreateCarDissmisDelegete{
+    
+   
+    
+   
     @IBOutlet weak var workerImage: UIImageView!
     @IBOutlet weak var workerPosition: UILabel!
     @IBOutlet weak var workerName: UILabel!
@@ -20,13 +28,15 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     var carWashInfo: CarWashBody? = nil
     @IBOutlet weak var pacetsSelector: EHHorizontalSelectionView!
     
-//    @IBOutlet weak var packageLabel: UILabel!
+    @IBOutlet weak var packageView: UIView!
+    //    @IBOutlet weak var packageLabel: UILabel!
     @IBOutlet weak var allDurations: UILabel!
     @IBOutlet weak var text: UILabel!
 //    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var salerLable: UILabel!
 //    @IBOutlet weak var selectPackage: UILabel!
     @IBOutlet weak var orderButton: MDCButton!
+    @IBOutlet weak var workerView: UIView!
     
     @IBOutlet weak var allPrice: UILabel!
 
@@ -45,11 +55,13 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     var currentTime = Int()
     var workSpaceId = String()
     var time = String()
-    var workerId = String()
+    var workerId = ""
     var indexPackage = UInt()
     var counter = false
     var servicesOld = [Serviceice]()
+    var targetId : String?
     var selectedServices = [Serviceice]()
+//    var workers : WorkerByBuisnesBody?
     var worker : Worker?
     
     let dialogController = AZDialogViewController(title: "Выберите время", message: "Время не выбрато")
@@ -59,8 +71,11 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        getWorkers()
 //        utils.setBorder(view: headerView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
+        if carWashInfo?.workers!.count == 0 || carWashInfo?.workers == nil{
+            workerView.visiblity(gone: true)
+        }
         filterServices()
         carServicePrice.tableFooterView = UIView()
         if carWashInfo?.packages?.count != 0 {
@@ -68,7 +83,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 packagesList.append(package.name!)
             }
         } else {
-            pacetsSelector.visiblity(gone: true)
+            packageView.visiblity(gone: true)
 //            packageLabel.visiblity(gone: true)
         }
         carServicePrice.rowHeight = UITableView.automaticDimension
@@ -83,6 +98,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     }
     
     func voidView(){
+        carWashInfo = self.utils.getCarWashBody(key: "CARWASHBODY")
         if packageId != "" {
             addsumPriceDurations(price: packagePrice, duration: packageDuration)
             text.text = packageId
@@ -93,8 +109,23 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
    
     // MARK: - Navigation
     @IBAction func selectWorker(_ sender: Any) {
+        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "workersList") as! WorkersList
+        customAlert.workers = self.carWashInfo?.workers
+        customAlert.providesPresentationContextTransitionStyle = true
+        customAlert.definesPresentationContext = true
+        customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        customAlert.delegate = self
+        self.present(customAlert, animated: true, completion: nil)
         
+//        let vc = storyboard?.instantiateViewController(withIdentifier: "workersList") as! WorkersList
+//        vc.workers = workers
+//        navigationController?.pushViewController(vc, animated: true)
         
+    }
+    func DismissWorker(worker: Worker) {
+        self.worker = worker
+        self.workerId = worker.id!
     }
     
     @IBAction func orderButton(_ sender: Any) {
@@ -103,8 +134,38 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             utils.checkFilds(massage: "Выберите услуги", vc: self.view)
             return
         }
+        guard utils.getSharedPref(key: "accessToken") != nil else{
+            self.utils.checkAutorization(vc: self)
+            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
+            
+            stopAnimating()
+            
+            return
+            
+        }
+        if self.carWashInfo?.businessCategory?.businessType == "CAR" {
+            
+            guard self.utils.getCarInfo(key: "CARID") != nil else{
+                let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "сarListViewController") as! CarListViewController
+                customAlert.poper = true
+                customAlert.providesPresentationContextTransitionStyle = true
+                customAlert.definesPresentationContext = true
+                customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+                customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+                customAlert.delegate = self
+                self.present(customAlert, animated: true, completion: nil)
+                return
+            }
+            
+        }
+       
 //        showDialog()
-        showSelectTimeDialog(enable: true)
+        if carWashInfo?.workers!.count == 0 || carWashInfo?.workers == nil{
+            utils.checkFilds(massage: "Этот бизнес не имеет зарегистрированных работников, поэтому не может выполнить заказ", vc: self.view)
+        }else{
+            
+            showSelectTimeDialog(enable: true)
+        }
        
     }
     
@@ -249,37 +310,35 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     }
     
     func getCurrentTime(setTime: Int, selected: Int) -> Int {
-        guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
-            
-            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
-            
-            stopAnimating()
-        
-            return self.currentTime
-            
-        }
+       
         let restUrl = constants.startUrl + "karma/v1/record/free-time"
 //       utils.currentTimeInMiliseconds(timeZone: (carWashInfo?.timeZone)!)
         startAnimating()
-        var parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: nil, description: "IOS", packageID: self.packageId, servicesIDS: idServicePrice, targetID: utils.getSharedPref(key: "CARID"), workingSpaceID: nil))
-//        if workerId != nil {
-//         parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: self.workerId, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: utils.getSharedPref(key: "CARID"), workingSpaceID: nil))
-//        }
+        var parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: nil, description: "IOS", packageID: self.packageId, servicesIDS: idServicePrice, targetID: nil, workingSpaceID: nil))
+        if workerId != "" &&  self.carWashInfo?.businessCategory?.businessType == "CAR" {
+         parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: self.workerId, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: targetId, workingSpaceID: nil))
+        } else if workerId != ""{
+            parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: self.workerId, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: nil, workingSpaceID: nil))
+        } else if self.carWashInfo?.businessCategory?.businessType == "CAR" {
+            parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: currentTime, businessID: carWashInfo?.businessID, workerId: nil, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: targetId, workingSpaceID: self.workSpaceId))
+        }
+
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
         Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             do{
-                guard response.response?.statusCode != 500 else{ self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
-                self.sideMenuViewController!.hideMenuViewController()
-                SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
+                guard response.response?.statusCode != 500 else{
+//                    self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
+//                self.sideMenuViewController!.hideMenuViewController()
+                    self.utils.checkServer(vc: self)
+//                SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
                 //            TinyToast.shared.show(message: "Нет связи с сервером", valign: .bottom, duration: .normal)
                     
                     self.stopAnimating()
                 return
                 }
                 guard response.result.error == nil else {
-                    SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
+                    self.utils.checkServer(vc: self)
+//                    SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
                     self.view.endEditing(true)
                     
                     self.stopAnimating()
@@ -317,8 +376,9 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                         return
                     }
                 
+                if self.workerId == ""{
                     self.workerId = currentFreeTime.workerID!
-                
+                }
                     self.currentTime = currentFreeTime.begin!
                     self.workSpaceId = currentFreeTime.workingSpaceID!
                 self.time = self.utils.milisecondsToTime(miliseconds: self.currentTime, timeZone: (self.carWashInfo?.timeZone)! )
@@ -343,33 +403,19 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     }
     func orderWash(){
         startAnimating()
-        guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
-            
-            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
-            stopAnimating()
-            return
-        }
+       
          var parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: currentTime, businessID: carWashInfo?.businessID, workerId: self.workerId, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: nil, workingSpaceID: self.workSpaceId))
-        if self.carWashInfo?.businessCategory?.businessType == "CAR" {
-                                guard self.utils.getCarInfo(key: "CARID") != nil else{
-                            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
+        if workerId != "" &&  self.carWashInfo?.businessCategory?.businessType == "CAR" {
+            parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: currentTime, businessID: carWashInfo?.businessID, workerId: self.workerId, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: targetId, workingSpaceID: self.workSpaceId))
             
-            //                        self.utils.setSaredPref(key: "CARWASHID", value: carWashId)
-                                self.sideMenuViewController!.hideMenuViewController()
-            
-                                    //            self.utils.checkFilds(massage: "Выберите машину", vc: self.view)
-                                    self.stopAnimating()
-                                return
-            }
-            
-            let targetId = utils.getCarInfo(key: "CARID")
-            parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: currentTime, businessID: carWashInfo?.businessID, workerId: self.workerId, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: targetId?.carId, workingSpaceID: self.workSpaceId))
+        } else if workerId != ""{
+             parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: currentTime, businessID: carWashInfo?.businessID, workerId: self.workerId, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: nil, workingSpaceID: self.workSpaceId))
+        } else if self.carWashInfo?.businessCategory?.businessType == "CAR" {
+            parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: currentTime, businessID: carWashInfo?.businessID, workerId: nil, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: targetId, workingSpaceID: self.workSpaceId))
         }
         let restUrl = constants.startUrl + "karma/v1/record"
-        self.worker = Worker.init(userID: nil, position: nil, businessID: nil, id: workerId, corporationID: nil, workTimes: nil, workingSpaceID: nil, user: nil)
-       
+//        self.worker = Worker.init(userID: nil, position: nil, businessID: nil, id: workerId, corporationID: nil, workTimes: nil, workingSpaceID: nil, user: nil)
+//       
         
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
         Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
@@ -549,7 +595,17 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         if UserDefaults.standard.object(forKey: "ORDERWASHVC") == nil{
             
             self.utils.setSaredPref(key: "ORDERWASHVC", value: "true")
-            self.showTutorial()
+//            self.showTutorial()
+        }
+        if worker != nil{
+            workerName.text = (worker?.user?.firstName)! + " " + (worker?.user?.lastName)!
+            workerPosition.text = worker?.position
+            if let workerAvatar = worker?.user?.avatarURL{
+                workerImage.downloaded(from: workerAvatar)
+            }
+        }
+        if let carInfo = utils.getCarInfo(key: "CARID") {
+            self.targetId = carInfo.carId
         }
         
         //                    self.showTutorial()
@@ -664,11 +720,18 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         let restUrl = constants.startUrl + "karma/v1/record/free-time"
         //       utils.currentTimeInMiliseconds(timeZone: (carWashInfo?.timeZone)!)
         startAnimating()
-        self.worker = Worker.init(userID: nil, position: nil, businessID: nil, id: workerId, corporationID: nil, workTimes: nil, workingSpaceID: nil, user: nil)
+//        self.worker = Worker.init(userID: nil, position: nil, businessID: nil, id: workerId, corporationID: nil, workTimes: nil, workingSpaceID: nil, user: nil)
         var parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: nil, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: utils.getSharedPref(key: "CARID"), workingSpaceID: nil))
-        if workerId != "" {
-            parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: self.workerId, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: utils.getSharedPref(key: "CARID"), workingSpaceID: nil))
+        
+        if workerId != "" &&  self.carWashInfo?.businessCategory?.businessType == "CAR" {
+            parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: self.workerId, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: targetId, workingSpaceID: self.workSpaceId))
+            
+        } else if workerId != ""{
+            parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: self.workerId, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: nil, workingSpaceID: self.workSpaceId))
+        } else if self.carWashInfo?.businessCategory?.businessType == "CAR" {
+            parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: nil, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: targetId, workingSpaceID: self.workSpaceId))
         }
+
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
         Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseCurrentFreeTime { response  in
             guard response.response?.statusCode != 500 else{ self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
@@ -701,9 +764,12 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 guard currentFreeTime.begin != nil else{
                     return
                 }
-                    if select == 4 {
-                        self.showOrderDialog()
-                    }
+                if select == 4 {
+                    self.showOrderDialog()
+                }
+                if self.workerId == ""{
+                    self.workerId = currentFreeTime.workerID!
+                }
                 self.currentTime = currentFreeTime.begin!
                 self.workSpaceId = currentFreeTime.workingSpaceID!
                 self.time = self.utils.milisecondsToTime(miliseconds: self.currentTime, timeZone: (self.carWashInfo?.timeZone)! )
@@ -717,6 +783,40 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         //            return 0
                 }
         return self.currentTime
+    }
+    
+//    func getWorkers(){
+//
+//        let restUrl = constants.startUrl + "karma/v1/worker/by-business?businessId=" + (carWashInfo?.id!)!
+//
+//        let headers = ["Application-Id":self.constants.iosId]
+//        Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response in
+//            guard self.utils.checkResponse(response: response, vc: self) == true else{
+//                self.stopAnimating()
+//                return
+//            }
+//
+//            do{
+//
+//                let responseBody = try JSONDecoder().decode(WorkerByBuisnesBody.self, from: response.data!)
+//                self.workers = responseBody
+//
+//
+//            }catch{
+//                print(error)
+//            }
+//
+//        }
+//    }
+    func CreateCarDismiss() {
+        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "createCar") as! CreateCar
+        customAlert.poper = true
+        customAlert.providesPresentationContextTransitionStyle = true
+        customAlert.definesPresentationContext = true
+        customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        //            customAlert.delegate = self
+        self.present(customAlert, animated: true, completion: nil)
     }
 }
 

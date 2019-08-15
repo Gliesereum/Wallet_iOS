@@ -9,7 +9,6 @@ var delegate: CarWashInfo?//
 
 import Foundation
 import UIKit
-import RSSelectionMenu
 
 
 class ClassServicesCell: UITableViewCell{

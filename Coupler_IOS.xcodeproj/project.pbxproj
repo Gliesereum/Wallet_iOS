@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		82E430FEF91D08FCBA93536E /* Pods_Coupler_IOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0D65DDCEB61A0A23E499539 /* Pods_Coupler_IOS.framework */; };
+		FA008B072300309C00B5F44B /* WorkersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA008B062300309C00B5F44B /* WorkersList.swift */; };
+		FA008B092300321500B5F44B /* WorkersListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA008B082300321500B5F44B /* WorkersListCell.swift */; };
+		FA008B0B2300356200B5F44B /* SingleWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA008B0A2300356200B5F44B /* SingleWorker.swift */; };
 		FA00D30222EB3C5300765CBE /* CancelOrderDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00D30122EB3C5300765CBE /* CancelOrderDialog.swift */; };
 		FA02839622B1167F00107106 /* PassthroughEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA02839322B1167F00107106 /* PassthroughEntities.swift */; };
 		FA02839722B1167F00107106 /* PassthroughController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA02839422B1167F00107106 /* PassthroughController.swift */; };
@@ -18,6 +21,7 @@
 		FA03A75822AE435B0008310B /* DateTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03A75422AE435B0008310B /* DateTimePicker.swift */; };
 		FA04616822C20E0600CC0113 /* UIViewController+SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04616622C20E0500CC0113 /* UIViewController+SideMenu.swift */; };
 		FA04616922C20E0600CC0113 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA04616722C20E0600CC0113 /* SideMenu.swift */; };
+		FA0479AC2304A1E6002FF6AA /* WorkerAddCommentsDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0479AB2304A1E5002FF6AA /* WorkerAddCommentsDialog.swift */; };
 		FA059DD522B37A74004A501D /* GMUClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DBA22B37A74004A501D /* GMUClusterManager.m */; };
 		FA059DD622B37A74004A501D /* GMUGridBasedClusterAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DBE22B37A74004A501D /* GMUGridBasedClusterAlgorithm.m */; };
 		FA059DD722B37A74004A501D /* GMUWrappingDictionaryKey.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DC122B37A74004A501D /* GMUWrappingDictionaryKey.m */; };
@@ -147,14 +151,6 @@
 		FA0705D822A535F2005833DC /* FPNCountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07057C22A535F1005833DC /* FPNCountryView.swift */; };
 		FA0705D922A535F2005833DC /* FPNCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07057D22A535F1005833DC /* FPNCountry.swift */; };
 		FA0705DA22A535F2005833DC /* FlagPhoneNumberDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07057E22A535F1005833DC /* FlagPhoneNumberDelegate.swift */; };
-		FA0705DB22A535F2005833DC /* FSPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07058022A535F1005833DC /* FSPagerView.swift */; };
-		FA0705DC22A535F2005833DC /* FSPageViewTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07058122A535F1005833DC /* FSPageViewTransformer.swift */; };
-		FA0705DD22A535F2005833DC /* FSPagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07058322A535F1005833DC /* FSPagerViewCell.swift */; };
-		FA0705DE22A535F2005833DC /* FSPagerViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07058422A535F1005833DC /* FSPagerViewLayoutAttributes.swift */; };
-		FA0705DF22A535F2005833DC /* FSPageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07058522A535F1005833DC /* FSPageViewLayout.swift */; };
-		FA0705E022A535F2005833DC /* FSPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07058622A535F1005833DC /* FSPageControl.swift */; };
-		FA0705E122A535F2005833DC /* FSPagerViewObjcCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = FA07058722A535F1005833DC /* FSPagerViewObjcCompat.m */; };
-		FA0705E222A535F2005833DC /* FSPagerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07058822A535F1005833DC /* FSPagerCollectionView.swift */; };
 		FA0705E322A535F2005833DC /* TinyToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07058B22A535F1005833DC /* TinyToast.swift */; };
 		FA0705E422A535F2005833DC /* TinyToastEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07058C22A535F1005833DC /* TinyToastEnum.swift */; };
 		FA0705E522A535F2005833DC /* AsyncUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07058D22A535F1005833DC /* AsyncUtil.swift */; };
@@ -199,6 +195,7 @@
 		FA07063E22A5626E005833DC /* imageLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = FA07063D22A5626E005833DC /* imageLogo.png */; };
 		FA07064322A5699F005833DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA07064222A5699F005833DC /* GoogleService-Info.plist */; };
 		FA07064722A56DAA005833DC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA07064622A56DAA005833DC /* Info.plist */; };
+		FA07677B23058C6F001C79AC /* CheckServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07677A23058C6F001C79AC /* CheckServer.swift */; };
 		FA080FC822DDDFCF00142345 /* BusinessListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA080FC722DDDFCF00142345 /* BusinessListVC.swift */; };
 		FA08112422E6FC5A00EAA8E0 /* ProfileStartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA08112322E6FC5A00EAA8E0 /* ProfileStartVC.swift */; };
 		FA08112622E7354100EAA8E0 /* ScoreBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA08112522E7354100EAA8E0 /* ScoreBody.swift */; };
@@ -255,6 +252,8 @@
 		FA0EF21522C9FD17005B312F /* San Francisco Pro Font License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FA0EF21422C9FD17005B312F /* San Francisco Pro Font License.rtf */; };
 		FA0EF21722CA38BF005B312F /* CarListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0EF21622CA38BF005B312F /* CarListVC.swift */; };
 		FA0F616022A684BD00D0273C /* 1024x1024.pdf in Resources */ = {isa = PBXBuildFile; fileRef = FA0F615F22A684BC00D0273C /* 1024x1024.pdf */; };
+		FA158D532304446500B3BD1A /* WorkerByBuisnesBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA158D522304446500B3BD1A /* WorkerByBuisnesBody.swift */; };
+		FA77A8892304A29200EE6229 /* AddCommentsByWorker.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA77A8882304A29200EE6229 /* AddCommentsByWorker.xib */; };
 		FAE5E94622AFE2BE00F63E80 /* CameraMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93022AFE2BE00F63E80 /* CameraMan.swift */; };
 		FAE5E94722AFE2BE00F63E80 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93122AFE2BE00F63E80 /* CameraView.swift */; };
 		FAE5E94822AFE2BE00F63E80 /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E93222AFE2BE00F63E80 /* ImagePickerController.swift */; };
@@ -274,6 +273,15 @@
 		FAE5E95622AFE2BE00F63E80 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E94422AFE2BE00F63E80 /* LocationManager.swift */; };
 		FAE5E95722AFE2BE00F63E80 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E94522AFE2BE00F63E80 /* Configuration.swift */; };
 		FAE5E95922B002D800F63E80 /* UploadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E95822B002D800F63E80 /* UploadImage.swift */; };
+		FAFF320E230194C200672F4E /* FSPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF3205230194C100672F4E /* FSPagerView.swift */; };
+		FAFF320F230194C200672F4E /* FSPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF3206230194C100672F4E /* FSPageControl.swift */; };
+		FAFF3210230194C200672F4E /* FSPagerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF3207230194C100672F4E /* FSPagerCollectionView.swift */; };
+		FAFF3211230194C200672F4E /* FSPagerViewObjcCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFF3208230194C100672F4E /* FSPagerViewObjcCompat.m */; };
+		FAFF3212230194C200672F4E /* FSPageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF3209230194C200672F4E /* FSPageViewLayout.swift */; };
+		FAFF3213230194C200672F4E /* FSPageViewTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF320A230194C200672F4E /* FSPageViewTransformer.swift */; };
+		FAFF3214230194C200672F4E /* FSPagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF320B230194C200672F4E /* FSPagerViewCell.swift */; };
+		FAFF3215230194C200672F4E /* FSPagerViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF320C230194C200672F4E /* FSPagerViewLayoutAttributes.swift */; };
+		FAFF321723019B8B00672F4E /* CustomCommetsCellWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF321623019B8B00672F4E /* CustomCommetsCellWorker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -297,6 +305,9 @@
 		0F1F718E3A4E9A31CFA3E48B /* Pods-Coupler_IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coupler_IOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Coupler_IOS/Pods-Coupler_IOS.debug.xcconfig"; sourceTree = "<group>"; };
 		5B519EE849BF0DAE892B4A5C /* Pods-Coupler_IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coupler_IOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Coupler_IOS/Pods-Coupler_IOS.release.xcconfig"; sourceTree = "<group>"; };
 		B0D65DDCEB61A0A23E499539 /* Pods_Coupler_IOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Coupler_IOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA008B062300309C00B5F44B /* WorkersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkersList.swift; sourceTree = "<group>"; };
+		FA008B082300321500B5F44B /* WorkersListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkersListCell.swift; sourceTree = "<group>"; };
+		FA008B0A2300356200B5F44B /* SingleWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWorker.swift; sourceTree = "<group>"; };
 		FA00D30122EB3C5300765CBE /* CancelOrderDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelOrderDialog.swift; sourceTree = "<group>"; };
 		FA02839222B1167F00107106 /* MYPassthrough.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYPassthrough.h; sourceTree = "<group>"; };
 		FA02839322B1167F00107106 /* PassthroughEntities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassthroughEntities.swift; sourceTree = "<group>"; };
@@ -308,6 +319,7 @@
 		FA03A75422AE435B0008310B /* DateTimePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimePicker.swift; sourceTree = "<group>"; };
 		FA04616622C20E0500CC0113 /* UIViewController+SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+SideMenu.swift"; path = "../../../../../Downloads/SimpleSideMenu-master/src/UIViewController+SideMenu.swift"; sourceTree = "<group>"; };
 		FA04616722C20E0600CC0113 /* SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenu.swift; path = "../../../../../Downloads/SimpleSideMenu-master/src/SideMenu.swift"; sourceTree = "<group>"; };
+		FA0479AB2304A1E5002FF6AA /* WorkerAddCommentsDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerAddCommentsDialog.swift; sourceTree = "<group>"; };
 		FA059DBA22B37A74004A501D /* GMUClusterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUClusterManager.m; sourceTree = "<group>"; };
 		FA059DBB22B37A74004A501D /* GMUStaticCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUStaticCluster.h; sourceTree = "<group>"; };
 		FA059DBC22B37A74004A501D /* GMUMarkerClustering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUMarkerClustering.h; sourceTree = "<group>"; };
@@ -483,15 +495,6 @@
 		FA07057C22A535F1005833DC /* FPNCountryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FPNCountryView.swift; sourceTree = "<group>"; };
 		FA07057D22A535F1005833DC /* FPNCountry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FPNCountry.swift; sourceTree = "<group>"; };
 		FA07057E22A535F1005833DC /* FlagPhoneNumberDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagPhoneNumberDelegate.swift; sourceTree = "<group>"; };
-		FA07058022A535F1005833DC /* FSPagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerView.swift; sourceTree = "<group>"; };
-		FA07058122A535F1005833DC /* FSPageViewTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageViewTransformer.swift; sourceTree = "<group>"; };
-		FA07058222A535F1005833DC /* FSPagerViewObjcCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSPagerViewObjcCompat.h; sourceTree = "<group>"; };
-		FA07058322A535F1005833DC /* FSPagerViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerViewCell.swift; sourceTree = "<group>"; };
-		FA07058422A535F1005833DC /* FSPagerViewLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerViewLayoutAttributes.swift; sourceTree = "<group>"; };
-		FA07058522A535F1005833DC /* FSPageViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageViewLayout.swift; sourceTree = "<group>"; };
-		FA07058622A535F1005833DC /* FSPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageControl.swift; sourceTree = "<group>"; };
-		FA07058722A535F1005833DC /* FSPagerViewObjcCompat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSPagerViewObjcCompat.m; sourceTree = "<group>"; };
-		FA07058822A535F1005833DC /* FSPagerCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerCollectionView.swift; sourceTree = "<group>"; };
 		FA07058B22A535F1005833DC /* TinyToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyToast.swift; sourceTree = "<group>"; };
 		FA07058C22A535F1005833DC /* TinyToastEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyToastEnum.swift; sourceTree = "<group>"; };
 		FA07058D22A535F1005833DC /* AsyncUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncUtil.swift; sourceTree = "<group>"; };
@@ -538,6 +541,7 @@
 		FA07063F22A56358005833DC /* Coupler_IOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Coupler_IOS.entitlements; sourceTree = "<group>"; };
 		FA07064222A5699F005833DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA07064622A56DAA005833DC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA07677A23058C6F001C79AC /* CheckServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckServer.swift; sourceTree = "<group>"; };
 		FA080FC722DDDFCF00142345 /* BusinessListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessListVC.swift; sourceTree = "<group>"; };
 		FA08112322E6FC5A00EAA8E0 /* ProfileStartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStartVC.swift; sourceTree = "<group>"; };
 		FA08112522E7354100EAA8E0 /* ScoreBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreBody.swift; sourceTree = "<group>"; };
@@ -594,6 +598,8 @@
 		FA0EF21422C9FD17005B312F /* San Francisco Pro Font License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "San Francisco Pro Font License.rtf"; sourceTree = "<group>"; };
 		FA0EF21622CA38BF005B312F /* CarListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarListVC.swift; sourceTree = "<group>"; };
 		FA0F615F22A684BC00D0273C /* 1024x1024.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = 1024x1024.pdf; sourceTree = "<group>"; };
+		FA158D522304446500B3BD1A /* WorkerByBuisnesBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerByBuisnesBody.swift; sourceTree = "<group>"; };
+		FA77A8882304A29200EE6229 /* AddCommentsByWorker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCommentsByWorker.xib; sourceTree = "<group>"; };
 		FAE5E93022AFE2BE00F63E80 /* CameraMan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraMan.swift; sourceTree = "<group>"; };
 		FAE5E93122AFE2BE00F63E80 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		FAE5E93222AFE2BE00F63E80 /* ImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerController.swift; sourceTree = "<group>"; };
@@ -613,6 +619,16 @@
 		FAE5E94422AFE2BE00F63E80 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		FAE5E94522AFE2BE00F63E80 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		FAE5E95822B002D800F63E80 /* UploadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImage.swift; sourceTree = "<group>"; };
+		FAFF3205230194C100672F4E /* FSPagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerView.swift; sourceTree = "<group>"; };
+		FAFF3206230194C100672F4E /* FSPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageControl.swift; sourceTree = "<group>"; };
+		FAFF3207230194C100672F4E /* FSPagerCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerCollectionView.swift; sourceTree = "<group>"; };
+		FAFF3208230194C100672F4E /* FSPagerViewObjcCompat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSPagerViewObjcCompat.m; sourceTree = "<group>"; };
+		FAFF3209230194C200672F4E /* FSPageViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageViewLayout.swift; sourceTree = "<group>"; };
+		FAFF320A230194C200672F4E /* FSPageViewTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPageViewTransformer.swift; sourceTree = "<group>"; };
+		FAFF320B230194C200672F4E /* FSPagerViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerViewCell.swift; sourceTree = "<group>"; };
+		FAFF320C230194C200672F4E /* FSPagerViewLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPagerViewLayoutAttributes.swift; sourceTree = "<group>"; };
+		FAFF320D230194C200672F4E /* FSPagerViewObjcCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSPagerViewObjcCompat.h; sourceTree = "<group>"; };
+		FAFF321623019B8B00672F4E /* CustomCommetsCellWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCommetsCellWorker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -880,6 +896,7 @@
 				FAE5E95822B002D800F63E80 /* UploadImage.swift */,
 				FA08112522E7354100EAA8E0 /* ScoreBody.swift */,
 				FA06A72422E9C1C9006A26FE /* ReferralCode.swift */,
+				FA158D522304446500B3BD1A /* WorkerByBuisnesBody.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -887,6 +904,7 @@
 		FA07052722A535F1005833DC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				FAFF3204230194A600672F4E /* FSPagerView */,
 				FA06A73422E9E35B006A26FE /* DCQRCode */,
 				FA117E2C22C0CCFA00A5BD01 /* SideMenu */,
 				FA059C2122B374CF004A501D /* Google-Maps-iOS-Utils */,
@@ -897,7 +915,6 @@
 				FA07053A22A535F1005833DC /* PinCodeInputView */,
 				FA07054222A535F1005833DC /* NVActivityIndicatorView */,
 				FA07056D22A535F1005833DC /* FlagPhoneNumber */,
-				FA07057F22A535F1005833DC /* FSPageView */,
 				FA07058922A535F1005833DC /* DateTimePicker */,
 				FA07058A22A535F1005833DC /* TinyToast */,
 				FA07059222A535F1005833DC /* SCLAlertView */,
@@ -1084,22 +1101,6 @@
 			path = FPNCountryPicker;
 			sourceTree = "<group>";
 		};
-		FA07057F22A535F1005833DC /* FSPageView */ = {
-			isa = PBXGroup;
-			children = (
-				FA07058022A535F1005833DC /* FSPagerView.swift */,
-				FA07058122A535F1005833DC /* FSPageViewTransformer.swift */,
-				FA07058222A535F1005833DC /* FSPagerViewObjcCompat.h */,
-				FA07058322A535F1005833DC /* FSPagerViewCell.swift */,
-				FA07058422A535F1005833DC /* FSPagerViewLayoutAttributes.swift */,
-				FA07058522A535F1005833DC /* FSPageViewLayout.swift */,
-				FA07058622A535F1005833DC /* FSPageControl.swift */,
-				FA07058722A535F1005833DC /* FSPagerViewObjcCompat.m */,
-				FA07058822A535F1005833DC /* FSPagerCollectionView.swift */,
-			);
-			path = FSPageView;
-			sourceTree = "<group>";
-		};
 		FA07058922A535F1005833DC /* DateTimePicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -1162,6 +1163,9 @@
 				FA080FC722DDDFCF00142345 /* BusinessListVC.swift */,
 				FA08112322E6FC5A00EAA8E0 /* ProfileStartVC.swift */,
 				FA06A72622E9C320006A26FE /* QRCodeVC.swift */,
+				FA008B062300309C00B5F44B /* WorkersList.swift */,
+				FA008B0A2300356200B5F44B /* SingleWorker.swift */,
+				FA07677A23058C6F001C79AC /* CheckServer.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1179,14 +1183,18 @@
 				FA07062822A55006005833DC /* CustomCommentsCell.swift */,
 				FA07062922A55006005833DC /* CommentsDialog.swift */,
 				FA07062A22A55006005833DC /* CustomMarker.xib */,
-				FA07062B22A55006005833DC /* ClassServiceCell.xib */,
 				FA07062E22A55006005833DC /* AddCommentsCastom.xib */,
+				FA07062B22A55006005833DC /* ClassServiceCell.xib */,
 				FA07062C22A55006005833DC /* ClassServicesCell.swift */,
 				FA00D30122EB3C5300765CBE /* CancelOrderDialog.swift */,
 				FA07062D22A55006005833DC /* CustomServicesPrice.xib */,
 				FA0CE35422BD0D32003AA719 /* CreateCarCell.swift */,
 				FA0EF1B622C9DAB1005B312F /* CarLisrCell.swift */,
 				FA0DBD6F22EF0F3100266901 /* CancelOrderDialog.xib */,
+				FA008B082300321500B5F44B /* WorkersListCell.swift */,
+				FAFF321623019B8B00672F4E /* CustomCommetsCellWorker.swift */,
+				FA0479AB2304A1E5002FF6AA /* WorkerAddCommentsDialog.swift */,
+				FA77A8882304A29200EE6229 /* AddCommentsByWorker.xib */,
 			);
 			path = Customs;
 			sourceTree = "<group>";
@@ -1318,6 +1326,22 @@
 			path = ImageGallery;
 			sourceTree = "<group>";
 		};
+		FAFF3204230194A600672F4E /* FSPagerView */ = {
+			isa = PBXGroup;
+			children = (
+				FAFF3206230194C100672F4E /* FSPageControl.swift */,
+				FAFF3207230194C100672F4E /* FSPagerCollectionView.swift */,
+				FAFF3205230194C100672F4E /* FSPagerView.swift */,
+				FAFF320B230194C200672F4E /* FSPagerViewCell.swift */,
+				FAFF320C230194C200672F4E /* FSPagerViewLayoutAttributes.swift */,
+				FAFF320D230194C200672F4E /* FSPagerViewObjcCompat.h */,
+				FAFF3208230194C100672F4E /* FSPagerViewObjcCompat.m */,
+				FAFF3209230194C200672F4E /* FSPageViewLayout.swift */,
+				FAFF320A230194C200672F4E /* FSPageViewTransformer.swift */,
+			);
+			path = FSPagerView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1441,6 +1465,7 @@
 				FA0EF1E722C9FD06005B312F /* SF-Pro-Display-Thin.otf in Resources */,
 				FA0EF1F922C9FD06005B312F /* SF-Pro-Rounded-Light.otf in Resources */,
 				FA0704EA22A53599005833DC /* .gitignore in Resources */,
+				FA77A8892304A29200EE6229 /* AddCommentsByWorker.xib in Resources */,
 				FA0EF20722C9FD06005B312F /* SF-Pro-Rounded-Medium.otf in Resources */,
 				FA0EF20322C9FD06005B312F /* SF-Pro-Rounded-Thin.otf in Resources */,
 				FA07059622A535F1005833DC /* close_icon.png in Resources */,
@@ -1555,12 +1580,10 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Coupler_IOS/Pods-Coupler_IOS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AKSideMenu/AKSideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/AZDialogView/AZDialogView.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger/AlamofireNetworkActivityLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
 				"${BUILT_PRODUCTS_DIR}/EHHorizontalSelectionView/EHHorizontalSelectionView.framework",
 				"${BUILT_PRODUCTS_DIR}/FloatRatingView/FloatRatingView.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
@@ -1574,10 +1597,7 @@
 				"${BUILT_PRODUCTS_DIR}/MotionTransitioning/MotionTransitioning.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/RSSelectionMenu/RSSelectionMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SRAttractionsMap/SRAttractionsMap.framework",
-				"${BUILT_PRODUCTS_DIR}/SVGKit/SVGKit.framework",
 				"${BUILT_PRODUCTS_DIR}/libPhoneNumber-iOS/libPhoneNumber_iOS.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -1585,12 +1605,10 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AKSideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AZDialogView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityLogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EHHorizontalSelectionView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FloatRatingView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
@@ -1604,10 +1622,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionTransitioning.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RSSelectionMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SRAttractionsMap.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVGKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libPhoneNumber_iOS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -1667,26 +1682,29 @@
 				FA0705A122A535F1005833DC /* ItemView.swift in Sources */,
 				FA07061022A535FB005833DC /* SingleOrderVC.swift in Sources */,
 				FA07061622A535FB005833DC /* OrderDialog.swift in Sources */,
+				FA07677B23058C6F001C79AC /* CheckServer.swift in Sources */,
 				FA07063622A55006005833DC /* CommentsDialog.swift in Sources */,
 				FA07052022A535E1005833DC /* FilterMarkerBody.swift in Sources */,
 				FA0705E822A535F2005833DC /* TinyToastModel.swift in Sources */,
 				FA059DD922B37A74004A501D /* GMUNonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				FA0705B722A535F1005833DC /* NVActivityIndicatorAnimationSemiCircleSpin.swift in Sources */,
+				FAFF3213230194C200672F4E /* FSPageViewTransformer.swift in Sources */,
 				FA0705E322A535F2005833DC /* TinyToast.swift in Sources */,
 				FA07060F22A535FB005833DC /* MenuCastomCellTableViewCell.swift in Sources */,
 				FA0705B022A535F1005833DC /* NVActivityIndicatorAnimationBallDoubleBounce.swift in Sources */,
 				FA07061422A535FB005833DC /* OrdersTableViewController.swift in Sources */,
-				FA0705E022A535F2005833DC /* FSPageControl.swift in Sources */,
 				FA07059822A535F1005833DC /* SRTriangleView.swift in Sources */,
 				FA07052522A535E1005833DC /* CarClassServices.swift in Sources */,
 				FA07061122A535FB005833DC /* ImageShow.swift in Sources */,
 				FA07051C22A535E1005833DC /* OrderBodyCarWash.swift in Sources */,
 				FA0705BA22A535F1005833DC /* NVActivityIndicatorAnimationSquareSpin.swift in Sources */,
+				FAFF321723019B8B00672F4E /* CustomCommetsCellWorker.swift in Sources */,
 				FA07051E22A535E1005833DC /* RecordBody.swift in Sources */,
 				FAE5E95022AFE2BE00F63E80 /* Helper.swift in Sources */,
 				FA06A72522E9C1C9006A26FE /* ReferralCode.swift in Sources */,
 				FA07063222A55006005833DC /* CastomPacetsCell.swift in Sources */,
 				FA0705EA22A535F2005833DC /* SCLExtensions.swift in Sources */,
+				FAFF3215230194C200672F4E /* FSPagerViewLayoutAttributes.swift in Sources */,
 				FA07051122A535E1005833DC /* CurrentFreeTime.swift in Sources */,
 				FA09BDD322D8C2B100D3F2BC /* SelectSingleBuisnesVC.swift in Sources */,
 				FA0704BC22A5314E005833DC /* AppDelegate.swift in Sources */,
@@ -1696,11 +1714,13 @@
 				FA0705C322A535F2005833DC /* NVActivityIndicatorAnimationLineScale.swift in Sources */,
 				FA07060E22A535FB005833DC /* CreateCar.swift in Sources */,
 				FA07059B22A535F1005833DC /* SRAnnotationView.swift in Sources */,
+				FA008B092300321500B5F44B /* WorkersListCell.swift in Sources */,
 				FA07061722A535FB005833DC /* ProfileViewController.swift in Sources */,
 				FA0705BF22A535F1005833DC /* NVActivityIndicatorAnimationAudioEqualizer.swift in Sources */,
 				FA0705AF22A535F1005833DC /* NVActivityIndicatorAnimationBallTrianglePath.swift in Sources */,
 				FA0705CC22A535F2005833DC /* NVActivityIndicatorAnimationOrbit.swift in Sources */,
 				FA07061922A535FB005833DC /* OrderWash.swift in Sources */,
+				FA008B072300309C00B5F44B /* WorkersList.swift in Sources */,
 				FAE5E94D22AFE2BE00F63E80 /* ImageStack.swift in Sources */,
 				FA0705B622A535F1005833DC /* NVActivityIndicatorAnimationBallBeat.swift in Sources */,
 				FA07060622A535FB005833DC /* SiginViewController.swift in Sources */,
@@ -1709,7 +1729,7 @@
 				FA07051D22A535E1005833DC /* Utils.swift in Sources */,
 				FA07063322A55006005833DC /* CustomServicesPrice.swift in Sources */,
 				FA0705AD22A535F1005833DC /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */,
-				FA0705DD22A535F2005833DC /* FSPagerViewCell.swift in Sources */,
+				FA008B0B2300356200B5F44B /* SingleWorker.swift in Sources */,
 				FA059E0D22B383F0004A501D /* GMUHeatmapTileLayer.m in Sources */,
 				FA08112422E6FC5A00EAA8E0 /* ProfileStartVC.swift in Sources */,
 				FA059E0E22B383F0004A501D /* GMUKMLParser.m in Sources */,
@@ -1723,6 +1743,7 @@
 				FA059E1822B383F0004A501D /* GMUPair.m in Sources */,
 				FA07059F22A535F1005833DC /* LSDialogBackgroundView.swift in Sources */,
 				FA07061E22A53641005833DC /* RootViewController1.swift in Sources */,
+				FAFF320E230194C200672F4E /* FSPagerView.swift in Sources */,
 				FA0705C722A535F2005833DC /* NVActivityIndicatorAnimationCubeTransition.swift in Sources */,
 				FA0705E522A535F2005833DC /* AsyncUtil.swift in Sources */,
 				FA0705AA22A535F1005833DC /* NVActivityIndicatorView.swift in Sources */,
@@ -1733,7 +1754,6 @@
 				FA059E1422B383F0004A501D /* GMUFeature.m in Sources */,
 				FA0705A622A535F1005833DC /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				FAE5E94922AFE2BE00F63E80 /* TopView.swift in Sources */,
-				FA0705DF22A535F2005833DC /* FSPageViewLayout.swift in Sources */,
 				FA0705D422A535F2005833DC /* FlagPhoneNumberTextFieldDelegate.swift in Sources */,
 				FAE5E94B22AFE2BE00F63E80 /* StackView.swift in Sources */,
 				FA07059D22A535F1005833DC /* UIViewController+LSDialogViewController.swift in Sources */,
@@ -1753,11 +1773,9 @@
 				FAE5E95222AFE2BE00F63E80 /* ImageGalleryLayout.swift in Sources */,
 				FA059DD722B37A74004A501D /* GMUWrappingDictionaryKey.m in Sources */,
 				FA0705A322A535F1005833DC /* PinCodeInputView.swift in Sources */,
-				FA0705DE22A535F2005833DC /* FSPagerViewLayoutAttributes.swift in Sources */,
 				FA07059922A535F1005833DC /* SRAttractionsMapViewController.swift in Sources */,
 				FAE5E95322AFE2BE00F63E80 /* ImageGalleryViewCell.swift in Sources */,
 				FAE5E95622AFE2BE00F63E80 /* LocationManager.swift in Sources */,
-				FA0705E222A535F2005833DC /* FSPagerCollectionView.swift in Sources */,
 				FA0705BE22A535F1005833DC /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */,
 				FA07051A22A535E1005833DC /* OrderedBodyCarWash.swift in Sources */,
 				FA07052622A535E1005833DC /* ProfileModel.swift in Sources */,
@@ -1770,15 +1788,17 @@
 				FA07050B22A535E1005833DC /* Constants.swift in Sources */,
 				FA07052422A535E1005833DC /* CarWashMarker.swift in Sources */,
 				FA00D30222EB3C5300765CBE /* CancelOrderDialog.swift in Sources */,
+				FA0479AC2304A1E6002FF6AA /* WorkerAddCommentsDialog.swift in Sources */,
 				FA0EF1B722C9DAB1005B312F /* CarLisrCell.swift in Sources */,
 				FA07051822A535E1005833DC /* AddCarInfo.swift in Sources */,
-				FA0705DB22A535F2005833DC /* FSPagerView.swift in Sources */,
+				FAFF3214230194C200672F4E /* FSPagerViewCell.swift in Sources */,
 				FA0705C922A535F2005833DC /* NVActivityIndicatorAnimationLineScaleParty.swift in Sources */,
 				FA07051922A535E1005833DC /* CarYearsList.swift in Sources */,
 				FA0705A422A535F1005833DC /* ItemAppearance.swift in Sources */,
 				FA059E1722B383F0004A501D /* GMUPoint.m in Sources */,
 				FAE5E95722AFE2BE00F63E80 /* Configuration.swift in Sources */,
 				FAE5E94C22AFE2BE00F63E80 /* ButtonPicker.swift in Sources */,
+				FAFF3211230194C200672F4E /* FSPagerViewObjcCompat.m in Sources */,
 				FA059DDC22B37A74004A501D /* GMUStaticCluster.m in Sources */,
 				FA0705B822A535F1005833DC /* NVActivityIndicatorAnimationBallScaleRipple.swift in Sources */,
 				FA02839822B1167F00107106 /* PassthroughManager.swift in Sources */,
@@ -1796,7 +1816,9 @@
 				FA0705CE22A535F2005833DC /* FPNFormat.swift in Sources */,
 				FA08112622E7354100EAA8E0 /* ScoreBody.swift in Sources */,
 				FAE5E94A22AFE2BE00F63E80 /* ConstraintsSetup.swift in Sources */,
+				FAFF320F230194C200672F4E /* FSPageControl.swift in Sources */,
 				FA0705B322A535F1005833DC /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */,
+				FAFF3210230194C200672F4E /* FSPagerCollectionView.swift in Sources */,
 				FA07051F22A535E1005833DC /* CarModelsList.swift in Sources */,
 				FA07063922A55006005833DC /* ClassServicesCell.swift in Sources */,
 				FA07061322A535FB005833DC /* FilterDialog.swift in Sources */,
@@ -1810,6 +1832,7 @@
 				FA0705E422A535F2005833DC /* TinyToastEnum.swift in Sources */,
 				FAE5E94E22AFE2BE00F63E80 /* BottomContainerView.swift in Sources */,
 				FA07063522A55006005833DC /* CustomCommentsCell.swift in Sources */,
+				FA158D532304446500B3BD1A /* WorkerByBuisnesBody.swift in Sources */,
 				FA07061A22A535FB005833DC /* LeftMenuViewController.swift in Sources */,
 				FA03A75822AE435B0008310B /* DateTimePicker.swift in Sources */,
 				FA059E1322B383F0004A501D /* GMUStyleMap.m in Sources */,
@@ -1825,19 +1848,18 @@
 				FA04616922C20E0600CC0113 /* SideMenu.swift in Sources */,
 				FA07051422A535E1005833DC /* CarBrandsList.swift in Sources */,
 				FA059E0C22B383F0004A501D /* GMUGradient.m in Sources */,
-				FA0705E122A535F2005833DC /* FSPagerViewObjcCompat.m in Sources */,
 				FA0705BC22A535F1005833DC /* NVActivityIndicatorAnimationBallPulse.swift in Sources */,
 				FA059DD622B37A74004A501D /* GMUGridBasedClusterAlgorithm.m in Sources */,
 				FA0705E622A535F2005833DC /* TinyToastView.swift in Sources */,
 				FA059DDA22B37A74004A501D /* GMUDefaultClusterRenderer.m in Sources */,
 				FA059E1022B383F0004A501D /* GMUGeometryCollection.m in Sources */,
 				FA0705B122A535F1005833DC /* NVActivityIndicatorAnimationLineScalePulseOut.swift in Sources */,
-				FA0705DC22A535F2005833DC /* FSPageViewTransformer.swift in Sources */,
 				FA07051722A535E1005833DC /* FilterCarWashBody.swift in Sources */,
 				FA0705D622A535F2005833DC /* FPNNibLoadingView.swift in Sources */,
 				FAE5E95922B002D800F63E80 /* UploadImage.swift in Sources */,
 				FA059E1C22B383F0004A501D /* GQTPointQuadTreeChild.m in Sources */,
 				FA0705A822A535F1005833DC /* NVActivityIndicatorViewable.swift in Sources */,
+				FAFF3212230194C200672F4E /* FSPageViewLayout.swift in Sources */,
 				FA0705B222A535F1005833DC /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift in Sources */,
 				FAE5E94F22AFE2BE00F63E80 /* AssetManager.swift in Sources */,
 				FA059DDB22B37A74004A501D /* GMUDefaultClusterIconGenerator.m in Sources */,

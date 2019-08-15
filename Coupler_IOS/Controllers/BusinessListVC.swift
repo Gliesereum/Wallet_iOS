@@ -140,20 +140,22 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
                 
                 let responseBody = try JSONDecoder().decode(CarWashBody.self, from: response.data!)
                 
-                if responseBody.businessCategory?.businessType == "CAR" {
-                    guard self.utils.getCarInfo(key: "CARID") != nil else{
-                        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
-                        
-                        //                        self.utils.setSaredPref(key: "CARWASHID", value: carWashId)
-                        self.sideMenuViewController!.hideMenuViewController()
-                        
-                        //            self.utils.checkFilds(massage: "Выберите машину", vc: self.view)
-                        self.stopAnimating()
-                        return
-                    }
-                }
+//                if responseBody.businessCategory?.businessType == "CAR" {
+//                    guard self.utils.getCarInfo(key: "CARID") != nil else{
+//                        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
+//
+//                        //                        self.utils.setSaredPref(key: "CARWASHID", value: carWashId)
+//                        self.sideMenuViewController!.hideMenuViewController()
+//
+//                        //            self.utils.checkFilds(massage: "Выберите машину", vc: self.view)
+//                        self.stopAnimating()
+//                        return
+//                    }
+//                }
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "carWashInfo") as! CarWashInfo
                 vc.carWashInfo = responseBody
+                self.utils.setCarWashBody(key: "CARWASHBODY", value: responseBody)
+                
                 self.navigationController?.pushViewController(vc, animated: true)
                 
                 

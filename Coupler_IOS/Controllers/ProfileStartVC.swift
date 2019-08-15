@@ -25,6 +25,7 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
     
     var profiModel: ProfileModel?
     var referralCode: String?
+    var poper = Bool()
     
     let constants = Constants()
     let utils = Utils()
@@ -60,8 +61,8 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
     }
     @objc func carListBtn() {
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
+           
+            self.utils.checkAutorization(vc: self)
             return
         }
        
@@ -81,8 +82,8 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
         self.startAnimating()
         let restUrl = constants.startUrl + "account/v1/user/me"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
+            
+            self.utils.checkAutorization(vc: self)
             self.stopAnimating()
             return
         }
@@ -109,8 +110,8 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
         self.startAnimating()
         let restUrl = constants.startUrl + "karma/v1/bonus-score/me"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
+            
+            self.utils.checkAutorization(vc: self)
             self.stopAnimating()
             return
         }
@@ -136,8 +137,8 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
         self.startAnimating()
         let restUrl = constants.startUrl + "account/v1/user/referral-code/me"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
+            
+            self.utils.checkAutorization(vc: self)
             self.stopAnimating()
             return
         }

@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 import MaterialComponents
 
+
+
 struct CellCarList {
     let carBrand: String?
     let carNumber: String?
@@ -65,6 +67,9 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
     let utils = Utils()
     var idCar = String()
     var carIndex = Int()
+    var poper = Bool()
+    var delegate : CreateCarDissmisDelegete?
+    var vc = UIViewController()
     var allCars = AllCarList()
     var loadCar = [String : CellCarList]()
     @IBOutlet weak var addCarView: UIView!
@@ -105,18 +110,28 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         swImage.numberOfTapsRequired = 1
         addCarView.addGestureRecognizer(swImage)
     }
+    func goToCreate(){
+        self.poper = false
+        self.dismiss(animated: true, completion: nil)
+        self.delegate?.CreateCarDismiss()
+        
+    }
     func getAllCars(){
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/car/user"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
+            
+            self.utils.checkAutorization(vc: self)
             stopAnimating()
             return
         }
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
             guard response.response?.statusCode != 204 else{
+                guard self.poper != true else{
+                    self.goToCreate()
+                    return
+                }
                 //                self.recordTableView.
                 let notOrder = UILabel()
                 notOrder.frame = CGRect(x: 0, y: 0, width: 300, height: 40)
@@ -190,6 +205,11 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         let carInfo = SelectedCarInfo.init(carId: (selectedCar?.carId)!, carInfo: (selectedCar?.carBrand)! + " " + (selectedCar?.carModel)!, carAttributes: (selectedCar?.carAttributes)!, carServices: selectedCar!.carServices)
         setFavoriteCar(carId: (selectedCar?.carId)!)
         utils.setCarInfo(key: "CARID", value: carInfo)
+        guard self.poper != true else{
+            self.poper = false
+            self.dismiss(animated: true, completion: nil)
+            return
+        }
         self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
@@ -227,7 +247,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         let cells = cell as! CarLisrCell
         
         let item = carListData[indexPath.section]
-        utils.setBorder(view: cells.informationBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 2, cornerRadius: 4)
+        utils.setBorder(view: cells.informationBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 2, cornerRadius: 4)
         if item.favorite == true{
             utils.setBorder(view: cells.selectBtn, backgroundColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 2, cornerRadius: 4)
             cells.selectBtn.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
@@ -307,13 +327,15 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        getAllCars()
+    override func viewWillAppear(_ animated: Bool) {
+        
         
         //        utils.checkPushNot(vc: self)
         guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
+//            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+//            self.sideMenuViewController!.hideMenuViewController()
+            
+            self.utils.checkAutorization(vc: self)
             
             self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
             stopAnimating()
@@ -330,7 +352,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         if UserDefaults.standard.object(forKey: "CARLISTVC") == nil{
             
             self.utils.setSaredPref(key: "CARLISTVC", value: "true")
-            self.showTutorial()
+//            self.showTutorial()
         }
         
         //                    self.showTutorial()
@@ -369,6 +391,10 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
             
             print("isUserSkipDemo: \(isUserSkipDemo)")
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getAllCars()
     }
     
 }

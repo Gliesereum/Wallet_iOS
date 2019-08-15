@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 import GoogleMaps
-import SRAttractionsMap
+//import SRAttractionsMap
 import CoreLocation
 
 
@@ -233,6 +233,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
                 //Thread 1: EXC_BAD_INSTRUCTION (code=EXC_I386_INVOP, subcode=0x0)
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "carWashInfo") as! CarWashInfo
                 vc.carWashInfo = responseBody
+                self.utils.setCarWashBody(key: "CARWASHBODY", value: responseBody)
                 self.navigationController?.pushViewController(vc, animated: true)
              
                 
@@ -294,38 +295,12 @@ extension MapViewController: CLLocationManagerDelegate {
         print("Error: \(error)")
     }
    
-//    override func viewWillAppear(_ animated: Bool) {
-//        setBusinesMarker()
-//    }
-    override func viewWillAppear(_ animated: Bool) {
-
-        print("viewWillAppear")
-//        setBusinesMarker()
-    }
+//
     override func viewDidAppear(_ animated: Bool) {
                 setBusinesMarker()
         print("viewDidAppear")
     }
     
-    override func viewWillLayoutSubviews() {
-//        setBusinesMarker()
-        print("viewWillLayoutSubviews")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-//        setBusinesMarker()
-        print("viewWillDisappear")
-    }
-    
-    override func viewDidLayoutSubviews() {
-//        setBusinesMarker()
-        print("viewDidLayoutSubviews")
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-//        setBusinesMarker()
-        print("viewDidDisappear")
-        
-    }
     
    
     

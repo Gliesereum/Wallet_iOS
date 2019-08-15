@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-import SDWebImage
+//import SDWebImage
 import EHHorizontalSelectionView
 import FloatRatingView
 import MaterialComponents
@@ -44,6 +44,9 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     @IBOutlet weak var logoCarWash: UIImageView!
     @IBOutlet weak var descriptionText: UILabel!
     @IBOutlet weak var goToOrders: MDCButton!
+    @IBOutlet weak var commentsCount: UILabel!
+    @IBOutlet weak var photoView: UIView!
+    @IBOutlet weak var callUsView: UIView!
     @IBOutlet weak var imageScroll: FSPagerView!{
         didSet {
     self.imageScroll.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -66,6 +69,13 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     
     override func viewDidLoad() {
         
+        carWashInfo = self.utils.getCarWashBody(key: "CARWASHBODY")
+        if carWashInfo?.phone == nil{
+            callUsView.visiblity(gone: true)
+        }
+        if carWashInfo?.comments?.count == 0 || carWashInfo?.comments == nil{
+            commentsTable.visiblity(gone: true)
+        }
 //        utils.setBorder(view: headerView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
         utils.setBorder(view: addCommentsBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 8)
         utils.setBorder(view: callUsBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 8)
@@ -88,7 +98,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         super.viewDidLoad()
         imageScroll.transformer = FSPagerViewTransformer(type: .linear)
         if carWashInfo?.media?.count == 0 {
-            imageScroll.visiblity(gone: true)
+            photoView.visiblity(gone: true)
         }
         timeShow()
                 // Do any additional setup after loading the view.
@@ -101,6 +111,21 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
 //        showWorkTime()
 //    }
     
+    @IBAction func callUs(_ sender: Any) {
+        if let phoneCallURL = URL(string: "telprompt://\((carWashInfo?.phone)!)") {
+            
+            let application:UIApplication = UIApplication.shared
+            if (application.canOpenURL(phoneCallURL)) {
+                if #available(iOS 10.0, *) {
+                    application.open(phoneCallURL, options: [:], completionHandler: nil)
+                } else {
+                    // Fallback on earlier versions
+                    application.openURL(phoneCallURL as URL)
+                    
+                }
+            }
+        }
+    }
     @IBAction func addComment(_ sender: Any) {
 //        guard self.isComment != false else {
 //            TinyToast.shared.show(message: "Вы уже оставляли комментарий", valign: .bottom, duration: .normal)
@@ -114,6 +139,12 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         navigationController?.pushViewController(vc, animated: true)
     }
     func numberOfSections(in tableView: UITableView) -> Int {
+        self.commentsCount.text = "(\(carWashInfo!.comments!.count))"
+//        if carWashInfo!.comments!.count == 0{
+//            commentsTable.visiblity(gone: true)
+//        } else {
+//            commentsTable.visiblity(gone: false)
+//        }
         return carWashInfo!.comments!.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -140,7 +171,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         self.nameCarWash.text = carWashInfo?.name
         self.adressCW.text = carWashInfo?.address
         self.raiting.rating = (carWashInfo?.rating?.rating)!
-        self.descriptionText.text = carWashInfo?.description
+        self.descriptionText.text = carWashInfo?.descriptionCWB
 //        self.statusLable.text = carWashInfo.
        
         
@@ -247,7 +278,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
             }
             do{
                 let responseBody = try JSONDecoder().decode(CarWashBody.self, from: response.data!)
-                self.carWashInfo = responseBody
+                self.utils.setCarWashBody(key: "CARWASHBODY", value: responseBody)
                 self.viewDidLoad()
                 self.commentsTable.reloadData()
                 

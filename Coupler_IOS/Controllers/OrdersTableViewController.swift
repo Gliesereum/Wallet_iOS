@@ -85,8 +85,8 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/record/by-current-user?page=\(page)&size=20"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
+            
+            self.utils.checkAutorization(vc: self)
             stopAnimating()
             return
         }

@@ -6,13 +6,8 @@ target 'Coupler_IOS' do
     pod 'Alamofire'
     pod 'ObjectMapper', '~> 3.4'
     pod 'AlamofireNetworkActivityLogger', '~> 2.0'
-    pod 'RSSelectionMenu'
-    pod 'AKSideMenu'
-    pod 'SRAttractionsMap'
-    pod 'SDWebImage'
     pod 'EHHorizontalSelectionView'
     pod 'AZDialogView'
-    pod 'SVGKit'
     pod 'FloatRatingView'
     pod 'libPhoneNumber-iOS'
     pod 'Firebase/Messaging'
@@ -21,10 +16,6 @@ target 'Coupler_IOS' do
     pod 'GoogleMaps'
     pod 'MaterialComponents'
     pod 'Lightbox'
-    
-
-
-
-    
+    pod 'SDWebImage'
 
 end

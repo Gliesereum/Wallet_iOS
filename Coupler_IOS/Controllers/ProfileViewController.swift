@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import MaterialComponents
+import SDWebImage
 import Lightbox
 
 
@@ -20,6 +21,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     let utils = Utils()
     var frameY = CGFloat()
     var profiModel: ProfileModel?
+//    var delegete : ProfileDissmisDelegete?
     var edited: Bool?
 //    let mapViewController = MapViewController()
     
@@ -37,6 +39,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     
     @IBOutlet weak var scrollView: UIScrollView!
     var avatarUrl = ""
+    var poper = Bool()
     
     let imagePickerController = ImagePickerController()
     
@@ -104,10 +107,10 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         let contentInset:UIEdgeInsets = UIEdgeInsets.zero
         scrollView.contentInset = contentInset
     }
-    @IBAction func backARROW(_ sender: Any) {
-        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "profileViewController")), animated: true)
-        self.sideMenuViewController!.hideMenuViewController()
-    }
+//    @IBAction func backARROW(_ sender: Any) {
+//        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "profileViewController")), animated: true)
+//        self.sideMenuViewController!.hideMenuViewController()
+//    }
     func ColorOrange(){
         firstName.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         lastName.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
@@ -182,8 +185,8 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
         let restUrl = constants.startUrl + "account/v1/user"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
+            
+            self.utils.checkAutorization(vc: self)
             return
         }
         Alamofire.request(restUrl, method: .put, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseProfileModel { response  in
@@ -204,7 +207,14 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             }
             if profileModel!.firstName != nil{
                 self.utils.setSaredPref(key: "USER", value: (profileModel!.firstName)! + " " + (profileModel!.lastName)!)
-            self.utils.doneMassage(massage: "Данные изменены", vc: self.view)
+           
+            }
+            if self.poper == true{
+                self.poper = false
+                self.dismiss(animated: true, completion: nil)
+                self.utils.doneMassage(massage: "Данные изменены", vc: self.view)
+            } else{
+                 self.utils.doneMassage(massage: "Данные изменены", vc: self.view)
             }
         
         }
@@ -240,8 +250,8 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         
         let restUrl = constants.startUrl + "account/v1/user/me"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
+            
+            self.utils.checkAutorization(vc: self)
             return
         }
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
@@ -269,8 +279,8 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     override func viewDidAppear(_ animated: Bool) {
 //        utils.checkPushNot(vc: self)
         guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
+            
+            self.utils.checkAutorization(vc: self)
             
             self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
             return

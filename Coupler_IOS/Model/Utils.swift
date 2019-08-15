@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import SVGKit
 import Alamofire
 import CoreLocation
 
@@ -83,7 +82,29 @@ class Utils {
         userDefaults.synchronize()
         
     }
-    
+    //CarWashBody
+    func setCarWashBody(key: String, value: CarWashBody) {
+        let userDefaults = UserDefaults.standard
+//        let encodedData: Data?
+        let encoder = JSONEncoder()
+        let encoded = try? encoder.encode(value)
+//        encodedData = try! NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: false)
+        userDefaults.set(encoded, forKey: key)
+        userDefaults.synchronize()
+        
+    }
+    func getCarWashBody(key: String) -> CarWashBody? {
+        let userDefaults = UserDefaults.standard
+        guard let decoded  = userDefaults.object(forKey: key) as? Data else{
+            return nil
+        }
+        
+        let decoder = JSONDecoder()
+        let decodedTeams = try! decoder.decode(CarWashBody.self, from: decoded)
+//            NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(decoded) as! CarWashBody
+        
+        return decodedTeams
+    }
     //Get any from Shared Preferens
     func getCarInfo(key: String) -> SelectedCarInfo? {
         let userDefaults = UserDefaults.standard
@@ -113,6 +134,28 @@ class Utils {
         let decodedTeams = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(decoded) as Any
         
         return decodedTeams
+    }
+    
+    func checkAutorization(vc: UIViewController){
+        let customAlert = vc.storyboard?.instantiateViewController(withIdentifier: "siginViewController") as! SiginViewController
+        customAlert.poper = true
+        customAlert.vc = vc
+        customAlert.providesPresentationContextTransitionStyle = true
+        customAlert.definesPresentationContext = true
+        customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        vc.present(customAlert, animated: true, completion: nil)
+        
+    }
+    
+    func checkServer(vc: UIViewController){
+        let customAlert = vc.storyboard?.instantiateViewController(withIdentifier: "checkServer") as! CheckServer
+        customAlert.providesPresentationContextTransitionStyle = true
+        customAlert.definesPresentationContext = true
+        customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        vc.present(customAlert, animated: true, completion: nil)
+        
     }
    
     //check responce status code
@@ -410,13 +453,13 @@ class Utils {
         dateFormatter.dateFormat = "dd.MM.yy HH:mm"
         return dateFormatter.string(from: dateVar)
     }
-    
-    func getImageFromSVG(name: String) -> UIImage {
-        let namSvgImgVar: SVGKImage = SVGKImage(named: name)
-//        let namSvgImgVyuVar = SVGKFastImageView(svgkImage: namSvgImgVar)
-        let namImjVar: UIImage = namSvgImgVar.uiImage
-        return namImjVar
-    }
+//    
+//    func getImageFromSVG(name: String) -> UIImage {
+//        let namSvgImgVar: SVGKImage = SVGKImage(named: name)
+////        let namSvgImgVyuVar = SVGKFastImageView(svgkImage: namSvgImgVar)
+//        let namImjVar: UIImage = namSvgImgVar.uiImage
+//        return namImjVar
+//    }
     
     func dateToMillisecond(date: Date, timeZone: Int) -> Int {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
@@ -427,17 +470,18 @@ class Utils {
     }
     func checkResponse(response: DataResponse<Any>, vc: UIViewController) -> Bool {
         guard response.response?.statusCode != 500 else{
-        
-            vc.view.endEditing(true)
-            
-            vc.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: vc.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
-            vc.sideMenuViewController!.hideMenuViewController()
-            SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
+            checkServer(vc: vc)
+//            vc.view.endEditing(true)
+//
+//            vc.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: vc.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
+//            vc.sideMenuViewController!.hideMenuViewController()
+//            SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
 //            TinyToast.shared.show(message: "Нет связи с сервером", valign: .bottom, duration: .normal)
             return false
         }
         guard response.result.error == nil else {
-                 SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
+            checkServer(vc: vc)
+//                 SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
 //                TinyToast.shared.show(message: "Нет связи с сервером", valign: .bottom, duration: .normal)
             
             vc.view.endEditing(true)
@@ -455,8 +499,16 @@ class Utils {
                     refreshToken()
                     return false
                 }
+               
                 guard checkResponseStatusCode(code: errorBody.code!) != "..." else{
                     return true
+                }
+                guard errorBody.code != 1102 else{
+                    deleteToken()
+                    
+                    vc.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: vc.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
+                    vc.sideMenuViewController!.hideMenuViewController()
+                    return false
                 }
                 vc.view.endEditing(true)
                 SCLAlertView().showWarning("Внимание!", subTitle: checkResponseStatusCode(code: errorBody.code!), closeButtonTitle: "Закрыть")
@@ -476,6 +528,15 @@ class Utils {
         return true
     }
     
+    func deleteToken(){
+      
+            UserDefaults.standard.removeObject(forKey: "accessToken")
+            UserDefaults.standard.removeObject(forKey: "refreshToken")
+            UserDefaults.standard.removeObject(forKey: "CARID")
+            UserDefaults.standard.removeObject(forKey: "USERAVATAR")
+            UserDefaults.standard.removeObject(forKey: "USER")
+            UserDefaults.standard.removeObject(forKey: "REGISTRATIONTOKEN")
+    }
     func refreshToken(){
         let restUrl = constants.startUrl + "account/v1/auth/refresh"
         let toDo: [String: String]  = ["refreshToken": getSharedPref(key: "refreshToken")!]

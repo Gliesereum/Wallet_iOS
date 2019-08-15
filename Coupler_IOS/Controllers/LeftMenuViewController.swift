@@ -268,12 +268,7 @@ public class LeftMenuViewController: UIViewController{
                 return
             }
             
-            UserDefaults.standard.removeObject(forKey: "accessToken")
-            UserDefaults.standard.removeObject(forKey: "refreshToken")
-            UserDefaults.standard.removeObject(forKey: "CARID")
-            UserDefaults.standard.removeObject(forKey: "USERAVATAR")
-            UserDefaults.standard.removeObject(forKey: "USER")
-            UserDefaults.standard.removeObject(forKey: "REGISTRATIONTOKEN")
+            self.utils.deleteToken()
         
         }
     }

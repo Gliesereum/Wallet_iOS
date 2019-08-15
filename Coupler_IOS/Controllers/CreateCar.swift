@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import RSSelectionMenu
 import MaterialComponents
 
 class ClassServicCell: UITableViewCell{
@@ -36,6 +35,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
     @IBOutlet weak var classServicesTable: UITableView!
     @IBOutlet weak var deleteCarImage: UIButton!
     
+    var setFavorite : CarListViewController?
     let constants = Constants()
     let utils = Utils()
     var classServices = [CarClassService]()
@@ -44,6 +44,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
     var picker = UIPickerView()
     var arrayItems: [String] = []
     var arrayId: [String] = []
+    var poper = Bool()
     var arrayClassServices: [String] = []
     var arrayClassServicesId: [String] = []
     var arrayInterior: [String] = []
@@ -455,7 +456,16 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
                     self.setCarAttributes(carId: (responsebody.id)!, attributeId: colour)
                     self.setCarAttributes(carId: (responsebody.id)!, attributeId: whellRadius)
                     
-                    
+                    guard self.poper != true else{
+                        self.poper = false
+                        self.dismiss(animated: true, completion: nil)
+                        
+                        self.setFavorite?.setFavoriteCar(carId: responsebody.id!)
+                        let carInfo = SelectedCarInfo.init(carId: (responsebody.id)!, carInfo: (responsebody.brand?.name)! + " " + (responsebody.model?.name)!, carAttributes: [interior, carBody, colour, whellRadius], carServices: self.arrayClassServicesId)
+                        
+                        self.utils.setCarInfo(key: "CARID", value: carInfo)
+                        return
+                    }
                     self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
                     self.sideMenuViewController!.hideMenuViewController()
                     
@@ -486,12 +496,21 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
                 self.setCarAttributes(carId: (responsebody.id)!, attributeId: colour)
                 self.setCarAttributes(carId: (responsebody.id)!, attributeId: whellRadius)
 
-
+                guard self.poper != true else{
+                    self.poper = false
+                    self.dismiss(animated: true, completion: nil)
+                    self.setFavorite?.setFavoriteCar(carId: responsebody.id!)
+                    let carInfo = SelectedCarInfo.init(carId: (responsebody.id)!, carInfo: (responsebody.brand?.name)! + " " + (responsebody.model?.name)!, carAttributes: [interior, carBody, colour, whellRadius], carServices: self.arrayClassServicesId)
+                    
+                    self.utils.setCarInfo(key: "CARID", value: carInfo)
+                    return
+                }
                 self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
                 self.sideMenuViewController!.hideMenuViewController()
 
             }
             catch{
+                print(error)
 
             }
 

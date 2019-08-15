@@ -8,9 +8,9 @@
 
 import UIKit
 import Alamofire
-import SVGKit
 import FirebaseMessaging
 import UIKit
+
 
 class UserPushNot: Codable{
     let notificationEnable: Bool?
@@ -57,6 +57,8 @@ extension UserPushNot {
 }
 
 class SiginViewController: UIViewController, NVActivityIndicatorViewable{
+    
+    
    
     // initialize
     var pinCodeInputView: PinCodeInputView<ItemView> = .init(
@@ -79,6 +81,9 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
     var smsCodeText: String = ""
 //    var phoneNumber: String = ""
     var phoneNumberTextField: FPNTextField!
+    var poper = Bool()
+    var vc = UIViewController()
+    var poper1 = Bool()
     //MARK - View outlet
 
     @IBOutlet weak var phoneNumber: UILabel!
@@ -149,6 +154,9 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
                 object: nil
         )
         phoneNumberTextField.addDoneCancelToolbar(onDone: (target: (Any).self, action: #selector(sigInBtnAct)))
+        if poper == true{
+            self.definesPresentationContext = true
+        }
     }
 //    @objc func keyboardWillShow(notification:NSNotification){
 //        var userInfo = notification.userInfo!
@@ -302,15 +310,33 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
             
                 let token = Messaging.messaging().fcmToken
                 self.setFireBaseToken(token: token!, userId: (sigInModel.user?.id)!, accessToken: "Bearer " + sigInModel.tokenInfo!.accessToken!)
+             
                 guard sigInModel.user?.firstName != nil else{
+                    self.poper = false
+                    self.dismiss(animated: true, completion: nil)
+                    let customAlert = self.vc.storyboard?.instantiateViewController(withIdentifier: "profileViewController") as! ProfileViewController
+                    customAlert.poper = true
+                    customAlert.providesPresentationContextTransitionStyle = true
+                    customAlert.definesPresentationContext = true
+                    customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+                    customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+                    //            customAlert.delegate = self
+                    self.vc.present(customAlert, animated: true, completion: nil)
+                    //                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "profileStartVC")), animated: true)
+                    //                    self.sideMenuViewController!.hideMenuViewController()
                     
-                    self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "profileStartVC")), animated: true)
-                    self.sideMenuViewController!.hideMenuViewController()
-                    
+                    return
+                }
+                
+                guard self.poper != true else{
+                    self.poper = false
+                    self.dismiss(animated: true, completion: nil)
                     return
                 }
                 self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
                 self.sideMenuViewController!.hideMenuViewController()
+                
+                
             }
             catch{
                 
@@ -319,6 +345,8 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
             self.stopAnimating()
         }
     }
+    
+    
     func setFireBaseToken(token: String, userId: String, accessToken: String){
         startAnimating()
         print(token)
@@ -360,9 +388,7 @@ extension SiginViewController: FPNTextFieldDelegate{
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
-//        utils.checkPushNot(vc: self)
     }
-
 }
