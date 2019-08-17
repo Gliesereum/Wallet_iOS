@@ -244,18 +244,20 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         return 1
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cells = cell as! CarLisrCell
         
+        let cells = cell as! CarLisrCell
+        utils.setBorder(view: cells, backgroundColor: #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 0.07973030822), borderColor: #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 0.07973030822), borderWidth: 2, cornerRadius: 8)
         let item = carListData[indexPath.section]
-        utils.setBorder(view: cells.informationBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 2, cornerRadius: 4)
+        utils.setBorder(view: cells.informationBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 2, cornerRadius: 4)
         if item.favorite == true{
             utils.setBorder(view: cells.selectBtn, backgroundColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 2, cornerRadius: 4)
             cells.selectBtn.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+            cells.carImage.image = UIImage(named: "selectAuto")
             cells.selectedLable.isHidden = false
             cells.favoriteImage.isHidden = false
         }else{
             utils.setBorder(view: cells.selectBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 2, cornerRadius: 4)
-            
+            cells.carImage.image = UIImage(named: "defoultAuto")
             cells.selectBtn.setTitleColor(#colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), for: .normal)
             cells.selectedLable.isHidden = true
             cells.favoriteImage.isHidden = true
@@ -266,21 +268,23 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         let cell = tableView.dequeueReusableCell(withIdentifier: "carLisrCell", for: indexPath) as! CarLisrCell
         let item = carListData[indexPath.section]
         //        cell.imageView.image = UIImage(named: item.image)
-        
+//        cell.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 0.1492936644)
         //        loadCar.updateValue(item, forKey: item.carId!)
-        
+        utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 0.07973030822), borderColor: #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 0.07973030822), borderWidth: 2, cornerRadius: 8)
         utils.setBorder(view: cell.informationBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 2, cornerRadius: 4)
         if item.favorite == true{
             utils.setBorder(view: cell.selectBtn, backgroundColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 2, cornerRadius: 4)
             cell.selectBtn.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
             cell.selectedLable.isHidden = false
             cell.favoriteImage.isHidden = false
+            cell.carImage.image = UIImage(named: "selectAuto")
         }else{
          utils.setBorder(view: cell.selectBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderWidth: 2, cornerRadius: 4)
             
             cell.selectBtn.setTitleColor(#colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), for: .normal)
             cell.selectedLable.isHidden = true
             cell.favoriteImage.isHidden = true
+            cell.carImage.image = UIImage(named: "defoultAuto")
         }
         //        cell.imageView.image = utils.getImageFromSVG(name: "MustCarCardVector")
         cell.carInfoLable.text = item.carBrand! + " " + item.carModel! + " " + item.carNumber!
@@ -328,7 +332,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        getAllCars()
         
         //        utils.checkPushNot(vc: self)
         guard utils.getSharedPref(key: "accessToken") != nil else{
@@ -352,10 +356,9 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         if UserDefaults.standard.object(forKey: "CARLISTVC") == nil{
             
             self.utils.setSaredPref(key: "CARLISTVC", value: "true")
-//            self.showTutorial()
+            self.showTutorial()
         }
         
-        //                    self.showTutorial()
     }
     
     func showTutorial() {
@@ -376,17 +379,30 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
 //        let leftHoleDesc1 = HoleViewDescriptor(view: selectCarButton, type: .rect(cornerRadius: 5, margin: 10))
 //        leftHoleDesc1.labelDescriptor = leftDesc1
 //        let rightLeftTask1 = PassthroughTask(with: [leftHoleDesc1])
+//
+//        let buttonItemView = addCarItem.value(forKey: "view") as? UIView
+//        let leftDesc2 = LabelDescriptor(for: "Чтобы добавить машину нажмите сюда")
+//        leftDesc2.position = .left
+//        let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .circle)
+//        leftHoleDesc2.labelDescriptor = leftDesc2
+//        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
         
-        let buttonItemView = addCarItem.value(forKey: "view") as? UIView
-        let leftDesc2 = LabelDescriptor(for: "Чтобы добавить машину нажмите сюда")
-        leftDesc2.position = .left
-        let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .circle)
-        leftHoleDesc2.labelDescriptor = leftDesc2
-        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
+        
+        let cellDesc = LabelDescriptor(for: "Тут Вы можите просмотреть информацию, или выбрать автомобиль")
+        cellDesc.position = .bottom
+        let cellHoleDesc = CellViewDescriptor(tableView: self.carListTable, indexPath: IndexPath(row: 0, section: 0), forOrientation: .any)
+        cellHoleDesc.labelDescriptor = cellDesc
+        var cellTask = PassthroughTask(with: [cellHoleDesc])
+        
+        cellTask.didFinishTask = {
+            guard let tabBarController = self.parent as? UITabBarController else { return }
+            
+            tabBarController.selectedIndex = 1
+        }
         
         
         
-        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask2]) {
+        PassthroughManager.shared.display(tasks: [infoTask, cellTask]) {
             isUserSkipDemo in
             
             print("isUserSkipDemo: \(isUserSkipDemo)")
@@ -394,7 +410,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        getAllCars()
+        
     }
     
 }

@@ -81,7 +81,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             modelTextView.text = selectedCar?.model?.name
             modelId = selectedCar?.modelID
             yearTextView.isEnabled = false
-            yearTextView.text = "\(selectedCar?.year?.name)"
+            yearTextView.text = "\((selectedCar?.year?.name)!)"
             yearsId = selectedCar?.yearID
             for atribut in (selectedCar?.attributes)!{
                 if atribut.filterID == "0ef64c98-767b-42ba-a9de-171c6d455fff" {

@@ -27,6 +27,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     @IBOutlet weak var carServicePrice: UITableView!
     var carWashInfo: CarWashBody? = nil
     @IBOutlet weak var pacetsSelector: EHHorizontalSelectionView!
+    @IBOutlet weak var workerBtn: UIButton!
     
     @IBOutlet weak var packageView: UIView!
     //    @IBOutlet weak var packageLabel: UILabel!
@@ -91,7 +92,11 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         carServicePrice.allowsMultipleSelectionDuringEditing = true
         pacetsSelector.delegate = self
 
-        
+        if  UserDefaults.standard.object(forKey: "ORDERWASHVC") == nil {
+            
+            self.utils.setSaredPref(key: "ORDERWASHVC", value: "true")
+            self.showTutorial()
+        }
        
         // Do any additional setup after loading the view.
         
@@ -142,6 +147,17 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             
             return
             
+        }
+        guard utils.getSharedPref(key: "USER") != nil else{
+            let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "profileViewController") as! ProfileViewController
+            customAlert.poper = true
+            customAlert.providesPresentationContextTransitionStyle = true
+            customAlert.definesPresentationContext = true
+            customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+            customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            //            customAlert.delegate = self
+            self.present(customAlert, animated: true, completion: nil)
+            return
         }
         if self.carWashInfo?.businessCategory?.businessType == "CAR" {
             
@@ -592,11 +608,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             stopAnimating()
             return
         }
-        if UserDefaults.standard.object(forKey: "ORDERWASHVC") == nil{
-            
-            self.utils.setSaredPref(key: "ORDERWASHVC", value: "true")
-//            self.showTutorial()
-        }
+       
         if worker != nil{
             workerName.text = (worker?.user?.firstName)! + " " + (worker?.user?.lastName)!
             workerPosition.text = worker?.position
@@ -608,7 +620,6 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             self.targetId = carInfo.carId
         }
         
-        //                    self.showTutorial()
     }
     
     func showTutorial() {
@@ -629,6 +640,12 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         let leftHoleDesc1 = HoleViewDescriptor(view: orderButton, type: .rect(cornerRadius: 5, margin: 10))
         leftHoleDesc1.labelDescriptor = leftDesc1
         let rightLeftTask1 = PassthroughTask(with: [leftHoleDesc1])
+        
+        let leftDesc2 = LabelDescriptor(for: "Нажмите сюда если хотите выбрать исполнителя ")
+        leftDesc2.position = .bottom
+        let leftHoleDesc2 = HoleViewDescriptor(view: workerBtn, type: .rect(cornerRadius: 5, margin: 10))
+        leftHoleDesc2.labelDescriptor = leftDesc2
+        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
       
         let cellDesc = LabelDescriptor(for: "Вы можете выбрать интересующие Вас услуги из данного списка")
         cellDesc.position = .bottom
@@ -637,7 +654,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         let cellTask = PassthroughTask(with: [cellHoleDesc])
         
         
-        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask, cellTask, rightLeftTask1]) {
+        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask, cellTask, rightLeftTask1, rightLeftTask2]) {
             isUserSkipDemo in
             
             print("isUserSkipDemo: \(isUserSkipDemo)")
@@ -734,16 +751,21 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
         Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseCurrentFreeTime { response  in
-            guard response.response?.statusCode != 500 else{ self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
-                    self.sideMenuViewController!.hideMenuViewController()
-                    SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
+            guard response.response?.statusCode != 500 else{
+                self.utils.checkServer(vc: self)
+
+//                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
+//                    self.sideMenuViewController!.hideMenuViewController()
+//                    SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
                     //            TinyToast.shared.show(message: "Нет связи с сервером", valign: .bottom, duration: .normal)
                     
                     self.stopAnimating()
                     return
                 }
                 guard response.result.error == nil else {
-                    SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
+                    self.utils.checkServer(vc: self)
+
+//                    SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
                     self.view.endEditing(true)
                     
                     self.stopAnimating()

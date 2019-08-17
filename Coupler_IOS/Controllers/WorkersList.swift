@@ -32,6 +32,9 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func backButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return (workers?.count)!
     }
@@ -47,6 +50,8 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
         return 5
         
     }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "workersListCell", for: indexPath) as! WorkersListCell
         let workerForIndex = workers![indexPath.section]

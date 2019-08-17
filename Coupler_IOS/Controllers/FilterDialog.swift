@@ -59,10 +59,15 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
         
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if cell.isSelected{
-            cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+        let cellForIndex = cell as! FilterCell
+        if cellForIndex.isSelected{
+           
+            self.utils.setBorder(view: cellForIndex, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
+            cellForIndex.serviceName.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         } else {
-            cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            self.utils.setBorder(view: cellForIndex, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.0417380137), borderWidth: 1, cornerRadius: 4)
+            
+            cellForIndex.serviceName.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -83,7 +88,9 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
          let cell: FilterCell = tableView.cellForRow(at: indexPath) as! FilterCell
         UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
-            cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+            
+            self.utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
+            cell.serviceName.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
             
         }, completion:nil)
         filterListId.append(cell.serviceId.text!)
@@ -91,7 +98,9 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell: FilterCell = tableView.cellForRow(at: indexPath) as! FilterCell
         UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
-            cell.contentView.backgroundColor = #colorLiteral(red: 0.9882352941, green: 0.9882352941, blue: 0.9882352941, alpha: 1)
+            self.utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.0417380137), borderWidth: 1, cornerRadius: 4)
+            
+            cell.serviceName.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             
         }, completion:nil)
         filterListId.removeAll(where: { $0 == cell.serviceId.text! })

@@ -290,7 +290,6 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
             self.showTutorial()
         }
         
-        //                    self.showTutorial()
     }
     
     func showTutorial() {

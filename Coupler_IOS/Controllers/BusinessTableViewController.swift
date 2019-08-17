@@ -20,7 +20,70 @@ struct BuisnesList {
     let id: String?
 }
 
-class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable, UITableViewDataSource, UITableViewDelegate {
+class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable, UITableViewDataSource, UITableViewDelegate, ZeroDismissDelegate, MiddleDismissDelegate, LastDismissDelegate {
+    
+    
+    func zeroDismiss() {
+      
+        index = 2
+    }
+    
+    func MiddleDismiss(next: Bool) {
+        if next == true{
+           
+            index = 3
+        } else {
+           
+            index = 1
+        }
+    }
+    
+    func helloView(){
+        switch index {
+        case 2:
+            let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "middleViewController") as! MiddleViewController
+            customAlert.vc = self
+            customAlert.providesPresentationContextTransitionStyle = true
+            customAlert.definesPresentationContext = true
+            customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+            customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            customAlert.delegate = self
+            self.present(customAlert, animated: true, completion: nil)
+            break
+        case 3:
+            let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "lastViewController") as! LastViewController
+            customAlert.vc = self
+            customAlert.providesPresentationContextTransitionStyle = true
+            customAlert.definesPresentationContext = true
+            customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+            customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            customAlert.delegate = self
+            self.present(customAlert, animated: true, completion: nil)
+        case 1:
+            let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "zeroViewController") as! ZeroViewController
+            customAlert.vc = self
+            customAlert.providesPresentationContextTransitionStyle = true
+            customAlert.definesPresentationContext = true
+            customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+            customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            customAlert.delegate = self
+            self.present(customAlert, animated: true, completion: nil)
+        case 4:
+           
+            self.showTutorial()
+        default:
+            break
+        }
+    }
+    
+    func LastDismiss(end: Bool) {
+        if end == false{
+            
+            index = 2
+        } else {
+            index = 4
+        }
+    }
    
     @IBOutlet weak var menuItem: UIBarButtonItem!
     @IBOutlet var tableBuisness: UITableView!
@@ -28,8 +91,15 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
     let utils = Utils()
     var buisness = BuisnessBody()
     var selectedRecord: BuisnessBodyElement?
+    
+    var index : Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        getAllBuisness()
+       
         tableBuisness.rowHeight = UITableView.automaticDimension
         tableBuisness.allowsMultipleSelection = true
         tableBuisness.allowsMultipleSelectionDuringEditing = true
@@ -154,7 +224,15 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
             if UserDefaults.standard.object(forKey: "BUISNESVC") == nil{
                 
                 self.utils.setSaredPref(key: "BUISNESVC", value: "true")
-                self.showTutorial()
+                let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "zeroViewController") as! ZeroViewController
+                customAlert.vc = self
+                customAlert.providesPresentationContextTransitionStyle = true
+                customAlert.definesPresentationContext = true
+                customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+                customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+                customAlert.delegate = self
+                self.present(customAlert, animated: true, completion: nil)
+                
             }
             
         }
@@ -162,7 +240,6 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
     override func viewWillAppear(_ animated: Bool) {
         
        
-        getAllBuisness()
     }
     
     func showTutorial() {
@@ -170,17 +247,17 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
 
-        let infoDesc2 = InfoDescriptor(for: "Coupler - сервис поиска услуг. Позволяет найти и заказать любую услугу по выбранным параметрам через интерактивную карту в каком бы городе вы не находились.")
-        var infoTask2 = PassthroughTask(with: [])
-        infoTask2.infoDescriptor = infoDesc2
+//        let infoDesc2 = InfoDescriptor(for: "Coupler - сервис поиска услуг. Позволяет найти и заказать любую услугу по выбранным параметрам через интерактивную карту в каком бы городе вы не находились.")
+//        var infoTask2 = PassthroughTask(with: [])
+//        infoTask2.infoDescriptor = infoDesc2
 
         
-//        let buttonItemView = menuItem.value(forKey: "view") as? UIView
-        let leftDesc2 = LabelDescriptor(for: "Кнопка вызова меню")
+        let buttonItemView = menuItem.value(forKey: "view") as? UIView
+        let leftDesc2 = LabelDescriptor(for: "Это кнопка вызова меню ")
         leftDesc2.position = .bottom
-//        let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .circle)
-//        leftHoleDesc2.labelDescriptor = leftDesc2
-//        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
+        let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .rect(cornerRadius: 5, margin: 10))
+        leftHoleDesc2.labelDescriptor = leftDesc2
+        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
 //        let rotationTask = createDemoTextPositionBottomTopTask()
 
 //        let rightDesc = LabelDescriptor(for: "From right")
@@ -198,7 +275,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
 //
 //        let handleTask = createDemoHandlersOfTask()
 
-        let cellDesc = LabelDescriptor(for: "Вы можете выбрать один интересующий вас сервис из данного списка")
+        let cellDesc = LabelDescriptor(for: "Здесь Вы можете выбрать интересующую категорию компании")
         cellDesc.position = .bottom
         let cellHoleDesc = CellViewDescriptor(tableView: self.tableBuisness, indexPath: IndexPath(row: 0, section: 0), forOrientation: .any)
         cellHoleDesc.labelDescriptor = cellDesc
@@ -215,12 +292,19 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
 //        var infoTask3 = PassthroughTask(with: [])
 //        infoTask3.infoDescriptor = infoDesc3
 
-        PassthroughManager.shared.display(tasks: [infoTask, infoTask2, cellTask]) {
+        PassthroughManager.shared.display(tasks: [rightLeftTask2, cellTask]) {
             isUserSkipDemo in
 
             print("isUserSkipDemo: \(isUserSkipDemo)")
         }
+        
+       
+        
 
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        
+        helloView()
     }
 //    func createDemoTextPositionBottomTopTask() -> PassthroughTask {
 //        let labelDesc = LabelDescriptor(for: "The text can be from bottom and center in a portrait orientation. Try to rotate.")

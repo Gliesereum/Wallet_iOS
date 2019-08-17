@@ -73,9 +73,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         if carWashInfo?.phone == nil{
             callUsView.visiblity(gone: true)
         }
-        if carWashInfo?.comments?.count == 0 || carWashInfo?.comments == nil{
-            commentsTable.visiblity(gone: true)
-        }
+       
 //        utils.setBorder(view: headerView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
         utils.setBorder(view: addCommentsBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 8)
         utils.setBorder(view: callUsBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 8)
@@ -130,7 +128,26 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
 //        guard self.isComment != false else {
 //            TinyToast.shared.show(message: "Вы уже оставляли комментарий", valign: .bottom, duration: .normal)
 //            return
-//        }
+        //        }
+    guard utils.getSharedPref(key: "accessToken") != nil else{
+        self.utils.checkFilds(massage: "Что бы оставить комменатирий Вы должны авторизироватся", vc: self.view)
+//        self.buttonView.visiblity(gone: true)
+        stopAnimating()
+        return
+        
+       
+    }
+        guard utils.getSharedPref(key: "USER") != nil else{
+            let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "profileViewController") as! ProfileViewController
+            customAlert.poper = true
+            customAlert.providesPresentationContextTransitionStyle = true
+            customAlert.definesPresentationContext = true
+            customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+            customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            //            customAlert.delegate = self
+            self.present(customAlert, animated: true, completion: nil)
+            return
+        }
           showDialog(.slideLeftRight)
     }
     @IBAction func carWashOrder(_ sender: Any) {
@@ -157,7 +174,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         cell.commets.text = carwashCommets?.text
         cell.rating.rating = Double(exactly: (carwashCommets?.rating)!)!
         cell.date.text = utils.milisecondsToDateB(miliseconds: (carwashCommets?.dateCreated)!)
-        cell.user.text = (carwashCommets?.firstName)!
+        cell.user.text = carwashCommets?.firstName
     
         if let userImage = carwashCommets?.avatarURL {
             cell.userImage.downloaded(from: userImage)
@@ -241,8 +258,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     
     func getMyComment(){
         guard utils.getSharedPref(key: "accessToken") != nil else{
-            
-            self.buttonView.visiblity(gone: true)
+           
             stopAnimating()
             return
         }
@@ -298,17 +314,19 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
 //            stopAnimating()
 //            return
 //        }
-//        if UserDefaults.standard.object(forKey: "CARWASHINFOVC") == nil{
+        if carWashInfo?.comments?.count == 0 || carWashInfo?.comments == nil{
+            commentsTable.visiblity(gone: true)
+        }
+        if UserDefaults.standard.object(forKey: "CARWASHINFOVC") == nil{
+
+            self.utils.setSaredPref(key: "CARWASHINFOVC", value: "true")
+            self.showTutorial()
+        }
 //
-//            self.utils.setSaredPref(key: "CARWASHINFOVC", value: "true")
-//            self.showTutorial()
-//        }
-//
-        //                    self.showTutorial()
     }
     
     func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "Тут вы можете ознакомится с временем работы данной точки, ее адрес и прочее")
+        let infoDesc = InfoDescriptor(for: "Выбрав компанию, Вы можете ознакомиться информацией о ней, доступными услугами, прайсом и сделать заказ ")
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
         
@@ -320,15 +338,15 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
 //        let rightLeftTask = PassthroughTask(with: [leftHoleDesc])
         
         
-        let leftDesc1 = LabelDescriptor(for: "Чтобы перейти к услугам нажмите сюда")
+        let leftDesc1 = LabelDescriptor(for: "Нажав на эту кнопку, вы сможете перейти к услугам и сделать заказ")
         leftDesc1.position = .bottom
         let leftHoleDesc1 = HoleViewDescriptor(view: goToOrders, type: .rect(cornerRadius: 5, margin: 10))
         leftHoleDesc1.labelDescriptor = leftDesc1
         let rightLeftTask1 = PassthroughTask(with: [leftHoleDesc1])
         
 //        let buttonItemView = addCarItem.value(forKey: "view") as? UIView
-        let leftDesc2 = LabelDescriptor(for: "Чтобы увидеть время работы нажмите сюда")
-        leftDesc2.position = .bottom
+//        let leftDesc2 = LabelDescriptor(for: "Чтобы увидеть время работы нажмите сюда")
+//        leftDesc2.position = .bottom
 //        let leftHoleDesc2 = HoleViewDescriptor(view: timeImage, type: .circle)
 //        leftHoleDesc2.labelDescriptor = leftDesc2
 //        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])

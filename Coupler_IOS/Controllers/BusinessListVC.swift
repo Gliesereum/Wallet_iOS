@@ -64,6 +64,7 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.adress.text = marker.address!
         cell.name.text = marker.name!
         cell.id.text = marker.id!
+        cell.raiting.rating = marker.rating!
 //        cell.raiting.rating = Double(exactly: (marker.)!)!
         
       
@@ -170,7 +171,25 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         if utils.getBusinesList(key: "BUSINESSLIST") != nil {
             markerList = utils.getBusinesList(key: "BUSINESSLIST")!
         }
+        if UserDefaults.standard.object(forKey: "BUSINESSLISTVC") == nil{
+            
+            self.utils.setSaredPref(key: "BUSINESSLISTVC", value: "true")
+            self.showTutorial()
+        }
         self.businesTable.reloadData()
+    }
+    func showTutorial() {
+        let infoDesc = InfoDescriptor(for: "Это список компаний, предоставляющих услуги. Вы можете посмотреть более подробную информацию о компаниях, выбрав одну из них")
+        var infoTask = PassthroughTask(with: [])
+        infoTask.infoDescriptor = infoDesc
+        
+     
+        PassthroughManager.shared.display(tasks: [infoTask]) {
+            isUserSkipDemo in
+            
+            print("isUserSkipDemo: \(isUserSkipDemo)")
+        }
+        
     }
 
 }

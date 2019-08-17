@@ -6,20 +6,19 @@
 import Foundation
 
 // MARK: - CarWashMarkerElement
-class CarWashMarkerElement: NSObject, Codable{
+class CarWashMarkerElement: NSObject, Codable {
     let id, corporationID, name: String?
     let countBox: Int?
     let carWashMarkerDescription, address: String?
     let logoURL: String?
     let phone: String?
-    let addPhone: String?
-    let latitude, longitude: Double?
-    let timeZone: Int?
+    let addPhone: JSONNull?
+    let latitude, longitude, rating: Double?
+    let timeZone, ratingCount: Int?
     let geoPoint: GeoPoint?
-    let businessCategoryID: String?
-    let objectState: String?
-    let services: [ServiceCME]?
-    let workTimes: [WorkTimeCME?]?
+    let businessCategoryID, objectState: String?
+    let services: [Service]?
+    let serviceNames: [String]?
     let score: Double?
     
     enum CodingKeys: String, CodingKey {
@@ -29,12 +28,12 @@ class CarWashMarkerElement: NSObject, Codable{
         case carWashMarkerDescription = "description"
         case address
         case logoURL = "logoUrl"
-        case phone, addPhone, latitude, longitude, timeZone, geoPoint
+        case phone, addPhone, latitude, longitude, timeZone, rating, ratingCount, geoPoint
         case businessCategoryID = "businessCategoryId"
-        case objectState, services, workTimes, score
+        case objectState, services, serviceNames, score
     }
     
-    init(id: String?, corporationID: String?, name: String?, countBox: Int?, carWashMarkerDescription: String?, address: String?, logoURL: String?, phone: String?, addPhone: String?, latitude: Double?, longitude: Double?, timeZone: Int?, geoPoint: GeoPoint?, businessCategoryID: String?, objectState: String?, services: [ServiceCME]?, workTimes: [WorkTimeCME?]?, score: Double?) {
+    init(id: String?, corporationID: String?, name: String?, countBox: Int?, carWashMarkerDescription: String?, address: String?, logoURL: String?, phone: String?, addPhone: JSONNull?, latitude: Double?, longitude: Double?, timeZone: Int?, rating: Double?, ratingCount: Int?, geoPoint: GeoPoint?, businessCategoryID: String?, objectState: String?, services: [Service]?, serviceNames: [String]?, score: Double?) {
         self.id = id
         self.corporationID = corporationID
         self.name = name
@@ -47,11 +46,13 @@ class CarWashMarkerElement: NSObject, Codable{
         self.latitude = latitude
         self.longitude = longitude
         self.timeZone = timeZone
+        self.rating = rating
+        self.ratingCount = ratingCount
         self.geoPoint = geoPoint
         self.businessCategoryID = businessCategoryID
         self.objectState = objectState
         self.services = services
-        self.workTimes = workTimes
+        self.serviceNames = serviceNames
         self.score = score
     }
 }
@@ -61,7 +62,7 @@ class CarWashMarkerElement: NSObject, Codable{
 extension CarWashMarkerElement {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(CarWashMarkerElement.self, from: data)
-        self.init(id: me.id, corporationID: me.corporationID, name: me.name, countBox: me.countBox, carWashMarkerDescription: me.carWashMarkerDescription, address: me.address, logoURL: me.logoURL, phone: me.phone, addPhone: me.addPhone, latitude: me.latitude, longitude: me.longitude, timeZone: me.timeZone, geoPoint: me.geoPoint, businessCategoryID: me.businessCategoryID, objectState: me.objectState, services: me.services, workTimes: me.workTimes, score: me.score)
+        self.init(id: me.id, corporationID: me.corporationID, name: me.name, countBox: me.countBox, carWashMarkerDescription: me.carWashMarkerDescription, address: me.address, logoURL: me.logoURL, phone: me.phone, addPhone: me.addPhone, latitude: me.latitude, longitude: me.longitude, timeZone: me.timeZone, rating: me.rating, ratingCount: me.ratingCount, geoPoint: me.geoPoint, businessCategoryID: me.businessCategoryID, objectState: me.objectState, services: me.services, serviceNames: me.serviceNames, score: me.score)
     }
     
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -84,15 +85,18 @@ extension CarWashMarkerElement {
         address: String?? = nil,
         logoURL: String?? = nil,
         phone: String?? = nil,
-        addPhone: String?? = nil,
+        addPhone: JSONNull?? = nil,
         latitude: Double?? = nil,
         longitude: Double?? = nil,
         timeZone: Int?? = nil,
+        rating: Double?? = nil,
+        ratingCount: Int?? = nil,
         geoPoint: GeoPoint?? = nil,
         businessCategoryID: String?? = nil,
         objectState: String?? = nil,
-        services: [ServiceCME]?? = nil,
-        workTimes: [WorkTimeCME]?? = nil,
+        services: [Service]?? = nil,
+        workTimes: [WorkTime]?? = nil,
+        serviceNames: [String]?? = nil,
         score: Double?? = nil
         ) -> CarWashMarkerElement {
         return CarWashMarkerElement(
@@ -108,11 +112,13 @@ extension CarWashMarkerElement {
             latitude: latitude ?? self.latitude,
             longitude: longitude ?? self.longitude,
             timeZone: timeZone ?? self.timeZone,
+            rating: rating ?? self.rating,
+            ratingCount: ratingCount ?? self.ratingCount,
             geoPoint: geoPoint ?? self.geoPoint,
             businessCategoryID: businessCategoryID ?? self.businessCategoryID,
             objectState: objectState ?? self.objectState,
             services: services ?? self.services,
-            workTimes: workTimes ?? self.workTimes,
+            serviceNames: serviceNames ?? self.serviceNames,
             score: score ?? self.score
         )
     }
@@ -127,7 +133,7 @@ extension CarWashMarkerElement {
 }
 
 // MARK: - GeoPoint
-class GeoPoint:NSObject, Codable {
+class GeoPoint: Codable {
     let lat, lon: Double?
     
     init(lat: Double?, lon: Double?) {
@@ -176,161 +182,14 @@ extension GeoPoint {
 
 
 
-// MARK: - Service
-class ServiceCME:NSObject, Codable {
-    let name: String?
-    let price: Int?
-    let serviceID, businessID: String?
-    let duration: Int?
-    let serviceClassIDS: [String]?
-    let filterIDS, filterAttributeIDS: [String]?
-    
-    enum CodingKeys: String, CodingKey {
-        case name, price
-        case serviceID = "serviceId"
-        case businessID = "businessId"
-        case duration
-        case serviceClassIDS = "serviceClassIds"
-        case filterIDS = "filterIds"
-        case filterAttributeIDS = "filterAttributeIds"
-    }
-    
-    init(name: String?, price: Int?, serviceID: String?, businessID: String?, duration: Int?, serviceClassIDS: [String]?, filterIDS: [String]?, filterAttributeIDS: [String]?) {
-        self.name = name
-        self.price = price
-        self.serviceID = serviceID
-        self.businessID = businessID
-        self.duration = duration
-        self.serviceClassIDS = serviceClassIDS
-        self.filterIDS = filterIDS
-        self.filterAttributeIDS = filterAttributeIDS
-    }
+
+enum From: String, Codable {
+    case the0600 = "06:00"
 }
 
-// MARK: Service convenience initializers and mutators
-
-extension ServiceCME {
-    convenience init(data: Data) throws {
-        let me = try newJSONDecoder().decode(ServiceCME.self, from: data)
-        self.init(name: me.name, price: me.price, serviceID: me.serviceID, businessID: me.businessID, duration: me.duration, serviceClassIDS: me.serviceClassIDS, filterIDS: me.filterIDS, filterAttributeIDS: me.filterAttributeIDS)
-    }
-    
-    convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
-        guard let data = json.data(using: encoding) else {
-            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
-        }
-        try self.init(data: data)
-    }
-    
-    convenience init(fromURL url: URL) throws {
-        try self.init(data: try Data(contentsOf: url))
-    }
-    
-    func with(
-        name: String?? = nil,
-        price: Int?? = nil,
-        serviceID: String?? = nil,
-        businessID: String?? = nil,
-        duration: Int?? = nil,
-        serviceClassIDS: [String]?? = nil,
-        filterIDS: [String]?? = nil,
-        filterAttributeIDS: [String]?? = nil
-        ) -> ServiceCME {
-        return ServiceCME(
-            name: name ?? self.name,
-            price: price ?? self.price,
-            serviceID: serviceID ?? self.serviceID,
-            businessID: businessID ?? self.businessID,
-            duration: duration ?? self.duration,
-            serviceClassIDS: serviceClassIDS ?? self.serviceClassIDS,
-            filterIDS: filterIDS ?? self.filterIDS,
-            filterAttributeIDS: filterAttributeIDS ?? self.filterAttributeIDS
-        )
-    }
-    
-    func jsonData() throws -> Data {
-        return try newJSONEncoder().encode(self)
-    }
-    
-    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
-        return String(data: try self.jsonData(), encoding: encoding)
-    }
+enum To: String, Codable {
+    case the2300 = "23:00"
 }
-
-// MARK: - WorkTime
-class WorkTimeCME:NSObject, Codable {
-    let from: String?
-    let to: String?
-    let objectID: String?
-    let isWork: Bool?
-    let businessCategoryID: String?
-    let dayOfWeek: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case from, to
-        case objectID = "objectId"
-        case isWork
-        case businessCategoryID = "businessCategoryId"
-        case dayOfWeek
-    }
-    
-    init(from: String?, to: String?, objectID: String?, isWork: Bool?, businessCategoryID: String?, dayOfWeek: String?) {
-        self.from = from
-        self.to = to
-        self.objectID = objectID
-        self.isWork = isWork
-        self.businessCategoryID = businessCategoryID
-        self.dayOfWeek = dayOfWeek
-    }
-}
-
-// MARK: WorkTime convenience initializers and mutators
-
-extension WorkTimeCME {
-    convenience init(data: Data) throws {
-        let me = try newJSONDecoder().decode(WorkTimeCME.self, from: data)
-        self.init(from: me.from, to: me.to, objectID: me.objectID, isWork: me.isWork, businessCategoryID: me.businessCategoryID, dayOfWeek: me.dayOfWeek)
-    }
-    
-    convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
-        guard let data = json.data(using: encoding) else {
-            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
-        }
-        try self.init(data: data)
-    }
-    
-    convenience init(fromURL url: URL) throws {
-        try self.init(data: try Data(contentsOf: url))
-    }
-    
-    func with(
-        from: String?? = nil,
-        to: String?? = nil,
-        objectID: String?? = nil,
-        isWork: Bool?? = nil,
-        businessCategoryID: String?? = nil,
-        dayOfWeek: String?? = nil
-        ) -> WorkTimeCME {
-        return WorkTimeCME(
-            from: from ?? self.from,
-            to: to ?? self.to,
-            objectID: objectID ?? self.objectID,
-            isWork: isWork ?? self.isWork,
-            businessCategoryID: businessCategoryID ?? self.businessCategoryID,
-            dayOfWeek: dayOfWeek ?? self.dayOfWeek
-        )
-    }
-    
-    func jsonData() throws -> Data {
-        return try newJSONEncoder().encode(self)
-    }
-    
-    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
-        return String(data: try self.jsonData(), encoding: encoding)
-    }
-}
-
-
 
 typealias CarWashMarker = [CarWashMarkerElement]
 

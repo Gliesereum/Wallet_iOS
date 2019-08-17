@@ -30,10 +30,12 @@ class CheckServer: UIViewController, NVActivityIndicatorViewable {
             
             guard response.response?.statusCode != 500 else{
                
+                self.stopAnimating()
                 return
             }
             guard response.result.error == nil else {
               
+                self.stopAnimating()
                 return 
             }
             self.dismiss(animated: true, completion: nil)

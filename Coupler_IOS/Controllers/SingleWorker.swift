@@ -31,16 +31,20 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         getMyComment()
-        if worker?.comments?.count == 0 || worker?.comments == nil{
-            commentsTableView.visiblity(gone: true)
-        }
+//        if worker?.comments?.count == 0 || worker?.comments == nil{
+//            commentsTableView.visiblity(gone: true)
+//        }
         utils.setBorder(view: addCommentsButton, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
         commentsTableView.rowHeight = UITableView.automaticDimension
         commentsTableView.allowsMultipleSelection = true
         commentsTableView.allowsMultipleSelectionDuringEditing = true
         workerName.text = (worker?.user?.firstName)! + " " + (worker?.user?.lastName)!
         workerPosition.text = worker?.position
-        workerComments.text = "(\(( worker?.comments?.count)!))"
+        if worker?.comments?.count == nil{
+            workerComments.text = "(0)"
+        } else {
+            workerComments.text = "(\((worker?.comments?.count)!))"
+        }
         workerRating.rating = (worker?.rating?.rating)!
         if let workerAvatar = worker?.user?.avatarURL{
             workerImage.downloaded(from: workerAvatar)
@@ -63,6 +67,23 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
         
     }
     @IBAction func addComment(_ sender: Any) {
+        guard utils.getSharedPref(key: "accessToken") != nil else{
+            self.utils.checkFilds(massage: "Что бы оставить комменатирий Вы должны авторизироватся", vc: self.view)
+//            self.addCommentsView.visiblity(gone: true)
+            stopAnimating()
+            return
+        }
+        guard utils.getSharedPref(key: "USER") != nil else{
+            let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "profileViewController") as! ProfileViewController
+            customAlert.poper = true
+            customAlert.providesPresentationContextTransitionStyle = true
+            customAlert.definesPresentationContext = true
+            customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+            customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            //            customAlert.delegate = self
+            self.present(customAlert, animated: true, completion: nil)
+            return
+        }
 //        delegate?.DismissWorker(worker: worker!)
 //        dismiss(animated: true, completion: nil)
          showDialog(.slideLeftRight)
@@ -114,10 +135,10 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
     func getMyComment(){
         guard utils.getSharedPref(key: "accessToken") != nil else{
             
-            self.addCommentsView.visiblity(gone: true)
             stopAnimating()
             return
         }
+        
         let carWashId: String = (worker?.id)!
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/worker/\(carWashId)/comment/current-user"
@@ -159,6 +180,14 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
             }
             
             self.stopAnimating()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if worker?.comments?.count == 0 || worker?.comments == nil{
+            commentsTableView.visiblity(gone: true)
+        } else {
+//            commentsTableView.visiblity(gone: false)
         }
     }
 }

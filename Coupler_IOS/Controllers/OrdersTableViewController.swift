@@ -269,13 +269,12 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
 //        utils.checkPushNot(vc: self)
         NotificationCenter.default.removeObserver("reloadTheTable")
 
-        if UserDefaults.standard.object(forKey: "ORDERTABLEVC") == nil{
+        if self.utils.getSharedPref(key: "ORDERTABLEVC") != "true"{
             
             self.utils.setSaredPref(key: "ORDERTABLEVC", value: "true")
             self.showTutorial()
         }
         
-        //                    self.showTutorial()
     }
     
     func showTutorial() {

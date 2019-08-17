@@ -304,14 +304,14 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
                 if sigInModel.user?.avatarURL != nil{
                     self.utils.setSaredPref(key: "USERAVATAR", value: (sigInModel.user?.avatarURL)!)
                 }
-                if sigInModel.user?.firstName != nil{
-                    self.utils.setSaredPref(key: "USER", value: (sigInModel.user?.firstName)! + " " + (sigInModel.user?.lastName)!)
-                }
+                
             
                 let token = Messaging.messaging().fcmToken
                 self.setFireBaseToken(token: token!, userId: (sigInModel.user?.id)!, accessToken: "Bearer " + sigInModel.tokenInfo!.accessToken!)
              
+                
                 guard sigInModel.user?.firstName != nil else{
+                    if self.poper == true{
                     self.poper = false
                     self.dismiss(animated: true, completion: nil)
                     let customAlert = self.vc.storyboard?.instantiateViewController(withIdentifier: "profileViewController") as! ProfileViewController
@@ -322,10 +322,16 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
                     customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
                     //            customAlert.delegate = self
                     self.vc.present(customAlert, animated: true, completion: nil)
-                    //                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "profileStartVC")), animated: true)
-                    //                    self.sideMenuViewController!.hideMenuViewController()
+                    } else{
+                                    self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "profileStartVC")), animated: true)
+                                        self.sideMenuViewController!.hideMenuViewController()
+                    }
                     
                     return
+                }
+                
+                if sigInModel.user?.firstName != nil{
+                    self.utils.setSaredPref(key: "USER", value: (sigInModel.user?.firstName)! + " " + (sigInModel.user?.lastName)!)
                 }
                 
                 guard self.poper != true else{

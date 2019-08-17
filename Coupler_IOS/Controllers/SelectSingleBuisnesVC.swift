@@ -14,6 +14,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
     @IBOutlet weak var changeButton: UISegmentedControl!
     
     
+    @IBOutlet weak var filterMap: UIBarButtonItem!
     let constants = Constants()
     let utils = Utils()
     
@@ -53,11 +54,12 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
         changeButton.layer.borderColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         changeButton.layer.borderWidth = 1
         changeButton.layer.cornerRadius = 4
+        
+        self.changeButton.selectedSegmentIndex = TabIndex.firstChildTab.rawValue
+//
 //        utils.setBorder(view: changeButton, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
 //        utils.setBorder(view: changeButton, backgroundColor: <#T##UIColor#>, borderColor: <#T##CGColor#>, borderWidth: <#T##CGFloat#>, cornerRadius: <#T##CGFloat#>)
-        if utils.getSharedPref(key: "FIRSTSTART") != "true"{
-            firstLoad()
-        }
+       
         
 //        if utils.getBusinesList(key: "BUSINESSLIST") != nil{
 //            setBusinesMarker()
@@ -69,6 +71,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         if let currentViewController = currentViewController {
             currentViewController.viewWillDisappear(animated)
         }
@@ -135,8 +138,11 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                     //                self.recordTableView.
                     
                     
-                    UserDefaults.standard.removeObject(forKey: "BUSINESSLIST")
                     self.stopAnimating()
+                    
+                   
+                    self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
+                    UserDefaults.standard.removeObject(forKey: "BUSINESSLIST")
                     return
                 }
                 guard self.utils.checkResponse(response: response, vc: self) == true else{
@@ -147,12 +153,12 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                 self.stopAnimating()
                 
 //                self.changeButton.selectedSegmentIndex = TabIndex.secondChildTab.rawValue
-//                self.displayCurrentTab(TabIndex.secondChildTab.rawValue)
+                self.displayCurrentTab(TabIndex.secondChildTab.rawValue)
                 do{
                     let businessList = self.utils.getBusinesList(key: "BUSINESSLIST")
                     
                     let responseBody = try JSONDecoder().decode(CarWashMarker.self, from: response.data!)
-                    
+//
                     self.changeButton.selectedSegmentIndex = TabIndex.firstChildTab.rawValue
                     self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
                     if self.utils.getBusinesList(key: "BUSINESSLIST") != nil{
@@ -187,6 +193,12 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                             self.listView.refreshTable()
                         }
                     }
+                   
+                    if UserDefaults.standard.object(forKey: "MAPVC") == nil{
+
+                        self.utils.setSaredPref(key: "MAPVC", value: "true")
+                        self.showTutorial()
+                    }
                 }
                 catch{
                     
@@ -196,6 +208,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                 self.stopAnimating()
             }
         
+      
         
     }
     
@@ -341,31 +354,39 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
 //            checkCarInfo()
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        if UserDefaults.standard.object(forKey: "MAPVC") == nil{
-            
-            self.utils.setSaredPref(key: "MAPVC", value: "true")
-            self.showTutorial()
-        }
-        getAllCars()
-        //        utils.checkPushNot(vc: self)
+    override func viewDidAppear(_ animated: Bool) {
+      
+                //        utils.checkPushNot(vc: self)
     }
     func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "На этой карте расположены различные маркера сервисов. Вы можете выбрать нужный вам сервис нажатием на маркер. При нажатии на маркер появится детально окно с названием сервиса. Чтобы открыть данный сервис просто нажмите на его название ")
+        let infoDesc = InfoDescriptor(for: "Это интерактивная карта услуг. На ней расположены компании, в которых вы можете заказать услуги. Чтобы посмотреть информацию о компании, кликните на ее точку координат на карте")
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
         
-        //        let buttonItemView = filterItem.value(forKey: "view") as? UIView
-        //        let leftDesc2 = LabelDescriptor(for: "Чтобы выбрать услуги и отфильровать карту по ним нажмите сюда")
-        //        leftDesc2.position = .left
-        ////        let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .circle)
-        //        leftHoleDesc2.labelDescriptor = leftDesc2
-        //        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
-        PassthroughManager.shared.display(tasks: [infoTask]) {
+                let buttonItemView = filterMap.value(forKey: "view") as? UIView
+                let leftDesc2 = LabelDescriptor(for: "Чтобы увидеть только компании, предоставляющие нужные вам услуги, воспользуйтесь “Фильтром услуг”")
+                leftDesc2.position = .left
+        let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .rect(cornerRadius: 5, margin: 10))
+                leftHoleDesc2.labelDescriptor = leftDesc2
+                let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
+        
+        let leftDesc1 = LabelDescriptor(for: "Меняйте способ отображения компаний, предоставляющих услуги, на удобный вам - списком или точками координат на карте")
+        leftDesc1.position = .bottom
+        let leftHoleDesc1 = HoleViewDescriptor(view: changeButton!, type: .rect(cornerRadius: 5, margin: 10))
+        leftHoleDesc1.labelDescriptor = leftDesc1
+        let rightLeftTask1 = PassthroughTask(with: [leftHoleDesc1])
+        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask2, rightLeftTask1]) {
             isUserSkipDemo in
             
+//            self.firstLoad()
             print("isUserSkipDemo: \(isUserSkipDemo)")
         }
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getAllCars()
+
+        print("start")
     }
 }
