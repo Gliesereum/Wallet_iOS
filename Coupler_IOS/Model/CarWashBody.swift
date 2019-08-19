@@ -229,7 +229,7 @@ class Serviceice: NSObject, Codable {
     let price: Int?
     let serviceID, businessID: String?
     let service: Service?
-    let objectState: ObjectState?
+    let objectState: String?
     let duration: Int?
     let serviceClass: [Service]?
     let attributes: [Attribute]?
@@ -242,7 +242,7 @@ class Serviceice: NSObject, Codable {
         case service, objectState, duration, serviceClass, attributes
     }
     
-    init(id: String?, name: String?, descriptions: String?, price: Int?, serviceID: String?, businessID: String?, service: Service?, objectState: ObjectState?, duration: Int?, serviceClass: [Service]?, attributes: [Attribute]?) {
+    init(id: String?, name: String?, descriptions: String?, price: Int?, serviceID: String?, businessID: String?, service: Service?, objectState: String?, duration: Int?, serviceClass: [Service]?, attributes: [Attribute]?) {
         self.id = id
         self.name = name
         self.descriptions = descriptions
@@ -276,10 +276,10 @@ class Attribute: NSObject, Codable {
 class Service: NSObject, Codable {
     let id, name, descriptions: String?
     let serviceType: ServiceType?
-    let objectState: ObjectState?
+    let objectState: String?
     let orderIndex: Int?
     
-    init(id: String?, name: String?, descriptions: String?, serviceType: ServiceType?, objectState: ObjectState?, orderIndex: Int?) {
+    init(id: String?, name: String?, descriptions: String?, serviceType: ServiceType?, objectState: String?, orderIndex: Int?) {
         self.id = id
         self.name = name
         self.descriptions = descriptions
@@ -759,7 +759,7 @@ extension Serviceice {
         serviceID: String?? = nil,
         businessID: String?? = nil,
         service: Service?? = nil,
-        objectState: ObjectState?? = nil,
+        objectState: String?? = nil,
         duration: Int?? = nil,
         serviceClass: [Service]?? = nil,
         attributes: [Attribute]?? = nil
@@ -850,7 +850,7 @@ extension Service {
         name: String?? = nil,
         descriptions: String?? = nil,
         serviceType: ServiceType?? = nil,
-        objectState: ObjectState?? = nil,
+        objectState: String?? = nil,
         orderIndex: Int?? = nil
         ) -> Service {
         return Service(

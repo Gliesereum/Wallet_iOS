@@ -18,6 +18,7 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
     var workers : [Worker]?
     var businesId : String?
     let utils = Utils()
+    var timeZone = Int()
     let constants = Constants()
     
     var delegate: WorkersListDelegate?
@@ -27,8 +28,9 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
 
        
     workersTable.rowHeight = UITableView.automaticDimension
-    workersTable.allowsMultipleSelection = true
-    workersTable.allowsMultipleSelectionDuringEditing = true
+        
+        workersTable.tableFooterView = UIView()
+        workersTable.layoutIfNeeded()
         // Do any additional setup after loading the view.
     }
     
@@ -90,6 +92,7 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
         let workerForIndex = workers![cell.workerButton.tag]
         let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "singleWorker") as! SingleWorker
         customAlert.worker = workerForIndex
+        customAlert.timeZone = timeZone
         customAlert.providesPresentationContextTransitionStyle = true
         customAlert.definesPresentationContext = true
         customAlert.modalPresentationStyle = UIModalPresentationStyle.popover

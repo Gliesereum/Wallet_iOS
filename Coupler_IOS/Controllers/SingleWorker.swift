@@ -11,7 +11,7 @@ import FloatRatingView
 import Alamofire
 
 
-class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate {
+class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate, NVActivityIndicatorViewable{
 
     @IBOutlet weak var workerImage: UIImageView!
     @IBOutlet weak var workerName: UILabel!
@@ -21,23 +21,38 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
     @IBOutlet weak var addCommentsView: UIView!
     @IBOutlet weak var commentsTableView: UITableView!
     @IBOutlet weak var addCommentsButton: UIButton!
+    @IBOutlet weak var snTime: UILabel!
+    @IBOutlet weak var stTime: UILabel!
+    @IBOutlet weak var frTime: UILabel!
+    @IBOutlet weak var thTime: UILabel!
+    @IBOutlet weak var wnTime: UILabel!
+    @IBOutlet weak var tuTime: UILabel!
+    @IBOutlet weak var mnTime: UILabel!
+    @IBOutlet weak var contentView: UIView!
     
     let utils = Utils()
     let constants = Constants()
     var worker : Worker?
+    var timeZone = Int()
     
     var delegate: WorkersListDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        timeShow()
         getMyComment()
 //        if worker?.comments?.count == 0 || worker?.comments == nil{
 //            commentsTableView.visiblity(gone: true)
 //        }
+        
+        commentsTableView.estimatedRowHeight = 120
         utils.setBorder(view: addCommentsButton, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
-        commentsTableView.rowHeight = UITableView.automaticDimension
-        commentsTableView.allowsMultipleSelection = true
-        commentsTableView.allowsMultipleSelectionDuringEditing = true
+        
+        commentsTableView.tableFooterView = UIView()
+        commentsTableView.layoutIfNeeded()
+        commentsTableView.invalidateIntrinsicContentSize()
+        self.view.layoutIfNeeded()
+        
         workerName.text = (worker?.user?.firstName)! + " " + (worker?.user?.lastName)!
         workerPosition.text = worker?.position
         if worker?.comments?.count == nil{
@@ -116,7 +131,9 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCommetsCellWorker", for: indexPath) as! CustomCommetsCellWorker
         let carwashCommets = worker?.comments?[indexPath.section]
@@ -173,7 +190,11 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
                 let responseBody = try JSONDecoder().decode(Worker.self, from: response.data!)
                 self.worker = responseBody
                 self.viewDidLoad()
+                
+                self.commentsTableView.isHidden = false
                 self.commentsTableView.reloadData()
+                self.commentsTableView.invalidateIntrinsicContentSize()
+                self.view.layoutIfNeeded()
                 
             } catch{
                 
@@ -185,9 +206,55 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     override func viewDidAppear(_ animated: Bool) {
         if worker?.comments?.count == 0 || worker?.comments == nil{
-            commentsTableView.visiblity(gone: true)
+            commentsTableView.isHidden = true
+            commentsTableView.layoutIfNeeded()
+            self.view.layoutIfNeeded()
         } else {
+            
+            commentsTableView.isHidden = false
+            
+            commentsTableView.layoutIfNeeded()
+            self.view.layoutIfNeeded()
 //            commentsTableView.visiblity(gone: false)
+        }
+    }
+    
+    func timeShow(){
+        for day in (worker?.workTimes)! {
+            switch day.dayOfWeek{
+            case "TUESDAY":
+                getProfTime(day: day, start: self.tuTime)
+                break
+            case "THURSDAY":
+                getProfTime(day: day, start: self.thTime)
+                break
+            case "MONDAY":
+                getProfTime(day: day, start: self.mnTime)
+                break
+            case "SATURDAY":
+                getProfTime(day: day, start: self.stTime)
+                break
+            case "SUNDAY":
+                getProfTime(day: day, start: self.snTime)
+                break
+            case "FRIDAY":
+                getProfTime(day: day, start: self.frTime)
+                break
+            case "WEDNESDAY":
+                getProfTime(day: day, start: self.wnTime)
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    func getProfTime(day: WorkTime, start: UILabel){
+        if day.isWork == true {
+            start.text = utils.milisecondsToTime(miliseconds: day.from!, timeZone: timeZone) + " - " + utils.milisecondsToTime(miliseconds: day.to!, timeZone: timeZone)
+            //            end.text = utils.milisecondsToTime(miliseconds: day.to!, timeZone: (carWashInfo?.timeZone)!)
+        }else {
+            start.text = "Выходной"
         }
     }
 }

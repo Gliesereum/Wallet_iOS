@@ -48,6 +48,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     @IBOutlet weak var showRoate: MDCButton!
     @IBOutlet weak var autoLable: UILabel!
     @IBOutlet weak var autoView: UIView!
+    @IBOutlet weak var worker: UILabel!
     
     var currentTable = UITableView()
     var record: ContentRB? = nil
@@ -55,20 +56,29 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        getWorkerInfo()
+        if record?.packageDto == nil || record?.packageDto?.services?.count == 0 {
+            viewPackege.visiblity(gone: true)
+        }
+        if record?.services == nil || record?.services?.count == 0 {
+            viewService.visiblity(gone: true)
+        }
        NotificationCenter.default.addObserver(self, selector: #selector(getPushNatRecord), name: Notification.Name(rawValue: "reloadTheTable"), object: nil)
 //        utils.checkPushNot(vc: self)
         if record != nil{
         utils.setBorder(view: headerView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
         packetServiceTable.rowHeight = UITableView.automaticDimension
-        packetServiceTable.allowsMultipleSelection = true
-        packetServiceTable.allowsMultipleSelectionDuringEditing = true
-            
+      
+        packetServiceTable.tableFooterView = UIView()
+        packetServiceTable.layoutIfNeeded()
+        packetServiceTable.invalidateIntrinsicContentSize()
 //            packetServiceTable.bottomAnchor.constraint(equalTo:self.view.centerYAnchor, constant:-7).isActive=true
         
         serviceTable.rowHeight = UITableView.automaticDimension
-        serviceTable.allowsMultipleSelection = true
-        serviceTable.allowsMultipleSelectionDuringEditing = true
+           
+            serviceTable.tableFooterView = UIView()
+            serviceTable.layoutIfNeeded()
+            serviceTable.invalidateIntrinsicContentSize()
 //            serviceTable.bottomAnchor.constraint(equalTo:self.view.centerYAnchor, constant:-7).isActive=true
         print(packetServiceTable.contentSize.height )
         
@@ -77,7 +87,6 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         time.text = utils.milisecondsToTime(miliseconds: (record?.begin)!, timeZone: (record?.business?.timeZone)!)
         price.text = String((record?.price)!) + " грн"
         duration.text = String(((record?.finish)! - (record?.begin)!)/60000) + " мин"
-        getCarInfo()
         name.text = record?.business?.name
         checkNil()
         status.text = utils.checkStatus(status: (record?.statusProcess)!) 
@@ -90,6 +99,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         }
         chackTarget()
         
+        self.view.layoutIfNeeded()
         // Do any additional setup after loading the view.
     }
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -167,7 +177,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         if currentTable == packetServiceTable{
             guard record?.packageDto != nil else{
                 let cell = tableView.dequeueReusableCell(withIdentifier: "singleOrdersServiceCell", for: indexPath) as! SingleOrdersServiceCell
-                currentTable.visiblity(gone: true)
+                self.viewPackege.visiblity(gone: true)
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: "singleOrdersPackegeServiceCell", for: indexPath) as! SingleOrdersPackegeServiceCell
@@ -180,7 +190,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
             guard record?.services != nil else{
                 let cell = tableView.dequeueReusableCell(withIdentifier: "singleOrdersServiceCell", for: indexPath) as! SingleOrdersServiceCell
                 
-                currentTable.visiblity(gone: true)
+                self.viewService.visiblity(gone: true)
                 return cell
             }
             
@@ -239,6 +249,39 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         }
     }
     
+    func getWorkerInfo(){
+        startAnimating()
+        let workerId = record?.workerID
+        guard workerId != nil else{
+            self.stopAnimating()
+            return
+        }
+        let restUrl = constants.startUrl + "karma/v1/worker/by-id?id=\(workerId!)"
+        var carInfo = ""
+        Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
+            guard self.utils.checkResponse(response: response, vc: self) == true else{
+                self.stopAnimating()
+                return
+            }
+            do{
+                let worker = try JSONDecoder().decode(Worker.self, from: response.data!)
+                let workerInfo = (worker.user?.firstName)! + " " + (worker.user?.lastName)!
+                
+                self.worker.text = workerInfo
+                
+            }
+            catch{
+                print(error)
+            }
+            
+            self.stopAnimating()
+            
+            
+            
+            
+            
+        }
+    }
    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x != 0 {
@@ -391,9 +434,11 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         }
 
     func chackTarget(){
-        if record?.targetID == nil {
+        if record?.business?.businessCategory?.businessType != "CAR" {
             
             self.autoView.visiblity(gone: true)
+        } else {
+            getCarInfo()
         }
     }
     

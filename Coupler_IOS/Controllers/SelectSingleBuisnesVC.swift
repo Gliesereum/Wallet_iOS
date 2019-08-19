@@ -47,16 +47,20 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
     
     override func viewDidLoad() {
         
-        
+//        getAllCars
         super.viewDidLoad()
 //        checkCarInfo()
 //        changeButton.initUI()
         changeButton.layer.borderColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         changeButton.layer.borderWidth = 1
         changeButton.layer.cornerRadius = 4
+//        if UserDefaults.standard.object(forKey: "MAPVC") == nil{
+//            
+//            self.showTutorial()
+//        }
         
-        self.changeButton.selectedSegmentIndex = TabIndex.firstChildTab.rawValue
 //
+        
 //        utils.setBorder(view: changeButton, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
 //        utils.setBorder(view: changeButton, backgroundColor: <#T##UIColor#>, borderColor: <#T##CGColor#>, borderWidth: <#T##CGFloat#>, cornerRadius: <#T##CGFloat#>)
        
@@ -141,70 +145,78 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                     self.stopAnimating()
                     
                    
+                    self.mapView.setBusinesMarker()
                     self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
+//                    self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
                     UserDefaults.standard.removeObject(forKey: "BUSINESSLIST")
+//                    if UserDefaults.standard.object(forKey: "MAPVC") == nil{
+//                        
+//                        self.utils.setSaredPref(key: "MAPVC", value: "true")
+//                        self.showTutorial()
+//                    }
                     return
                 }
-                guard self.utils.checkResponse(response: response, vc: self) == true else{
-                    self.stopAnimating()
-                    return
-                }
+              
                 
                 self.stopAnimating()
                 
 //                self.changeButton.selectedSegmentIndex = TabIndex.secondChildTab.rawValue
-                self.displayCurrentTab(TabIndex.secondChildTab.rawValue)
+//                self.displayCurrentTab(TabIndex.secondChildTab.rawValue)
                 do{
                     let businessList = self.utils.getBusinesList(key: "BUSINESSLIST")
                     
                     let responseBody = try JSONDecoder().decode(CarWashMarker.self, from: response.data!)
 //
-                    self.changeButton.selectedSegmentIndex = TabIndex.firstChildTab.rawValue
-                    self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
+//                    self.changeButton.selectedSegmentIndex = TabIndex.firstChildTab.rawValue
                     if self.utils.getBusinesList(key: "BUSINESSLIST") != nil{
                         if (businessList! == responseBody){
                             
                         }else{
                             self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
-                            if self.changeButton.selectedSegmentIndex == 0{
-//                            self.contentView.layoutIfNeeded()
-//                            self.mapView.mapView.layoutIfNeeded()
+                            
                             self.mapView.setBusinesMarker()
-//                                self.mapView.mapView.clear()
-//                                self.
-                                
-//                                self.changeButton.selectedSegmentIndex = TabIndex.firstChildTab.rawValue
-//                                self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
-
-                            }
-                            if self.changeButton.selectedSegmentIndex == 1{
-                            self.listView.refreshTable()
-                            }
+                            self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
+//                            if self.changeButton.selectedSegmentIndex == 0{
+////                            self.contentView.layoutIfNeeded()
+////                            self.mapView.mapView.layoutIfNeeded()
+////                                self.mapView.mapView.clear()
+////                                self.
+//
+////                                self.changeButton.selectedSegmentIndex = TabIndex.firstChildTab.rawValue
+////                                self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
+//
+//                            }
+//                            if self.changeButton.selectedSegmentIndex == 1{
+//                            self.listView.refreshTable()
+//                            }
 //                            self.changeButton.selectedSegmentIndex = TabIndex.secondChildTab.rawValue
 //                            self.displayCurrentTab(TabIndex.secondChildTab.rawValue)
+                            
+                            self.mapView.setBusinesMarker()
+                           
                         }
                     }else{
                         
+                        self.mapView.setBusinesMarker()
                         self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
-                        if self.changeButton.selectedSegmentIndex == 0{
-                            self.mapView.setBusinesMarker()
-                        }
-                        if self.changeButton.selectedSegmentIndex == 1{
-                            self.listView.refreshTable()
-                        }
+                        
+                        self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
+//                        if self.changeButton.selectedSegmentIndex == 0{
+//                            self.mapView.setBusinesMarker()
+//                        }
+//                        if self.changeButton.selectedSegmentIndex == 1{
+//                            self.listView.refreshTable()
+//                        }
+                        
                     }
+                    
                    
-                    if UserDefaults.standard.object(forKey: "MAPVC") == nil{
-
-                        self.utils.setSaredPref(key: "MAPVC", value: "true")
-                        self.showTutorial()
-                    }
                 }
                 catch{
                     
                     print(error)
                 }
-                
+               
                 self.stopAnimating()
             }
         
@@ -346,16 +358,17 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
     func Dismiss(filterListId: [String], filterOn: Bool) {
         if filterOn == true{
             serviceSelect = filterListId
-//            checkCarInfo()
+            checkCarInfo()
         } else {
             if serviceSelect.count != 0{
                 serviceSelect.removeAll()
             }
-//            checkCarInfo()
+            checkCarInfo()
         }
     }
     override func viewDidAppear(_ animated: Bool) {
       
+                getAllCars()
                 //        utils.checkPushNot(vc: self)
     }
     func showTutorial() {
@@ -378,6 +391,11 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
         PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask2, rightLeftTask1]) {
             isUserSkipDemo in
             
+            self.mapView.setBusinesMarker()
+            
+            self.utils.setSaredPref(key: "MAPVC", value: "true")
+            self.changeButton.selectedSegmentIndex = TabIndex.firstChildTab.rawValue
+            self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
 //            self.firstLoad()
             print("isUserSkipDemo: \(isUserSkipDemo)")
         }
@@ -385,7 +403,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getAllCars()
+//        getAllCars()
 
         print("start")
     }

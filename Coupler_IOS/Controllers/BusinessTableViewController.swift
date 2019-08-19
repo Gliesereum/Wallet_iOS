@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import CoreLocation
 
 class BuisnessViewCell: UITableViewCell{
     @IBOutlet weak var buisnessName: UILabel!
@@ -20,71 +21,16 @@ struct BuisnesList {
     let id: String?
 }
 
-class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable, UITableViewDataSource, UITableViewDelegate, ZeroDismissDelegate, MiddleDismissDelegate, LastDismissDelegate {
-    
-    
-    func zeroDismiss() {
-      
-        index = 2
+class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable, UITableViewDataSource, UITableViewDelegate, HelloDismissDelegate{
+    func helloDismiss() {
+        showTutorial()
     }
     
-    func MiddleDismiss(next: Bool) {
-        if next == true{
-           
-            index = 3
-        } else {
-           
-            index = 1
-        }
-    }
     
-    func helloView(){
-        switch index {
-        case 2:
-            let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "middleViewController") as! MiddleViewController
-            customAlert.vc = self
-            customAlert.providesPresentationContextTransitionStyle = true
-            customAlert.definesPresentationContext = true
-            customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
-            customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-            customAlert.delegate = self
-            self.present(customAlert, animated: true, completion: nil)
-            break
-        case 3:
-            let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "lastViewController") as! LastViewController
-            customAlert.vc = self
-            customAlert.providesPresentationContextTransitionStyle = true
-            customAlert.definesPresentationContext = true
-            customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
-            customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-            customAlert.delegate = self
-            self.present(customAlert, animated: true, completion: nil)
-        case 1:
-            let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "zeroViewController") as! ZeroViewController
-            customAlert.vc = self
-            customAlert.providesPresentationContextTransitionStyle = true
-            customAlert.definesPresentationContext = true
-            customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
-            customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-            customAlert.delegate = self
-            self.present(customAlert, animated: true, completion: nil)
-        case 4:
-           
-            self.showTutorial()
-        default:
-            break
-        }
-    }
     
-    func LastDismiss(end: Bool) {
-        if end == false{
-            
-            index = 2
-        } else {
-            index = 4
-        }
-    }
    
+   
+    var locationManager = CLLocationManager()
     @IBOutlet weak var menuItem: UIBarButtonItem!
     @IBOutlet var tableBuisness: UITableView!
     let constants = Constants()
@@ -101,8 +47,10 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         getAllBuisness()
        
         tableBuisness.rowHeight = UITableView.automaticDimension
-        tableBuisness.allowsMultipleSelection = true
-        tableBuisness.allowsMultipleSelectionDuringEditing = true
+        
+        tableBuisness.tableFooterView = UIView()
+        tableBuisness.layoutIfNeeded()
+        tableBuisness.invalidateIntrinsicContentSize()
         utils.checkPushNot(vc: self)
         let logo = UIImage(named: "logo_appbar_v1")
         let imageView = UIImageView(image:logo)
@@ -224,8 +172,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
             if UserDefaults.standard.object(forKey: "BUISNESVC") == nil{
                 
                 self.utils.setSaredPref(key: "BUISNESVC", value: "true")
-                let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "zeroViewController") as! ZeroViewController
-                customAlert.vc = self
+                let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "helloVC") as! HelloVC
                 customAlert.providesPresentationContextTransitionStyle = true
                 customAlert.definesPresentationContext = true
                 customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
@@ -295,6 +242,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         PassthroughManager.shared.display(tasks: [rightLeftTask2, cellTask]) {
             isUserSkipDemo in
 
+            self.locationManager.requestWhenInUseAuthorization()
             print("isUserSkipDemo: \(isUserSkipDemo)")
         }
         
@@ -304,7 +252,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
     }
     override func viewDidAppear(_ animated: Bool) {
         
-        helloView()
+//        helloView()
     }
 //    func createDemoTextPositionBottomTopTask() -> PassthroughTask {
 //        let labelDesc = LabelDescriptor(for: "The text can be from bottom and center in a portrait orientation. Try to rotate.")

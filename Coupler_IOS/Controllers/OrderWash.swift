@@ -76,20 +76,23 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //        utils.setBorder(view: headerView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
         if carWashInfo?.workers!.count == 0 || carWashInfo?.workers == nil{
             workerView.visiblity(gone: true)
+             utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
         }
         filterServices()
         carServicePrice.tableFooterView = UIView()
         if carWashInfo?.packages?.count != 0 {
             for package in (carWashInfo?.packages)!{
-                packagesList.append(package.name!)
+                if package.objectState != "DELETED"{
+                    packagesList.append(package.name!)
+                }
             }
         } else {
             packageView.visiblity(gone: true)
 //            packageLabel.visiblity(gone: true)
         }
-        carServicePrice.rowHeight = UITableView.automaticDimension
-        carServicePrice.allowsMultipleSelection = true
-        carServicePrice.allowsMultipleSelectionDuringEditing = true
+        carServicePrice.tableFooterView = UIView()
+        carServicePrice.layoutIfNeeded()
+        carServicePrice.invalidateIntrinsicContentSize()
         pacetsSelector.delegate = self
 
         if  UserDefaults.standard.object(forKey: "ORDERWASHVC") == nil {
@@ -116,6 +119,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     @IBAction func selectWorker(_ sender: Any) {
         let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "workersList") as! WorkersList
         customAlert.workers = self.carWashInfo?.workers
+        customAlert.timeZone = (carWashInfo?.timeZone)!
         customAlert.providesPresentationContextTransitionStyle = true
         customAlert.definesPresentationContext = true
         customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
@@ -176,12 +180,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         }
        
 //        showDialog()
-        if carWashInfo?.workers!.count == 0 || carWashInfo?.workers == nil{
-            utils.checkFilds(massage: "Этот бизнес не имеет зарегистрированных работников, поэтому не может выполнить заказ", vc: self.view)
-        }else{
-            
             showSelectTimeDialog(enable: true)
-        }
        
     }
     
@@ -208,7 +207,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //                selectPackage.text = "Не выбран"
                 selectedServices = servicesOld
                 carServicePrice.reloadData()
-                
+                carServicePrice.invalidateIntrinsicContentSize()
             }
             return
         }
@@ -304,6 +303,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         if packageService == "PACKAGE"{
         carWashInfo?.servicePrices = servicesOld
         carServicePrice.reloadData()
+        carServicePrice.invalidateIntrinsicContentSize()
         }
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -545,6 +545,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             }
         }
         carServicePrice.reloadData()
+        carServicePrice.invalidateIntrinsicContentSize()
     }
     func removeAll(){
         idServicePrice.removeAll()
@@ -597,14 +598,13 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         }
         servicesOld.removeAll()
         servicesOld = selectedServices
+        
+        carServicePrice.reloadData()
+        carServicePrice.invalidateIntrinsicContentSize()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         guard utils.getSharedPref(key: "accessToken") != nil else{
-//            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-//            self.sideMenuViewController!.hideMenuViewController()
-//
-//            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
             stopAnimating()
             return
         }
@@ -730,7 +730,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        voidView()
+//        voidView()
         utils.checkPushNot(vc: self)
     }
     func getSelectTime(setTime: Int, select: Int) -> Int {
@@ -754,11 +754,6 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             guard response.response?.statusCode != 500 else{
                 self.utils.checkServer(vc: self)
 
-//                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
-//                    self.sideMenuViewController!.hideMenuViewController()
-//                    SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
-                    //            TinyToast.shared.show(message: "Нет связи с сервером", valign: .bottom, duration: .normal)
-                    
                     self.stopAnimating()
                     return
                 }
@@ -777,7 +772,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                     self.currentTime = 0
                     if select == 4 {
                         self.showDateTimePikerDialog()
-                        TinyToast.shared.show(message: "Точка не работает в это время", valign: .center, duration: 1)
+//                        TinyToast.shared.show(message: "Точка не работает в это время", valign: .center, duration: 1)
                     }
                     
                     return

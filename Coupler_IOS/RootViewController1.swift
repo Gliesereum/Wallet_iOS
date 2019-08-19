@@ -146,5 +146,10 @@ extension Date {
         return Calendar.current.dateComponents([.weekday], from: self).weekday
     }
 }
+extension UITableView{
+    override open var intrinsicContentSize: CGSize {
+        return contentSize
+    }
+}
 
 

@@ -72,33 +72,36 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         carWashInfo = self.utils.getCarWashBody(key: "CARWASHBODY")
         if carWashInfo?.phone == nil{
             callUsView.visiblity(gone: true)
+            
+            photoView.isHidden = true
+            self.view.layoutIfNeeded()
         }
-       
-//        utils.setBorder(view: headerView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
+        commentsTable.estimatedRowHeight = 120
         utils.setBorder(view: addCommentsBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 8)
         utils.setBorder(view: callUsBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 8)
         let swImage = UITapGestureRecognizer(target: self, action: #selector(showImage))
-        
-        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: 1600)
         swImage.delegate = self
         swImage.numberOfTapsRequired = 1
         imageScroll.interitemSpacing = 20
         imageScroll.itemSize = CGSize(width: 200, height: 178)
-//        let swTime = UITapGestureRecognizer(target: self, action: #selector(showWorkTime))
-//
-//        swTime.delegate = self
-//        swTime.numberOfTapsRequired = 1
-//        workingTimes.addGestureRecognizer(swTime)
         imageScroll.addGestureRecognizer(swImage)
         commentsTable.tableFooterView = UIView()
+        commentsTable.layoutIfNeeded()
         getCarWashInfo()
         getMyComment()
         super.viewDidLoad()
         imageScroll.transformer = FSPagerViewTransformer(type: .linear)
         if carWashInfo?.media?.count == 0 {
             photoView.visiblity(gone: true)
+            photoView.isHidden = true
+            self.view.layoutIfNeeded()
         }
         timeShow()
+        if UserDefaults.standard.object(forKey: "CARWASHINFOVC") == nil{
+            
+            self.utils.setSaredPref(key: "CARWASHINFOVC", value: "true")
+            self.showTutorial()
+        }
                 // Do any additional setup after loading the view.
         
     }
@@ -151,9 +154,16 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
           showDialog(.slideLeftRight)
     }
     @IBAction func carWashOrder(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "orderWash") as! OrderWash
-        vc.carWashInfo = self.carWashInfo
-        navigationController?.pushViewController(vc, animated: true)
+        if carWashInfo?.workers!.count == 0 || carWashInfo?.workers == nil{
+            utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
+        }else{
+            let vc = storyboard?.instantiateViewController(withIdentifier: "orderWash") as! OrderWash
+            vc.carWashInfo = self.carWashInfo
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         self.commentsCount.text = "(\(carWashInfo!.comments!.count))"
@@ -227,6 +237,10 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         dismissDialogViewController(LSAnimationPattern.fadeInOut)
         if chouse == true {
             getCarWashInfoComments()
+            self.commentsTable.isHidden = false
+//            var contentSizeTemp = commentsTable.contentSize
+//            contentSizeTemp.height = 449
+//            self.commentsTable.contentSize = contentSizeTemp
         }
         
     }
@@ -269,6 +283,8 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard response.response?.statusCode != 200 else{
                 self.buttonView.visiblity(gone: true)
+                self.buttonView.isHidden = true
+                self.view.layoutIfNeeded()
                
                 self.stopAnimating()
                 return
@@ -297,7 +313,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
                 self.utils.setCarWashBody(key: "CARWASHBODY", value: responseBody)
                 self.viewDidLoad()
                 self.commentsTable.reloadData()
-                
+                self.commentsTable.invalidateIntrinsicContentSize()
             } catch{
                 
             }
@@ -315,13 +331,15 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
 //            return
 //        }
         if carWashInfo?.comments?.count == 0 || carWashInfo?.comments == nil{
-            commentsTable.visiblity(gone: true)
+            commentsTable.isHidden = true
+            
+            self.view.layoutIfNeeded()
+        } else{
+            commentsTable.isHidden = false
+            
+            self.view.layoutIfNeeded()
         }
-        if UserDefaults.standard.object(forKey: "CARWASHINFOVC") == nil{
-
-            self.utils.setSaredPref(key: "CARWASHINFOVC", value: "true")
-            self.showTutorial()
-        }
+      
 //
     }
     
@@ -451,5 +469,6 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
             }
         }
     }
+    
    
 }

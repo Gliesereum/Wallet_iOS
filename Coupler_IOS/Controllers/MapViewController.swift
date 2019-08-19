@@ -76,7 +76,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         print("viewDidLoad")
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
         locationManager.distanceFilter = 500
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
@@ -106,8 +105,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     //MARK: get carwash list
    
     func setBusinesMarker(){
+        let rootVC = SelectSingleBuisnesVC()
         guard self.utils.getBusinesList(key: "BUSINESSLIST") != nil else{
-            let rootVC = SelectSingleBuisnesVC()
+            
             rootVC.checkCarInfo()
             return
         }
@@ -125,6 +125,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         }
 //        self.view.layoutIfNeeded()
         self.view = mapView
+        
     }
     
     func addMarkerOnMap(getlatitude: Double, getlongitude: Double, title: String, sniper: String, logo: String, buisness: String) {
@@ -296,10 +297,13 @@ extension MapViewController: CLLocationManagerDelegate {
     }
    
 //
-    override func viewDidAppear(_ animated: Bool) {
-                setBusinesMarker()
-        print("viewDidAppear")
+    override func viewWillAppear(_ animated: Bool) {
+       
+            setBusinesMarker()
+//        print("viewDidAppear")
     }
+    
+    
     
     
    

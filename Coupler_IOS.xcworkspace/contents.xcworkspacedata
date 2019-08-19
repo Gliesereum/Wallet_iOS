@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:SingleWorker.swift">
-   </FileRef>
-   <FileRef
       location = "group:Coupler_IOS.xcodeproj">
    </FileRef>
    <FileRef

@@ -28,6 +28,7 @@ class CreateCarDialog: UIViewController, UITableViewDataSource, UITableViewDeleg
         super.viewDidLoad()
         utils.setBorder(view: filterTable, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.0417380137), borderWidth: 2, cornerRadius: 4)
         filterTable.tableFooterView = UIView()
+        filterTable.layoutIfNeeded()
         filterTable.rowHeight = UITableView.automaticDimension
         self.definesPresentationContext = true
         

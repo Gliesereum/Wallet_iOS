@@ -20,6 +20,7 @@ class PacketsDialog: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var pricePackage: UILabel!
     var price = Int()
     var durtion = Int()
+    let utils = Utils()
     var id: String = ""
     var prices = [Int]()
     var delegate: DialodDismissDelegate?
@@ -33,6 +34,8 @@ class PacketsDialog: UIViewController, UITableViewDataSource, UITableViewDelegat
 
         
         serviceTable.tableFooterView = UIView()
+        serviceTable.layoutIfNeeded()
+        serviceTable.invalidateIntrinsicContentSize()
         serviceTable.rowHeight = UITableView.automaticDimension
        
         self.definesPresentationContext = true
@@ -46,17 +49,30 @@ class PacketsDialog: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         // Do any additional setup after loading the view.
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return (package?.services?.count)!
     }
-    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5
+        
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customServicesPricePackage", for: indexPath) as! CustomServicesPrice
-        let carServicePrices = package?.services?[indexPath.row]
+        self.utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
+        cell.name.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+        let carServicePrices = package?.services?[indexPath.section]
         cell.name.text = carServicePrices?.name
-        cell.price.text = String(describing: carServicePrices?.price ?? 0)
+//        cell.price.text = String(describing: carServicePrices?.price ?? 0)
         cell.id.text = carServicePrices?.id
-        cell.time.text = String(describing: carServicePrices?.duration ?? 0)
+//        cell.time.text = String(describing: carServicePrices?.duration ?? 0)
         return cell
     }
     

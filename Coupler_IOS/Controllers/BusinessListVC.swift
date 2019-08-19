@@ -35,29 +35,35 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        businesTable.tableFooterView = UIView()
+        businesTable.invalidateIntrinsicContentSize()
+        businesTable.rowHeight = UITableView.automaticDimension
+        businesTable.layoutIfNeeded()
         // Do any additional setup after loading the view.
     }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
     
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return markerList.count
-//    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return markerList.count
     }
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = UIView()
-//        headerView.backgroundColor = UIColor.clear
-//        return headerView
-//    }
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 5
-//
-//    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5
+
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "businesListCell", for: indexPath) as! BusinesListCell
-        let marker = markerList[indexPath.row]
-        
+        let marker = markerList[indexPath.section]
+        utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
         if let logo = marker.logoURL {
             cell.logo.downloaded(from: logo)
         }
@@ -171,11 +177,11 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         if utils.getBusinesList(key: "BUSINESSLIST") != nil {
             markerList = utils.getBusinesList(key: "BUSINESSLIST")!
         }
-        if UserDefaults.standard.object(forKey: "BUSINESSLISTVC") == nil{
-            
-            self.utils.setSaredPref(key: "BUSINESSLISTVC", value: "true")
-            self.showTutorial()
-        }
+//        if UserDefaults.standard.object(forKey: "BUSINESSLISTVC") == nil{
+//
+//            self.utils.setSaredPref(key: "BUSINESSLISTVC", value: "true")
+//            self.showTutorial()
+//        }
         self.businesTable.reloadData()
     }
     func showTutorial() {

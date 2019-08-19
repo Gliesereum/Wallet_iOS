@@ -60,6 +60,8 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
 //        defoultLogo = UIImage(contentsOfFile: "logo_v1SmallLogo.png")!
         recordTableView.rowHeight = UITableView.automaticDimension
         recordTableView.tableFooterView = UIView()
+        recordTableView.layoutIfNeeded()
+        recordTableView.invalidateIntrinsicContentSize()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

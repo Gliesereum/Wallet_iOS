@@ -86,10 +86,10 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
+        carListTable.tableFooterView = UIView()
+        carListTable.layoutIfNeeded()
+        carListTable.invalidateIntrinsicContentSize()
         carListTable.rowHeight = UITableView.automaticDimension
-        carListTable.allowsMultipleSelection = true
-        carListTable.allowsMultipleSelectionDuringEditing = true
 //        pageControl.transform = CGAffineTransform.init(scaleX: scale, y: scale)
 //        for dot in pageControl.subviews{
 //            dot.transform = CGAffineTransform.init(scaleX: 1/scale, y: 1/scale)
