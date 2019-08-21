@@ -69,6 +69,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
     })
 
     //MARK -
+    @IBOutlet weak var exitBtn: UIButton!
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var centrLable: UILabel!
     @IBOutlet weak var contentView: UIView!
@@ -156,6 +157,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
         phoneNumberTextField.addDoneCancelToolbar(onDone: (target: (Any).self, action: #selector(sigInBtnAct)))
         if poper == true{
             self.definesPresentationContext = true
+            exitBtn.isHidden = false
         }
     }
 //    @objc func keyboardWillShow(notification:NSNotification){
@@ -177,6 +179,9 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
         return true
     }
     
+    @IBAction func exit(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     @objc func keyboardWillShow(notification:NSNotification){
         
         var userInfo = notification.userInfo!
@@ -333,7 +338,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
                 if sigInModel.user?.firstName != nil{
                     self.utils.setSaredPref(key: "USER", value: (sigInModel.user?.firstName)! + " " + (sigInModel.user?.lastName)!)
                 }
-                
+                self.getAllCars()
                 guard self.poper != true else{
                     self.poper = false
                     self.dismiss(animated: true, completion: nil)
@@ -375,6 +380,57 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
             
             
             self.stopAnimating()
+        }
+    }
+    
+    func getAllCars(){
+        startAnimating()
+        let restUrl = constants.startUrl + "karma/v1/car/user"
+        guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
+            
+            stopAnimating()
+            return
+        }
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
+        
+        Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
+            
+            guard self.utils.checkResponse(response: response, vc: self) == true else{
+                
+                self.stopAnimating()
+                return
+            }
+            
+            
+            do{
+                //                self.checkCarInfo()
+                let carList = try JSONDecoder().decode(AllCarList.self, from: response.data!)
+                
+                for element in carList{
+                    
+                    if element.favorite == true {
+                        var carAttributes = [String]()
+                        for attribute in element.attributes!{
+                            carAttributes.append(attribute.id!)
+                        }
+                        var servicesClasses = [String]()
+                        for servicesClass in element.services! {
+                            servicesClasses.append(servicesClass.id!)
+                        }
+                        let carInfo = SelectedCarInfo.init(carId: (element.id)!, carInfo: (element.brand?.name)! + " " + (element.model?.name)!, carAttributes: carAttributes, carServices: servicesClasses)
+                        
+                        
+                        self.utils.setCarInfo(key: "CARID", value: carInfo)
+                    }
+                }
+            }
+            catch{
+                
+            }
+            
+            self.stopAnimating()
+            
+            
         }
     }
     

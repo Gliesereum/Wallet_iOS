@@ -34,6 +34,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
     @IBOutlet weak var addCarBrnView: MDCButton!
     @IBOutlet weak var classServicesTable: UITableView!
     @IBOutlet weak var deleteCarImage: UIButton!
+    @IBOutlet weak var exitBtn: UIButton!
     
     var setFavorite : CarListViewController?
     let constants = Constants()
@@ -132,10 +133,17 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
         otherTextView.isEnabled = false
         }
         
+        if poper == true{
+            self.definesPresentationContext = true
+            exitBtn.isHidden = false
+        }
        
         // Do any additional setup after loading the view.
     }
-//    @objc func doneButtonTapped() { self.resignFirstResponder() }
+    @IBAction func exit(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    //    @objc func doneButtonTapped() { self.resignFirstResponder() }
 //
 //    //MARK: REST API request
     func getCarBrands(){
@@ -892,8 +900,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/car/\((selectedCar?.id)!)"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
-            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-            self.sideMenuViewController!.hideMenuViewController()
+            self.utils.checkAutorization(vc: self)
             stopAnimating()
             return
         }

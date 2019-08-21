@@ -45,7 +45,7 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
 //            commentsTableView.visiblity(gone: true)
 //        }
         
-        commentsTableView.estimatedRowHeight = 120
+        commentsTableView.estimatedRowHeight = 100
         utils.setBorder(view: addCommentsButton, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
         
         commentsTableView.tableFooterView = UIView()

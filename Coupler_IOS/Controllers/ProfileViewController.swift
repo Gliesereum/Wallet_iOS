@@ -35,6 +35,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     @IBOutlet weak var adress: MDCTextField!
     @IBOutlet weak var imageAvatar: UIImageView!
     @IBOutlet weak var addAvatarView: UIImageView!
+    @IBOutlet weak var exitBtn: UIButton!
     
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -59,10 +60,18 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         getProfile()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        if poper == true{
+            self.definesPresentationContext = true
+            exitBtn.isHidden = false
+        }
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    @IBAction func exit(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     @objc func addAvatar(){
         if edited == true{
@@ -282,7 +291,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             
             self.utils.checkAutorization(vc: self)
             
-            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
+//            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
             return
         }
     }

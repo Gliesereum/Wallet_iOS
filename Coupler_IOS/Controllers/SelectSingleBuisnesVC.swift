@@ -47,7 +47,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
     
     override func viewDidLoad() {
         
-//        getAllCars
+        getAllCars()
         super.viewDidLoad()
 //        checkCarInfo()
 //        changeButton.initUI()
@@ -368,7 +368,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
     }
     override func viewDidAppear(_ animated: Bool) {
       
-                getAllCars()
+//                getAllCars()
                 //        utils.checkPushNot(vc: self)
     }
     func showTutorial() {

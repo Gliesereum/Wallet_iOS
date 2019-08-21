@@ -107,8 +107,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     func setBusinesMarker(){
         let rootVC = SelectSingleBuisnesVC()
         guard self.utils.getBusinesList(key: "BUSINESSLIST") != nil else{
-            
-            rootVC.checkCarInfo()
+
+//            rootVC.checkCarInfo()
             return
         }
         let businessList = self.utils.getBusinesList(key: "BUSINESSLIST")
@@ -194,15 +194,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     //MARK: get carwash list
     func getCarWashInfo(carWashId: String){
         startAnimating()
-//        guard utils.getSharedPref(key: "accessToken") != nil else{
-////            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-////            utils.setSaredPref(key: "CARWASHID", value: carWashId)
-////            self.sideMenuViewController!.hideMenuViewController()
-////
-////            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
-//            stopAnimating()
-//            return
-//        }
+//
         if self.utils.getSharedPref(key: "CARWASHID") != nil{
         
         UserDefaults.standard.removeObject(forKey: "CARWASHID")
@@ -219,18 +211,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
                
                 let responseBody = try JSONDecoder().decode(CarWashBody.self, from: response.data!)
                 
-//                if responseBody.businessCategory?.businessType == "CAR" {
-//                    guard self.utils.getCarInfo(key: "CARID") != nil else{
-//                self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
-//
-////                        self.utils.setSaredPref(key: "CARWASHID", value: carWashId)
-//                    self.sideMenuViewController!.hideMenuViewController()
-//
-//                        //            self.utils.checkFilds(massage: "Выберите машину", vc: self.view)
-//                        self.stopAnimating()
-//                    return
-//                }
-//                }
+//               
                 //Thread 1: EXC_BAD_INSTRUCTION (code=EXC_I386_INVOP, subcode=0x0)
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "carWashInfo") as! CarWashInfo
                 vc.carWashInfo = responseBody

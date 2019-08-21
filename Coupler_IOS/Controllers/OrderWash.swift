@@ -29,6 +29,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     @IBOutlet weak var pacetsSelector: EHHorizontalSelectionView!
     @IBOutlet weak var workerBtn: UIButton!
     
+    @IBOutlet weak var callUsView: MDCButton!
     @IBOutlet weak var packageView: UIView!
     //    @IBOutlet weak var packageLabel: UILabel!
     @IBOutlet weak var allDurations: UILabel!
@@ -38,9 +39,13 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //    @IBOutlet weak var selectPackage: UILabel!
     @IBOutlet weak var orderButton: MDCButton!
     @IBOutlet weak var workerView: UIView!
+    @IBOutlet weak var saleryView: UIView!
     
     @IBOutlet weak var allPrice: UILabel!
-
+    @IBOutlet weak var packetServicesLable: UILabel!
+    @IBOutlet weak var packetServicesTable: UITableView!
+    @IBOutlet weak var packageContent: UIView!
+    
     let timepicker = DateTimePicker()
     let utils = Utils()
     let constants = Constants()
@@ -49,6 +54,8 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     var idServicePrice: [String] = []
     var sumPrice = Int()
     var sumDurations = Int()
+    @IBOutlet weak var packageLable: UILabel!
+    var pricesPackage = [Int]()
     var packagesList: [String] = ["Не выбран"]
     var packageDuration = Int()
     var packagePrice : Int = 0
@@ -61,7 +68,9 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     var counter = false
     var servicesOld = [Serviceice]()
     var targetId : String?
+    var packegeServices = [Serviceice]()
     var selectedServices = [Serviceice]()
+    var pressOrderButton = false
 //    var workers : WorkerByBuisnesBody?
     var worker : Worker?
     
@@ -72,12 +81,24 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//          self.utils.setBorder(view: saleryView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
+        if  UserDefaults.standard.object(forKey: "ORDERWASHVC") == nil {
+            
+            self.utils.setSaredPref(key: "ORDERWASHVC", value: "true")
+            self.showTutorial()
+        } else if carWashInfo?.workers!.count == 0 || carWashInfo?.workers == nil{
+            utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
+            workerView.visiblity(gone: true)
+            workerView.isHidden = true
+            orderButton.isHidden = true
+            callUsView.isHidden = false
+            
+//            view.layoutIfNeeded()
+        }
+       
 //        getWorkers()
 //        utils.setBorder(view: headerView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
-        if carWashInfo?.workers!.count == 0 || carWashInfo?.workers == nil{
-            workerView.visiblity(gone: true)
-             utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
-        }
+       
         filterServices()
         carServicePrice.tableFooterView = UIView()
         if carWashInfo?.packages?.count != 0 {
@@ -88,21 +109,51 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             }
         } else {
             packageView.visiblity(gone: true)
+            packageView.isHidden = true
+            packageLable.isHidden = true
+            packageContent.isHidden = true
+            
+//              view.layoutIfNeeded()
 //            packageLabel.visiblity(gone: true)
         }
+        
+        packetServicesTable.estimatedRowHeight = 54
+        packetServicesTable.tableFooterView = UIView()
+        packetServicesTable.layoutIfNeeded()
+        packetServicesTable.invalidateIntrinsicContentSize()
+        
+        carServicePrice.estimatedRowHeight = 66
         carServicePrice.tableFooterView = UIView()
         carServicePrice.layoutIfNeeded()
         carServicePrice.invalidateIntrinsicContentSize()
         pacetsSelector.delegate = self
 
-        if  UserDefaults.standard.object(forKey: "ORDERWASHVC") == nil {
-            
-            self.utils.setSaredPref(key: "ORDERWASHVC", value: "true")
-            self.showTutorial()
-        }
-       
+        saleryView.isHidden = true
+        packetServicesTable.isHidden = true
+        packetServicesLable.isHidden = true
+        saleryView.layoutIfNeeded()
+       view.layoutIfNeeded()
         // Do any additional setup after loading the view.
         
+    }
+    @IBAction func callUs(_ sender: Any) {
+        if carWashInfo?.phone == nil{
+            utils.checkFilds(massage: "У этой компании не внесен номер телефона", vc: self.view)
+        } else{
+            if let phoneCallURL = URL(string: "telprompt://\((carWashInfo?.phone)!)") {
+                
+                let application:UIApplication = UIApplication.shared
+                if (application.canOpenURL(phoneCallURL)) {
+                    if #available(iOS 10.0, *) {
+                        application.open(phoneCallURL, options: [:], completionHandler: nil)
+                    } else {
+                        // Fallback on earlier versions
+                        application.openURL(phoneCallURL as URL)
+                        
+                    }
+                }
+            }
+        }
     }
     
     func voidView(){
@@ -138,6 +189,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     }
     
     @IBAction func orderButton(_ sender: Any) {
+        pressOrderButton = true
 //        getCurrentTime()
         guard sumPrice != 0 else{
             utils.checkFilds(massage: "Выберите услуги", vc: self.view)
@@ -145,7 +197,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         }
         guard utils.getSharedPref(key: "accessToken") != nil else{
             self.utils.checkAutorization(vc: self)
-            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
+//            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
             
             stopAnimating()
             
@@ -176,6 +228,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 self.present(customAlert, animated: true, completion: nil)
                 return
             }
+            pressOrderButton = false
             
         }
        
@@ -206,8 +259,16 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 removeAll()
 //                selectPackage.text = "Не выбран"
                 selectedServices = servicesOld
+             
                 carServicePrice.reloadData()
                 carServicePrice.invalidateIntrinsicContentSize()
+                packetServicesTable.isHidden = true
+                packetServicesLable.isHidden = true
+                saleryView.isHidden = true
+                packegeServices.removeAll()
+                packetServicesTable.reloadData()
+                packetServicesTable.invalidateIntrinsicContentSize()
+                view.layoutIfNeeded()
             }
             return
         }
@@ -215,49 +276,83 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         
     
     }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return selectedServices.count
-    }
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        if tableView == packetServicesTable{
+//            return packegeServices.count
+//        } else{
+//            return selectedServices.count
+//
+//        }
+//
+//    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if tableView == packetServicesTable{
+            return packegeServices.count
+        } else{
+            return selectedServices.count
+            
+        }
     }
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = UIColor.clear
-        return headerView
-    }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 5
-        
-    }
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView()
+//        headerView.backgroundColor = UIColor.clear
+//        return headerView
+//    }
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 5
+//
+//    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "customServicesPrice", for: indexPath) as! CustomServicesPrice
-        let carServicePrices = selectedServices[indexPath.section]
+        if tableView == packetServicesTable{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "customServicesPricePackage", for: indexPath) as! CustomServicesPrice
+//            self.utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
+//            cell.name.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+            let carServicePrices = packegeServices[indexPath.row]
+            cell.name.text = carServicePrices.name
+            //        cell.price.text = String(describing: carServicePrices?.price ?? 0)
+            cell.id.text = carServicePrices.id
+            //        cell.time.text = String(describing: carServicePrices?.duration ?? 0)
+            return cell
+        } else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "customServicesPrice", for: indexPath) as! CustomServicesPrice
+            let carServicePrices = selectedServices[indexPath.row]
+            
+//            utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
+            cell.clipsToBounds = true
+            //        if carInfo.
+            cell.name.text = carServicePrices.name
+            cell.price.text = String(describing: carServicePrices.price ?? 0)
+            cell.id.text = carServicePrices.id
+            cell.time.text = String(describing: carServicePrices.duration ?? 0)
+            
+            //        guard utils.filterArray(savedInfos: carInfo!.carAttributes, serverInfos: carServicePrices?.attributes.) != false else {
+            //            return cell
+            //        }
+            //        guard utils.filterArray(savedInfos: carInfo!.carServices, serverInfos: carServicePrices!.carAttributes) != false else {
+            //            return cell
+            //        }
+            
+            
+            return cell
+            
+        }
         
-        utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
-        cell.clipsToBounds = true
-//        if carInfo.
-        cell.name.text = carServicePrices.name
-        cell.price.text = String(describing: carServicePrices.price ?? 0)
-        cell.id.text = carServicePrices.id
-        cell.time.text = String(describing: carServicePrices.duration ?? 0)
-        
-//        guard utils.filterArray(savedInfos: carInfo!.carAttributes, serverInfos: carServicePrices?.attributes.) != false else {
-//            return cell
-//        }
-//        guard utils.filterArray(savedInfos: carInfo!.carServices, serverInfos: carServicePrices!.carAttributes) != false else {
-//            return cell
-//        }
-        
-       
-        return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if cell.isSelected{
-             utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
-        } else {
-             utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
+        if tableView == packetServicesTable{
+        } else{
+        
+            let cells = cell as! CustomServicesPrice
+            if cell.isSelected{
+    //             utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
+                cells.checkBox.isHidden = false
+                cells.uncheckBox.isHidden = true
+            } else {
+    //             utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
+                cells.checkBox.isHidden = true
+                cells.uncheckBox.isHidden = false
+            }
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -270,7 +365,9 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //        allPrice.text = "💵" + String(sumPrice) + " грн."
         UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
             
-            self.utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
+//            self.utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
+            cell.checkBox.isHidden = false
+            cell.uncheckBox.isHidden = true
             
         }, completion:nil)
         addsumPriceDurations(price: Int(cell.price.text!)!, duration: Int(cell.time.text!)!)
@@ -317,8 +414,9 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //        durationArray.remove(at: durationArray.index(of: Int(cell.time.text!)!)!)
         UIView.animate(withDuration: 0.2, delay: 0.0, options:[.curveEaseInOut], animations: {
             
-            self.utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
-            
+//            self.utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
+            cell.checkBox.isHidden = true
+            cell.uncheckBox.isHidden = false
         }, completion:nil)
         removesumPriceDurations(price: Int(cell.price.text!)!, duration: Int(cell.time.text!)!, packageService: "SERVICE")
         idServicePrice.remove(at: idServicePrice.firstIndex(of: cell.id.text!)!)
@@ -336,7 +434,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         } else if workerId != ""{
             parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: self.workerId, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: nil, workingSpaceID: nil))
         } else if self.carWashInfo?.businessCategory?.businessType == "CAR" {
-            parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: currentTime, businessID: carWashInfo?.businessID, workerId: nil, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: targetId, workingSpaceID: self.workSpaceId))
+            parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: nil, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: targetId, workingSpaceID: self.workSpaceId))
         }
 
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
@@ -466,16 +564,74 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         picker.doneButtonTitle = "Выбрать это время"
     }
     func addCategory(package: Package) {
+
+        pricesPackage.removeAll()
+        for price in (package.services)!{
+            pricesPackage.append(price.price!)
+        }
+        let packageDuration = (package.duration)!
+        let packagePrice = ((pricesPackage.reduce(0, +) - ((pricesPackage.reduce(0, +) * (package.discount)!) / 100)))
+        let packageId = (package.id)!
+        let discont = package.discount
+        let packageName = package.name
         
-        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "packetsDialog") as! PacketsDialog
-        customAlert.package = package
-        customAlert.providesPresentationContextTransitionStyle = true
-        customAlert.definesPresentationContext = true
-        customAlert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-        customAlert.delegate = self
-        self.present(customAlert, animated: true, completion: nil)
+            if self.packagePrice <= 0{
+                removesumPriceDurations(price: self.packagePrice, duration: self.packageDuration, packageService: "PACKAGE")
+
+                self.salerLable.text = "0"
+
+                removeAll()
+
+            }
+
+            guard self.packageId == "" else{
+                removeAll()
+                removesumPriceDurations(price: self.packagePrice, duration: self.packageDuration, packageService: "PACKAGE")
+                self.packageId = String(describing: packageId)
+                self.packagePrice = packagePrice
+                self.packageDuration = packageDuration
+                self.salerLable.text = "\(discont!)"
+                //            self.selectPackage.text = packageName
+                voidView()
+                //            viewDidLoad()
+                selectedServices = servicesOld
+                packegeServices = package.services!
+                packetServicesTable.reloadData()
+                packetServicesTable.isHidden = false
+                packetServicesLable.isHidden = false
+                
+                packetServicesTable.invalidateIntrinsicContentSize()
+                filterServicesByPackages(packageId: packageId)
+                view.layoutIfNeeded()
+                return
+            }
+        removeAll()
+        self.packageId = packageId
+        self.packagePrice = packagePrice
+        self.packageDuration = packageDuration
+        self.salerLable.text = "\(discont!)"
         
+        //        self.selectPackage.text = packageName
+        voidView()
+        //        viewDidLoad()
+        selectedServices = servicesOld
+        packegeServices = package.services!
+        packetServicesTable.reloadData()
+        packetServicesTable.isHidden = false
+        packetServicesLable.isHidden = false
+        
+        saleryView.isHidden = false
+        packetServicesTable.invalidateIntrinsicContentSize()
+        filterServicesByPackages(packageId: packageId)
+//        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "packetsDialog") as! PacketsDialog
+//        customAlert.package = package
+//        customAlert.providesPresentationContextTransitionStyle = true
+//        customAlert.definesPresentationContext = true
+//        customAlert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+//        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+//        customAlert.delegate = self
+//        self.present(customAlert, animated: true, completion: nil)
+
     }
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
         if packageId != "" {
@@ -604,10 +760,10 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        guard utils.getSharedPref(key: "accessToken") != nil else{
-            stopAnimating()
-            return
-        }
+//        guard utils.getSharedPref(key: "accessToken") != nil else{
+//            stopAnimating()
+//            return
+//        }
        
         if worker != nil{
             workerName.text = (worker?.user?.firstName)! + " " + (worker?.user?.lastName)!
@@ -619,11 +775,14 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         if let carInfo = utils.getCarInfo(key: "CARID") {
             self.targetId = carInfo.carId
         }
+        if pressOrderButton == true{
+            orderButton(orderButton)
+        }
         
     }
     
     func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "Тут Вы можете выбрать нужные вам услуги, или пакеты услуг, выбрать подходящее время и сделать заказ")
+        let infoDesc = InfoDescriptor(for: "Здесь вы можете выбрать услуги / пакеты услуг, удобное для вас время и сделать заказ")
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
         
@@ -656,7 +815,15 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         
         PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask, cellTask, rightLeftTask1, rightLeftTask2]) {
             isUserSkipDemo in
-            
+            if self.carWashInfo?.workers!.count == 0 || self.carWashInfo?.workers == nil{
+                self.utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
+                self.workerView.visiblity(gone: true)
+                self.workerView.isHidden = true
+                self.orderButton.isHidden = true
+                self.callUsView.isHidden = false
+                
+                self.view.layoutIfNeeded()
+            }
             print("isUserSkipDemo: \(isUserSkipDemo)")
         }
     }

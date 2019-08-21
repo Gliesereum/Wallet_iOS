@@ -17,6 +17,8 @@ class CustomServicesPrice: UITableViewCell {
     @IBOutlet weak var id: UILabel!
     @IBOutlet weak var money: UILabel!
     @IBOutlet weak var minute: UILabel!
+    @IBOutlet weak var uncheckBox: UIImageView!
+    @IBOutlet weak var checkBox: UIImageView!
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .gray

@@ -72,6 +72,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
     var vc = UIViewController()
     var allCars = AllCarList()
     var loadCar = [String : CellCarList]()
+    @IBOutlet weak var exitBtn: UIButton!
     @IBOutlet weak var addCarView: UIView!
     @IBOutlet weak var carListTable: UITableView!
     @IBOutlet weak var addCarItem: UIBarButtonItem!
@@ -109,7 +110,16 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         swImage.delegate = self
         swImage.numberOfTapsRequired = 1
         addCarView.addGestureRecognizer(swImage)
+        if poper == true{
+            self.definesPresentationContext = true
+            exitBtn.isHidden = false
+        }
     }
+    
+    @IBAction func exit(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func goToCreate(){
         self.poper = false
         self.dismiss(animated: true, completion: nil)
@@ -336,23 +346,13 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         
         //        utils.checkPushNot(vc: self)
         guard utils.getSharedPref(key: "accessToken") != nil else{
-//            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-//            self.sideMenuViewController!.hideMenuViewController()
-            
+//
             self.utils.checkAutorization(vc: self)
             
-            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
+//            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
             stopAnimating()
             return
         }
-        //        guard utils.getCarInfo(key: "CARID") != nil else{
-        //            self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
-        //            self.sideMenuViewController!.hideMenuViewController()
-        //
-        //            self.utils.checkFilds(massage: "Выберите машину", vc: self.view)
-        //            stopAnimating()
-        //            return
-        //        }
         if UserDefaults.standard.object(forKey: "CARLISTVC") == nil{
             
             self.utils.setSaredPref(key: "CARLISTVC", value: "true")
@@ -362,7 +362,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
     }
     
     func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "Тут будут показаны ваши машины, если вы их внесете в приложение")
+        let infoDesc = InfoDescriptor(for: "Здесь будут отображаться ваши добавленные автомобили. Добавлять авто нужно,  чтобы мы смогли подобрать для вас наиболее подходящий сервис")
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
         

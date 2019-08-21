@@ -46,7 +46,7 @@ class SetTimeDialog: UIViewController, NVActivityIndicatorViewable, UIGestureRec
         super.viewDidLoad()
         if enable == false{
             fastTimeBtn.isEnabled = false
-            fastTimeBtn.isHidden = true
+            fastTimeBtn.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         }
       utils.setBorder(view: headerView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 1), borderWidth: 1, cornerRadius: 4)
         // Do any additional setup after loading the view.

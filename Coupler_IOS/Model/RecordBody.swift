@@ -212,7 +212,6 @@ class ContentRB: Codable {
     let servicesIDS: [JSONAny]?
     let workingSpaceID: String?
     let workerID: String?
-    let client: JSONNull?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -228,10 +227,9 @@ class ContentRB: Codable {
         case servicesIDS = "servicesIds"
         case workingSpaceID = "workingSpaceId"
         case workerID = "workerId"
-        case client
     }
     
-    init(id: String?, clientID: String?, targetID: String?, packageID: String?, businessID: String?, price: Int?, begin: Int?, finish: Int?, recordsBodyDescription: String?, packageDto: PackageDto?, business: Business?, statusPay: String?, payType: String?, statusProcess: String?, statusRecord: String?, businessCategoryID: String?, notificationSend: Bool?, services: [ServiceElementRBE?]?, servicesIDS: [JSONAny]?, workingSpaceID: String?, workerID: String?, client: JSONNull?) {
+    init(id: String?, clientID: String?, targetID: String?, packageID: String?, businessID: String?, price: Int?, begin: Int?, finish: Int?, recordsBodyDescription: String?, packageDto: PackageDto?, business: Business?, statusPay: String?, payType: String?, statusProcess: String?, statusRecord: String?, businessCategoryID: String?, notificationSend: Bool?, services: [ServiceElementRBE?]?, servicesIDS: [JSONAny]?, workingSpaceID: String?, workerID: String?) {
         self.id = id
         self.clientID = clientID
         self.targetID = targetID
@@ -253,7 +251,6 @@ class ContentRB: Codable {
         self.servicesIDS = servicesIDS
         self.workingSpaceID = workingSpaceID
         self.workerID = workerID
-        self.client = client
     }
 }
 
@@ -262,7 +259,7 @@ class ContentRB: Codable {
 extension ContentRB {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(ContentRB.self, from: data)
-        self.init(id: me.id, clientID: me.clientID, targetID: me.targetID, packageID: me.packageID, businessID: me.businessID, price: me.price, begin: me.begin, finish: me.finish, recordsBodyDescription: me.recordsBodyDescription, packageDto: me.packageDto, business: me.business, statusPay: me.statusPay, payType: me.payType, statusProcess: me.statusProcess, statusRecord: me.statusRecord, businessCategoryID: me.businessCategoryID, notificationSend: me.notificationSend, services: me.services, servicesIDS: me.servicesIDS, workingSpaceID: me.workingSpaceID, workerID: me.workerID, client: me.client)
+        self.init(id: me.id, clientID: me.clientID, targetID: me.targetID, packageID: me.packageID, businessID: me.businessID, price: me.price, begin: me.begin, finish: me.finish, recordsBodyDescription: me.recordsBodyDescription, packageDto: me.packageDto, business: me.business, statusPay: me.statusPay, payType: me.payType, statusProcess: me.statusProcess, statusRecord: me.statusRecord, businessCategoryID: me.businessCategoryID, notificationSend: me.notificationSend, services: me.services, servicesIDS: me.servicesIDS, workingSpaceID: me.workingSpaceID, workerID: me.workerID)
     }
     
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -298,7 +295,7 @@ extension ContentRB {
         servicesIDS: [JSONAny]?? = nil,
         workingSpaceID: String?? = nil,
         workerID: String?? = nil,
-        client: JSONNull?? = nil
+        client: String?? = nil
         ) -> ContentRB {
         return ContentRB(
             id: id ?? self.id,
@@ -321,8 +318,7 @@ extension ContentRB {
             services: services ?? self.services,
             servicesIDS: servicesIDS ?? self.servicesIDS,
             workingSpaceID: workingSpaceID ?? self.workingSpaceID,
-            workerID: workerID ?? self.workerID,
-            client: client ?? self.client
+            workerID: workerID ?? self.workerID
         )
     }
     

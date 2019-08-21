@@ -104,32 +104,12 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell: BusinesListCell = tableView.cellForRow(at: indexPath) as! BusinesListCell
         self.getCarWashInfo(carWashId: cell.id.text!)
-        //        durationArray.append(Int(cell.time.text!)!)
-        //        sumDurations = durationArray.reduce(0, +)
-        //        allDurations.text = "\u{231B}" + String(sumDurations) + " мин."
-        //        priceArray.append(Int(cell.price.text!)!)
-        //        sumPrice = priceArray.reduce(0, +)
-        //        allPrice.text = "💵" + String(sumPrice) + " грн."
-//        UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
-//            cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
-//
-//        }, completion:nil)
-//        addsumPriceDurations(price: Int(cell.price.text!)!, duration: Int(cell.time.text!)!)
-//        idServicePrice.append(cell.id.text!)
-//
+        
         
     }
     func getCarWashInfo(carWashId: String){
         startAnimating()
-//        guard utils.getSharedPref(key: "accessToken") != nil else{
-//            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "siginViewController")), animated: true)
-//            utils.setSaredPref(key: "CARWASHID", value: carWashId)
-//            self.sideMenuViewController!.hideMenuViewController()
 //
-//            //            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
-//            stopAnimating()
-//            return
-//        }
         if self.utils.getSharedPref(key: "CARWASHID") != nil{
             
             UserDefaults.standard.removeObject(forKey: "CARWASHID")
@@ -147,18 +127,7 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
                 
                 let responseBody = try JSONDecoder().decode(CarWashBody.self, from: response.data!)
                 
-//                if responseBody.businessCategory?.businessType == "CAR" {
-//                    guard self.utils.getCarInfo(key: "CARID") != nil else{
-//                        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
 //
-//                        //                        self.utils.setSaredPref(key: "CARWASHID", value: carWashId)
-//                        self.sideMenuViewController!.hideMenuViewController()
-//
-//                        //            self.utils.checkFilds(massage: "Выберите машину", vc: self.view)
-//                        self.stopAnimating()
-//                        return
-//                    }
-//                }
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "carWashInfo") as! CarWashInfo
                 vc.carWashInfo = responseBody
                 self.utils.setCarWashBody(key: "CARWASHBODY", value: responseBody)

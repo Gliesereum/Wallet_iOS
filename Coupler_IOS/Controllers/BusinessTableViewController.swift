@@ -70,7 +70,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
             infoDescriptor.widthControl = .precise(300)
         }
         
-        PassthroughManager.shared.closeButton.setTitle("Skip", for: .normal)
+        PassthroughManager.shared.closeButton.setTitle("Пропустить", for: .normal)
     }
 
     // MARK: - Table view data source
@@ -170,15 +170,18 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
             
             self.tableBuisness.reloadData()
             if UserDefaults.standard.object(forKey: "BUISNESVC") == nil{
-                
                 self.utils.setSaredPref(key: "BUISNESVC", value: "true")
-                let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "helloVC") as! HelloVC
-                customAlert.providesPresentationContextTransitionStyle = true
-                customAlert.definesPresentationContext = true
-                customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
-                customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-                customAlert.delegate = self
-                self.present(customAlert, animated: true, completion: nil)
+                if UIDevice().userInterfaceIdiom == .phone && UIScreen.main.nativeBounds.height == 1136 {
+                    self.showTutorial()
+                } else {
+                    let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "helloVC") as! HelloVC
+                    customAlert.providesPresentationContextTransitionStyle = true
+                    customAlert.definesPresentationContext = true
+                    customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+                    customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+                    customAlert.delegate = self
+                    self.present(customAlert, animated: true, completion: nil)
+                }
                 
             }
             
@@ -239,6 +242,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
 //        var infoTask3 = PassthroughTask(with: [])
 //        infoTask3.infoDescriptor = infoDesc3
 
+        PassthroughManager.shared.closeButton.setTitle("Пропустить", for: .normal)
         PassthroughManager.shared.display(tasks: [rightLeftTask2, cellTask]) {
             isUserSkipDemo in
 

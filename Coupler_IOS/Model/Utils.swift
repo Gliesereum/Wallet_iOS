@@ -241,6 +241,8 @@ class Utils {
 //            showToast(message: "User already has some email", viewController: viewController)
         case 1146:
             return "Пользователь не имеет никакой электронной почты"
+        case 1495:
+            return "Исполнитель не работает в это время. Пожалуйста, выберите другое время заказа"
 //            showToast(message: "User doesn't any email", viewController: viewController)
         case 1147:
             return "Вы не можете удалить электронную почту. У тебя нет телефона. Электронная почта - единственный способ подтвердить свой аккаунт"
@@ -297,7 +299,7 @@ class Utils {
             return "Идентификатор рабочего пространства равен нулю"
 //            showToast(message: "Working space id is null ", viewController: viewController)
         case 1430:
-            return "Недостаточно времени для создания записи, выберите другое время"
+            return "Недостаточно свободного времени для выполнения заказа. Пожалуйста, выберите другое время"
 //            showToast(message: "Not enough time for create record, choose another time", viewController: viewController)
         case 1431:
             return "запись не найдена"
@@ -312,7 +314,7 @@ class Utils {
             return "CarWash don't work this day"
 //            showToast(message: "CarWash don't work this day", viewController: viewController)
         case 1435:
-            return "Точка не работает в это время"
+            return "Выбранная компания не работает в это время"
 //            showToast(message: "CarWash don't work this time", viewController: viewController)
         case 1436:
             return "Time working already exist in this car wash"
@@ -450,7 +452,7 @@ class Utils {
         let dateVar = Date(timeIntervalSince1970: TimeInterval(miliseconds/1000))
 
 //            Date.init(timeIntervalSinceNow: NSTimeIntervalSince1970(miliseconds)/1000)
-        dateFormatter.dateFormat = "dd.MM.yy HH:mm"
+        dateFormatter.dateFormat = "dd.MM.yy - HH:mm"
         return dateFormatter.string(from: dateVar)
     }
 //    

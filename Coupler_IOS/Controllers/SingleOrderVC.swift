@@ -56,13 +56,13 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getWorkerInfo()
-        if record?.packageDto == nil || record?.packageDto?.services?.count == 0 {
-            viewPackege.visiblity(gone: true)
-        }
-        if record?.services == nil || record?.services?.count == 0 {
-            viewService.visiblity(gone: true)
-        }
+        
+//        if record?.packageDto == nil || record?.packageDto?.services?.count == 0 {
+//            viewPackege.visiblity(gone: true)
+//        }
+//        if record?.services == nil || record?.services?.count == 0 {
+//            viewService.visiblity(gone: true)
+//        }
        NotificationCenter.default.addObserver(self, selector: #selector(getPushNatRecord), name: Notification.Name(rawValue: "reloadTheTable"), object: nil)
 //        utils.checkPushNot(vc: self)
         if record != nil{
@@ -88,17 +88,15 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         price.text = String((record?.price)!) + " грн"
         duration.text = String(((record?.finish)! - (record?.begin)!)/60000) + " мин"
         name.text = record?.business?.name
-        checkNil()
         status.text = utils.checkStatus(status: (record?.statusProcess)!) 
         utils.setBorder(view: canselBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 8)
         }
         if (self.utils.getSharedPref(key: "OBJECTID")) != nil{
-            
-            let pushRecordId = (self.utils.getSharedPref(key: "OBJECTID"))!
-            getPushRecord(pushRecordId: pushRecordId)
+        } else {
+            checkNil()
+            getWorkerInfo()
+            chackTarget()
         }
-        chackTarget()
-        
         self.view.layoutIfNeeded()
         // Do any additional setup after loading the view.
     }
@@ -319,13 +317,21 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     override func viewDidAppear(_ animated: Bool) {
         
 //        utils.checkPushNot(vc: self)
+        
         guard utils.getSharedPref(key: "accessToken") != nil else{
            
-            self.utils.checkAutorization(vc: self)
             
-            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
+            self.utils.checkAutorization(vc: self)
+//            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
             stopAnimating()
             return
+        }
+        
+        
+        if (self.utils.getSharedPref(key: "OBJECTID")) != nil{
+            
+            let pushRecordId = (self.utils.getSharedPref(key: "OBJECTID"))!
+            getPushRecord(pushRecordId: pushRecordId)
         }
         if UserDefaults.standard.object(forKey: "SINGLEORDERVC") == nil{
             
@@ -333,10 +339,11 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
             self.showTutorial()
         }
         
+        
     }
     
     func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "Тут вы можете увидеть разширенную информацию о вашем заказе")
+        let infoDesc = InfoDescriptor(for: "Здесь будет отображаться подробная информация о вашем заказе")
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
         
@@ -363,22 +370,22 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
 //
         
         
-        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask, rightLeftTask1]) {
+        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask]) {
             isUserSkipDemo in
             
             print("isUserSkipDemo: \(isUserSkipDemo)")
         }
     }
     func checkNil(){
-        if record?.packageDto == nil {
-        self.viewPackege.visiblity(gone: true)
-        self.packageLabel.visiblity(gone: true)
-        self.packetServiceTable.visiblity(gone: true)
+        if record?.packageDto == nil || record?.packageDto?.services?.count == 0{
+            self.viewPackege.visiblity(gone: true)
+            self.packageLabel.visiblity(gone: true)
+            self.packetServiceTable.visiblity(gone: true)
         }
-        if record?.services == nil {
-        self.viewService.visiblity(gone: true)
-        self.serviceLabel.visiblity(gone: true)
-        self.serviceTable.visiblity(gone: true)
+        if record?.services == nil || record?.services?.count == 0 {
+            self.viewService.visiblity(gone: true)
+            self.serviceLabel.visiblity(gone: true)
+            self.serviceTable.visiblity(gone: true)
         }
         
         
@@ -419,9 +426,15 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
                     let carList = try JSONDecoder().decode(ContentRB.self, from: response.data!)
                     self.record = carList
                     self.packetServiceTable.reloadData()
+                    self.packetServiceTable.invalidateIntrinsicContentSize()
                     self.serviceTable.reloadData()
+                    
+                    self.serviceTable.invalidateIntrinsicContentSize()
                     self.viewDidLoad()
                     
+                    self.checkNil()
+                    self.getWorkerInfo()
+                    self.chackTarget()
                 }
                 catch{
                     print(error)

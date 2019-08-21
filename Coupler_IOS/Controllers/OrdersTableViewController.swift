@@ -21,6 +21,7 @@ class OrdersVIewCell: UITableViewCell{
     @IBOutlet weak var orderPrice: UILabel!
     @IBOutlet weak var getRowButton: UIButton!
     @IBOutlet weak var carwoshLatitude: UILabel!
+    @IBOutlet weak var compliteImage: UIImageView!
     @IBOutlet weak var carwashLongitude: UILabel!
     @IBAction func getRote(_ sender: Any) {
        
@@ -105,15 +106,15 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
         Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
             guard response.response?.statusCode != 204 else{
                 //                self.recordTableView.
-                if self.page == 0 {
-                let notOrder = UILabel()
-                notOrder.frame = CGRect(x: 0, y: 0, width: 300, height: 40)
-                notOrder.center = self.recordTableView.center
-                notOrder.textColor = .black
-                notOrder.font = .systemFont(ofSize: 50)
-                notOrder.text = "Нет заказов"
-                self.recordTableView.addSubview(notOrder)
-                }
+//                if self.page == 0 {
+//                let notOrder = UILabel()
+//                notOrder.frame = CGRect(x: 0, y: 0, width: 300, height: 40)
+//                notOrder.center = self.recordTableView.center
+//                notOrder.textColor = .black
+//                notOrder.font = .systemFont(ofSize: 50)
+//                notOrder.text = "Нет заказов"
+//                self.recordTableView.addSubview(notOrder)
+//                }
                 
                 self.stopAnimating()
                 return
@@ -161,20 +162,20 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
         return 8
         
     }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return recordListData.count
-    }
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return recordListData.count
+//    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return recordListData.count
     }
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recordsCell", for: indexPath) as! OrdersVIewCell
 
-       utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
-        let record = recordListData[indexPath.section]
+//       utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
+        let record = recordListData[indexPath.row]
         cell.carwashName.text = record.business?.name
         if record.business?.logoURL != nil{
             cell.carwoshImage.downloaded(from: (record.business?.logoURL)!)
@@ -183,7 +184,7 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
             cell.carwoshImage.image = UIImage(named: "logo_v1SmallLogo")
         }
         cell.orderDate.text = utils.milisecondsToDate(miliseconds: record.begin!)
-        cell.orderPrice.text = "💵" + String(record.price!) + " грн."
+        cell.orderPrice.text = String(record.price!) + " грн"
         cell.carwoshLatitude.text = String(format:"%f",(record.business?.latitude)!)
         cell.carwashLongitude.text = String(format:"%f",(record.business?.longitude)!)
         switch record.statusProcess {
@@ -195,6 +196,7 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
             break
         case "COMPLETED":
             cell.orderStatus.text = "Завершен"
+            cell.compliteImage.isHidden = false
             break
         case "CANCELED":
             cell.orderStatus.text = "Отменен"
@@ -208,8 +210,14 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
     }
    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cells = cell as! OrdersVIewCell
+        if  cells.orderStatus.text == "Завершен"{
+            cells.compliteImage.isHidden = false
+        } else {
+            cells.compliteImage.isHidden = true
+        }
         let lastElement = recordListData.count - 1
-        if indexPath.section == lastElement {
+        if indexPath.row == lastElement {
             loadMoreItems()
         }
     }
@@ -259,7 +267,7 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
     */
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let record = recordListData[indexPath.section]
+        let record = recordListData[indexPath.row]
         self.selectedRecord = record
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "singleOrderVC") as! SingleOrderVC
         vc.record = selectedRecord
@@ -271,21 +279,21 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
 //        utils.checkPushNot(vc: self)
         NotificationCenter.default.removeObserver("reloadTheTable")
 
-        if self.utils.getSharedPref(key: "ORDERTABLEVC") != "true"{
-            
-            self.utils.setSaredPref(key: "ORDERTABLEVC", value: "true")
-            self.showTutorial()
-        }
+//        if self.utils.getSharedPref(key: "ORDERTABLEVC") != "true"{
+//            
+//            self.utils.setSaredPref(key: "ORDERTABLEVC", value: "true")
+//            self.showTutorial()
+//        }
         
     }
     
     func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "В этом разделе Вы можете видеть все свои заказы")
+        let infoDesc = InfoDescriptor(for: "Здесь будут отображаться все ваши заказы")
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
         
         
-        let cellDesc = LabelDescriptor(for: "Вы можете узнать подробности заказа нажав на него")
+        let cellDesc = LabelDescriptor(for: "Подробную информацию о заказе вы можете узнать, перейдя в карточку заказа")
         cellDesc.position = .bottom
         let cellHoleDesc = CellViewDescriptor(tableView: self.recordTableView, indexPath: IndexPath(row: 0, section: 0), forOrientation: .any)
         cellHoleDesc.labelDescriptor = cellDesc
