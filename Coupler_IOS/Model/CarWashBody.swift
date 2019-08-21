@@ -8,6 +8,7 @@ class CarWashBody: NSObject, Codable{
     let id, name, corporationID, businessID: String!
     let descriptionCWB: String?
     let logoURL: String?
+    let coverURL: String?
     let address, phone: String?
     let addPhone: String?
     let latitude, longitude: Double?
@@ -29,16 +30,18 @@ class CarWashBody: NSObject, Codable{
         case businessID = "businessId"
         case descriptionCWB = "description"
         case logoURL = "logoUrl"
+        case coverURL = "coverUrl"
         case businessCategory, address, phone, addPhone, latitude, longitude, timeZone, rating, objectState, workers, workTimes, spaces, servicePrices, packages, media, comments
     }
     
-    init(id: String?, name: String?, corporationID: String?, businessID: String?, descriptionCWB: String?, logoURL: String?, address: String?, phone: String?, addPhone: String?, latitude: Double?, longitude: Double?, timeZone: Int?, rating: Rating?, objectState: String?, workers: [Worker]?, workTimes: [WorkTime]?, spaces: [Space]?, servicePrices: [Serviceice]?, packages: [Package]?, media: [Media]?, comments: [Comment]?, businessCategory: BusinessCategoryCWB?) {
+    init(id: String?, name: String?, corporationID: String?, businessID: String?, descriptionCWB: String?, logoURL: String?, coverURL: String?, address: String?, phone: String?, addPhone: String?, latitude: Double?, longitude: Double?, timeZone: Int?, rating: Rating?, objectState: String?, workers: [Worker]?, workTimes: [WorkTime]?, spaces: [Space]?, servicePrices: [Serviceice]?, packages: [Package]?, media: [Media]?, comments: [Comment]?, businessCategory: BusinessCategoryCWB?) {
         self.id = id
         self.name = name
         self.corporationID = corporationID
         self.businessID = businessID
         self.descriptionCWB = descriptionCWB
         self.logoURL = logoURL
+        self.coverURL = coverURL
         self.address = address
         self.phone = phone
         self.addPhone = addPhone
@@ -517,7 +520,7 @@ class WorkTime: NSObject, Codable {
 extension CarWashBody {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(CarWashBody.self, from: data)
-        self.init(id: me.id, name: me.name, corporationID: me.corporationID, businessID: me.businessID, descriptionCWB: me.description, logoURL: me.logoURL, address: me.address, phone: me.phone, addPhone: me.addPhone, latitude: me.latitude, longitude: me.longitude, timeZone: me.timeZone, rating: me.rating, objectState: me.objectState, workers: me.workers, workTimes: me.workTimes, spaces: me.spaces, servicePrices: me.servicePrices, packages: me.packages, media: me.media, comments: me.comments, businessCategory: me.businessCategory)
+        self.init(id: me.id, name: me.name, corporationID: me.corporationID, businessID: me.businessID, descriptionCWB: me.description, logoURL: me.logoURL, coverURL: me.coverURL, address: me.address, phone: me.phone, addPhone: me.addPhone, latitude: me.latitude, longitude: me.longitude, timeZone: me.timeZone, rating: me.rating, objectState: me.objectState, workers: me.workers, workTimes: me.workTimes, spaces: me.spaces, servicePrices: me.servicePrices, packages: me.packages, media: me.media, comments: me.comments, businessCategory: me.businessCategory)
     }
     
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -538,6 +541,7 @@ extension CarWashBody {
         businessID: String?? = nil,
         descriptionCWB: String?? = nil,
         logoURL: String?? = nil,
+        coverURL: String?? = nil,
         address: String?? = nil,
         phone: String?? = nil,
         addPhone: String?? = nil,
@@ -562,6 +566,7 @@ extension CarWashBody {
             businessID: businessID ?? self.businessID,
             descriptionCWB: descriptionCWB ?? self.descriptionCWB,
             logoURL: logoURL ?? self.logoURL,
+            coverURL: coverURL ?? self.coverURL,
             address: address ?? self.address,
             phone: phone ?? self.phone,
             addPhone: addPhone ?? self.addPhone,

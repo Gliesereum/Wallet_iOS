@@ -52,7 +52,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         tableBuisness.layoutIfNeeded()
         tableBuisness.invalidateIntrinsicContentSize()
         utils.checkPushNot(vc: self)
-        let logo = UIImage(named: "logo_appbar_v1")
+        let logo = UIImage(named: "Betelogo")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
         
@@ -103,16 +103,23 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         
         
         utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
-        cell.buisnesLogo.downloaded(from: record.imageURL!)
-
+        if record.imageURL != nil{
+            cell.buisnesLogo.downloaded(from: record.imageURL!)
+        }
         return cell
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if cell.isSelected{
-            cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
-        } else {
-            cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        let cells = cell as! BuisnessViewCell
+        let record = buisness[indexPath.section]
+        if record.active != true{
+            cells.buisnessName.textColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
         }
+        
+//        if cell.isSelected{
+//            cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+//        } else {
+            cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//        }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.dequeueReusableCell(withIdentifier: "buisnessViewCell", for: indexPath) as! BuisnessViewCell
@@ -126,7 +133,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         }
         UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
             
-            cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+//            cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
             
         }, completion:nil)
         self.utils.setSaredPref(key: "BUISNESSTYPE", value: record.businessType!)

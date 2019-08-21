@@ -13,7 +13,7 @@ import SDWebImage
 import Lightbox
 
 
-class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRecognizerDelegate {
+class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRecognizerDelegate, NVActivityIndicatorViewable {
     
     
     
@@ -42,6 +42,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     var avatarUrl = ""
     var poper = Bool()
     
+    var delegate : OrderPopDismissDelegate?
     let imagePickerController = ImagePickerController()
     
     override func viewDidLoad() {
@@ -71,6 +72,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     }
     
     @IBAction func exit(_ sender: Any) {
+        self.delegate?.OrderPopDismiss()
         dismiss(animated: true, completion: nil)
     }
     @objc func addAvatar(){
@@ -178,6 +180,8 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     }
     //MARK: get carwash list
     func ragistrarion(firstName: String, lastName: String, middleName: String, country: String, city: String, adress: String, avatarUrl: String?){
+        
+        self.startAnimating()
         print(firstName)
         if profiModel == nil {
             profiModel = ProfileModel(id: nil, phone: nil, firstName: firstName, lastName: lastName, middleName: middleName, position: nil, country: country, city: city, address: adress, addAddress: nil, avatarURL: avatarUrl, coverURL: nil, gender: nil, banStatus: nil, verifiedStatus: nil, userType: nil)
@@ -196,6 +200,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             
             self.utils.checkAutorization(vc: self)
+             self.stopAnimating()
             return
         }
         Alamofire.request(restUrl, method: .put, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseProfileModel { response  in
@@ -203,11 +208,12 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
                 // got an error in getting the data, need to handle it
                 print("error calling POST on /todos/1")
                 print(response.result.error!)
+                 self.stopAnimating()
                 return
             }
             // make sure we got some JSON since that's what we expect
             guard response.result.value != nil else{
-                
+                 self.stopAnimating()
                 return
             }
             let profileModel = response.result.value
@@ -225,6 +231,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             } else{
                  self.utils.doneMassage(massage: "Данные изменены", vc: self.view)
             }
+             self.stopAnimating()
         
         }
         
@@ -257,10 +264,12 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     }
     func getProfile(){
         
+        self.startAnimating()
         let restUrl = constants.startUrl + "account/v1/user/me"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             
             self.utils.checkAutorization(vc: self)
+             self.stopAnimating()
             return
         }
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
@@ -270,6 +279,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             guard profileModel!.firstName != nil else{
                 self.editProfile(self)
                 self.utils.checkFilds(massage: "Заполните свой профиль", vc: self.view)
+                 self.stopAnimating()
                 return
             }
             self.firstName.text =  profileModel?.firstName
@@ -283,6 +293,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
                 self.avatarUrl = profileModel!.avatarURL!
                 self.imageAvatar.downloaded(from: profileModel!.avatarURL!)
             }
+             self.stopAnimating()
         }
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -296,6 +307,8 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         }
     }
     func getAvatar(image: UIImage){
+        
+        self.startAnimating()
         let imgData = image.sd_imageData()!
         let restUrl = constants.startUrl + "file/v1/upload"
         self.avatarUrl = ""
@@ -326,6 +339,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             case .failure(let encodingError):
                 print(encodingError)
             }
+             self.stopAnimating()
         }
     }
     

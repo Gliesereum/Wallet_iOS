@@ -46,6 +46,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
     var arrayItems: [String] = []
     var arrayId: [String] = []
     var poper = Bool()
+    var delegate : OrderPopDismissDelegate?
     var arrayClassServices: [String] = []
     var arrayClassServicesId: [String] = []
     var arrayInterior: [String] = []
@@ -141,6 +142,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
         // Do any additional setup after loading the view.
     }
     @IBAction func exit(_ sender: Any) {
+        self.delegate?.OrderPopDismiss()
         dismiss(animated: true, completion: nil)
     }
     //    @objc func doneButtonTapped() { self.resignFirstResponder() }

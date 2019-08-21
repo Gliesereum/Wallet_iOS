@@ -96,6 +96,9 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         getMyComment()
         
         imageScroll.transformer = FSPagerViewTransformer(type: .zoomOut)
+        if carWashInfo?.coverURL != nil{
+            logoCarWash.downloaded(from: (carWashInfo?.coverURL)!)
+        }
         if carWashInfo?.media?.count == 0 {
             photoView.visiblity(gone: true)
             photoView.isHidden = true

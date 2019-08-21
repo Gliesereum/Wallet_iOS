@@ -68,7 +68,6 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        getAllCars()
 //        if pushRecordId != ""{
 //            
 //            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -190,16 +189,19 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
         switch record.statusProcess {
         case "WAITING":
              cell.orderStatus.text = "В ожидании"
+             cell.compliteImage.image = UIImage(named: "waiting")
             break
         case "IN_PROCESS":
             cell.orderStatus.text = "В процессе"
+            cell.compliteImage.image = UIImage(named: "in_process")
             break
         case "COMPLETED":
             cell.orderStatus.text = "Завершен"
-            cell.compliteImage.isHidden = false
+            cell.compliteImage.image = UIImage(named: "complite")
             break
         case "CANCELED":
             cell.orderStatus.text = "Отменен"
+            cell.compliteImage.image = UIImage(named: "canceled")
             break
         default:
             cell.orderStatus.text = ""
@@ -211,11 +213,24 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cells = cell as! OrdersVIewCell
-        if  cells.orderStatus.text == "Завершен"{
-            cells.compliteImage.isHidden = false
-        } else {
+        switch cells.orderStatus.text {
+        case "В ожидании":
+            cells.compliteImage.image = UIImage(named: "waiting")
+            break
+        case "В процессе":
+            cells.compliteImage.image = UIImage(named: "in_process")
+            break
+        case "Завершен":
+            cells.compliteImage.image = UIImage(named: "complite")
+            break
+        case "Отменен":
+            cells.compliteImage.image = UIImage(named: "canceled")
+            break
+        default:
             cells.compliteImage.isHidden = true
+            break
         }
+      
         let lastElement = recordListData.count - 1
         if indexPath.row == lastElement {
             loadMoreItems()
@@ -275,7 +290,9 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        
+//
+        
+        getAllCars()
 //        utils.checkPushNot(vc: self)
         NotificationCenter.default.removeObserver("reloadTheTable")
 

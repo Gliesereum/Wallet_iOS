@@ -68,7 +68,9 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
     var idCar = String()
     var carIndex = Int()
     var poper = Bool()
-    var delegate : CreateCarDissmisDelegete?
+    
+    var delegate : OrderPopDismissDelegate?
+    var delegateOr : CreateCarDissmisDelegete?
     var vc = UIViewController()
     var allCars = AllCarList()
     var loadCar = [String : CellCarList]()
@@ -117,13 +119,14 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
     }
     
     @IBAction func exit(_ sender: Any) {
+        self.delegate?.OrderPopDismiss()
         dismiss(animated: true, completion: nil)
     }
     
     func goToCreate(){
         self.poper = false
         self.dismiss(animated: true, completion: nil)
-        self.delegate?.CreateCarDismiss()
+        self.delegateOr?.CreateCarDismiss()
         
     }
     func getAllCars(){
@@ -143,13 +146,13 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
                     return
                 }
                 //                self.recordTableView.
-                let notOrder = UILabel()
-                notOrder.frame = CGRect(x: 0, y: 0, width: 300, height: 40)
-                notOrder.center = self.carListTable.center
-                notOrder.textColor = .black
-                notOrder.font = .systemFont(ofSize: 50)
-                notOrder.text = "Нет авто"
-                self.carListTable.addSubview(notOrder)
+//                let notOrder = UILabel()
+//                notOrder.frame = CGRect(x: 0, y: 0, width: 300, height: 40)
+//                notOrder.center = self.carListTable.center
+//                notOrder.textColor = .black
+//                notOrder.font = .systemFont(ofSize: 50)
+//                notOrder.text = "Нет авто"
+//                self.carListTable.addSubview(notOrder)
                 self.stopAnimating()
                 return
             }

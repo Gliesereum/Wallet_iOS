@@ -61,6 +61,7 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
         utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
         cell.clipsToBounds = true
      
+//        if workerForIndex.user?.firstName
         cell.workerName.text = (workerForIndex.user?.firstName)! + " " + (workerForIndex.user?.lastName)!
         cell.workerId.text = workerForIndex.id
         cell.workerPosition.text = workerForIndex.position

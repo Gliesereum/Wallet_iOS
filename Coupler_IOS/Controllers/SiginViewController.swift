@@ -11,6 +11,9 @@ import Alamofire
 import FirebaseMessaging
 import UIKit
 
+protocol OrderPopDismissDelegate: class {
+    func OrderPopDismiss()
+}
 
 class UserPushNot: Codable{
     let notificationEnable: Bool?
@@ -84,6 +87,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
     var phoneNumberTextField: FPNTextField!
     var poper = Bool()
     var vc = UIViewController()
+    var delegate : OrderPopDismissDelegate?
     var poper1 = Bool()
     //MARK - View outlet
 
@@ -180,6 +184,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
     }
     
     @IBAction func exit(_ sender: Any) {
+        self.delegate?.OrderPopDismiss()
         self.dismiss(animated: true, completion: nil)
     }
     @objc func keyboardWillShow(notification:NSNotification){
@@ -319,14 +324,14 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
                     if self.poper == true{
                     self.poper = false
                     self.dismiss(animated: true, completion: nil)
-                    let customAlert = self.vc.storyboard?.instantiateViewController(withIdentifier: "profileViewController") as! ProfileViewController
-                    customAlert.poper = true
-                    customAlert.providesPresentationContextTransitionStyle = true
-                    customAlert.definesPresentationContext = true
-                    customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
-                    customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-                    //            customAlert.delegate = self
-                    self.vc.present(customAlert, animated: true, completion: nil)
+//                    let customAlert = self.vc.storyboard?.instantiateViewController(withIdentifier: "profileViewController") as! ProfileViewController
+//                    customAlert.poper = true
+//                    customAlert.providesPresentationContextTransitionStyle = true
+//                    customAlert.definesPresentationContext = true
+//                    customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+//                    customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+//                    //            customAlert.delegate = self
+//                    self.vc.present(customAlert, animated: true, completion: nil)
                     } else{
                                     self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "profileStartVC")), animated: true)
                                         self.sideMenuViewController!.hideMenuViewController()

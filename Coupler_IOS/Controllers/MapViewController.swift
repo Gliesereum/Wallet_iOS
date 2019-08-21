@@ -105,9 +105,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     //MARK: get carwash list
    
     func setBusinesMarker(){
-        let rootVC = SelectSingleBuisnesVC()
+       
+
+        
         guard self.utils.getBusinesList(key: "BUSINESSLIST") != nil else{
 
+           
+            
 //            rootVC.checkCarInfo()
             return
         }
@@ -132,22 +136,43 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         // Creates a marker in the center of the map.
         var markerImage = UIImage()
         switch buisness {
+//            "CAR_WASH"
         case "0c1ca141-fb7d-414c-999f-ed8a8af69b1c":
             
-            markerImage = UIImage(named: "marker")!
+            markerImage = UIImage(named: "pin_carwash")!
+//             "TIRE_FITTING"
         case "607b10e5-fc65-463d-a116-5fae6019c782":
             
-            markerImage = UIImage(named: "markerSH")!
+            markerImage = UIImage(named: "pin_tires")!
+//            "CAR_SERVICE"
         case "6a7d64fd-1538-430d-be52-c92ef28d2d3a":
             
-            markerImage = UIImage(named: "markerSTO")!
-            
+            markerImage = UIImage(named: "pin_sto")!
+//            "BEAUTY_SALONS"
         case "b355c8ae-6173-49d6-8dca-4adb22d36e9b":
             
-            markerImage = UIImage(named: "beauty")!
+            markerImage = UIImage(named: "pin_beauty")!
+//            "MARKETING"
+        case "04a606db-77b2-407a-9dad-0a98177c9ba4":
+            
+            markerImage = UIImage(named: "pin_consulting")!
+            
+            
+//            "CLINICS"
+        case "6030bab7-a582-44e0-9e08-4d81fda946ac":
+            
+            markerImage = UIImage(named: "pin_others")!
+//            "DEVELOPMENT"
+        case "cbbe5d7f-8b39-42ce-b169-51ce8013f50c":
+            
+            markerImage = UIImage(named: "pin_freelance")!
+//            "CLEANING"
+        case "a6a92d0a-f41c-4279-8105-26c01d160d97":
+            
+            markerImage = UIImage(named: "pin_others")!
         default:
             
-            markerImage = UIImage(named: "marker")!
+            markerImage = UIImage(named: "pin_others")!
         }
         let matkerView = UIImageView(image: markerImage)
         let marker = GMSMarker()
@@ -175,6 +200,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         customMarker.infoMarkerTitle.text = marker.title
         customMarker.infoMarkerSnipper.text = marker.snippet
         customMarker.infoMarkerSnipper.isHidden = true
+        customMarker.infoMarkerImage.downloaded(from: marker.userData as! String)
 //        customMarker.viewSelf.backgroundColor = UIColor(patternImage: UIImage(named: "bginfoWindow.png")!)
 //
 //        if marker.userData  as! String == "" {
@@ -279,7 +305,8 @@ extension MapViewController: CLLocationManagerDelegate {
    
 //
     override func viewWillAppear(_ animated: Bool) {
-       
+        let rootVC = SelectSingleBuisnesVC()
+        rootVC.checkCarInfo()
             setBusinesMarker()
 //        print("viewDidAppear")
     }

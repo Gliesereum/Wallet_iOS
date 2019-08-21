@@ -223,6 +223,10 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
       
         
     }
+    func setMapView(){
+        
+        self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
+    }
     
     func getAllCars(){
         startAnimating()

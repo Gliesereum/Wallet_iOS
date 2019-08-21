@@ -15,8 +15,8 @@ class QRCodeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let qrcode = DCQRCode(info: url!, size: CGSize(width: 340, height: 340))
-        imageQR.image = qrcode.image()
+//        let qrcode = DCQRCode(info: url!, size: CGSize(width: 340, height: 340))
+//        imageQR.image = qrcode.image()
         // Do any additional setup after loading the view.
     }
     
@@ -30,5 +30,18 @@ class QRCodeVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func shareButtonClicked(sender: AnyObject)
+    {
+        //Set the default sharing message.
+        let message = "Coupler"
+        //Set the link to share.
+        if let link = NSURL(string: url!)
+        {
+            let objectsToShare = [message,link] as [Any]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
+            self.present(activityVC, animated: true, completion: nil)
+        }
+    }
 
 }

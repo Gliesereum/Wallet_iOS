@@ -16,7 +16,12 @@ protocol CreateCarDissmisDelegete: class {
     func CreateCarDismiss()
 }
 
-class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableViewDataSource, UITableViewDelegate, DateTimePickerDelegate, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate, DialodDismissDelegate, SetTimeDialogDismissDelegate, OrderDialogDismissDelegate, WorkersListDelegate, CreateCarDissmisDelegete{
+class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableViewDataSource, UITableViewDelegate, DateTimePickerDelegate, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate, DialodDismissDelegate, SetTimeDialogDismissDelegate, OrderDialogDismissDelegate, WorkersListDelegate, CreateCarDissmisDelegete, OrderPopDismissDelegate{
+   
+    func OrderPopDismiss() {
+        pressOrderButton = false
+    }
+    
     
    
     
@@ -28,6 +33,8 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     var carWashInfo: CarWashBody? = nil
     @IBOutlet weak var pacetsSelector: EHHorizontalSelectionView!
     @IBOutlet weak var workerBtn: UIButton!
+    @IBOutlet weak var saleryLable: UILabel!
+    @IBOutlet weak var saleryLable2: UILabel!
     
     @IBOutlet weak var callUsView: MDCButton!
     @IBOutlet weak var packageView: UIView!
@@ -39,8 +46,9 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //    @IBOutlet weak var selectPackage: UILabel!
     @IBOutlet weak var orderButton: MDCButton!
     @IBOutlet weak var workerView: UIView!
-    @IBOutlet weak var saleryView: UIView!
+//    @IBOutlet weak var saleryView: UIView!
     
+    @IBOutlet weak var servicesLable: UILabel!
     @IBOutlet weak var allPrice: UILabel!
     @IBOutlet weak var packetServicesLable: UILabel!
     @IBOutlet weak var packetServicesTable: UITableView!
@@ -64,6 +72,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     var workSpaceId = String()
     var time = String()
     var workerId = ""
+    var createCar = false
     var indexPackage = UInt()
     var counter = false
     var servicesOld = [Serviceice]()
@@ -83,10 +92,11 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         super.viewDidLoad()
 //          self.utils.setBorder(view: saleryView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
         if  UserDefaults.standard.object(forKey: "ORDERWASHVC") == nil {
-            
+
             self.utils.setSaredPref(key: "ORDERWASHVC", value: "true")
             self.showTutorial()
-        } else if carWashInfo?.workers!.count == 0 || carWashInfo?.workers == nil{
+        } else
+            if carWashInfo?.workers!.count == 0 || carWashInfo?.workers == nil{
             utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
             workerView.visiblity(gone: true)
             workerView.isHidden = true
@@ -96,6 +106,8 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //            view.layoutIfNeeded()
         }
        
+        packetServicesTable.visiblity(gone: true)
+        packageLable.visiblity(gone: true)
 //        getWorkers()
 //        utils.setBorder(view: headerView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
        
@@ -116,6 +128,9 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //              view.layoutIfNeeded()
 //            packageLabel.visiblity(gone: true)
         }
+        if carWashInfo?.servicePrices?.count == 0 || carWashInfo?.servicePrices == nil{
+            servicesLable.isHidden = true
+        }
         
         packetServicesTable.estimatedRowHeight = 54
         packetServicesTable.tableFooterView = UIView()
@@ -128,10 +143,10 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         carServicePrice.invalidateIntrinsicContentSize()
         pacetsSelector.delegate = self
 
-        saleryView.isHidden = true
+//        saleryView.isHidden = true
         packetServicesTable.isHidden = true
         packetServicesLable.isHidden = true
-        saleryView.layoutIfNeeded()
+//        saleryView.layoutIfNeeded()
        view.layoutIfNeeded()
         // Do any additional setup after loading the view.
         
@@ -196,10 +211,17 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             return
         }
         guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.utils.checkAutorization(vc: self)
+            let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "siginViewController") as! SiginViewController
+            customAlert.poper = true
+            customAlert.providesPresentationContextTransitionStyle = true
+            customAlert.definesPresentationContext = true
+            customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+            customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            customAlert.delegate = self
+            self.present(customAlert, animated: true, completion: nil)
 //            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
             
-            stopAnimating()
+            
             
             return
             
@@ -211,12 +233,24 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             customAlert.definesPresentationContext = true
             customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
             customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-            //            customAlert.delegate = self
+            customAlert.delegate = self
             self.present(customAlert, animated: true, completion: nil)
             return
         }
         if self.carWashInfo?.businessCategory?.businessType == "CAR" {
             
+            guard self.createCar != true else{
+                let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "createCar") as! CreateCar
+                customAlert.poper = true
+                customAlert.providesPresentationContextTransitionStyle = true
+                customAlert.definesPresentationContext = true
+                customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
+                customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+                customAlert.delegate = self
+                self.present(customAlert, animated: true, completion: nil)
+                self.createCar = false
+                return
+            }
             guard self.utils.getCarInfo(key: "CARID") != nil else{
                 let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "сarListViewController") as! CarListViewController
                 customAlert.poper = true
@@ -224,6 +258,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 customAlert.definesPresentationContext = true
                 customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
                 customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+                customAlert.delegateOr = self
                 customAlert.delegate = self
                 self.present(customAlert, animated: true, completion: nil)
                 return
@@ -264,7 +299,10 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 carServicePrice.invalidateIntrinsicContentSize()
                 packetServicesTable.isHidden = true
                 packetServicesLable.isHidden = true
-                saleryView.isHidden = true
+                salerLable.isHidden = true
+                saleryLable.isHidden = true
+                saleryLable2.isHidden = true
+//                saleryView.isHidden = true
                 packegeServices.removeAll()
                 packetServicesTable.reloadData()
                 packetServicesTable.invalidateIntrinsicContentSize()
@@ -290,7 +328,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             return packegeServices.count
         } else{
             return selectedServices.count
-            
+           
         }
     }
 //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -600,6 +638,10 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 packetServicesTable.isHidden = false
                 packetServicesLable.isHidden = false
                 
+                salerLable.isHidden = false
+                saleryLable.isHidden = false
+                saleryLable2.isHidden = false
+//                saleryView.isHidden = false
                 packetServicesTable.invalidateIntrinsicContentSize()
                 filterServicesByPackages(packageId: packageId)
                 view.layoutIfNeeded()
@@ -620,7 +662,10 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         packetServicesTable.isHidden = false
         packetServicesLable.isHidden = false
         
-        saleryView.isHidden = false
+        salerLable.isHidden = false
+        saleryLable.isHidden = false
+        saleryLable2.isHidden = false
+//        saleryView.isHidden = false
         packetServicesTable.invalidateIntrinsicContentSize()
         filterServicesByPackages(packageId: packageId)
 //        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "packetsDialog") as! PacketsDialog
@@ -754,6 +799,11 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         }
         servicesOld.removeAll()
         servicesOld = selectedServices
+        if selectedServices.count == 0{
+            servicesLable.isEnabled = true
+        } else {
+            servicesLable.isEnabled = false
+        }
         
         carServicePrice.reloadData()
         carServicePrice.invalidateIntrinsicContentSize()
@@ -776,7 +826,8 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             self.targetId = carInfo.carId
         }
         if pressOrderButton == true{
-            orderButton(orderButton)
+           
+                orderButton(orderButton)
         }
         
     }
@@ -812,19 +863,52 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         cellHoleDesc.labelDescriptor = cellDesc
         let cellTask = PassthroughTask(with: [cellHoleDesc])
         
-        
-        PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask, cellTask, rightLeftTask1, rightLeftTask2]) {
-            isUserSkipDemo in
-            if self.carWashInfo?.workers!.count == 0 || self.carWashInfo?.workers == nil{
-                self.utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
-                self.workerView.visiblity(gone: true)
-                self.workerView.isHidden = true
-                self.orderButton.isHidden = true
-                self.callUsView.isHidden = false
-                
-                self.view.layoutIfNeeded()
-            }
-            print("isUserSkipDemo: \(isUserSkipDemo)")
+//        if carWashInfo?.workers!.count == 0 || carWashInfo?.workers == nil{
+//
+//            PassthroughManager.shared.display(tasks: [infoTask, rightLeftTask, cellTask]) {
+//                isUserSkipDemo in
+//                if self.carWashInfo?.workers!.count == 0 || self.carWashInfo?.workers == nil{
+//                    self.utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
+//                    self.workerView.visiblity(gone: true)
+//                    self.workerView.isHidden = true
+//                    self.orderButton.isHidden = true
+//                    self.callUsView.isHidden = false
+//
+//                    self.view.layoutIfNeeded()
+//                }
+//                print("isUserSkipDemo: \(isUserSkipDemo)")
+//            }
+//        } else if carWashInfo?.servicePrices?.count == 0 || carWashInfo?.servicePrices == nil{
+//
+//            } else  if carWashInfo?.packages?.count != 0 {
+//            PassthroughManager.shared.display(tasks: [infoTask, cellTask, rightLeftTask1, rightLeftTask2]) {
+//                isUserSkipDemo in
+//                if self.carWashInfo?.workers!.count == 0 || self.carWashInfo?.workers == nil{
+//                    self.utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
+//                    self.workerView.visiblity(gone: true)
+//                    self.workerView.isHidden = true
+//                    self.orderButton.isHidden = true
+//                    self.callUsView.isHidden = false
+//
+//                    self.view.layoutIfNeeded()
+//                }
+//                print("isUserSkipDemo: \(isUserSkipDemo)")
+//            }
+//
+//        } else {
+            PassthroughManager.shared.display(tasks: [infoTask]) {
+                isUserSkipDemo in
+                if self.carWashInfo?.workers!.count == 0 || self.carWashInfo?.workers == nil{
+                    self.utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
+                    self.workerView.visiblity(gone: true)
+                    self.workerView.isHidden = true
+                    self.orderButton.isHidden = true
+                    self.callUsView.isHidden = false
+                    
+                    self.view.layoutIfNeeded()
+                }
+                print("isUserSkipDemo: \(isUserSkipDemo)")
+//            }
         }
     }
     
@@ -993,14 +1077,50 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //        }
 //    }
     func CreateCarDismiss() {
-        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "createCar") as! CreateCar
-        customAlert.poper = true
-        customAlert.providesPresentationContextTransitionStyle = true
-        customAlert.definesPresentationContext = true
-        customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
-        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-        //            customAlert.delegate = self
-        self.present(customAlert, animated: true, completion: nil)
+//        getAllCars()
+        self.createCar = true
+
+       
+    }
+    
+    func getAllCars(){
+        startAnimating()
+        let restUrl = constants.startUrl + "karma/v1/car/user"
+        guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
+            
+            self.utils.checkAutorization(vc: self)
+            stopAnimating()
+            return
+        }
+        let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
+        Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
+            guard response.response?.statusCode != 204 else{
+            
+                self.createCar = true
+                self.stopAnimating()
+                return
+            }
+            guard self.utils.checkResponse(response: response, vc: self) == true else{
+                self.stopAnimating()
+                return
+            }
+            
+            
+            do{
+                let carList = try JSONDecoder().decode(AllCarList.self, from: response.data!)
+                
+                if carList.count == 0 {
+                    
+                    self.createCar = true
+                }
+            }
+            catch{
+                
+            }
+            self.stopAnimating()
+            
+            
+        }
     }
 }
 
