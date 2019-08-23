@@ -98,6 +98,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         imageScroll.transformer = FSPagerViewTransformer(type: .zoomOut)
         if carWashInfo?.coverURL != nil{
             logoCarWash.downloaded(from: (carWashInfo?.coverURL)!)
+            logoCarWash.contentMode = .scaleAspectFill
         }
         if carWashInfo?.media?.count == 0 {
             photoView.visiblity(gone: true)
@@ -216,7 +217,14 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     func getCarWashInfo(){
    
     //                self.logoCarWash!.sd_setImage(with: URL(string: (cWbody?.logoURL)!), placeholderImage: UIImage(named: "carWashLogo.png"))
-        self.nameCarWash.text = carWashInfo?.name
+//        self.nameCarWash.text = carWashInfo?.name
+        let strokeTextAttributes : [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.strokeColor : #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1),
+            NSAttributedString.Key.foregroundColor : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),
+            NSAttributedString.Key.strokeWidth : -4.0,
+            NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 30)
+            ] as [NSAttributedString.Key  : Any]
+        self.nameCarWash.attributedText = NSMutableAttributedString(string: carWashInfo!.name, attributes: strokeTextAttributes)
         self.adressCW.text = carWashInfo?.address
         self.raiting.rating = (carWashInfo?.rating?.rating)!
         self.descriptionText.text = carWashInfo?.descriptionCWB

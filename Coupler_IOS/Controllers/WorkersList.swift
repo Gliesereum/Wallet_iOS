@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 protocol WorkersListDelegate: class {
     func DismissWorker(worker: Worker)
@@ -15,7 +16,7 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
 
     @IBOutlet weak var workersTable: UITableView!
     
-    var workers : [Worker]?
+    var workers : [Worker] = []
     var businesId : String?
     let utils = Utils()
     var timeZone = Int()
@@ -38,7 +39,7 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
         dismiss(animated: true, completion: nil)
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        return (workers?.count)!
+        return (workers.count)
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -56,7 +57,7 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "workersListCell", for: indexPath) as! WorkersListCell
-        let workerForIndex = workers![indexPath.section]
+        let workerForIndex = workers[indexPath.section]
         
         utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
         cell.clipsToBounds = true
@@ -80,7 +81,7 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
         return cell
     }
     @objc func dialogDissmis(workerIndex: UIButton) {
-        let worker = workers![workerIndex.tag]
+        let worker = workers[workerIndex.tag]
         delegate?.DismissWorker(worker: worker)
 //        self.navigationController!.popToRootViewController(animated: true)
         dismiss(animated: true, completion: nil)
@@ -90,7 +91,7 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell: WorkersListCell = tableView.cellForRow(at: indexPath) as! WorkersListCell
 
-        let workerForIndex = workers![cell.workerButton.tag]
+        let workerForIndex = workers[cell.workerButton.tag]
         let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "singleWorker") as! SingleWorker
         customAlert.worker = workerForIndex
         customAlert.timeZone = timeZone
@@ -110,4 +111,39 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
 //        <#code#>
 //    }
 
+    func getCarWashInfoComments(){
+        
+        startAnimating()
+        let headers = ["Application-Id":self.constants.iosId]
+        let restUrl = constants.startUrl + "karma/v1/business/full-model-by-id?id=\((businesId)!)"
+        Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
+            guard self.utils.checkResponse(response: response, vc: self) == true else{
+                self.stopAnimating()
+                return
+            }
+            do{
+                let responseBody = try JSONDecoder().decode(CarWashBody.self, from: response.data!)
+               
+                if responseBody.workers!.count != 0 || responseBody.workers != nil{
+                    self.workers.removeAll()
+                    for workerCheck in (responseBody.workers)!{
+                        if workerCheck.workingSpaceID != nil{
+                            self.workers.append(workerCheck)
+                        }
+                    }
+                self.viewDidLoad()
+                self.workersTable.reloadData()
+                self.workersTable.invalidateIntrinsicContentSize()
+                }
+            } catch{
+                
+            }
+            
+            self.stopAnimating()
+        }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        
+        getCarWashInfoComments()
+    }
 }

@@ -83,8 +83,9 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
     }
     @IBAction func addComment(_ sender: Any) {
         guard utils.getSharedPref(key: "accessToken") != nil else{
-            self.utils.checkFilds(massage: "Что бы оставить комменатирий Вы должны авторизироватся", vc: self.view)
+//            self.utils.checkFilds(massage: "Что бы оставить комменатирий Вы должны авторизироватся", vc: self.view)
 //            self.addCommentsView.visiblity(gone: true)
+            self.utils.checkAutorization(vc: self)
             stopAnimating()
             return
         }
@@ -163,7 +164,8 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard response.response?.statusCode != 200 else{
                 self.addCommentsView.visiblity(gone: true)
-                
+                self.addCommentsView.isHidden = true
+                self.view.layoutIfNeeded()
                 self.stopAnimating()
                 return
             }
@@ -189,13 +191,18 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
             do{
                 let responseBody = try JSONDecoder().decode(Worker.self, from: response.data!)
                 self.worker = responseBody
-                self.viewDidLoad()
                 
                 self.commentsTableView.isHidden = false
                 self.commentsTableView.reloadData()
-                self.commentsTableView.invalidateIntrinsicContentSize()
-                self.view.layoutIfNeeded()
+                self.viewDidLoad()
                 
+//                self.commentsTableView.isHidden = false
+//                self.commentsTableView.reloadData()
+//                self.commentsTableView.invalidateIntrinsicContentSize()
+//                self.commentsTableView.layoutIfNeeded()
+////                self.contentView.layoutIfNeeded()
+//                self.view.layoutIfNeeded()
+//                
             } catch{
                 
             }
@@ -207,14 +214,14 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
     override func viewDidAppear(_ animated: Bool) {
         if worker?.comments?.count == 0 || worker?.comments == nil{
             commentsTableView.isHidden = true
-            commentsTableView.layoutIfNeeded()
-            self.view.layoutIfNeeded()
+//            commentsTableView.layoutIfNeeded()
+//            self.view.layoutIfNeeded()
         } else {
             
-            commentsTableView.isHidden = false
+//            commentsTableView.isHidden = false
             
-            commentsTableView.layoutIfNeeded()
-            self.view.layoutIfNeeded()
+//            commentsTableView.layoutIfNeeded()
+//            self.view.layoutIfNeeded()
 //            commentsTableView.visiblity(gone: false)
         }
     }

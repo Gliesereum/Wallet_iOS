@@ -10,9 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="DroidSansMerged-Regular.ttf">
-            <string>DroidSans</string>
-        </array>
         <array key="SF-Pro-Text-Regular.otf">
             <string>SFProText-Regular</string>
         </array>
@@ -28,23 +25,23 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleAspectFit" id="D9P-6k-6sN">
-            <rect key="frame" x="0.0" y="0.0" width="260" height="212"/>
+            <rect key="frame" x="0.0" y="0.0" width="307" height="243"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите причину отмены заказа" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="bvK-JW-oNY" customClass="MDCTextField">
-                    <rect key="frame" x="10" y="113.5" width="240" height="32.5"/>
+                    <rect key="frame" x="10" y="135" width="287" height="48"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lP9-98-W7B">
-                    <rect key="frame" x="10" y="151" width="112" height="56"/>
+                    <rect key="frame" x="10" y="188" width="135.5" height="50"/>
                     <color key="backgroundColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="56" id="MJH-pn-HkZ"/>
+                        <constraint firstAttribute="height" constant="50" id="MJH-pn-HkZ"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
-                    <state key="normal" title="ОТМЕНА">
+                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="14"/>
+                    <state key="normal" title="ВЕРНУТЬСЯ">
                         <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -57,25 +54,25 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Отмена заказа" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iy-ED-85B">
-                    <rect key="frame" x="67.5" y="52" width="125" height="20"/>
+                    <rect key="frame" x="91" y="52" width="125" height="20"/>
                     <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Для отмены заказа укажите причину по которой Вы отменяете заказ" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ucJ-sp-bmg">
-                    <rect key="frame" x="8" y="80" width="244" height="31.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пожалуйста, укажите причину отмены заказа. Нам важна ваша обратная связь. Вы помогаете нам становиться лучше" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ucJ-sp-bmg">
+                    <rect key="frame" x="8" y="80" width="291" height="47"/>
                     <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="13"/>
                     <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JiX-1b-8ON">
-                    <rect key="frame" x="132" y="151" width="112" height="56"/>
+                    <rect key="frame" x="155.5" y="188" width="135.5" height="50"/>
                     <color key="backgroundColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="56" id="cWC-KM-rbX"/>
+                        <constraint firstAttribute="height" constant="50" id="cWC-KM-rbX"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
-                    <state key="normal" title="ОК">
+                    <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="14"/>
+                    <state key="normal" title="ОТМЕНИТЬ ЗАКАЗ">
                         <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -98,7 +95,7 @@
                 <constraint firstItem="ucJ-sp-bmg" firstAttribute="leading" secondItem="D9P-6k-6sN" secondAttribute="leading" constant="8" id="Aes-bB-lMn"/>
                 <constraint firstAttribute="trailing" secondItem="ucJ-sp-bmg" secondAttribute="trailing" constant="8" id="Olp-zQ-6Tu"/>
                 <constraint firstAttribute="bottom" secondItem="lP9-98-W7B" secondAttribute="bottom" constant="5" id="VFs-jW-XJd"/>
-                <constraint firstItem="bvK-JW-oNY" firstAttribute="top" secondItem="ucJ-sp-bmg" secondAttribute="bottom" constant="2" id="VKg-12-Ssp"/>
+                <constraint firstItem="bvK-JW-oNY" firstAttribute="top" secondItem="ucJ-sp-bmg" secondAttribute="bottom" constant="8" id="VKg-12-Ssp"/>
                 <constraint firstItem="lP9-98-W7B" firstAttribute="top" secondItem="bvK-JW-oNY" secondAttribute="bottom" constant="5" id="Vmz-GZ-ZIE"/>
                 <constraint firstItem="8Qa-VT-c8w" firstAttribute="trailing" secondItem="JiX-1b-8ON" secondAttribute="trailing" constant="16" id="YwX-jY-T3Y"/>
                 <constraint firstItem="JiX-1b-8ON" firstAttribute="top" secondItem="bvK-JW-oNY" secondAttribute="bottom" constant="5" id="afE-g6-DaP"/>
@@ -118,7 +115,7 @@
                 </userDefinedRuntimeAttribute>
                 <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="-3278.2608695652175" y="199.55357142857142"/>
+            <point key="canvasLocation" x="-3244.202898550725" y="188.50446428571428"/>
         </view>
     </objects>
 </document>

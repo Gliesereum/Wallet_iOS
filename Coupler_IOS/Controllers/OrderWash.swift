@@ -47,6 +47,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     @IBOutlet weak var orderButton: MDCButton!
     @IBOutlet weak var workerView: UIView!
 //    @IBOutlet weak var saleryView: UIView!
+//    @IBOutlet weak var packageTableView: UIView!
     
     @IBOutlet weak var servicesLable: UILabel!
     @IBOutlet weak var allPrice: UILabel!
@@ -80,34 +81,54 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     var packegeServices = [Serviceice]()
     var selectedServices = [Serviceice]()
     var pressOrderButton = false
-//    var workers : WorkerByBuisnesBody?
+//    var workers : WorkerByBuisnesBody?\
+    var checkedWorker: [Worker] = []
     var worker : Worker?
     
     let dialogController = AZDialogViewController(title: "Выберите время", message: "Время не выбрато")
     
     let cellSpacingHeight: CGFloat = 5
    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//          self.utils.setBorder(view: saleryView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
+    func checkWorker(){
         if  UserDefaults.standard.object(forKey: "ORDERWASHVC") == nil {
-
+            
             self.utils.setSaredPref(key: "ORDERWASHVC", value: "true")
             self.showTutorial()
-        } else
-            if carWashInfo?.workers!.count == 0 || carWashInfo?.workers == nil{
+        }  else if carWashInfo?.workers!.count != 0 || carWashInfo?.workers != nil{
+            for workerCheck in (carWashInfo?.workers)!{
+                if workerCheck.workingSpaceID != nil{
+                    checkedWorker.append(workerCheck)
+                }
+            }
+            if checkedWorker.count == 0 || carWashInfo?.spaces?.count == 0{
+                    utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
+                    workerView.visiblity(gone: true)
+                    workerView.isHidden = true
+                    orderButton.isHidden = true
+                    callUsView.isHidden = false
+                    
+                    //            view.layoutIfNeeded()
+            }
+        } else {
             utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
             workerView.visiblity(gone: true)
             workerView.isHidden = true
             orderButton.isHidden = true
             callUsView.isHidden = false
-            
-//            view.layoutIfNeeded()
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        checkWorker()
+//          self.utils.setBorder(view: saleryView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
+        
+        
        
+        
+//        packageLable.visiblity(gone: true)
         packetServicesTable.visiblity(gone: true)
-        packageLable.visiblity(gone: true)
+        packetServicesTable.visiblity(gone: true)
 //        getWorkers()
 //        utils.setBorder(view: headerView, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
        
@@ -143,10 +164,13 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         carServicePrice.invalidateIntrinsicContentSize()
         pacetsSelector.delegate = self
 
-//        saleryView.isHidden = true
+//        packageTableView.isHidden = true
         packetServicesTable.isHidden = true
         packetServicesLable.isHidden = true
-//        saleryView.layoutIfNeeded()
+//        packetServicesLable.visiblity(gone: true)
+//        packageTableView.layoutIfNeeded()
+        
+//        packageTableView.layoutIfNeeded()
        view.layoutIfNeeded()
         // Do any additional setup after loading the view.
         
@@ -184,8 +208,9 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     // MARK: - Navigation
     @IBAction func selectWorker(_ sender: Any) {
         let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "workersList") as! WorkersList
-        customAlert.workers = self.carWashInfo?.workers
+        customAlert.workers = self.checkedWorker
         customAlert.timeZone = (carWashInfo?.timeZone)!
+        customAlert.businesId = carWashInfo?.id
         customAlert.providesPresentationContextTransitionStyle = true
         customAlert.definesPresentationContext = true
         customAlert.modalPresentationStyle = UIModalPresentationStyle.popover
@@ -302,7 +327,9 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 salerLable.isHidden = true
                 saleryLable.isHidden = true
                 saleryLable2.isHidden = true
-//                saleryView.isHidden = true
+//                packageTableView.isHidden = true
+//                packageTableView.visiblity(gone: true)
+//                packageTableView.layoutIfNeeded()
                 packegeServices.removeAll()
                 packetServicesTable.reloadData()
                 packetServicesTable.invalidateIntrinsicContentSize()
@@ -641,8 +668,11 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 salerLable.isHidden = false
                 saleryLable.isHidden = false
                 saleryLable2.isHidden = false
-//                saleryView.isHidden = false
-                packetServicesTable.invalidateIntrinsicContentSize()
+//                packageTableView.isHidden = false
+                
+//                packageTableView.visiblity(gone: false, dimension: packageTableView.contentScaleFactor, attribute: .height)
+//                packageTableView.layoutIfNeeded()
+            packetServicesTable.invalidateIntrinsicContentSize()
                 filterServicesByPackages(packageId: packageId)
                 view.layoutIfNeeded()
                 return
@@ -665,7 +695,9 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         salerLable.isHidden = false
         saleryLable.isHidden = false
         saleryLable2.isHidden = false
-//        saleryView.isHidden = false
+//        packageTableView.isHidden = false
+//        packageTableView.visiblity(gone: false, dimension: packageTableView.contentScaleFactor, attribute: .height)
+//        packageTableView.layoutIfNeeded()
         packetServicesTable.invalidateIntrinsicContentSize()
         filterServicesByPackages(packageId: packageId)
 //        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "packetsDialog") as! PacketsDialog
@@ -898,14 +930,27 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //        } else {
             PassthroughManager.shared.display(tasks: [infoTask]) {
                 isUserSkipDemo in
-                if self.carWashInfo?.workers!.count == 0 || self.carWashInfo?.workers == nil{
+                if self.carWashInfo?.workers!.count != 0 || self.carWashInfo?.workers != nil{
+                    for workerCheck in (self.carWashInfo?.workers)!{
+                        if workerCheck.workingSpaceID != nil{
+                            self.checkedWorker.append(workerCheck)
+                        }
+                    }
+                    if self.checkedWorker.count == 0 || self.carWashInfo?.spaces?.count == 0{
+                        self.utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
+                        self.workerView.visiblity(gone: true)
+                        self.workerView.isHidden = true
+                        self.orderButton.isHidden = true
+                        self.callUsView.isHidden = false
+                        
+                        //            view.layoutIfNeeded()
+                    }
+                } else {
                     self.utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
                     self.workerView.visiblity(gone: true)
                     self.workerView.isHidden = true
                     self.orderButton.isHidden = true
                     self.callUsView.isHidden = false
-                    
-                    self.view.layoutIfNeeded()
                 }
                 print("isUserSkipDemo: \(isUserSkipDemo)")
 //            }
@@ -939,7 +984,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     func showOrderDialog() {
      
         let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "orderDialog") as! OrderDialog
-        customAlert.selectedTime = time
+        customAlert.selectedTime = self.utils.milisecondsToTime(miliseconds: self.currentTime, timeZone: (self.carWashInfo?.timeZone)! )
         customAlert.providesPresentationContextTransitionStyle = true
         customAlert.definesPresentationContext = true
         customAlert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
@@ -1034,6 +1079,8 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 }
                 if select == 4 {
                     self.showOrderDialog()
+                    
+                    self.time = self.utils.milisecondsToTime(miliseconds: self.currentTime, timeZone: (self.carWashInfo?.timeZone)! )
                 }
                 if self.workerId == ""{
                     self.workerId = currentFreeTime.workerID!

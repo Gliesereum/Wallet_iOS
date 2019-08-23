@@ -194,7 +194,6 @@
 		FA07063B22A55006005833DC /* AddCommentsCastom.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA07062E22A55006005833DC /* AddCommentsCastom.xib */; };
 		FA07063C22A55596005833DC /* CustomPageControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07062422A55006005833DC /* CustomPageControler.swift */; };
 		FA07063E22A5626E005833DC /* imageLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = FA07063D22A5626E005833DC /* imageLogo.png */; };
-		FA07064322A5699F005833DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA07064222A5699F005833DC /* GoogleService-Info.plist */; };
 		FA07064722A56DAA005833DC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA07064622A56DAA005833DC /* Info.plist */; };
 		FA07677B23058C6F001C79AC /* CheckServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07677A23058C6F001C79AC /* CheckServer.swift */; };
 		FA07EE602306FD9100542EFC /* EmptyBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07EE5F2306FD9100542EFC /* EmptyBody.swift */; };
@@ -204,6 +203,7 @@
 		FA09BDD322D8C2B100D3F2BC /* SelectSingleBuisnesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09BDD222D8C2B100D3F2BC /* SelectSingleBuisnesVC.swift */; };
 		FA0C107022BA597B00FDE376 /* CreateCarDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C106F22BA597B00FDE376 /* CreateCarDialog.swift */; };
 		FA0CE35522BD0D32003AA719 /* CreateCarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CE35422BD0D32003AA719 /* CreateCarCell.swift */; };
+		FA0D803C230E9A880007F90D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA0D803B230E9A880007F90D /* GoogleService-Info.plist */; };
 		FA0DBD7022EF0F3100266901 /* CancelOrderDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA0DBD6F22EF0F3100266901 /* CancelOrderDialog.xib */; };
 		FA0EF1B722C9DAB1005B312F /* CarLisrCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0EF1B622C9DAB1005B312F /* CarLisrCell.swift */; };
 		FA0EF1E722C9FD06005B312F /* SF-Pro-Display-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = FA0EF1BA22C9FD06005B312F /* SF-Pro-Display-Thin.otf */; };
@@ -542,7 +542,6 @@
 		FA07062E22A55006005833DC /* AddCommentsCastom.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddCommentsCastom.xib; sourceTree = "<group>"; };
 		FA07063D22A5626E005833DC /* imageLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageLogo.png; sourceTree = "<group>"; };
 		FA07063F22A56358005833DC /* Coupler_IOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Coupler_IOS.entitlements; sourceTree = "<group>"; };
-		FA07064222A5699F005833DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA07064622A56DAA005833DC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA07677A23058C6F001C79AC /* CheckServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckServer.swift; sourceTree = "<group>"; };
 		FA07EE5F2306FD9100542EFC /* EmptyBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBody.swift; sourceTree = "<group>"; };
@@ -552,6 +551,7 @@
 		FA09BDD222D8C2B100D3F2BC /* SelectSingleBuisnesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSingleBuisnesVC.swift; sourceTree = "<group>"; };
 		FA0C106F22BA597B00FDE376 /* CreateCarDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCarDialog.swift; sourceTree = "<group>"; };
 		FA0CE35422BD0D32003AA719 /* CreateCarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCarCell.swift; sourceTree = "<group>"; };
+		FA0D803B230E9A880007F90D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA0DBD6F22EF0F3100266901 /* CancelOrderDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CancelOrderDialog.xib; sourceTree = "<group>"; };
 		FA0EF1B622C9DAB1005B312F /* CarLisrCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarLisrCell.swift; sourceTree = "<group>"; };
 		FA0EF1BA22C9FD06005B312F /* SF-Pro-Display-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Thin.otf"; sourceTree = "<group>"; };
@@ -852,7 +852,7 @@
 		FA0704BA22A5314E005833DC /* Coupler_IOS */ = {
 			isa = PBXGroup;
 			children = (
-				FA07064222A5699F005833DC /* GoogleService-Info.plist */,
+				FA0D803B230E9A880007F90D /* GoogleService-Info.plist */,
 				FA07063F22A56358005833DC /* Coupler_IOS.entitlements */,
 				FA07062122A55006005833DC /* Customs */,
 				FA0705EB22A535FB005833DC /* Controllers */,
@@ -1496,13 +1496,13 @@
 				FA0EF1F422C9FD06005B312F /* SF-Pro-Text-Light.otf in Resources */,
 				FA0EF1FF22C9FD06005B312F /* SF-Pro-Display-HeavyItalic.otf in Resources */,
 				FA0EF20822C9FD06005B312F /* SF-Pro-Text-BoldItalic.otf in Resources */,
+				FA0D803C230E9A880007F90D /* GoogleService-Info.plist in Resources */,
 				FA0EF1F122C9FD06005B312F /* SF-Pro-Rounded-Regular.otf in Resources */,
 				FA07063E22A5626E005833DC /* imageLogo.png in Resources */,
 				FA0EF1F722C9FD06005B312F /* SF-Pro-Text-BlackItalic.otf in Resources */,
 				FA0704C322A53150005833DC /* Assets.xcassets in Resources */,
 				FA0F616022A684BD00D0273C /* 1024x1024.pdf in Resources */,
 				FA0EF1F622C9FD06005B312F /* SF-Pro-Display-Semibold.otf in Resources */,
-				FA07064322A5699F005833DC /* GoogleService-Info.plist in Resources */,
 				FA0EF1E822C9FD06005B312F /* SF-Pro-Display-SemiboldItalic.otf in Resources */,
 				FA0EF21222C9FD06005B312F /* SF-Pro-Rounded-Bold.otf in Resources */,
 				FA0EF20222C9FD06005B312F /* SF-Pro-Display-LightItalic.otf in Resources */,

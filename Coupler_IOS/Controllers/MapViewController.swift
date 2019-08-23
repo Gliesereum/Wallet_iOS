@@ -104,14 +104,25 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     }
     //MARK: get carwash list
    
+    func clearMap(){
+        self.mapView.clear()
+        
+        let marker = GMSMarker()
+        
+        marker.map = mapView
+        
+        self.view = mapView
+    }
     func setBusinesMarker(){
        
 
         
         guard self.utils.getBusinesList(key: "BUSINESSLIST") != nil else{
 
-           
+           clearMap()
             
+//            let rootVC = SelectSingleBuisnesVC()
+            //        rootVC.changeButton.selectedSegmentIndex = 0
 //            rootVC.checkCarInfo()
             return
         }
@@ -303,14 +314,24 @@ extension MapViewController: CLLocationManagerDelegate {
         print("Error: \(error)")
     }
    
+    
 //
+    override func viewDidAppear(_ animated: Bool) {
+        
+//        let rootVC = SelectSingleBuisnesVC()
+//        rootVC.checkCarInfo()
+//        let rootVC = SelectSingleBuisnesVC()
+//        rootVC.changeButton.selectedSegmentIndex = 0
+    }
     override func viewWillAppear(_ animated: Bool) {
-        let rootVC = SelectSingleBuisnesVC()
-        rootVC.checkCarInfo()
             setBusinesMarker()
+//        rootVC.changeButton.selectedSegmentIndex = 0
 //        print("viewDidAppear")
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        clearMap()
+    }
     
     
     

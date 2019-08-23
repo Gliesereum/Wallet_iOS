@@ -832,38 +832,38 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 
         guard brandsId != nil else {
             //            utils.showToast(message: "Выберите марку машины",viewController: self)
-            TinyToast.shared.show(message: "Выберите марку машины", valign: .bottom, duration: .normal)
+            TinyToast.shared.show(message: "Выберите марку авто", valign: .bottom, duration: .normal)
             return
         }
         guard modelId != nil else {
             //            utils.showToast(message: "Выберите модель машины",viewController: self)
-            TinyToast.shared.show(message: "Выберите модель машины", valign: .bottom, duration: .normal)
+            TinyToast.shared.show(message: "Выберите модель авто", valign: .bottom, duration: .normal)
             return
         }
         guard yearsId != nil else {
             //            utils.showToast(message: "Выберите год машины",viewController: self)
-            TinyToast.shared.show(message: "Выберите год машины", valign: .bottom, duration: .normal)
+            TinyToast.shared.show(message: "Выберите год авто", valign: .bottom, duration: .normal)
             return
         }
 
         guard carBody != nil else {
             //            utils.showToast(message: "Выберите кузов машины",viewController: self)
-            TinyToast.shared.show(message: "Выберите кузов машины", valign: .bottom, duration: .normal)
+            TinyToast.shared.show(message: "Выберите кузов авто", valign: .bottom, duration: .normal)
             return
         }
         guard carInterior != nil else {
             //            utils.showToast(message: "Выберите салон машины",viewController: self)
-            TinyToast.shared.show(message: "Выберите салон машины", valign: .bottom, duration: .normal)
+            TinyToast.shared.show(message: "Выберите салон авто", valign: .bottom, duration: .normal)
             return
         }
         guard carColor != nil else {
             //            utils.showToast(message: "Выберите цвет машины",viewController: self)
-            TinyToast.shared.show(message: "Выберите цвет машины", valign: .bottom, duration: .normal)
+            TinyToast.shared.show(message: "Выберите цвет авто", valign: .bottom, duration: .normal)
             return
         }
         guard carRadius != nil else {
             //            utils.showToast(message: "Выберите цвет машины",viewController: self)
-            TinyToast.shared.show(message: "Выберите  радиус дисков машины", valign: .bottom, duration: .normal)
+            TinyToast.shared.show(message: "Выберите  радиус дисков авто", valign: .bottom, duration: .normal)
             return
         }
         addCarInfo(brandId: brandsId!, modelId: modelId!, yearId: yearsId!, registrationNumber: self.regNumberTextView.text!, description: self.otherTextView.text!, interior: carInterior!, carBody: carBody!, colour: carColor!, whellRadius: carRadius!)
