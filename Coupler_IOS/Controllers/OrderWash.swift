@@ -223,9 +223,14 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //        navigationController?.pushViewController(vc, animated: true)
         
     }
-    func DismissWorker(worker: Worker) {
+    func DismissWorker(worker: Worker?) {
+        
         self.worker = worker
-        self.workerId = worker.id!
+        if worker != nil {
+        self.workerId = (worker?.id!)!
+        } else {
+           self.workerId = ""
+        }
     }
     
     @IBAction func orderButton(_ sender: Any) {
@@ -853,6 +858,10 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             if let workerAvatar = worker?.user?.avatarURL{
                 workerImage.downloaded(from: workerAvatar)
             }
+        } else {
+            workerName.text = "Любой мастер"
+            workerPosition.text = ""
+            workerImage.image = UIImage(named: "Ellipse")
         }
         if let carInfo = utils.getCarInfo(key: "CARID") {
             self.targetId = carInfo.carId

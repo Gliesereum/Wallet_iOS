@@ -18,8 +18,12 @@ class AboutUs: UIViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet weak var termsButton: UIButton!
     @IBOutlet weak var apleButton: UIButton!
     
+    @IBOutlet weak var logoImage: UIImageView!
     let utils = Utils()
     override func viewDidLoad() {
+        if UIDevice().userInterfaceIdiom == .phone && UIScreen.main.nativeBounds.height == 1136 {
+            logoImage.visiblity(gone: true)
+        }
         super.viewDidLoad()
         versionLable.text = "Версия: " + ((Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String)!)
          utils.setBorder(view: mailButton, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)

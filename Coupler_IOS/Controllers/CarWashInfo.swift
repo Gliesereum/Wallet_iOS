@@ -185,20 +185,43 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        self.lastContentOffset = scrollView.contentOffset.y
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if (self.lastContentOffset < scrollView.contentOffset.y) {
-//            getCarWashInfoComments()
-            // did move up
-        } else if (self.lastContentOffset > scrollView.contentOffset.y) {
-            // did move down
-        } else {
-            // didn't move
+//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        self.lastContentOffset = scrollView.contentOffset.y
+//    }
+//    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+//        if scrollView.isBouncing == true {
+//
+//                        getCarWashInfoComments()
+//        }
+//    }
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView.isBouncing == true {
+        
+                    getCarWashInfoComments()
         }
     }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if (self.lastContentOffset < scrollView.contentOffset.y) {
+////            getCarWashInfoComments()
+//            // did move up
+//        } else if (self.lastContentOffset > scrollView.contentOffset.y) {
+//            // did move down
+//        } else {
+//            // didn't move
+//        }
+//        if (scrollView.contentOffset.y < 0){
+//            //reach top
+////            getCarWashInfoComments()
+//        }
+//        if (scrollView.contentOffset.y + 1) >= (scrollView.contentSize.height - scrollView.frame.size.height) {
+//            //bottom reached
+////            getCarWashInfoComments()
+//        }
+//        if scrollView.isBouncing == true {
+//            
+////            getCarWashInfoComments()
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCommetsCell", for: indexPath) as! CustomCommetsCell

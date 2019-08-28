@@ -14,6 +14,7 @@ class BuisnessViewCell: UITableViewCell{
     @IBOutlet weak var buisnessName: UILabel!
     @IBOutlet weak var buisnesId: UILabel!
     
+    @IBOutlet weak var buisnesState: UILabel!
     @IBOutlet weak var buisnesLogo: UIImageView!
 }
 struct BuisnesList {
@@ -100,7 +101,16 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         let record = buisness[indexPath.section]
         cell.buisnesId.text = record.id!
         cell.buisnessName.text = record.name!
-        
+        if record.active != true{
+            cell.buisnessName.textColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+            
+            cell.buisnesState.text = "true"
+        } else {
+            
+            cell.buisnessName.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            
+            cell.buisnesState.text = "false"
+        }
         
         utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 0.8412617723), borderWidth: 1, cornerRadius: 4)
         if record.imageURL != nil{
@@ -110,9 +120,11 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cells = cell as! BuisnessViewCell
-        let record = buisness[indexPath.section]
-        if record.active != true{
+        if cells.buisnesState.text == "true"{
             cells.buisnessName.textColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+        }else{
+            
+            cells.buisnessName.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
         
 //        if cell.isSelected{

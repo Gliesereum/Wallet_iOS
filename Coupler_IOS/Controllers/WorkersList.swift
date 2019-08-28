@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 protocol WorkersListDelegate: class {
-    func DismissWorker(worker: Worker)
+    func DismissWorker(worker: Worker?)
 }
 class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate, NVActivityIndicatorViewable {
 
@@ -35,6 +35,10 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func defoultWorker(_ sender: Any) {
+        delegate?.DismissWorker(worker: nil)
+        self.dismiss(animated: true, completion: nil)
+    }
     @IBAction func backButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }

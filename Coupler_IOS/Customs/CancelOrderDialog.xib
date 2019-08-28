@@ -29,13 +29,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите причину отмены заказа" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="bvK-JW-oNY" customClass="MDCTextField">
-                    <rect key="frame" x="10" y="135" width="287" height="48"/>
+                    <rect key="frame" x="10" y="135" width="287" height="43"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lP9-98-W7B">
-                    <rect key="frame" x="10" y="188" width="135.5" height="50"/>
+                    <rect key="frame" x="10" y="183" width="135.5" height="50"/>
                     <color key="backgroundColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="MJH-pn-HkZ"/>
@@ -66,7 +66,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JiX-1b-8ON">
-                    <rect key="frame" x="155.5" y="188" width="135.5" height="50"/>
+                    <rect key="frame" x="155.5" y="183" width="135.5" height="50"/>
                     <color key="backgroundColor" red="1" green="0.47843137250000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="cWC-KM-rbX"/>
@@ -89,12 +89,11 @@
             <accessibility key="accessibilityConfiguration" identifier="CancelOrderDialogXib"/>
             <constraints>
                 <constraint firstItem="JiX-1b-8ON" firstAttribute="width" secondItem="lP9-98-W7B" secondAttribute="width" id="0Hx-9C-Nc2"/>
-                <constraint firstAttribute="bottom" secondItem="lP9-98-W7B" secondAttribute="bottom" constant="5" id="4b8-hN-kWe"/>
+                <constraint firstAttribute="bottom" secondItem="lP9-98-W7B" secondAttribute="bottom" constant="10" id="4b8-hN-kWe"/>
                 <constraint firstItem="2iy-ED-85B" firstAttribute="centerX" secondItem="8Qa-VT-c8w" secondAttribute="centerX" id="4sc-ds-X02"/>
                 <constraint firstItem="lP9-98-W7B" firstAttribute="leading" secondItem="8Qa-VT-c8w" secondAttribute="leading" constant="10" id="AKM-6q-CtF"/>
                 <constraint firstItem="ucJ-sp-bmg" firstAttribute="leading" secondItem="D9P-6k-6sN" secondAttribute="leading" constant="8" id="Aes-bB-lMn"/>
                 <constraint firstAttribute="trailing" secondItem="ucJ-sp-bmg" secondAttribute="trailing" constant="8" id="Olp-zQ-6Tu"/>
-                <constraint firstAttribute="bottom" secondItem="lP9-98-W7B" secondAttribute="bottom" constant="5" id="VFs-jW-XJd"/>
                 <constraint firstItem="bvK-JW-oNY" firstAttribute="top" secondItem="ucJ-sp-bmg" secondAttribute="bottom" constant="8" id="VKg-12-Ssp"/>
                 <constraint firstItem="lP9-98-W7B" firstAttribute="top" secondItem="bvK-JW-oNY" secondAttribute="bottom" constant="5" id="Vmz-GZ-ZIE"/>
                 <constraint firstItem="8Qa-VT-c8w" firstAttribute="trailing" secondItem="JiX-1b-8ON" secondAttribute="trailing" constant="16" id="YwX-jY-T3Y"/>
@@ -104,7 +103,7 @@
                 <constraint firstItem="8Qa-VT-c8w" firstAttribute="trailing" secondItem="bvK-JW-oNY" secondAttribute="trailing" constant="10" id="dSO-Cr-ABB"/>
                 <constraint firstItem="ucJ-sp-bmg" firstAttribute="centerX" secondItem="2iy-ED-85B" secondAttribute="centerX" id="g6s-uh-t1A"/>
                 <constraint firstItem="ucJ-sp-bmg" firstAttribute="top" secondItem="2iy-ED-85B" secondAttribute="bottom" constant="8" id="kK1-og-hze"/>
-                <constraint firstAttribute="bottom" secondItem="JiX-1b-8ON" secondAttribute="bottom" constant="5" id="lh1-hm-NYi"/>
+                <constraint firstAttribute="bottom" secondItem="JiX-1b-8ON" secondAttribute="bottom" constant="10" id="lh1-hm-NYi"/>
                 <constraint firstItem="bvK-JW-oNY" firstAttribute="leading" secondItem="8Qa-VT-c8w" secondAttribute="leading" constant="10" id="tSW-ua-iwt"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

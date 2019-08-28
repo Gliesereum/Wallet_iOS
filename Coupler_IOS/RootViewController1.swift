@@ -187,6 +187,21 @@ extension UITableView {
     }
 }
 
+extension UIScrollView {
+    var isBouncing: Bool {
+        var isBouncing = false
+//        if contentOffset.y >= (contentSize.height - bounds.size.height) {
+//            // Bottom bounce
+//            isBouncing = true
+//        } else
+            if contentOffset.y < contentInset.top {
+            // Top bounce
+            isBouncing = true
+        }
+        return isBouncing
+    }
+}
+
 
 
 

@@ -83,7 +83,7 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
         recordTableView.reloadData()
     }
     
-    @objc func getAllCars(){
+    @objc func getAllCars(page: Int){
         startAnimating()
         let restUrl = constants.startUrl + "karma/v1/record/by-current-user?page=\(page)&size=20"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
@@ -131,7 +131,10 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
 //                }
                 if self.loadMore == true{
                     self.recordListData = self.recordListData + carList.content!
+                    
+                    self.loadMore = false
                 }else{
+                    self.recordListData.removeAll()
                     self.recordListData = carList.content!
                 }
                 
@@ -292,7 +295,7 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewWillAppear(_ animated: Bool) {
 //
         
-        getAllCars()
+        getAllCars(page: 0)
 //        utils.checkPushNot(vc: self)
         NotificationCenter.default.removeObserver("reloadTheTable")
 
@@ -325,9 +328,8 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func loadMoreItems(){
-        self.loadMore = true
         self.page = self.page + 1
-        getAllCars()
+        getAllCars(page: self.page)
     }
 
 }

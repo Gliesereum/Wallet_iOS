@@ -98,7 +98,9 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
 //            dot.transform = CGAffineTransform.init(scaleX: 1/scale, y: 1/scale)
 //        }
         //        getAllCars()
-       
+        if UIDevice().userInterfaceIdiom == .phone && UIScreen.main.nativeBounds.height == 1136 {
+            addCarView.visiblity(gone: true)
+        }
         var yourViewBorder = CAShapeLayer()
         yourViewBorder.strokeColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         yourViewBorder.lineDashPattern = [8, 3]
