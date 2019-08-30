@@ -113,6 +113,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         
         self.view = mapView
     }
+  
+//    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
+//
+//    }
     func setBusinesMarker(){
        
 
@@ -133,9 +137,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         for carWash: CarWashMarkerElement in businessList!{
             if carWash.logoURL != nil {
                 
-                self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: carWash.logoURL!, buisness: (carWash.businessCategoryID)!)
+                self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: carWash.logoURL!, buisness: (carWash.businessCategoryID)!, active: carWash.businessVerify!)
             }else {
-                self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: "", buisness: (carWash.businessCategoryID)!)
+                self.addMarkerOnMap(getlatitude: Double(carWash.latitude!), getlongitude: Double(carWash.longitude!), title: carWash.name!, sniper: carWash.id!, logo: "", buisness: (carWash.businessCategoryID)!, active: carWash.businessVerify!)
             }
         }
 //        self.view.layoutIfNeeded()
@@ -143,47 +147,94 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         
     }
     
-    func addMarkerOnMap(getlatitude: Double, getlongitude: Double, title: String, sniper: String, logo: String, buisness: String) {
+    func addMarkerOnMap(getlatitude: Double, getlongitude: Double, title: String, sniper: String, logo: String, buisness: String, active: Bool) {
         // Creates a marker in the center of the map.
         var markerImage = UIImage()
         switch buisness {
 //            "CAR_WASH"
         case "0c1ca141-fb7d-414c-999f-ed8a8af69b1c":
             
-            markerImage = UIImage(named: "pin_carwash")!
+            if active == true {
+                
+                markerImage = UIImage(named: "pin_carwash")!
+            } else {
+                
+                markerImage = UIImage(named: "pin_carwash_disable")!
+            }
 //             "TIRE_FITTING"
         case "607b10e5-fc65-463d-a116-5fae6019c782":
-            
-            markerImage = UIImage(named: "pin_tires")!
+            if active == true {
+                
+                markerImage = UIImage(named: "pin_tires")!
+            } else {
+                
+                markerImage = UIImage(named: "pin_tires_disable")!
+            }
 //            "CAR_SERVICE"
         case "6a7d64fd-1538-430d-be52-c92ef28d2d3a":
-            
-            markerImage = UIImage(named: "pin_sto")!
+            if active == true {
+                
+                markerImage = UIImage(named: "pin_sto")!
+            } else {
+                
+                markerImage = UIImage(named: "pin_sto_disable")!
+            }
 //            "BEAUTY_SALONS"
         case "b355c8ae-6173-49d6-8dca-4adb22d36e9b":
-            
-            markerImage = UIImage(named: "pin_beauty")!
+            if active == true {
+                
+                markerImage = UIImage(named: "pin_beauty")!
+            } else {
+                
+                markerImage = UIImage(named: "pin_beauty_disable")!
+            }
 //            "MARKETING"
         case "04a606db-77b2-407a-9dad-0a98177c9ba4":
-            
-            markerImage = UIImage(named: "pin_consulting")!
+            if active == true {
+                
+                markerImage = UIImage(named: "pin_consulting")!
+            } else {
+                
+                markerImage = UIImage(named: "pin_consulting_disable")!
+            }
             
             
 //            "CLINICS"
         case "6030bab7-a582-44e0-9e08-4d81fda946ac":
-            
-            markerImage = UIImage(named: "pin_others")!
+            if active == true {
+                
+                markerImage = UIImage(named: "pin_others")!
+            } else {
+                
+                markerImage = UIImage(named: "pin_others_disable")!
+            }
 //            "DEVELOPMENT"
         case "cbbe5d7f-8b39-42ce-b169-51ce8013f50c":
-            
-            markerImage = UIImage(named: "pin_freelance")!
+            if active == true {
+                
+                markerImage = UIImage(named: "pin_freelance")!
+            } else {
+                
+                markerImage = UIImage(named: "pin_freelance_disable")!
+            }
 //            "CLEANING"
         case "a6a92d0a-f41c-4279-8105-26c01d160d97":
-            
-            markerImage = UIImage(named: "pin_others")!
+            if active == true {
+                
+                markerImage = UIImage(named: "pin_others")!
+            } else {
+                
+                markerImage = UIImage(named: "pin_others_disable")!
+            }
         default:
-            
-            markerImage = UIImage(named: "pin_others")!
+           
+            if active == true {
+                
+                markerImage = UIImage(named: "pin_others")!
+            } else {
+                
+                markerImage = UIImage(named: "pin_others_disable")!
+            }
         }
         let matkerView = UIImageView(image: markerImage)
         let marker = GMSMarker()

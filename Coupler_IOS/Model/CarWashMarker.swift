@@ -8,6 +8,7 @@ import Foundation
 // MARK: - CarWashMarkerElement
 class CarWashMarkerElement: NSObject, Codable {
     let id, corporationID, name: String?
+    let businessVerify: Bool?
     let countBox: Int?
     let carWashMarkerDescription, address: String?
     let logoURL: String?
@@ -24,7 +25,7 @@ class CarWashMarkerElement: NSObject, Codable {
     enum CodingKeys: String, CodingKey {
         case id
         case corporationID = "corporationId"
-        case name, countBox
+        case name, countBox, businessVerify
         case carWashMarkerDescription = "description"
         case address
         case logoURL = "logoUrl"
@@ -33,10 +34,11 @@ class CarWashMarkerElement: NSObject, Codable {
         case objectState, services, serviceNames, score
     }
     
-    init(id: String?, corporationID: String?, name: String?, countBox: Int?, carWashMarkerDescription: String?, address: String?, logoURL: String?, phone: String?, addPhone: JSONNull?, latitude: Double?, longitude: Double?, timeZone: Int?, rating: Double?, ratingCount: Int?, geoPoint: GeoPoint?, businessCategoryID: String?, objectState: String?, services: [Service]?, serviceNames: [String]?, score: Double?) {
+    init(id: String?, corporationID: String?, name: String?, businessVerify: Bool?, countBox: Int?, carWashMarkerDescription: String?, address: String?, logoURL: String?, phone: String?, addPhone: JSONNull?, latitude: Double?, longitude: Double?, timeZone: Int?, rating: Double?, ratingCount: Int?, geoPoint: GeoPoint?, businessCategoryID: String?, objectState: String?, services: [Service]?, serviceNames: [String]?, score: Double?) {
         self.id = id
         self.corporationID = corporationID
         self.name = name
+        self.businessVerify = businessVerify
         self.countBox = countBox
         self.carWashMarkerDescription = carWashMarkerDescription
         self.address = address
@@ -62,7 +64,7 @@ class CarWashMarkerElement: NSObject, Codable {
 extension CarWashMarkerElement {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(CarWashMarkerElement.self, from: data)
-        self.init(id: me.id, corporationID: me.corporationID, name: me.name, countBox: me.countBox, carWashMarkerDescription: me.carWashMarkerDescription, address: me.address, logoURL: me.logoURL, phone: me.phone, addPhone: me.addPhone, latitude: me.latitude, longitude: me.longitude, timeZone: me.timeZone, rating: me.rating, ratingCount: me.ratingCount, geoPoint: me.geoPoint, businessCategoryID: me.businessCategoryID, objectState: me.objectState, services: me.services, serviceNames: me.serviceNames, score: me.score)
+        self.init(id: me.id, corporationID: me.corporationID, name: me.name, businessVerify: me.businessVerify, countBox: me.countBox, carWashMarkerDescription: me.carWashMarkerDescription, address: me.address, logoURL: me.logoURL, phone: me.phone, addPhone: me.addPhone, latitude: me.latitude, longitude: me.longitude, timeZone: me.timeZone, rating: me.rating, ratingCount: me.ratingCount, geoPoint: me.geoPoint, businessCategoryID: me.businessCategoryID, objectState: me.objectState, services: me.services, serviceNames: me.serviceNames, score: me.score)
     }
     
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -80,6 +82,7 @@ extension CarWashMarkerElement {
         id: String?? = nil,
         corporationID: String?? = nil,
         name: String?? = nil,
+        businessVerify: Bool?? = nil,
         countBox: Int?? = nil,
         carWashMarkerDescription: String?? = nil,
         address: String?? = nil,
@@ -103,6 +106,7 @@ extension CarWashMarkerElement {
             id: id ?? self.id,
             corporationID: corporationID ?? self.corporationID,
             name: name ?? self.name,
+            businessVerify: businessVerify ?? self.businessVerify,
             countBox: countBox ?? self.countBox,
             carWashMarkerDescription: carWashMarkerDescription ?? self.carWashMarkerDescription,
             address: address ?? self.address,

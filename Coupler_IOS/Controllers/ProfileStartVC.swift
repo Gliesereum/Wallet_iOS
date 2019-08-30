@@ -49,7 +49,7 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
     }
     @objc func goQRCode(){
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "qRCodeVC") as! QRCodeVC
-        vc.url = "https://coupler.app/r/\(referralCode!)"
+        vc.url = "https://coupler.app/r/?ref=\(referralCode!)"
         self.navigationController?.pushViewController(vc, animated: true)
         
     }

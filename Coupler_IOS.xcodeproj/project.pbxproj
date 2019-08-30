@@ -33,12 +33,15 @@
 		FA059E0B22B383F0004A501D /* GMUWeightedLatLng.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DDF22B383F0004A501D /* GMUWeightedLatLng.m */; };
 		FA059E0C22B383F0004A501D /* GMUGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DE222B383F0004A501D /* GMUGradient.m */; };
 		FA059E0D22B383F0004A501D /* GMUHeatmapTileLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DE322B383F0004A501D /* GMUHeatmapTileLayer.m */; };
+		FA059E0D2316A82600C529A4 /* AgentMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA059E0C2316A82600C529A4 /* AgentMapVC.swift */; };
 		FA059E0E22B383F0004A501D /* GMUKMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DE522B383F0004A501D /* GMUKMLParser.m */; };
 		FA059E0F22B383F0004A501D /* GMUGeometryRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DE622B383F0004A501D /* GMUGeometryRenderer.m */; };
+		FA059E0F2316AEC300C529A4 /* SetMarkerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA059E0E2316AEC300C529A4 /* SetMarkerDialog.swift */; };
 		FA059E1022B383F0004A501D /* GMUGeometryCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DE922B383F0004A501D /* GMUGeometryCollection.m */; };
 		FA059E1122B383F0004A501D /* GMUPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DEC22B383F0004A501D /* GMUPlacemark.m */; };
 		FA059E1222B383F0004A501D /* GMUPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DED22B383F0004A501D /* GMUPolygon.m */; };
 		FA059E1322B383F0004A501D /* GMUStyleMap.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DF022B383F0004A501D /* GMUStyleMap.m */; };
+		FA059E132316DABC00C529A4 /* CategoryBuisnesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA059E122316DABC00C529A4 /* CategoryBuisnesCell.swift */; };
 		FA059E1422B383F0004A501D /* GMUFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DF122B383F0004A501D /* GMUFeature.m */; };
 		FA059E1522B383F0004A501D /* GMUGroundOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DF322B383F0004A501D /* GMUGroundOverlay.m */; };
 		FA059E1622B383F0004A501D /* GMUStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = FA059DF422B383F0004A501D /* GMUStyle.m */; };
@@ -389,6 +392,9 @@
 		FA059E0822B383F0004A501D /* GQTPointQuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTree.h; sourceTree = "<group>"; };
 		FA059E0922B383F0004A501D /* GQTPointQuadTreeChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeChild.h; sourceTree = "<group>"; };
 		FA059E0A22B383F0004A501D /* GQTBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTBounds.h; sourceTree = "<group>"; };
+		FA059E0C2316A82600C529A4 /* AgentMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentMapVC.swift; sourceTree = "<group>"; };
+		FA059E0E2316AEC300C529A4 /* SetMarkerDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMarkerDialog.swift; sourceTree = "<group>"; };
+		FA059E122316DABC00C529A4 /* CategoryBuisnesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBuisnesCell.swift; sourceTree = "<group>"; };
 		FA05B98C230A049100578583 /* HelloVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloVC.swift; sourceTree = "<group>"; };
 		FA06A72422E9C1C9006A26FE /* ReferralCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralCode.swift; sourceTree = "<group>"; };
 		FA06A72622E9C320006A26FE /* QRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeVC.swift; sourceTree = "<group>"; };
@@ -1172,6 +1178,8 @@
 				FA008B0A2300356200B5F44B /* SingleWorker.swift */,
 				FA07677A23058C6F001C79AC /* CheckServer.swift */,
 				FA05B98C230A049100578583 /* HelloVC.swift */,
+				FA059E0C2316A82600C529A4 /* AgentMapVC.swift */,
+				FA059E0E2316AEC300C529A4 /* SetMarkerDialog.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1201,6 +1209,7 @@
 				FAFF321623019B8B00672F4E /* CustomCommetsCellWorker.swift */,
 				FA0479AB2304A1E5002FF6AA /* WorkerAddCommentsDialog.swift */,
 				FA77A8882304A29200EE6229 /* AddCommentsByWorker.xib */,
+				FA059E122316DABC00C529A4 /* CategoryBuisnesCell.swift */,
 			);
 			path = Customs;
 			sourceTree = "<group>";
@@ -1679,6 +1688,7 @@
 				FAE5E95122AFE2BE00F63E80 /* ImageGalleryViewDataSource.swift in Sources */,
 				FA07060922A535FB005833DC /* DrawRouteVC.swift in Sources */,
 				FA059E1222B383F0004A501D /* GMUPolygon.m in Sources */,
+				FA059E0F2316AEC300C529A4 /* SetMarkerDialog.swift in Sources */,
 				FA0705AC22A535F1005833DC /* NVActivityIndicatorAnimationBallGridPulse.swift in Sources */,
 				FA07061822A535FB005833DC /* PacketsDialog.swift in Sources */,
 				FA0705A522A535F1005833DC /* String+Validation.swift in Sources */,
@@ -1716,6 +1726,7 @@
 				FA0704BC22A5314E005833DC /* AppDelegate.swift in Sources */,
 				FA0705C622A535F2005833DC /* NVActivityIndicatorAnimationBallPulseSync.swift in Sources */,
 				FA07060822A535FB005833DC /* AboutUs.swift in Sources */,
+				FA059E132316DABC00C529A4 /* CategoryBuisnesCell.swift in Sources */,
 				FA059E1622B383F0004A501D /* GMUStyle.m in Sources */,
 				FA0705C322A535F2005833DC /* NVActivityIndicatorAnimationLineScale.swift in Sources */,
 				FA07060E22A535FB005833DC /* CreateCar.swift in Sources */,
@@ -1801,6 +1812,7 @@
 				FAFF3214230194C200672F4E /* FSPagerViewCell.swift in Sources */,
 				FA0705C922A535F2005833DC /* NVActivityIndicatorAnimationLineScaleParty.swift in Sources */,
 				FA07051922A535E1005833DC /* CarYearsList.swift in Sources */,
+				FA059E0D2316A82600C529A4 /* AgentMapVC.swift in Sources */,
 				FA0705A422A535F1005833DC /* ItemAppearance.swift in Sources */,
 				FA059E1722B383F0004A501D /* GMUPoint.m in Sources */,
 				FAE5E95722AFE2BE00F63E80 /* Configuration.swift in Sources */,

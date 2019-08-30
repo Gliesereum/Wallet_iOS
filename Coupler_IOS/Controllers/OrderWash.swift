@@ -359,8 +359,14 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         if tableView == packetServicesTable{
             return packegeServices.count
         } else{
+            
+            if selectedServices.count == 0 {
+                servicesLable.isHidden = true
+            } else {
+                servicesLable.isHidden = false
+                
+            }
             return selectedServices.count
-           
         }
     }
 //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -411,6 +417,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if tableView == packetServicesTable{
+            
         } else{
         
             let cells = cell as! CustomServicesPrice
@@ -626,12 +633,19 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     
     func dateTimePicker(_ picker: DateTimePicker, didSelectDate: Date) {
 //        self.currentTime = self.utils.dateToMillisecond(date: didSelectDate, timeZone: (self.carWashInfo?.timeZone)!)
-        guard self.getSelectTime(setTime: self.utils.dateToMillisecond(date: didSelectDate, timeZone: (self.carWashInfo?.timeZone)!), select: 0) != 0 else{
-            picker.doneButtonTitle = "Выберите другое время"
-//             TinyToast.shared.show(message: "Мойка не работает в данное время. Выберите другое время", valign: .center, duration: 1)
-            return
-        }
-        picker.doneButtonTitle = "Выбрать это время"
+        self.getSelectTime(setTime: self.utils.dateToMillisecond(date: didSelectDate, timeZone: (self.carWashInfo?.timeZone)!), select: 0, completion: {
+            
+            if self.currentTime != 0 {
+                picker.doneButtonTitle = "Свободно"
+            
+                picker.doneBackgroundColor = #colorLiteral(red: 0.2, green: 0.6, blue: 0, alpha: 1)
+            } else{
+                picker.doneButtonTitle = "Занято"
+                picker.doneBackgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+                //             TinyToast.shared.show(message: "Мойка не работает в данное{ время. Выберите другое время", valign: .center, duration: 1)
+                
+            }
+        })
     }
     func addCategory(package: Package) {
 
@@ -1019,10 +1033,10 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         picker.darkColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         picker.cancelButtonTitle = "Закрыть"
         picker.doneButtonTitle = "Выберите время"
-        picker.doneBackgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+        picker.doneBackgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
         picker.completionHandler = { date in
             self.currentTime = self.utils.dateToMillisecond(date: date, timeZone: (self.carWashInfo?.timeZone)!)
-            self.getSelectTime(setTime: self.currentTime, select: 4)
+            self.getSelectTime(setTime: self.currentTime, select: 4, completion: {})
 //            self.showOrderDialog()
         }
         
@@ -1038,7 +1052,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //        voidView()
         utils.checkPushNot(vc: self)
     }
-    func getSelectTime(setTime: Int, select: Int) -> Int {
+    func getSelectTime(setTime: Int, select: Int,completion : @escaping ()->()) {
         let restUrl = constants.startUrl + "karma/v1/record/free-time"
         //       utils.currentTimeInMiliseconds(timeZone: (carWashInfo?.timeZone)!)
         startAnimating()
@@ -1079,7 +1093,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                         self.showDateTimePikerDialog()
 //                        TinyToast.shared.show(message: "Точка не работает в это время", valign: .center, duration: 1)
                     }
-                    
+                    completion()
                     return
                 }
                 if let currentFreeTime = response.result.value{
@@ -1098,15 +1112,16 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 self.workSpaceId = currentFreeTime.workingSpaceID!
                 self.time = self.utils.milisecondsToTime(miliseconds: self.currentTime, timeZone: (self.carWashInfo?.timeZone)! )
                 self.dialogController.message = "Выбраное время \(self.time)"
-                
+                   
             self.stopAnimating()
-            
+                    
             //
                 }
         //        guard self.currentTime != 0 else{
         //            return 0
+            
+            completion()
                 }
-        return self.currentTime
     }
     
 //    func getWorkers(){

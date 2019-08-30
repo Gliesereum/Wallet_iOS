@@ -9,6 +9,22 @@
 import UIKit
 import Alamofire
 
+struct CheckServerBody: Codable {
+    let proxyService, fileService, notificationService, permissionService: String?
+    let lendingGalleryService, karmaService, accountService, mailService: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case proxyService = "PROXY-SERVICE"
+        case fileService = "FILE-SERVICE"
+        case notificationService = "NOTIFICATION-SERVICE"
+        case permissionService = "PERMISSION-SERVICE"
+        case lendingGalleryService = "LENDING-GALLERY-SERVICE"
+        case karmaService = "KARMA-SERVICE"
+        case accountService = "ACCOUNT-SERVICE"
+        case mailService = "MAIL-SERVICE"
+    }
+}
+
 class CheckServer: UIViewController, NVActivityIndicatorViewable {
 
     
@@ -38,7 +54,18 @@ class CheckServer: UIViewController, NVActivityIndicatorViewable {
                 self.stopAnimating()
                 return 
             }
-            self.dismiss(animated: true, completion: nil)
+            do{
+                let carList = try JSONDecoder().decode(CheckServerBody.self, from: response.data!)
+                
+                if carList.accountService == "UP" && carList.karmaService == "UP" && carList.mailService == "UP"{
+                    
+                    self.dismiss(animated: true, completion: nil)
+                }
+                
+            }
+            catch{
+                print(error)
+            }
             self.stopAnimating()
             
         }

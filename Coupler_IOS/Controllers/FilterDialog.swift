@@ -105,6 +105,7 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
         }, completion:nil)
         filterListId.removeAll(where: { $0 == cell.serviceId.text! })
     }
+   
     
   
     @IBAction func canselBtn(_ sender: Any) {

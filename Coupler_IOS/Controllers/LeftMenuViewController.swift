@@ -9,6 +9,10 @@
 import UIKit
 import Alamofire
 
+struct AgentCheck: Codable {
+    let result: Bool?
+}
+
 public class LeftMenuViewController: UIViewController{
     @IBOutlet weak var orderList: UIButton!
 //    @IBOutlet weak var profile: UIButton!
@@ -29,6 +33,8 @@ public class LeftMenuViewController: UIViewController{
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var profileBtn: UIButton!
     @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var agentImage: UIImageView!
+    @IBOutlet weak var agentButton: UIButton!
     //    @IBOutlet weak var version: UILabel!
     
     
@@ -67,9 +73,17 @@ public class LeftMenuViewController: UIViewController{
         
 //        navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.tintColor = .white
-       
+        agentImage.isHidden = true
+        agentButton.isHidden = true
+        view.layoutIfNeeded()
+        
     }
     
+    @IBAction func agentMap(_ sender: Any) {
+        self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "agentMapVC")), animated: true)
+        self.sideMenuViewController!.hideMenuViewController()
+        
+    }
     @IBAction func btnExit(_ sender: Any) {
         orderList.isEnabled = false
         profileBtn.isEnabled = false
@@ -79,6 +93,9 @@ public class LeftMenuViewController: UIViewController{
         sigIn.isEnabled = true
         exitBtn.isHidden = true
         exitBtn.isEnabled = false
+        agentImage.isHidden = true
+        agentButton.isHidden = true
+        view.layoutIfNeeded()
         self.sideMenuViewController!.hideMenuViewController()
         deleteToken()
         self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
@@ -155,6 +172,7 @@ public class LeftMenuViewController: UIViewController{
 //                userImage.image = UIImage(named: "IconProfile")
 //            }
 //
+            checkAgent()
             orderList.isEnabled = true
             profileBtn.isEnabled = true
 //            profile.isHidden = false
@@ -174,14 +192,47 @@ public class LeftMenuViewController: UIViewController{
 //            profile.isHidden = true
             orderList.titleLabel?.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
             
+            agentImage.isHidden = true
+            agentButton.isHidden = true
+            view.layoutIfNeeded()
+            
             profileBtn.titleLabel?.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
             sigIn.isHidden = false
             sigIn.isEnabled = true
             exitBtn.isHidden = true
             exitBtn.isEnabled = false
+            
         }
         
        
+    }
+    func checkAgent(){
+        let restUrl = constants.startUrl + "karma/v1/agent/current-user-agent"
+        Alamofire.request(restUrl, method: .get, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
+           
+            guard self.utils.checkResponse(response: response, vc: self) == true else{
+                return
+            }
+        
+        do{
+            let carList = try JSONDecoder().decode(AgentCheck.self, from: response.data!)
+            if carList.result == false{
+                self.agentImage.isHidden = true
+                self.agentButton.isHidden = true
+                self.view.layoutIfNeeded()
+                return
+            } else {
+                
+                self.agentImage.isHidden = false
+                self.agentButton.isHidden = false
+                self.view.layoutIfNeeded()
+            }
+        }
+        catch{
+            print(error)
+        }
+            
+        }
     }
     public override func viewDidDisappear(_ animated: Bool) {
 //        checkAccesToken()

@@ -78,6 +78,7 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
 //            
 //            
 //        }
+        
     }
     @objc func reloadTableview(){
         recordTableView.reloadData()
@@ -306,6 +307,9 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
 //        }
         
     }
+    override func viewDidAppear(_ animated: Bool) {
+        
+    }
     
     func showTutorial() {
         let infoDesc = InfoDescriptor(for: "Здесь будут отображаться все ваши заказы")
@@ -328,6 +332,7 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func loadMoreItems(){
+        self.loadMore = true
         self.page = self.page + 1
         getAllCars(page: self.page)
     }

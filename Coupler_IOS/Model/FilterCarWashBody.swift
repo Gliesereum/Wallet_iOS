@@ -6,18 +6,20 @@ import Foundation
 
 class FilterCarWashBody: Codable {
     let serviceIDS: [String]?
-    let targetID, businessCategoryID: String?
+    let targetID, businessCategoryID, fullTextQuery: String?
     
     enum CodingKeys: String, CodingKey {
         case serviceIDS = "serviceIds"
         case targetID = "targetId"
         case businessCategoryID = "businessCategoryId"
+        case fullTextQuery
     }
     
-    init(serviceIDS: [String]?, targetID: String?, businessCategoryID: String?) {
+    init(serviceIDS: [String]?, targetID: String?, businessCategoryID: String?, fullTextQuery: String?) {
         self.serviceIDS = serviceIDS
         self.targetID = targetID
         self.businessCategoryID = businessCategoryID
+        self.fullTextQuery = fullTextQuery
     }
 }
 
@@ -26,7 +28,7 @@ class FilterCarWashBody: Codable {
 extension FilterCarWashBody {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(FilterCarWashBody.self, from: data)
-        self.init(serviceIDS: me.serviceIDS, targetID: me.targetID, businessCategoryID: me.businessCategoryID)
+        self.init(serviceIDS: me.serviceIDS, targetID: me.targetID, businessCategoryID: me.businessCategoryID, fullTextQuery: me.fullTextQuery)
     }
     
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -43,12 +45,14 @@ extension FilterCarWashBody {
     func with(
         serviceIDS: [String]?? = nil,
         targetID: String?? = nil,
-        businessCategoryID: String?? = nil
+        businessCategoryID: String?? = nil,
+        fullTextQuery: String?? = nil
         ) -> FilterCarWashBody {
         return FilterCarWashBody(
             serviceIDS: serviceIDS ?? self.serviceIDS,
             targetID: targetID ?? self.targetID,
-            businessCategoryID: businessCategoryID ?? self.businessCategoryID
+            businessCategoryID: businessCategoryID ?? self.businessCategoryID,
+            fullTextQuery: fullTextQuery ?? self.fullTextQuery
         )
     }
     

@@ -6,6 +6,7 @@ import Foundation
 
 class CarWashBody: NSObject, Codable{
     let id, name, corporationID, businessID: String!
+    let businessVerify: Bool?
     let descriptionCWB: String?
     let logoURL: String?
     let coverURL: String?
@@ -31,14 +32,15 @@ class CarWashBody: NSObject, Codable{
         case descriptionCWB = "description"
         case logoURL = "logoUrl"
         case coverURL = "coverUrl"
-        case businessCategory, address, phone, addPhone, latitude, longitude, timeZone, rating, objectState, workers, workTimes, spaces, servicePrices, packages, media, comments
+        case businessCategory, address, phone, addPhone, latitude, longitude, timeZone, rating, objectState, workers, workTimes, spaces, servicePrices, packages, media, comments, businessVerify
     }
     
-    init(id: String?, name: String?, corporationID: String?, businessID: String?, descriptionCWB: String?, logoURL: String?, coverURL: String?, address: String?, phone: String?, addPhone: String?, latitude: Double?, longitude: Double?, timeZone: Int?, rating: Rating?, objectState: String?, workers: [Worker]?, workTimes: [WorkTime]?, spaces: [Space]?, servicePrices: [Serviceice]?, packages: [Package]?, media: [Media]?, comments: [Comment]?, businessCategory: BusinessCategoryCWB?) {
+    init(id: String?, name: String?, corporationID: String?, businessID: String?, businessVerify: Bool?, descriptionCWB: String?, logoURL: String?, coverURL: String?, address: String?, phone: String?, addPhone: String?, latitude: Double?, longitude: Double?, timeZone: Int?, rating: Rating?, objectState: String?, workers: [Worker]?, workTimes: [WorkTime]?, spaces: [Space]?, servicePrices: [Serviceice]?, packages: [Package]?, media: [Media]?, comments: [Comment]?, businessCategory: BusinessCategoryCWB?) {
         self.id = id
         self.name = name
         self.corporationID = corporationID
         self.businessID = businessID
+        self.businessVerify = businessVerify
         self.descriptionCWB = descriptionCWB
         self.logoURL = logoURL
         self.coverURL = coverURL
@@ -520,7 +522,7 @@ class WorkTime: NSObject, Codable {
 extension CarWashBody {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(CarWashBody.self, from: data)
-        self.init(id: me.id, name: me.name, corporationID: me.corporationID, businessID: me.businessID, descriptionCWB: me.description, logoURL: me.logoURL, coverURL: me.coverURL, address: me.address, phone: me.phone, addPhone: me.addPhone, latitude: me.latitude, longitude: me.longitude, timeZone: me.timeZone, rating: me.rating, objectState: me.objectState, workers: me.workers, workTimes: me.workTimes, spaces: me.spaces, servicePrices: me.servicePrices, packages: me.packages, media: me.media, comments: me.comments, businessCategory: me.businessCategory)
+        self.init(id: me.id, name: me.name, corporationID: me.corporationID, businessID: me.businessID, businessVerify: me.businessVerify, descriptionCWB: me.description, logoURL: me.logoURL, coverURL: me.coverURL, address: me.address, phone: me.phone, addPhone: me.addPhone, latitude: me.latitude, longitude: me.longitude, timeZone: me.timeZone, rating: me.rating, objectState: me.objectState, workers: me.workers, workTimes: me.workTimes, spaces: me.spaces, servicePrices: me.servicePrices, packages: me.packages, media: me.media, comments: me.comments, businessCategory: me.businessCategory)
     }
     
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -539,6 +541,7 @@ extension CarWashBody {
         name: String?? = nil,
         corporationID: String?? = nil,
         businessID: String?? = nil,
+        businessVerify: Bool?? = nil,
         descriptionCWB: String?? = nil,
         logoURL: String?? = nil,
         coverURL: String?? = nil,
@@ -564,6 +567,7 @@ extension CarWashBody {
             name: name ?? self.name,
             corporationID: corporationID ?? self.corporationID,
             businessID: businessID ?? self.businessID,
+            businessVerify: businessVerify ?? self.businessVerify,
             descriptionCWB: descriptionCWB ?? self.descriptionCWB,
             logoURL: logoURL ?? self.logoURL,
             coverURL: coverURL ?? self.coverURL,

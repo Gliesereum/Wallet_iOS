@@ -29,6 +29,16 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     
    
     
+    @IBOutlet weak var timeText: UILabel!
+    @IBOutlet weak var mnText: UIView!
+    @IBOutlet weak var tuText: UIView!
+    @IBOutlet weak var wnText: UIView!
+    @IBOutlet weak var thText: UIView!
+    @IBOutlet weak var frText: UIView!
+    @IBOutlet weak var stText: UIView!
+    @IBOutlet weak var snText: UIView!
+    
+    
     @IBOutlet weak var snTime: UILabel!
     @IBOutlet weak var stTime: UILabel!
     @IBOutlet weak var frTime: UILabel!
@@ -248,6 +258,19 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
             NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 30)
             ] as [NSAttributedString.Key  : Any]
         self.nameCarWash.attributedText = NSMutableAttributedString(string: carWashInfo!.name, attributes: strokeTextAttributes)
+        guard carWashInfo?.businessVerify != false else{
+            timeText.visiblity(gone: true)
+            mnText.visiblity(gone: true)
+            tuText.visiblity(gone: true)
+            wnText.visiblity(gone: true)
+            thText.visiblity(gone: true)
+            frText.visiblity(gone: true)
+            stText.visiblity(gone: true)
+            snText.visiblity(gone: true)
+            goToOrders.visiblity(gone: true)
+            descriptionText.text = "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону"
+            return
+        }
         self.adressCW.text = carWashInfo?.address
         self.raiting.rating = (carWashInfo?.rating?.rating)!
         self.descriptionText.text = carWashInfo?.descriptionCWB

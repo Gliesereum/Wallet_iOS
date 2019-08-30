@@ -9,6 +9,7 @@
 import UIKit
 import FloatRatingView
 import Alamofire
+import MaterialComponents
 
 class BusinesListCell: UITableViewCell {
     
@@ -31,6 +32,7 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var businesTable: UITableView!
     
+    @IBOutlet weak var searchText: MDCTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,8 +41,26 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         businesTable.invalidateIntrinsicContentSize()
         businesTable.rowHeight = UITableView.automaticDimension
         businesTable.layoutIfNeeded()
+        searchText.addDoneCancelToolbar()
         // Do any additional setup after loading the view.
     }
+    
+    
+    
+    
+    @IBAction func search(_ sender: Any) {
+        
+            let root = SelectSingleBuisnesVC()
+        root.search = true
+        guard searchText.text!.count >= 1 else{
+
+            root.checkCarInfo(searchText: nil, completion: { self.refreshTable()})
+            //            utils.checkFilds(massage: "Введите название", vc: self.view)
+            return
+        }
+        root.checkCarInfo(searchText: searchText.text, completion: { self.refreshTable()})
+    }
+    
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -67,9 +87,9 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         if let logo = marker.logoURL {
             cell.logo.downloaded(from: logo)
         }
-        cell.adress.text = marker.address!
-        cell.name.text = marker.name!
-        cell.id.text = marker.id!
+        cell.adress.text = marker.address
+        cell.name.text = marker.name
+        cell.id.text = marker.id
         cell.raiting.rating = marker.rating!
 //        cell.raiting.rating = Double(exactly: (marker.)!)!
         
@@ -88,11 +108,17 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     func refreshTable(){
         if utils.getBusinesList(key: "BUSINESSLIST") != nil {
             
-            let fff = utils.getBusinesList(key: "BUSINESSLIST")!
             markerList = utils.getBusinesList(key: "BUSINESSLIST")!
             
            
+        } else {
+            markerList.removeAll()
         }
+        
+        self.businesTable.reloadData()
+        
+        self.businesTable.invalidateIntrinsicContentSize()
+//        view.layoutSubviews()
 //        do{
 //            self.businesTable.reloadData()
 //        }catch{
@@ -143,15 +169,15 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if utils.getBusinesList(key: "BUSINESSLIST") != nil {
-            markerList = utils.getBusinesList(key: "BUSINESSLIST")!
-        }
+        refreshTable()
+//        if utils.getBusinesList(key: "BUSINESSLIST") != nil {
+//            markerList = utils.getBusinesList(key: "BUSINESSLIST")!
+//        }
 //        if UserDefaults.standard.object(forKey: "BUSINESSLISTVC") == nil{
 //
 //            self.utils.setSaredPref(key: "BUSINESSLISTVC", value: "true")
 //            self.showTutorial()
 //        }
-        self.businesTable.reloadData()
     }
     func showTutorial() {
         let infoDesc = InfoDescriptor(for: "Это список компаний, предоставляющих услуги. Вы можете посмотреть более подробную информацию о компаниях, выбрав одну из них")

@@ -8,12 +8,12 @@
 
 import UIKit
 import Alamofire
+import MaterialComponents
 
 class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDelegate, FilterDialodDismissDelegate, NVActivityIndicatorViewable {
 
     @IBOutlet weak var changeButton: UISegmentedControl!
-    
-    
+//    @IBOutlet weak var searchText: MDCTextField!
     @IBOutlet weak var filterMap: UIBarButtonItem!
     let constants = Constants()
     let utils = Utils()
@@ -21,6 +21,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
     let mapView = MapViewController()
     let listView = BusinessListVC()
     var serviceSelect: [String] = []
+    var search = false
     
     enum TabIndex : Int {
         case firstChildTab = 0
@@ -53,6 +54,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
         changeButton.layer.borderColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         changeButton.layer.borderWidth = 1
         changeButton.layer.cornerRadius = 4
+//        searchText.addDoneCancelToolbar()
 //        self.changeButton.selectedSegmentIndex = TabIndex.firstChildTab.rawValue
 //        if UserDefaults.standard.object(forKey: "MAPVC") == nil{
 //            
@@ -72,7 +74,15 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
         
 //        }
     }
-    
+//    @IBAction func search(_ sender: Any) {
+//        guard searchText.text!.count >= 1 else{
+//
+//            checkCarInfo(searchText: nil)
+////            utils.checkFilds(massage: "Введите название", vc: self.view)
+//            return
+//        }
+//        checkCarInfo(searchText: searchText.text)
+//    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -121,7 +131,36 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
     @IBAction func filterMap(_ sender: Any) {
         addFilter()
     }
-    func getCarWashList(filterBody: FilterCarWashBody){
+    
+    func checkCurrentView(){
+        guard search != true else{
+            
+//            self.listView.refreshTable()
+            
+            search = false
+            return
+        }
+        if self.currentViewController == self.firstChildTabVC{
+            //                                self.contentView.layoutIfNeeded()
+            //                                self.mapView.mapView.layoutIfNeeded()
+            //                                self.mapView.mapView.clear()
+            self.mapView.setBusinesMarker()
+            self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
+            //
+        } else if self.currentViewController == self.secondChildTabVC{
+            
+            self.displayCurrentTab(TabIndex.secondChildTab.rawValue)
+            
+            self.listView.refreshTable()
+        } else {
+            
+            
+            self.mapView.setBusinesMarker()
+            self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
+            //                            self.mapView.setBusinesMarker()
+        }
+    }
+    func getCarWashList(filterBody: FilterCarWashBody, completion : @escaping ()->()){
         //        guard self.drawRoute == "" else{
         //             drawPath(from: drawRoute)
         //            return
@@ -142,13 +181,18 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                     //                self.recordTableView.
                     
                     
-                self.stopAnimating()
+                    self.stopAnimating()
                     
                    
 //                self.mapView.setBusinesMarker()
                     
                     UserDefaults.standard.removeObject(forKey: "BUSINESSLIST")
-                self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
+//                    if filterBody.fullTextQuery != nil {
+//                        self.listView.refreshTable()
+//                    } else {
+                    self.checkCurrentView()
+                    completion()
+//                    }
 //                    self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
 //                    if UserDefaults.standard.object(forKey: "MAPVC") == nil{
 //                        
@@ -157,9 +201,6 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
 //                    }
                     return
                 }
-              
-                
-                self.stopAnimating()
                 
 //                self.changeButton.selectedSegmentIndex = TabIndex.secondChildTab.rawValue
 //                self.displayCurrentTab(TabIndex.secondChildTab.rawValue)
@@ -169,6 +210,8 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                     let responseBody = try JSONDecoder().decode(CarWashMarker.self, from: response.data!)
 //
                     
+                    self.stopAnimating()
+                    
                     if self.utils.getBusinesList(key: "BUSINESSLIST") != nil{
                         if (businessList! == responseBody){
                             print("NNNNNNNIIIIIIILLLLLL")
@@ -177,24 +220,9 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                             
 //                            self.mapView.setBusinesMarker()
 //
-                            if self.currentViewController == self.firstChildTabVC{
-//                                self.contentView.layoutIfNeeded()
-//                                self.mapView.mapView.layoutIfNeeded()
-//                                self.mapView.mapView.clear()
-                                self.mapView.setBusinesMarker()
-                            self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
-    //
-                            } else if self.currentViewController == self.secondChildTabVC{
-                                self.listView.refreshTable()
-                               
-                                self.displayCurrentTab(TabIndex.secondChildTab.rawValue)
-                            } else {
+                            self.checkCurrentView()
                             
-                               
-                                self.mapView.setBusinesMarker()
-                            self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
-//                            self.mapView.setBusinesMarker()
-                            }
+                            completion()
                         }
                     }else{
                         
@@ -202,23 +230,9 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                         self.utils.setBusinesList(key: "BUSINESSLIST", value: responseBody)
                         
                     
-                        if self.currentViewController == self.firstChildTabVC{
-                            //                                self.contentView.layoutIfNeeded()
-//                            self.mapView.mapView.layoutIfNeeded()
-//                            self.mapView.mapView.clear()
-                            self.mapView.setBusinesMarker()
-                            self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
-                            //
-                        } else if self.currentViewController == self.secondChildTabVC{
-                            
-                            self.listView.refreshTable()
-                            self.displayCurrentTab(TabIndex.secondChildTab.rawValue)
-                            
-                        } else {
-                            self.mapView.setBusinesMarker()
-                            self.displayCurrentTab(TabIndex.firstChildTab.rawValue)
-                            
-                        }
+                        self.checkCurrentView()
+                        
+                        completion()
 //                        if self.changeButton.selectedSegmentIndex == 0{
 //                            self.mapView.setBusinesMarker()
 //                        }
@@ -232,10 +246,10 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                 }
                 catch{
                     
+                    self.stopAnimating()
                     print(error)
                 }
                
-                self.stopAnimating()
             }
         
       
@@ -251,7 +265,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
         let restUrl = constants.startUrl + "karma/v1/car/user"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             
-            self.checkCarInfo()
+            self.checkCarInfo(searchText: nil, completion: {})
             stopAnimating()
             return
         }
@@ -261,7 +275,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
             
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 
-                self.checkCarInfo()
+                self.checkCarInfo(searchText: nil, completion: {})
                 self.stopAnimating()
                 return
             }
@@ -292,14 +306,14 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
             catch{
                 
             }
-            self.checkCarInfo()
+            self.checkCarInfo(searchText: nil, completion: {})
             self.stopAnimating()
             
             
         }
     }
     
-    func checkCarInfo(){
+    func checkCarInfo(searchText: String?, completion : @escaping ()->()){
         if self.utils.getSharedPref(key: "CARWASHID") != nil {
            mapView.getCarWashInfo(carWashId: self.utils.getSharedPref(key: "CARWASHID")!)
         }
@@ -309,16 +323,16 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
 //            self.navTop.titleView?.tintColor = .white
             if serviceSelect.count != 0{
                 if UserDefaults.standard.object(forKey: "BUISNESSID") != nil{
-                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: serviceSelect, targetID: carInfo?.carId, businessCategoryID: UserDefaults.standard.object(forKey: "BUISNESSID") as? String))
+                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: serviceSelect, targetID: carInfo?.carId, businessCategoryID: UserDefaults.standard.object(forKey: "BUISNESSID") as? String, fullTextQuery: searchText), completion: completion)
                 }else{
-                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: serviceSelect, targetID: carInfo?.carId, businessCategoryID: nil))
+                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: serviceSelect, targetID: carInfo?.carId, businessCategoryID: nil, fullTextQuery: searchText), completion: completion)
                 }
                 
             } else{
                 if UserDefaults.standard.object(forKey: "BUISNESSID") != nil{
-                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: carInfo?.carId, businessCategoryID: UserDefaults.standard.object(forKey: "BUISNESSID") as? String))
+                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: carInfo?.carId, businessCategoryID: UserDefaults.standard.object(forKey: "BUISNESSID") as? String, fullTextQuery: searchText), completion: completion)
                 }else{
-                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: carInfo?.carId, businessCategoryID: nil))
+                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: carInfo?.carId, businessCategoryID: nil, fullTextQuery: searchText), completion: completion)
                 }
             }
             
@@ -327,20 +341,20 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                 if UserDefaults.standard.object(forKey: "BUISNESSID") != nil{
                     //
                     //                    self.navTop.title = "Машина не выбрана"
-                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: serviceSelect, targetID: nil, businessCategoryID: UserDefaults.standard.object(forKey: "BUISNESSID") as? String))
+                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: serviceSelect, targetID: nil, businessCategoryID: UserDefaults.standard.object(forKey: "BUISNESSID") as? String, fullTextQuery: searchText), completion: completion)
                 }else{
                     //                self.navTop.title = "Машина не выбрана"
-                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: nil, businessCategoryID: nil))
+                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: nil, businessCategoryID: nil, fullTextQuery: searchText), completion: completion)
                 }
                 
             } else{
                 if UserDefaults.standard.object(forKey: "BUISNESSID") != nil{
                     
                     //                    self.navTop.title = "Машина не выбрана"
-                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: nil, businessCategoryID: UserDefaults.standard.object(forKey: "BUISNESSID") as? String))
+                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: nil, businessCategoryID: UserDefaults.standard.object(forKey: "BUISNESSID") as? String, fullTextQuery: searchText), completion: completion)
                 }else{
                     //                    self.navTop.title = "Машина не выбрана"
-                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: nil, businessCategoryID: nil))
+                    getCarWashList(filterBody: FilterCarWashBody.init(serviceIDS: nil, targetID: nil, businessCategoryID: nil, fullTextQuery: searchText), completion: completion)
                 }
             }
             
@@ -380,12 +394,12 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
     func Dismiss(filterListId: [String], filterOn: Bool) {
         if filterOn == true{
             serviceSelect = filterListId
-            checkCarInfo()
+            checkCarInfo(searchText: nil, completion: {})
         } else {
             if serviceSelect.count != 0{
                 serviceSelect.removeAll()
             }
-            checkCarInfo()
+            checkCarInfo(searchText: nil, completion: {})
         }
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -436,6 +450,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
     override func viewWillAppear(_ animated: Bool) {
         getAllCars()
 
+        
         print("start")
     }
 }
