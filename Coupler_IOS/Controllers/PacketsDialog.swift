@@ -91,7 +91,7 @@ class PacketsDialog: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         }
     @IBAction func canselBtn(_ sender: Any) {
-        delegate?.Dismiss(packageDuration: 0, packagePrice: 0, packageId: "cancel", discont: 0, packageName: "Не выбран")
+        delegate?.Dismiss(packageDuration: 0, packagePrice: 0, packageId: "cancel", discont: 0, packageName: NSLocalizedString("not_chousen", comment: ""))
         dismiss(animated: true, completion: nil)
     }
     

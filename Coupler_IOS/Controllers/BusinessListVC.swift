@@ -21,7 +21,7 @@ class BusinesListCell: UITableViewCell {
     
     
 }
-class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NVActivityIndicatorViewable {
+class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
  
     
     let constants = Constants()
@@ -134,7 +134,7 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     func getCarWashInfo(carWashId: String){
-        startAnimating()
+        showActivityIndicator()
 //
         if self.utils.getSharedPref(key: "CARWASHID") != nil{
             
@@ -145,7 +145,7 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         let restUrl = self.constants.startUrl + "karma/v1/business/full-model-by-id?id=\(carWashId)"
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             
@@ -161,7 +161,7 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.navigationController?.pushViewController(vc, animated: true)
                 
                 
-                self.stopAnimating()
+                self.hideActivityIndicator()
             } catch{
                 print(error)
             }
@@ -180,7 +180,7 @@ class BusinessListVC: UIViewController, UITableViewDataSource, UITableViewDelega
 //        }
     }
     func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "Это список компаний, предоставляющих услуги. Вы можете посмотреть более подробную информацию о компаниях, выбрав одну из них")
+        let infoDesc = InfoDescriptor(for: NSLocalizedString("tutor_BLVC_1", comment: ""))
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
         

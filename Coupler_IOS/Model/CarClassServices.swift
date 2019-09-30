@@ -10,86 +10,23 @@
 import Foundation
 import Alamofire
 
-typealias CarClassServices = [CarClassService]
-
-class CarClassService: Codable {
-    let id, name, description: String?
+// MARK: - CarClassService
+struct CarClassService: Codable {
+    let id: String?
     let orderIndex: Int?
+    let name, carClassServiceDescription: String?
+    let descriptions: Descriptions?
     
-    init(id: String?, name: String?, description: String?, orderIndex: Int?) {
-        self.id = id
-        self.name = name
-        self.description = description
-        self.orderIndex = orderIndex
+    enum CodingKeys: String, CodingKey {
+        case id, orderIndex, name
+        case carClassServiceDescription = "description"
+        case descriptions
     }
 }
 
-// MARK: Convenience initializers and mutators
+// MARK: - Descriptions
 
-extension CarClassService {
-    convenience init(data: Data) throws {
-        let me = try newJSONDecoder().decode(CarClassService.self, from: data)
-        self.init(id: me.id, name: me.name, description: me.description, orderIndex: me.orderIndex)
-    }
-    
-    convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
-        guard let data = json.data(using: encoding) else {
-            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
-        }
-        try self.init(data: data)
-    }
-    
-    convenience init(fromURL url: URL) throws {
-        try self.init(data: try Data(contentsOf: url))
-    }
-    
-    func with(
-        id: String?,
-        name: String?,
-        description: String?,
-        orderIndex: Int?
-        ) -> CarClassService {
-        return CarClassService(
-            id: id ?? self.id,
-            name: name ?? self.name,
-            description: description ?? self.description,
-            orderIndex: orderIndex ?? self.orderIndex
-        )
-    }
-    
-    func jsonData() throws -> Data {
-        return try newJSONEncoder().encode(self)
-    }
-    
-    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
-        return String(data: try self.jsonData(), encoding: encoding)
-    }
-}
-
-extension Array where Element == CarClassServices.Element {
-    init(data: Data) throws {
-        self = try newJSONDecoder().decode(CarClassServices.self, from: data)
-    }
-    
-    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
-        guard let data = json.data(using: encoding) else {
-            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
-        }
-        try self.init(data: data)
-    }
-    
-    init(fromURL url: URL) throws {
-        try self.init(data: try Data(contentsOf: url))
-    }
-    
-    func jsonData() throws -> Data {
-        return try newJSONEncoder().encode(self)
-    }
-    
-    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
-        return String(data: try self.jsonData(), encoding: encoding)
-    }
-}
+typealias CarClassServices = [CarClassService]
 
 // MARK: - Alamofire response handlers
 

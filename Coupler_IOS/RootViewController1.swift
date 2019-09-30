@@ -28,7 +28,12 @@ public class RootViewController: SideMenu, SideMenuDelegate {
         self.scaleBackgroundImageView = false
         self.contentViewInPortraitOffsetCenterX = 120
         self.contentViewInLandscapeOffsetCenterX = 240
-
+        let langStr = Locale.current.languageCode
+        if langStr == "he"{
+            UIView.appearance().semanticContentAttribute = .forceRightToLeft
+            UserDefaults.standard.set([langStr], forKey: "AppleLanguages")
+//            UIButton.ContentHorizontalAlignment = UIControl.ContentHorizontalAlignment.right
+        }
         self.delegate = self
 
 //        if let storyboard = self.storyboard {
@@ -124,6 +129,38 @@ extension UIViewController {
         view.window!.layer.add(transition, forKey: kCATransition)
         present(customVcTransition, animated: false, completion: nil)
     }
+    func showActivityIndicator() {
+        let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+//        activityIndicator.backgroundColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+        activityIndicator.layer.cornerRadius = 20
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = .gray
+        activityIndicator.startAnimating()
+        //UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        activityIndicator.tag = 100 // 100 for example
+        
+        // before adding it, you need to check if it is already has been added:
+        for subview in view.subviews {
+            if subview.tag == 100 {
+                print("already added")
+                return
+            }
+        }
+        
+        view.addSubview(activityIndicator)
+    }
+    
+    func hideActivityIndicator() {
+        let activityIndicator = view.viewWithTag(100) as? UIActivityIndicatorView
+        activityIndicator?.stopAnimating()
+        
+        // I think you forgot to remove it?
+        activityIndicator?.removeFromSuperview()
+        
+        //UIApplication.shared.endIgnoringInteractionEvents()
+    }
     
 }
 extension Array where Element: AnyObject {
@@ -201,7 +238,3 @@ extension UIScrollView {
         return isBouncing
     }
 }
-
-
-
-

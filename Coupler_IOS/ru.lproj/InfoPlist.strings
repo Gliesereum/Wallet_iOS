@@ -1,0 +1,13 @@
+/* 
+  InfoPlist.strings
+  Coupler_IOS
+
+  Created by macbook on 15/09/2019.
+  Copyright © 2019 Coupler. All rights reserved.
+*/
+"NSCameraUsageDescription" = "Этому приложению нужен доступ к вашей фотокамере, чтобы установить аватар";
+"NSPhotoLibraryAddUsageDescription" = "Этому приложению нужен доступ к вашей фотокамере, чтобы установить аватар";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Этому приложению нужен доступ к вашей геолокации, чтобы показывать текущее местоположение на карте";
+"NSLocationAlwaysUsageDescription" = "Этому приложению нужен доступ к вашей геолокации, чтобы показывать текущее местоположение на карте";
+"NSLocationWhenInUseUsageDescription" = "Этому приложению нужен доступ к вашей геолокации, чтобы показывать текущее местоположение на карте";
+"NSPhotoLibraryUsageDescription" = "Этому приложению нужен доступ к вашим фотографиям, чтобы установить аватар";

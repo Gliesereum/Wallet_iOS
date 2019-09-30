@@ -1,0 +1,9 @@
+
+/* Class = "UIButton"; normalTitle = "ОК"; ObjectID = "4LU-Wz-Qfo"; */
+"4LU-Wz-Qfo.normalTitle" = "ОК";
+
+/* Class = "UITextField"; placeholder = "Введите ваш коменнтарий"; ObjectID = "9No-bi-UI6"; */
+"9No-bi-UI6.placeholder" = "Введите ваш коменнтарий";
+
+/* Class = "UIButton"; normalTitle = "ОТМЕНА"; ObjectID = "uAm-gm-vV5"; */
+"uAm-gm-vV5.normalTitle" = "ОТМЕНА";

@@ -63,12 +63,12 @@ class CommentsDialog: UIViewController, NVActivityIndicatorViewable, FloatRating
         
         self.view.endEditing(true)
         guard self.comments.text != "" else{
-            utils.checkFilds(massage: "Введите комментарий", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("enter_commets", comment: ""), vc: self.view)
 //            TinyToast.shared.show(message: "Введите комментарий", valign: .bottom, duration: .normal)
             return
         }
         guard ratingText != 12 else{
-            utils.checkFilds(massage: "Выберите рейтинг", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("enter_rating", comment: ""), vc: self.view)
 //            TinyToast.shared.show(message: "Выберите рейтинг", valign: .bottom, duration: .normal)
             return
         }

@@ -55,22 +55,32 @@ public class LeftMenuViewController: UIViewController{
     }
     public override func viewDidAppear(_ animated: Bool) {
 //       checkAccesToken()
-       
+//        let transition = CATransition()
+//        transition.duration = 0.5
+//        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+//        transition.type = CATransitionType.push
+//        transition.subtype = CATransitionSubtype.fromRight
+//        self.view.window!.layer.add(transition, forKey: nil)
+//        self.dismiss(animated: false, completion: nil)
         checkBuisnes()
         
     }
     func checkBuisnes(){
         if UserDefaults.standard.object(forKey: "BUISNESSNAME") != nil{
 //            guard mapButton.titleLabel?.text == "Карта" + "(" + (UserDefaults.standard.object(forKey: "BUISNESSNAME") as! String) + ")" else{
-                mapButton.setTitle("Карта" + "(" + (UserDefaults.standard.object(forKey: "BUISNESSNAME") as! String) + ")", for: .normal)
+            
+                mapButton.setTitle(NSLocalizedString("map", comment: "") + "(" + (UserDefaults.standard.object(forKey: "BUISNESSNAME") as! String) + ")", for: .normal)
+           
             
         }
     }
     override public func viewDidLoad() {
         super.viewDidLoad()
 //        version.text = "Версия: " + ((Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String)!)
-//       checkAccesToken()
-        
+//
+    
+            view.semanticContentAttribute = .forceLeftToRight
+        checkAccesToken()
 //        navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.tintColor = .white
         agentImage.isHidden = true

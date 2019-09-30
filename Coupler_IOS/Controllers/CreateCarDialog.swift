@@ -5,7 +5,7 @@ import Alamofire
 protocol CreateCarDialogDismissDelegate: class {
     func Dismiss(index: Int, selectionCategory: String)
 }
-class CreateCarDialog: UIViewController, UITableViewDataSource, UITableViewDelegate, NVActivityIndicatorViewable {
+class CreateCarDialog: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     @IBOutlet weak var filterTable: UITableView!
     @IBOutlet weak var filterName: UILabel!

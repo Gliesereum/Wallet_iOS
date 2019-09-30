@@ -12,7 +12,7 @@ import Alamofire
 protocol FilterDialodDismissDelegate: class {
     func Dismiss(filterListId: [String], filterOn: Bool)
 }
-class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate, NVActivityIndicatorViewable {
+class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     @IBOutlet weak var remuveChouse: UIButton!
     @IBOutlet weak var filterTable: UITableView!
@@ -73,16 +73,28 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "filterCell", for: indexPath) as! FilterCell
         let filterService = filterList[indexPath.section]
-        utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.0417380137), borderWidth: 1, cornerRadius: 4)
-        cell.serviceName.text = filterService.name!
-        cell.serviceId.text = filterService.id!
-        for id in filterListIdOld{
-            if id == filterService.id!{
-                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-                filterListId.append(cell.serviceId.text!)
+        if filterService.descriptions != nil{
+            utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.0417380137), borderWidth: 1, cornerRadius: 4)
+            
+            let langStr = Locale.current.languageCode
+            switch langStr {
+            case "en":
+                cell.serviceName.text = filterService.descriptions?.en?.name!
+            case "ru":
+                cell.serviceName.text = filterService.descriptions?.ru?.name!
+            case "uk":
+                cell.serviceName.text = filterService.descriptions?.uk?.name!
+            default:
+                cell.serviceName.text = filterService.descriptions?.en?.name!
+            }
+            cell.serviceId.text = filterService.id!
+            for id in filterListIdOld{
+                if id == filterService.id!{
+                    tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                    filterListId.append(cell.serviceId.text!)
+                }
             }
         }
-        
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -90,7 +102,7 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
         UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
             
             self.utils.setBorder(view: cell, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 4)
-            cell.serviceName.textColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+            cell.serviceName.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7047035531)
             
         }, completion:nil)
         filterListId.append(cell.serviceId.text!)
@@ -125,7 +137,7 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
         dismiss(animated: true, completion: nil)
     }
     func getFilterBody(){
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/service/by-business-category"
        
         let toDo: [String: Any]  = ["businessCategoryId": UserDefaults.standard.object(forKey: "BUISNESSID")!]
@@ -133,7 +145,7 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
         Alamofire.request(restUrl, method: .get, parameters: toDo, headers: self.constants.appID).responseJSON { response  in
             
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             
@@ -144,13 +156,13 @@ class FilterDialog: UIViewController, UITableViewDataSource, UITableViewDelegate
                 self.filterList = carList
                 
                 self.filterTable.reloadData()
-                self.stopAnimating()
+                self.hideActivityIndicator()
 //                self.selectedFilter()
                 
             }
             catch{
                 
-                self.stopAnimating()
+                self.hideActivityIndicator()
             }
             
             

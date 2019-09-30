@@ -4,101 +4,48 @@
 
 import Foundation
 
-typealias BuisnessBody = [BuisnessBodyElement]
-
-class BuisnessBodyElement: Codable {
-    let id, code, name, description: String?
-    let imageURL: String?
-    let businessType: String?
+// MARK: - BuisnessBodyElement
+struct BuisnessBodyElement: Codable {
     let active: Bool?
+    let id, code: String?
+    let descriptions: Descriptions?
+    let imageURL: String?
+    let orderIndex: Int?
+    let businessType, buisnessBodyDescription, name: String?
     
     enum CodingKeys: String, CodingKey {
-        case id, code, name, description
+        case active, id, code, descriptions
         case imageURL = "imageUrl"
-        case businessType
-        case active
-    }
-    
-    init(id: String?, code: String?, name: String?, description: String?, imageURL: String?, businessType: String?, active: Bool?) {
-        self.id = id
-        self.code = code
-        self.name = name
-        self.description = description
-        self.imageURL = imageURL
-        self.businessType = businessType
-        self.active = active
+        case orderIndex, businessType
+        case buisnessBodyDescription = "description"
+        case name
     }
 }
 
-// MARK: Convenience initializers and mutators
+// MARK: - Descriptions
+struct Descriptions: Codable {
+    let en, ru, uk, he: En?
+}
 
-extension BuisnessBodyElement {
-    convenience init(data: Data) throws {
-        let me = try newJSONDecoder().decode(BuisnessBodyElement.self, from: data)
-        self.init(id: me.id, code: me.code, name: me.name, description: me.description, imageURL: me.imageURL, businessType: me.businessType, active: me.active)
-    }
+// MARK: - En
+struct En: Codable {
+    let id, objectID: String?
+    let languageCode: LanguageCode?
+    let name, enDescription: String?
     
-    convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
-        guard let data = json.data(using: encoding) else {
-            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
-        }
-        try self.init(data: data)
-    }
-    
-    convenience init(fromURL url: URL) throws {
-        try self.init(data: try Data(contentsOf: url))
-    }
-    
-    func with(
-        id: String?? = nil,
-        code: String?? = nil,
-        name: String?? = nil,
-        description: String?? = nil,
-        imageURL: String?? = nil,
-        businessType: String?? = nil,
-        active: Bool?
-        ) -> BuisnessBodyElement {
-        return BuisnessBodyElement(
-            id: id ?? self.id,
-            code: code ?? self.code,
-            name: name ?? self.name,
-            description: description ?? self.description,
-            imageURL: imageURL ?? self.imageURL,
-            businessType: businessType ?? self.businessType,
-            active:active ?? self.active
-        )
-    }
-    
-    func jsonData() throws -> Data {
-        return try newJSONEncoder().encode(self)
-    }
-    
-    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
-        return String(data: try self.jsonData(), encoding: encoding)
+    enum CodingKeys: String, CodingKey {
+        case id
+        case objectID = "objectId"
+        case languageCode, name
+        case enDescription = "description"
     }
 }
 
-extension Array where Element == BuisnessBody.Element {
-    init(data: Data) throws {
-        self = try newJSONDecoder().decode(BuisnessBody.self, from: data)
-    }
-    
-    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
-        guard let data = json.data(using: encoding) else {
-            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
-        }
-        try self.init(data: data)
-    }
-    
-    init(fromURL url: URL) throws {
-        try self.init(data: try Data(contentsOf: url))
-    }
-    
-    func jsonData() throws -> Data {
-        return try newJSONEncoder().encode(self)
-    }
-    
-    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
-        return String(data: try self.jsonData(), encoding: encoding)
-    }
+enum LanguageCode: String, Codable {
+    case en = "en"
+    case ru = "ru"
+    case uk = "uk"
+    case he = "he"
 }
+
+typealias BuisnessBody = [BuisnessBodyElement]

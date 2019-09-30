@@ -1,0 +1,9 @@
+
+/* Class = "UIButton"; normalTitle = "ОК"; ObjectID = "EN0-MO-KkC"; */
+"EN0-MO-KkC.normalTitle" = "ОК";
+
+/* Class = "UIButton"; normalTitle = "ОТМЕНА"; ObjectID = "FWb-OG-4XK"; */
+"FWb-OG-4XK.normalTitle" = "СКАСУВАТИ";
+
+/* Class = "UITextField"; placeholder = "Введите ваш коменнтарий"; ObjectID = "gWA-NA-k2g"; */
+"gWA-NA-k2g.placeholder" = "Введіть ваш коментар";

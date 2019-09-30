@@ -13,7 +13,7 @@ import SDWebImage
 import Lightbox
 
 
-class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRecognizerDelegate, NVActivityIndicatorViewable {
+class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRecognizerDelegate{
     
     
     
@@ -134,32 +134,32 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         
         self.view.endEditing(true)
         guard firstName.text!.count >= 2 else{
-            utils.checkFilds(massage: "Введите ваше имя", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("Enter_name", comment: ""), vc: self.view)
             return
         }
         guard lastName.text!.count >= 2 else{
             
-            utils.checkFilds(massage: "Введите вашу фамилию", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("Enter_last_name", comment: ""), vc: self.view)
             return
         }
         guard patronymic.text!.count >= 3 else{
             
-            utils.checkFilds(massage: "Введите ваше отчество", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("Enter_midle_name", comment: ""), vc: self.view)
             return
         }
         guard country.text!.count >= 2 else{
             
-            utils.checkFilds(massage: "Введите название вашей страны", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("Enter_country", comment: ""), vc: self.view)
             return
         }
         guard city.text!.count >= 2 else{
             
-            utils.checkFilds(massage: "Введите название вашего города", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("Enter_city", comment: ""), vc: self.view)
             return
         }
         guard adress.text!.count >= 6 else{
             
-            utils.checkFilds(massage: "Введите ваш адрес", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("Enter_address", comment: ""), vc: self.view)
             return
         }
         ColorOrange()
@@ -181,7 +181,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     //MARK: get carwash list
     func ragistrarion(firstName: String, lastName: String, middleName: String, country: String, city: String, adress: String, avatarUrl: String?){
         
-        self.startAnimating()
+        self.showActivityIndicator()
         print(firstName)
         if profiModel == nil {
             profiModel = ProfileModel(id: nil, phone: nil, firstName: firstName, lastName: lastName, middleName: middleName, position: nil, country: country, city: city, address: adress, addAddress: nil, avatarURL: avatarUrl, coverURL: nil, gender: nil, banStatus: nil, verifiedStatus: nil, userType: nil)
@@ -200,7 +200,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             
             self.utils.checkAutorization(vc: self)
-             self.stopAnimating()
+             self.hideActivityIndicator()
             return
         }
         Alamofire.request(restUrl, method: .put, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseProfileModel { response  in
@@ -208,12 +208,12 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
                 // got an error in getting the data, need to handle it
                 print("error calling POST on /todos/1")
                 print(response.result.error!)
-                 self.stopAnimating()
+                 self.hideActivityIndicator()
                 return
             }
             // make sure we got some JSON since that's what we expect
             guard response.result.value != nil else{
-                 self.stopAnimating()
+                 self.hideActivityIndicator()
                 return
             }
             let profileModel = response.result.value
@@ -227,11 +227,11 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             if self.poper == true{
                 self.poper = false
                 self.dismiss(animated: true, completion: nil)
-                self.utils.doneMassage(massage: "Данные изменены", vc: self.view)
+                self.utils.doneMassage(massage: NSLocalizedString("Data_chendged", comment: ""), vc: self.view)
             } else{
-                 self.utils.doneMassage(massage: "Данные изменены", vc: self.view)
+                 self.utils.doneMassage(massage: NSLocalizedString("Data_chendged", comment: ""), vc: self.view)
             }
-             self.stopAnimating()
+             self.hideActivityIndicator()
         
         }
         
@@ -264,12 +264,12 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     }
     func getProfile(){
         
-        self.startAnimating()
+        self.showActivityIndicator()
         let restUrl = constants.startUrl + "account/v1/user/me"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             
             self.utils.checkAutorization(vc: self)
-             self.stopAnimating()
+             self.hideActivityIndicator()
             return
         }
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
@@ -278,8 +278,8 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             let profileModel = response.result.value
             guard profileModel!.firstName != nil else{
                 self.editProfile(self)
-                self.utils.checkFilds(massage: "Заполните свой профиль", vc: self.view)
-                 self.stopAnimating()
+                self.utils.checkFilds(massage: NSLocalizedString("Fill_profile", comment: ""), vc: self.view)
+                 self.hideActivityIndicator()
                 return
             }
             self.firstName.text =  profileModel?.firstName
@@ -293,7 +293,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
                 self.avatarUrl = profileModel!.avatarURL!
                 self.imageAvatar.downloaded(from: profileModel!.avatarURL!)
             }
-             self.stopAnimating()
+             self.hideActivityIndicator()
         }
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -308,7 +308,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
     }
     func getAvatar(image: UIImage){
         
-        self.startAnimating()
+        self.showActivityIndicator()
         let imgData = image.sd_imageData()!
         let restUrl = constants.startUrl + "file/v1/upload"
         self.avatarUrl = ""
@@ -339,14 +339,14 @@ class ProfileViewController: UIViewController, ImagePickerDelegate, UIGestureRec
             case .failure(let encodingError):
                 print(encodingError)
             }
-             self.stopAnimating()
+             self.hideActivityIndicator()
         }
     }
     
     func setProfile(){
         guard profiModel!.firstName != nil else{
             self.editProfile(self)
-            self.utils.checkFilds(massage: "Заполните свой профиль", vc: self.view)
+            self.utils.checkFilds(massage: NSLocalizedString("Fill_profile", comment: ""), vc: self.view)
             return
         }
         self.firstName.text =  profiModel?.firstName

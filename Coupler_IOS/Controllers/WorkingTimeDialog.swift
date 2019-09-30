@@ -12,7 +12,7 @@ import UIKit
 protocol WorkingTimeDismissDelegate: class {
     func Dismiss(filterListId: [String], filterOn: Bool)
 }
-class WorkingTimeDialog: UIViewController, NVActivityIndicatorViewable, UIGestureRecognizerDelegate {
+class WorkingTimeDialog: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var beginMo: UILabel!
     @IBOutlet weak var endMo: UILabel!

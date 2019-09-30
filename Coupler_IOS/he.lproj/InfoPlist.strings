@@ -1,0 +1,13 @@
+/* 
+  InfoPlist.strings
+  Coupler_IOS
+
+  Created by macbook on 15/09/2019.
+  Copyright © 2019 Coupler. All rights reserved.
+*/
+"NSCameraUsageDescription" = "אפליקציה זו רוצה לצלם תמונות להגדרת אווטאר";
+"NSPhotoLibraryAddUsageDescription" = "אפליקציה זו רוצה לצלם תמונות להגדרת אווטאר";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "אפליקציה זו רוצה לציין את המיקום הנוכחי במפה";
+"NSLocationAlwaysUsageDescription" = "אפליקציה זו רוצה לצלם את המיקום הנוכחי במפה";
+"NSLocationWhenInUseUsageDescription" = "אפליקציה זו רוצה לצלם את המיקום הנוכחי במפה";
+"NSPhotoLibraryUsageDescription" = "אפליקציה זו רוצה להשתמש בתמונות שלך כדי להגדיר אווטאר";

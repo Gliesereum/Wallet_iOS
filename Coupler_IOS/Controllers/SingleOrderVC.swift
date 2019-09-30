@@ -19,7 +19,7 @@ class SingleOrdersPackegeServiceCell: UITableViewCell{
     @IBOutlet weak var service: UILabel!
 }
 
-class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate {
+class SingleOrderVC: UIViewController, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
     
     let constants = Constants()
     let utils = Utils()
@@ -63,6 +63,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
 //        if record?.services == nil || record?.services?.count == 0 {
 //            viewService.visiblity(gone: true)
 //        }
+//        getPushRecord(pushRecordId: (record?.id)!)
        NotificationCenter.default.addObserver(self, selector: #selector(getPushNatRecord), name: Notification.Name(rawValue: "reloadTheTable"), object: nil)
 //        utils.checkPushNot(vc: self)
         if record != nil{
@@ -85,8 +86,8 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         status.text = utils.checkStatus(status: (record?.statusProcess)!)
         date.text = utils.milisecondsToDateB(miliseconds: (record?.begin)!)
         time.text = utils.milisecondsToTime(miliseconds: (record?.begin)!, timeZone: (record?.business?.timeZone)!)
-        price.text = String((record?.price)!) + " грн"
-        duration.text = String(((record?.finish)! - (record?.begin)!)/60000) + " мин"
+        price.text = String((record?.price)!) + NSLocalizedString("UAH", comment: "")
+        duration.text = String(((record?.finish)! - (record?.begin)!)/60000) + NSLocalizedString("min", comment: "")
         name.text = record?.business?.name
         status.text = utils.checkStatus(status: (record?.statusProcess)!) 
         utils.setBorder(view: canselBtn, backgroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), borderColor: #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1), borderWidth: 1, cornerRadius: 8)
@@ -120,7 +121,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     */
     @IBAction func showDirection(_ sender: Any) {
         guard self.utils.getSharedPref(key: "curLat") != nil else {
-            SCLAlertView().showInfo("Нет данных о вашем местоположении", closeButtonTitle: "Закрыть")
+            SCLAlertView().showInfo(NSLocalizedString("Location_error", comment: ""), closeButtonTitle: NSLocalizedString("Clouse", comment: ""))
             return
         }
         
@@ -214,17 +215,17 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     }
     
     func getCarInfo(){
-        startAnimating()
+        showActivityIndicator()
         let carId = record?.targetID
         guard carId != nil else{
-            self.stopAnimating()
+            self.hideActivityIndicator()
             return
         }
         let restUrl = constants.startUrl + "karma/v1/car/\(carId!)"
         var carInfo = ""
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             do{
@@ -238,7 +239,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
                 
             }
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
             
           
             
@@ -248,17 +249,17 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     }
     
     func getWorkerInfo(){
-        startAnimating()
+        showActivityIndicator()
         let workerId = record?.workerID
         guard workerId != nil else{
-            self.stopAnimating()
+            self.hideActivityIndicator()
             return
         }
         let restUrl = constants.startUrl + "karma/v1/worker/by-id?id=\(workerId!)"
         var carInfo = ""
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             do{
@@ -272,7 +273,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
                 print(error)
             }
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
             
             
             
@@ -323,7 +324,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
             
             self.utils.checkAutorization(vc: self)
 //            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
-            stopAnimating()
+            hideActivityIndicator()
             return
         }
         
@@ -343,19 +344,19 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
     }
     
     func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "Здесь будет отображаться подробная информация о вашем заказе")
+        let infoDesc = InfoDescriptor(for: NSLocalizedString("tutor_SIOVC_1", comment: ""))
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
         
         
-        let leftDesc = LabelDescriptor(for: "Чтобы проложить маршрут нажмите сюда")
+        let leftDesc = LabelDescriptor(for: NSLocalizedString("tutor_SIOVC_2", comment: ""))
         leftDesc.position = .bottom
         let leftHoleDesc = HoleViewDescriptor(view: showRoate, type: .rect(cornerRadius: 5, margin: 10))
         leftHoleDesc.labelDescriptor = leftDesc
         let rightLeftTask = PassthroughTask(with: [leftHoleDesc])
         
         
-        let leftDesc1 = LabelDescriptor(for: "Чтобы отменить заказ нажмите сюда")
+        let leftDesc1 = LabelDescriptor(for: NSLocalizedString("tutor_SIOVC_3", comment: ""))
         leftDesc1.position = .bottom
         let leftHoleDesc1 = HoleViewDescriptor(view: canselBtn, type: .rect(cornerRadius: 5, margin: 10))
         leftHoleDesc1.labelDescriptor = leftDesc1
@@ -405,20 +406,20 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
         }
     }
     func getPushRecord(pushRecordId: String){
-            startAnimating()
+            showActivityIndicator()
             UserDefaults.standard.removeObject(forKey: "OBJECTID")
         let restUrl = constants.startUrl + "karma/v1/record/\(pushRecordId)"
             guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
            
                 self.utils.checkAutorization(vc: self)
-                stopAnimating()
+                hideActivityIndicator()
                 return
             }
             let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
             Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
                 
                 guard self.utils.checkResponse(response: response, vc: self) == true else{
-                    self.stopAnimating()
+                    self.hideActivityIndicator()
                     return
                 }
                 
@@ -440,7 +441,7 @@ class SingleOrderVC: UIViewController, UITableViewDataSource, NVActivityIndicato
                     print(error)
                 }
                 
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 
                 
             }

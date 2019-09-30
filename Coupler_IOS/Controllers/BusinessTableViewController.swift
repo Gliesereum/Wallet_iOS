@@ -22,7 +22,7 @@ struct BuisnesList {
     let id: String?
 }
 
-class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable, UITableViewDataSource, UITableViewDelegate, HelloDismissDelegate{
+class BusinessTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HelloDismissDelegate{
     func helloDismiss() {
         showTutorial()
     }
@@ -44,7 +44,6 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         getAllBuisness()
        
         tableBuisness.rowHeight = UITableView.automaticDimension
@@ -53,7 +52,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         tableBuisness.layoutIfNeeded()
         tableBuisness.invalidateIntrinsicContentSize()
         utils.checkPushNot(vc: self)
-        let logo = UIImage(named: "Betelogo")
+        let logo = UIImage(named: "logo_appbar_v1")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
         
@@ -71,7 +70,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
             infoDescriptor.widthControl = .precise(300)
         }
         
-        PassthroughManager.shared.closeButton.setTitle("Пропустить", for: .normal)
+        PassthroughManager.shared.closeButton.setTitle(NSLocalizedString("skip", comment: ""), for: .normal)
     }
 
     // MARK: - Table view data source
@@ -99,8 +98,20 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         let cell = tableView.dequeueReusableCell(withIdentifier: "buisnessViewCell", for: indexPath) as! BuisnessViewCell
 
         let record = buisness[indexPath.section]
-        cell.buisnesId.text = record.id!
-        cell.buisnessName.text = record.name!
+        cell.buisnesId.text = record.id
+        let langStr = Locale.current.languageCode
+        switch langStr {
+        case "en":
+            cell.buisnessName.text = record.descriptions?.en?.name!
+        case "ru":
+            cell.buisnessName.text = record.descriptions?.ru?.name!
+        case "uk":
+            cell.buisnessName.text = record.descriptions?.uk?.name!
+        case "he":
+            cell.buisnessName.text = record.descriptions?.he?.name!
+        default:
+            cell.buisnessName.text = record.descriptions?.en?.name!
+        }
         if record.active != true{
             cell.buisnessName.textColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
             
@@ -140,7 +151,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         self.selectedRecord = record
        
         guard record.active == true else{
-            utils.checkFilds(massage: "Скоро будет доступно", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("soon", comment: ""), vc: self.view)
             return
         }
         UIView.animate(withDuration: 0.4, delay: 0.0, options:[.transitionCurlDown], animations: {
@@ -150,7 +161,20 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
         }, completion:nil)
         self.utils.setSaredPref(key: "BUISNESSTYPE", value: record.businessType!)
         self.utils.setSaredPref(key: "BUISNESSID", value: record.id!)
-        self.utils.setSaredPref(key: "BUISNESSNAME", value: record.name!)
+        let langStr = Locale.current.languageCode
+        switch langStr {
+        case "en":
+            self.utils.setSaredPref(key: "BUISNESSNAME", value: (record.descriptions?.en?.name!)!)
+        case "ru":
+            self.utils.setSaredPref(key: "BUISNESSNAME", value: (record.descriptions?.ru?.name!)!)
+        case "uk":
+            self.utils.setSaredPref(key: "BUISNESSNAME", value: (record.descriptions?.uk?.name!)!)
+        case "he":
+            self.utils.setSaredPref(key: "BUISNESSNAME", value: (record.descriptions?.he?.name!)!)
+        default:
+            self.utils.setSaredPref(key: "BUISNESSNAME", value: (record.descriptions?.en?.name!)!)
+        }
+        
         self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "selectSingleBuisnesVC")), animated: true)
         self.sideMenuViewController!.hideMenuViewController()
     }
@@ -165,12 +189,12 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
 
     
     func getAllBuisness(){
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/business-category"
         Alamofire.request(restUrl, method: .get, headers: constants.appID).responseJSON { response  in
             
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             
@@ -184,7 +208,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
                 print(error)
             }
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
             
             
             self.tableBuisness.reloadData()
@@ -212,7 +236,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
     }
     
     func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "Добро пожаловать в приложение Coupler. Мы постараемся подробно объяснить функционал приложения в этом помощнике. ")
+        let infoDesc = InfoDescriptor(for: NSLocalizedString("tutor_BTVC_1", comment: ""))
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
 
@@ -222,7 +246,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
 
         
         let buttonItemView = menuItem.value(forKey: "view") as? UIView
-        let leftDesc2 = LabelDescriptor(for: "Это кнопка вызова меню ")
+        let leftDesc2 = LabelDescriptor(for: NSLocalizedString("tutor_BTVC_2", comment: ""))
         leftDesc2.position = .bottom
         let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .rect(cornerRadius: 5, margin: 10))
         leftHoleDesc2.labelDescriptor = leftDesc2
@@ -244,7 +268,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
 //
 //        let handleTask = createDemoHandlersOfTask()
 
-        let cellDesc = LabelDescriptor(for: "Здесь Вы можете выбрать интересующую категорию компании")
+        let cellDesc = LabelDescriptor(for: NSLocalizedString("tutor_BTVC_3", comment: ""))
         cellDesc.position = .bottom
         let cellHoleDesc = CellViewDescriptor(tableView: self.tableBuisness, indexPath: IndexPath(row: 0, section: 0), forOrientation: .any)
         cellHoleDesc.labelDescriptor = cellDesc
@@ -261,7 +285,7 @@ class BusinessTableViewController: UIViewController, NVActivityIndicatorViewable
 //        var infoTask3 = PassthroughTask(with: [])
 //        infoTask3.infoDescriptor = infoDesc3
 
-        PassthroughManager.shared.closeButton.setTitle("Пропустить", for: .normal)
+        PassthroughManager.shared.closeButton.setTitle(NSLocalizedString("skip", comment: ""), for: .normal)
         PassthroughManager.shared.display(tasks: [rightLeftTask2, cellTask]) {
             isUserSkipDemo in
 

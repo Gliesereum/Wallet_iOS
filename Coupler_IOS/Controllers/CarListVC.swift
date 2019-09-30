@@ -53,7 +53,7 @@ class SelectedCarInfo: NSObject, NSCoding {
 }
 
 
-class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate{
+class CarListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate{
    
     
     
@@ -132,12 +132,12 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         
     }
     func getAllCars(){
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/car/user"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             
             self.utils.checkAutorization(vc: self)
-            stopAnimating()
+            hideActivityIndicator()
             return
         }
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
@@ -155,11 +155,11 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
 //                notOrder.font = .systemFont(ofSize: 50)
 //                notOrder.text = "Нет авто"
 //                self.carListTable.addSubview(notOrder)
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             
@@ -188,7 +188,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
             catch{
                 
             }
-            self.stopAnimating()
+            self.hideActivityIndicator()
             
             
         }
@@ -217,6 +217,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         let index = sender.tag
         selectedCar = carListData[index]
         //        selectedCar = loadCar[]
+       
         let carInfo = SelectedCarInfo.init(carId: (selectedCar?.carId)!, carInfo: (selectedCar?.carBrand)! + " " + (selectedCar?.carModel)!, carAttributes: (selectedCar?.carAttributes)!, carServices: selectedCar!.carServices)
         setFavoriteCar(carId: (selectedCar?.carId)!)
         utils.setCarInfo(key: "CARID", value: carInfo)
@@ -338,11 +339,10 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
         let restUrl = constants.startUrl + "karma/v1/car/set-favorite/" + carId
         Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                
                 return
             }
             
-            self.stopAnimating()
         }
     }
     
@@ -355,7 +355,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
             self.utils.checkAutorization(vc: self)
             
 //            self.utils.checkFilds(massage: "Авторизируйтесь", vc: self.view)
-            stopAnimating()
+            
             return
         }
         if UserDefaults.standard.object(forKey: "CARLISTVC") == nil{
@@ -367,7 +367,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
     }
     
     func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "Здесь будут отображаться ваши добавленные автомобили. Добавлять авто нужно,  чтобы мы смогли подобрать для вас наиболее подходящий сервис")
+        let infoDesc = InfoDescriptor(for: NSLocalizedString("tutor_CLVC_1", comment: ""))
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
         
@@ -393,7 +393,7 @@ class CarListViewController: UIViewController, NVActivityIndicatorViewable, UITa
 //        let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
         
         
-        let cellDesc = LabelDescriptor(for: "Тут Вы можите просмотреть информацию, или выбрать автомобиль")
+        let cellDesc = LabelDescriptor(for: NSLocalizedString("tutor_CLVC_2", comment: ""))
         cellDesc.position = .bottom
         let cellHoleDesc = CellViewDescriptor(tableView: self.carListTable, indexPath: IndexPath(row: 0, section: 0), forOrientation: .any)
         cellHoleDesc.labelDescriptor = cellDesc

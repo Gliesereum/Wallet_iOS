@@ -1,0 +1,13 @@
+/* 
+  InfoPlist.strings
+  Coupler_IOS
+
+  Created by macbook on 15/09/2019.
+  Copyright © 2019 Coupler. All rights reserved.
+*/
+"NSCameraUsageDescription" = "This app wants to take pictures to set avatar";
+"NSPhotoLibraryAddUsageDescription" = "This app wants to take pictures to set avatar";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "This app wants to take current location to show in the map";
+"NSLocationAlwaysUsageDescription" = "This app wants to take current location to show in the map";
+"NSLocationWhenInUseUsageDescription" = "This app wants to take current location to show in the map";
+"NSPhotoLibraryUsageDescription" = "This app wants to use your photos to set avatar";

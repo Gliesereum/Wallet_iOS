@@ -11,7 +11,7 @@ import FloatRatingView
 import Alamofire
 
 
-class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate, NVActivityIndicatorViewable{
+class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
     @IBOutlet weak var workerImage: UIImageView!
     @IBOutlet weak var workerName: UILabel!
@@ -86,7 +86,7 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
 //            self.utils.checkFilds(massage: "Что бы оставить комменатирий Вы должны авторизироватся", vc: self.view)
 //            self.addCommentsView.visiblity(gone: true)
             self.utils.checkAutorization(vc: self)
-            stopAnimating()
+            hideActivityIndicator()
             return
         }
         guard utils.getSharedPref(key: "USER") != nil else{
@@ -153,12 +153,12 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
     func getMyComment(){
         guard utils.getSharedPref(key: "accessToken") != nil else{
             
-            stopAnimating()
+            hideActivityIndicator()
             return
         }
         
         let carWashId: String = (worker?.id)!
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/worker/\(carWashId)/comment/current-user"
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
@@ -166,17 +166,17 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
                 self.addCommentsView.visiblity(gone: true)
                 self.addCommentsView.isHidden = true
                 self.view.layoutIfNeeded()
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             
             
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
         }
     }
     func getCarWashInfoComments(){
@@ -185,7 +185,7 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
         let restUrl = constants.startUrl + "karma/v1/worker/by-id?id=\((worker?.id)!)"
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             do{
@@ -207,7 +207,7 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
                 
             }
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
         }
     }
     
@@ -261,7 +261,7 @@ class SingleWorker: UIViewController, UITableViewDataSource, UITableViewDelegate
             start.text = utils.milisecondsToTime(miliseconds: day.from!, timeZone: timeZone) + " - " + utils.milisecondsToTime(miliseconds: day.to!, timeZone: timeZone)
             //            end.text = utils.milisecondsToTime(miliseconds: day.to!, timeZone: (carWashInfo?.timeZone)!)
         }else {
-            start.text = "Выходной"
+            start.text = NSLocalizedString("day_off", comment: "")
         }
     }
 }

@@ -18,7 +18,7 @@ class ClassServicCell: UITableViewCell{
 }
 
 
-class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewable, CreateCarDialogDismissDelegate, UITableViewDelegate, UITableViewDataSource{
+class CreateCar: UIViewController, UITextFieldDelegate, CreateCarDialogDismissDelegate, UITableViewDelegate, UITableViewDataSource{
    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var brandsTextView: UITextField!
@@ -76,7 +76,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             deleteCarImage.isHidden = false
             deleteCarImage.isEnabled = true
             brandsTextView.isEnabled = false
-            addCarBrnView.setTitle("Сохранить", for: .normal)
+            addCarBrnView.setTitle(NSLocalizedString("save", comment: ""), for: .normal)
             brandsTextView.text = selectedCar?.brand?.name
             brandsId = selectedCar?.brandID
             modelTextView.isEnabled = false
@@ -86,29 +86,106 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             yearTextView.text = "\((selectedCar?.year?.name)!)"
             yearsId = selectedCar?.yearID
             for atribut in (selectedCar?.attributes)!{
-                if atribut.filterID == "0ef64c98-767b-42ba-a9de-171c6d455fff" {
-                    
-                    interiorTextView.isEnabled = true
-                    interiorTextView.text = atribut.title
-                    interiorId = atribut.id
+                let langStr = Locale.current.languageCode
+                switch langStr {
+                case "en":
+                    if atribut.filterID == "0ef64c98-767b-42ba-a9de-171c6d455fff" {
+                        
+                        interiorTextView.isEnabled = true
+                        interiorTextView.text = atribut.descriptions?.en?.title
+                        interiorId = atribut.id
+                    }
+                    if atribut.filterID == "b8d3f705-6277-44cb-a5b1-0ded8e19e691" {
+                        
+                        carColorTextView.isEnabled = true
+                        carColorTextView.text = atribut.descriptions?.en?.title
+                        carColorId = atribut.id
+                    }
+                    if atribut.filterID == "b62b2fef-17cc-4a9b-b076-9055b26137c4" {
+                        
+                        carBodyTextVIew.isEnabled = true
+                        carBodyTextVIew.text = atribut.descriptions?.en?.title
+                        carBodyId = atribut.id
+                    }
+                    if atribut.filterID == "ad2d57da-b0a1-4cc8-a6be-4786589df53c" {
+                        whellRadius.isEnabled = true
+                        whellRadius.text = atribut.title
+                        whellRadiusId = atribut.id
+                    }
+                case "ru":
+                    if atribut.filterID == "0ef64c98-767b-42ba-a9de-171c6d455fff" {
+                        
+                        interiorTextView.isEnabled = true
+                        interiorTextView.text = atribut.descriptions?.ru?.title
+                        interiorId = atribut.id
+                    }
+                    if atribut.filterID == "b8d3f705-6277-44cb-a5b1-0ded8e19e691" {
+                        
+                        carColorTextView.isEnabled = true
+                        carColorTextView.text = atribut.descriptions?.ru?.title
+                        carColorId = atribut.id
+                    }
+                    if atribut.filterID == "b62b2fef-17cc-4a9b-b076-9055b26137c4" {
+                        
+                        carBodyTextVIew.isEnabled = true
+                        carBodyTextVIew.text = atribut.descriptions?.ru?.title
+                        carBodyId = atribut.id
+                    }
+                    if atribut.filterID == "ad2d57da-b0a1-4cc8-a6be-4786589df53c" {
+                        whellRadius.isEnabled = true
+                        whellRadius.text = atribut.title
+                        whellRadiusId = atribut.id
+                    }
+                case "uk":
+                    if atribut.filterID == "0ef64c98-767b-42ba-a9de-171c6d455fff" {
+                        
+                        interiorTextView.isEnabled = true
+                        interiorTextView.text = atribut.descriptions?.uk?.title
+                        interiorId = atribut.id
+                    }
+                    if atribut.filterID == "b8d3f705-6277-44cb-a5b1-0ded8e19e691" {
+                        
+                        carColorTextView.isEnabled = true
+                        carColorTextView.text = atribut.descriptions?.uk?.title
+                        carColorId = atribut.id
+                    }
+                    if atribut.filterID == "b62b2fef-17cc-4a9b-b076-9055b26137c4" {
+                        
+                        carBodyTextVIew.isEnabled = true
+                        carBodyTextVIew.text = atribut.descriptions?.uk?.title
+                        carBodyId = atribut.id
+                    }
+                    if atribut.filterID == "ad2d57da-b0a1-4cc8-a6be-4786589df53c" {
+                        whellRadius.isEnabled = true
+                        whellRadius.text = atribut.title
+                        whellRadiusId = atribut.id
+                    }
+                default:
+                    if atribut.filterID == "0ef64c98-767b-42ba-a9de-171c6d455fff" {
+                        
+                        interiorTextView.isEnabled = true
+                        interiorTextView.text = atribut.descriptions?.en?.title
+                        interiorId = atribut.id
+                    }
+                    if atribut.filterID == "b8d3f705-6277-44cb-a5b1-0ded8e19e691" {
+                        
+                        carColorTextView.isEnabled = true
+                        carColorTextView.text = atribut.descriptions?.en?.title
+                        carColorId = atribut.id
+                    }
+                    if atribut.filterID == "b62b2fef-17cc-4a9b-b076-9055b26137c4" {
+                        
+                        carBodyTextVIew.isEnabled = true
+                        carBodyTextVIew.text = atribut.descriptions?.en?.title
+                        carBodyId = atribut.id
+                    }
+                    if atribut.filterID == "ad2d57da-b0a1-4cc8-a6be-4786589df53c" {
+                        whellRadius.isEnabled = true
+                        whellRadius.text = atribut.title
+                        whellRadiusId = atribut.id
+                    }
                 }
-                if atribut.filterID == "b8d3f705-6277-44cb-a5b1-0ded8e19e691" {
-                    
-                    carColorTextView.isEnabled = true
-                    carColorTextView.text = atribut.title
-                    carColorId = atribut.id
-                }
-                if atribut.filterID == "b62b2fef-17cc-4a9b-b076-9055b26137c4" {
-                    
-                    carBodyTextVIew.isEnabled = true
-                    carBodyTextVIew.text = atribut.title
-                    carBodyId = atribut.id
-                }
-                if atribut.filterID == "ad2d57da-b0a1-4cc8-a6be-4786589df53c" {
-                    whellRadius.isEnabled = true
-                    whellRadius.text = atribut.title
-                    whellRadiusId = atribut.id
-                }
+              
             }
             if let regNumber = selectedCar?.registrationNumber{
                 regNumberTextView.text = regNumber
@@ -275,39 +352,114 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
                 self.arrayCarColor.removeAll()
                 self.arrayCarBodie.removeAll()
                 for filterBodyElement in filterBody{
-                    switch(filterBodyElement.value){
-                    case "CAR_INTERIOR":
-
-                        for title in filterBodyElement.attributes!{
-                            self.arrayInteriors.updateValue(title.id!, forKey: title.title!)
-                            self.arrayInterior.append(title.title!)
+                    let langStr = Locale.current.languageCode
+                    switch langStr {
+                    case "en":
+                        switch(filterBodyElement.value){
+                        case "CAR_INTERIOR":
+                            
+                            for title in filterBodyElement.attributes!{
+                                self.arrayInteriors.updateValue(title.id!, forKey: (title.descriptions?.en?.title)!)
+                                self.arrayInterior.append((title.descriptions?.en?.title)!)
+                            }
+                            
+                            break
+                        case "CAR_COLOR":
+                            
+                            for title in filterBodyElement.attributes!{
+                                self.arrayCarColors.updateValue(title.id!, forKey: (title.descriptions?.en?.title)!)
+                                self.arrayCarColor.append((title.descriptions?.en?.title)!)
+                            }
+                            break
+                        case "CAR_BODY":
+                            
+                            for title in filterBodyElement.attributes!{
+                                self.arrayCarBodies.updateValue(title.id!, forKey: (title.descriptions?.en?.title)!)
+                                self.arrayCarBodie.append((title.descriptions?.en?.title)!)
+                            }
+                            break
+                        case "CAR_WHEEL_RADIUS":
+                            
+                            for title in filterBodyElement.attributes!{
+                                self.arrayRadiusWheel.updateValue(title.id!, forKey: title.title!)
+                                self.arrayRadius.append(title.title!)
+                            }
+                            break
+                        default:
+                            break
                         }
-
-                        break
-                    case "CAR_COLOR":
-
-                        for title in filterBodyElement.attributes!{
-                            self.arrayCarColors.updateValue(title.id!, forKey: title.title!)
-                            self.arrayCarColor.append(title.title!)
+                    case "ru":
+                        switch(filterBodyElement.value){
+                        case "CAR_INTERIOR":
+                            
+                            for title in filterBodyElement.attributes!{
+                                self.arrayInteriors.updateValue(title.id!, forKey: (title.descriptions?.ru?.title)!)
+                                self.arrayInterior.append((title.descriptions?.ru?.title)!)
+                            }
+                            
+                            break
+                        case "CAR_COLOR":
+                            
+                            for title in filterBodyElement.attributes!{
+                                self.arrayCarColors.updateValue(title.id!, forKey: (title.descriptions?.ru?.title)!)
+                                self.arrayCarColor.append((title.descriptions?.ru?.title)!)
+                            }
+                            break
+                        case "CAR_BODY":
+                            
+                            for title in filterBodyElement.attributes!{
+                                self.arrayCarBodies.updateValue(title.id!, forKey: (title.descriptions?.ru?.title)!)
+                                self.arrayCarBodie.append((title.descriptions?.ru?.title)!)
+                            }
+                            break
+                        case "CAR_WHEEL_RADIUS":
+                            
+                            for title in filterBodyElement.attributes!{
+                                self.arrayRadiusWheel.updateValue(title.id!, forKey: title.title!)
+                                self.arrayRadius.append(title.title!)
+                            }
+                            break
+                        default:
+                            break
                         }
-                        break
-                    case "CAR_BODY":
-
-                        for title in filterBodyElement.attributes!{
-                            self.arrayCarBodies.updateValue(title.id!, forKey: title.title!)
-                            self.arrayCarBodie.append(title.title!)
+                    case "uk":
+                        switch(filterBodyElement.value){
+                        case "CAR_INTERIOR":
+                            
+                            for title in filterBodyElement.attributes!{
+                                self.arrayInteriors.updateValue(title.id!, forKey: (title.descriptions?.uk?.title)!)
+                                self.arrayInterior.append((title.descriptions?.uk?.title)!)
+                            }
+                            
+                            break
+                        case "CAR_COLOR":
+                            
+                            for title in filterBodyElement.attributes!{
+                                self.arrayCarColors.updateValue(title.id!, forKey: (title.descriptions?.uk?.title)!)
+                                self.arrayCarColor.append((title.descriptions?.uk?.title)!)
+                            }
+                            break
+                        case "CAR_BODY":
+                            
+                            for title in filterBodyElement.attributes!{
+                                self.arrayCarBodies.updateValue(title.id!, forKey: (title.descriptions?.uk?.title)!)
+                                self.arrayCarBodie.append((title.descriptions?.uk?.title)!)
+                            }
+                            break
+                        case "CAR_WHEEL_RADIUS":
+                            
+                            for title in filterBodyElement.attributes!{
+                                self.arrayRadiusWheel.updateValue(title.id!, forKey: title.title!)
+                                self.arrayRadius.append(title.title!)
+                            }
+                            break
+                        default:
+                            break
                         }
-                        break
-                    case "CAR_WHEEL_RADIUS":
-                        
-                        for title in filterBodyElement.attributes!{
-                            self.arrayRadiusWheel.updateValue(title.id!, forKey: title.title!)
-                            self.arrayRadius.append(title.title!)
-                        }
-                        break
                     default:
                         break
                     }
+                    
                 }
 
 
@@ -316,7 +468,6 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 
             }
 
-            self.stopAnimating()
 
 
         }
@@ -325,11 +476,11 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 
 
     func getClassServices(){
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/class"
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: constants.appID).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             do{
@@ -379,7 +530,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 
             }
 
-            self.stopAnimating()
+            self.hideActivityIndicator()
 
 
 
@@ -397,7 +548,17 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "classServicCell", for: indexPath) as! ClassServicCell
         let carService = classServices[indexPath.row]
-        cell.servicesName.text = carService.name
+        let langStr = Locale.current.languageCode
+        switch langStr {
+        case "en":
+            cell.servicesName.text = carService.descriptions?.en?.name!
+        case "ru":
+            cell.servicesName.text = carService.descriptions?.ru?.name!
+        case "uk":
+            cell.servicesName.text = carService.descriptions?.uk?.name!
+        default:
+            cell.servicesName.text = carService.descriptions?.en?.name!
+        }
         cell.servicesId.text = carService.id
         if selectedCar != nil {
             for service in (selectedCar?.services)!{
@@ -428,22 +589,22 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 
     func addCar(idService : String, carId: String){
 
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/car/service/" + carId + "/" + idService
         Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
 
-            self.stopAnimating()
+            self.hideActivityIndicator()
             self.picker.reloadAllComponents()
         }
 
     }
 
     func addCarInfo(brandId : String , modelId : String, yearId : String, registrationNumber : String, description : String, interior : String, carBody : String, colour : String, whellRadius: String){
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/car"
 
         
@@ -451,7 +612,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             let toDo: [String: String]  = ["brandId": brandId, "modelId": modelId, "yearId": yearId, "registrationNumber": registrationNumber, "description": description, "id": (selectedCar?.id)!]
             Alamofire.request(restUrl, method: .put, parameters: toDo, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
                 guard self.utils.checkResponse(response: response, vc: self) == true else{
-                    self.stopAnimating()
+                    self.hideActivityIndicator()
                     return
                 }
                 do{
@@ -484,14 +645,14 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
                     
                 }
                 
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 
             }
         }else {
             let toDo: [String: Any]  = ["brandId": brandId, "modelId": modelId, "yearId": yearId, "registrationNumber": registrationNumber, "description": description]
         Alamofire.request(restUrl, method: .post, parameters: toDo, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             do{
@@ -524,7 +685,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 
             }
 
-            self.stopAnimating()
+            self.hideActivityIndicator()
 
         }
         }
@@ -832,38 +993,38 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
 
         guard brandsId != nil else {
             //            utils.showToast(message: "Выберите марку машины",viewController: self)
-            TinyToast.shared.show(message: "Выберите марку авто", valign: .bottom, duration: .normal)
+            TinyToast.shared.show(message: NSLocalizedString("Enter_brand", comment: ""), valign: .bottom, duration: .normal)
             return
         }
         guard modelId != nil else {
             //            utils.showToast(message: "Выберите модель машины",viewController: self)
-            TinyToast.shared.show(message: "Выберите модель авто", valign: .bottom, duration: .normal)
+            TinyToast.shared.show(message: NSLocalizedString("Enter_model", comment: ""), valign: .bottom, duration: .normal)
             return
         }
         guard yearsId != nil else {
             //            utils.showToast(message: "Выберите год машины",viewController: self)
-            TinyToast.shared.show(message: "Выберите год авто", valign: .bottom, duration: .normal)
+            TinyToast.shared.show(message: NSLocalizedString("Enter_year", comment: ""), valign: .bottom, duration: .normal)
             return
         }
 
         guard carBody != nil else {
             //            utils.showToast(message: "Выберите кузов машины",viewController: self)
-            TinyToast.shared.show(message: "Выберите кузов авто", valign: .bottom, duration: .normal)
+            TinyToast.shared.show(message: NSLocalizedString("Enter_carBody", comment: ""), valign: .bottom, duration: .normal)
             return
         }
         guard carInterior != nil else {
             //            utils.showToast(message: "Выберите салон машины",viewController: self)
-            TinyToast.shared.show(message: "Выберите салон авто", valign: .bottom, duration: .normal)
+            TinyToast.shared.show(message: NSLocalizedString("Enter_carInterior", comment: ""), valign: .bottom, duration: .normal)
             return
         }
         guard carColor != nil else {
             //            utils.showToast(message: "Выберите цвет машины",viewController: self)
-            TinyToast.shared.show(message: "Выберите цвет авто", valign: .bottom, duration: .normal)
+            TinyToast.shared.show(message: NSLocalizedString("Enter_carColor", comment: ""), valign: .bottom, duration: .normal)
             return
         }
         guard carRadius != nil else {
             //            utils.showToast(message: "Выберите цвет машины",viewController: self)
-            TinyToast.shared.show(message: "Выберите  радиус дисков авто", valign: .bottom, duration: .normal)
+            TinyToast.shared.show(message: NSLocalizedString("Enter_carRadius", comment: ""), valign: .bottom, duration: .normal)
             return
         }
         addCarInfo(brandId: brandsId!, modelId: modelId!, yearId: yearsId!, registrationNumber: self.regNumberTextView.text!, description: self.otherTextView.text!, interior: carInterior!, carBody: carBody!, colour: carColor!, whellRadius: carRadius!)
@@ -885,11 +1046,11 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
         let restUrl = constants.startUrl + "karma/v1/car/filter-attribute/" + carId + "/" + attributeId
         Alamofire.request(restUrl, method: .post, encoding: JSONEncoding.default, headers: ["Authorization": (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
 
-            self.stopAnimating()
+            self.hideActivityIndicator()
             self.picker.reloadAllComponents()
         }
     }
@@ -899,11 +1060,11 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
     
    
     @objc func deleteCar(){
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/car/\((selectedCar?.id)!)"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             self.utils.checkAutorization(vc: self)
-            stopAnimating()
+            hideActivityIndicator()
             return
         }
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
@@ -912,12 +1073,12 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
                 // got an error in getting the data, need to handle it
                 print("error calling POST on /todos/1")
                 print(response.result.error!)
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             // make sure we got some JSON since that's what we expect
             guard response.result.value != nil else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             if self.selectedCar?.favorite == true{
@@ -926,7 +1087,7 @@ class CreateCar: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewa
             }
         self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "сarListViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
-            self.stopAnimating()
+            self.hideActivityIndicator()
         }
     }
 }

@@ -48,16 +48,20 @@ class AllCarListElement: Codable {
 class AttributeACL: Codable {
     let id, value, title, filterID: String?
     
+    let descriptions: DescriptionsFB?
+    
     enum CodingKeys: String, CodingKey {
         case id, value, title
         case filterID = "filterId"
+        case descriptions
     }
     
-    init(id: String?, value: String?, title: String?, filterID: String?) {
+    init(id: String?, value: String?, title: String?, filterID: String?, descriptions: DescriptionsFB?) {
         self.id = id
         self.value = value
         self.title = title
         self.filterID = filterID
+        self.descriptions = descriptions
     }
 }
 
@@ -175,7 +179,7 @@ extension AllCarListElement {
 extension AttributeACL {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(AttributeACL.self, from: data)
-        self.init(id: me.id, value: me.value, title: me.title, filterID: me.filterID)
+        self.init(id: me.id, value: me.value, title: me.title, filterID: me.filterID, descriptions: me.descriptions)
     }
     
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -193,13 +197,15 @@ extension AttributeACL {
         id: String?? = nil,
         value: String?? = nil,
         title: String?? = nil,
-        filterID: String?? = nil
+        filterID: String?? = nil,
+        descriptions: DescriptionsFB?
         ) -> AttributeACL {
         return AttributeACL(
             id: id ?? self.id,
             value: value ?? self.value,
             title: title ?? self.title,
-            filterID: filterID ?? self.filterID
+            filterID: filterID ?? self.filterID,
+            descriptions: descriptions ?? self.descriptions
         )
     }
     

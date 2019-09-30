@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import MaterialComponents
 
-class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDelegate, FilterDialodDismissDelegate, NVActivityIndicatorViewable {
+class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDelegate, FilterDialodDismissDelegate {
 
     @IBOutlet weak var changeButton: UISegmentedControl!
 //    @IBOutlet weak var searchText: MDCTextField!
@@ -51,9 +51,11 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
         super.viewDidLoad()
 //        checkCarInfo()
 //        changeButton.initUI()
-        changeButton.layer.borderColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
-        changeButton.layer.borderWidth = 1
-        changeButton.layer.cornerRadius = 4
+        if changeButton != nil{
+            changeButton.layer.borderColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+            changeButton.layer.borderWidth = 1
+            changeButton.layer.cornerRadius = 4
+        }
 //        searchText.addDoneCancelToolbar()
 //        self.changeButton.selectedSegmentIndex = TabIndex.firstChildTab.rawValue
 //        if UserDefaults.standard.object(forKey: "MAPVC") == nil{
@@ -124,10 +126,10 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
         
         return vc
     }
-    func firstLoad(){
-        self.utils.setSaredPref(key: "FIRSTSTART", value: "true")
-        utils.checkFilds(massage: "В данный момент интерактивная карта запущена в тестовом режиме. Услуги указанных компаний недоступны. Мы работаем над тем, чтобы как можно скорее наполнить карту нужными вам сервисами.", vc: self.view)
-    }
+//    func firstLoad(){
+//        self.utils.setSaredPref(key: "FIRSTSTART", value: "true")
+//        utils.checkFilds(massage: "В данный момент интерактивная карта запущена в тестовом режиме. Услуги указанных компаний недоступны. Мы работаем над тем, чтобы как можно скорее наполнить карту нужными вам сервисами.", vc: self.view)
+//    }
     @IBAction func filterMap(_ sender: Any) {
         addFilter()
     }
@@ -151,7 +153,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
             
             self.displayCurrentTab(TabIndex.secondChildTab.rawValue)
             
-            self.listView.refreshTable()
+//            self.listView.refreshTable()
         } else {
             
             
@@ -165,7 +167,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
         //             drawPath(from: drawRoute)
         //            return
         //        }
-        startAnimating()
+        showActivityIndicator()
         
         let restUrl = constants.startUrl + "karma/v1/business/search/document"
         let parameters = try! JSONEncoder().encode(filterBody)
@@ -181,7 +183,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                     //                self.recordTableView.
                     
                     
-                    self.stopAnimating()
+                    self.hideActivityIndicator()
                     
                    
 //                self.mapView.setBusinesMarker()
@@ -210,7 +212,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                     let responseBody = try JSONDecoder().decode(CarWashMarker.self, from: response.data!)
 //
                     
-                    self.stopAnimating()
+                    self.hideActivityIndicator()
                     
                     if self.utils.getBusinesList(key: "BUSINESSLIST") != nil{
                         if (businessList! == responseBody){
@@ -246,7 +248,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                 }
                 catch{
                     
-                    self.stopAnimating()
+                    self.hideActivityIndicator()
                     print(error)
                 }
                
@@ -261,12 +263,12 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
 //    }
     
     func getAllCars(){
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/car/user"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             
             self.checkCarInfo(searchText: nil, completion: {})
-            stopAnimating()
+            hideActivityIndicator()
             return
         }
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
@@ -276,7 +278,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 
                 self.checkCarInfo(searchText: nil, completion: {})
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             
@@ -307,7 +309,7 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
                 
             }
             self.checkCarInfo(searchText: nil, completion: {})
-            self.stopAnimating()
+            self.hideActivityIndicator()
             
             
         }
@@ -367,12 +369,13 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
         //            serviceSelect.removeAll()
         //            checkCarInfo()
         //        }
+//        showActivityIndicator()
         guard UserDefaults.standard.object(forKey: "BUISNESSID") != nil else{
             
             self.utils.checkFilds(massage: "Выберите сервис", vc: self.view)
             self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "businessTableViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
-            stopAnimating()
+//            hideActivityIndicator()
             return
         }
         
@@ -403,31 +406,21 @@ class SelectSingleBuisnesVC: UIViewController, UIPopoverPresentationControllerDe
         }
     }
     override func viewDidAppear(_ animated: Bool) {
-//        if currentViewController == firstChildTabVC{
-//            
-//            changeButton.selectedSegmentIndex = 0
-//            viewDidLoad()
-//        } else if currentViewController == secondChildTabVC {
-//            changeButton.selectedSegmentIndex = 1
-//            
-//            viewDidLoad()
-//        }
-//                getAllCars()
-                //        utils.checkPushNot(vc: self)
+//      
     }
     func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "Это интерактивная карта услуг. На ней расположены компании, в которых вы можете заказать услуги. Чтобы посмотреть информацию о компании, кликните на ее точку координат на карте")
+        let infoDesc = InfoDescriptor(for: NSLocalizedString("tutor_SSBVC_1", comment: ""))
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
         
                 let buttonItemView = filterMap.value(forKey: "view") as? UIView
-                let leftDesc2 = LabelDescriptor(for: "Чтобы увидеть только компании, предоставляющие нужные вам услуги, воспользуйтесь “Фильтром услуг”")
+                let leftDesc2 = LabelDescriptor(for: NSLocalizedString("tutor_SSBVC_2", comment: ""))
                 leftDesc2.position = .left
         let leftHoleDesc2 = HoleViewDescriptor(view: buttonItemView!, type: .rect(cornerRadius: 5, margin: 10))
                 leftHoleDesc2.labelDescriptor = leftDesc2
                 let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
         
-        let leftDesc1 = LabelDescriptor(for: "Меняйте способ отображения компаний, предоставляющих услуги, на удобный вам - списком или точками координат на карте")
+        let leftDesc1 = LabelDescriptor(for: NSLocalizedString("tutor_SSBVC_3", comment: ""))
         leftDesc1.position = .bottom
         let leftHoleDesc1 = HoleViewDescriptor(view: changeButton!, type: .rect(cornerRadius: 5, margin: 10))
         leftHoleDesc1.labelDescriptor = leftDesc1

@@ -164,277 +164,50 @@ class Utils {
 //        case 204:
 //            return
 //            showToast(message: "Нет ничего", viewController: viewController)
-        case 1160:
-            return "Значение пусто"
+        case 1491:
+            return NSLocalizedString("E1491", comment: "")
 //            showToast(message: "Value is empty", viewController: viewController)
-        case 1161:
-            return "Код пуст"
+        case 1492:
+            return NSLocalizedString("E1492", comment: "")
 //            showToast(message: "Code is empty", viewController: viewController)
-        case 1162:
-            return "Тип пуст"
+        case 1493:
+            return NSLocalizedString("E1493", comment: "")
 //            showToast(message: "Type is empty", viewController: viewController)
-        case 1163:
-            return "Тип пользователя пуст"
-//            showToast(message: "User type is empty", viewController: viewController)
         case 1164:
-            return "Неправильный код подтверждения, попробуйте еще раз"
+            return NSLocalizedString("E1164", comment: "")
 //            showToast(message: "Verification code not correct try again", viewController: viewController)
-        case 1000:
-            return "Идентификатор не указан"
-//            showToast(message: "Id not specified", viewController: viewController)
-        case 1001:
-            return "Ошибка проверки"
-//            showToast(message: "Validation error", viewController: viewController)
-        case 1002:
-            return "Не действует URI"
-//            showToast(message: "Not valid uri", viewController: viewController)
-        case 1003:
-            return "Тело запроса недействительно"
-//            showToast(message: "Request body is invalid", viewController: viewController)
-        case 1004:
-            return "Не существует по id"
-//            showToast(message: "Not exist by id", viewController: viewController)
-        case 1040:
-            return "У текущего пользователя нет прав"
-//            showToast(message: "Current user don't have any permission", viewController: viewController)
-        case 1041:
-            return "У текущего пользователя нет прав на модуль"
-//            showToast(message: "Current user don't have permission to module", viewController: viewController)
-        case 1042:
-            return "Текущий пользователь не имеет разрешения на конечную точку"
-//            showToast(message: "Current user don't have permission to endpoint", viewController: viewController)
-        case 1043:
-            return "Модуль не активен"
-//            showToast(message: "Module not active", viewController: viewController)
-        case 1044:
-            return "Конечная точка не активна"
-//            showToast(message: "Endpoint not active", viewController: viewController)
-        case 1045:
-            return "Конечная точка не найдена"
-//            showToast(message: "Endpoint not found", viewController: viewController)
         case 1046:
-            return "Пользователь анонимный"
+            return NSLocalizedString("E1046", comment: "")
 //            showToast(message: "User is anonymous", viewController: viewController)
         case 9000:
-            return "Ошибка сервера"
+            return NSLocalizedString("E9000", comment: "")
 //            showToast(message: "Server error", viewController: viewController)
         case 9001:
-            return "Сервис недоступен сейчас"
+            return NSLocalizedString("E9001", comment: "")
 //            showToast(message: "Service not available now", viewController: viewController)
-        case 1140:
-            return "Значение адреса электронной почты пусто"
-//            showToast(message: "Value email is empty", viewController: viewController)
-        case 1141:
-            return "Код значения по электронной почте пуст"
-//            showToast(message: "Value code by email is empty", viewController: viewController)
-        case 1142:
-            return "Электронная почта не найдена"
-//            showToast(message: "Email not found ", viewController: viewController)
-        case 1143:
-            return "Электронная почта уже существует"
-//            showToast(message: "Email already exist", viewController: viewController)
-        case 1144:
-            return "Неверный адрес электронной почты"
-//            showToast(message: "Not valid email", viewController: viewController)
-        case 1145:
-            return "У пользователя уже есть электронная почта"
-//            showToast(message: "User already has some email", viewController: viewController)
-        case 1146:
-            return "Пользователь не имеет никакой электронной почты"
-        case 1495:
-            return "Исполнитель не работает в это время. Пожалуйста, выберите другое время заказа"
-//            showToast(message: "User doesn't any email", viewController: viewController)
-        case 1147:
-            return "Вы не можете удалить электронную почту. У тебя нет телефона. Электронная почта - единственный способ подтвердить свой аккаунт"
-//            showToast(message: "You can't delete email. You don't have phone. Email is only way to verify your account", viewController: viewController)
-        case 1300:
-            return "Группа разрешений не найдена"
-//            showToast(message: "Permission group not found", viewController: viewController)
-        case 1301:
-            return "Пользователь существует в группе, удалить, прежде чем добавить в другие"
-//            showToast(message: "User exist in group, remove before add to other", viewController: viewController)
-        case 1302:
-            return "Пользователь не существует в группе"
-//            showToast(message: "User not exist in group", viewController: viewController)
-        case 1303:
-            return "Группа разрешений не активна"
-//            showToast(message: "Permission group not active", viewController: viewController)
-        case 1400:
-            return "Автомобиль не найден"
-//            showToast(message: "Car not found", viewController: viewController)
-        case 1410:
-            return "Класс обслуживания не найден"
-//            showToast(message: "Service class not found", viewController: viewController)
-        case 1411:
-            return "Цена услуги не найдена"
-//            showToast(message: "Service price not found", viewController: viewController)
-        case 1420:
-            return "У текущего пользователя нет прав на действие этой автомойки"
-//            showToast(message: "Current user don't have permission to action this carwash", viewController: viewController)
-        case 1421:
-            return "Автомойка не найдена"
-//            showToast(message: "Carwash not found", viewController: viewController)
-        case 1422:
-            return "Идентификатор автомойки пуст"
-//            showToast(message: "Carwash id is empty", viewController: viewController)
-        case 1423:
-            return "У текущего пользователя нет прав на создание автомойки"
-//            showToast(message: "Current user don't have permission to create carwash", viewController: viewController)
-        case 1424:
-            return "Текущий пользователь не имеет разрешения на действие этой службы"
-//            showToast(message: "Current user don't have permission to action this service", viewController: viewController)
-        case 1425:
-            return "Сервис не найден"
-//            showToast(message: "Service not found", viewController: viewController)
+       
         case 1426:
-            return "Сервис не выбирай"
+            return NSLocalizedString("E1426", comment: "")
 //            showToast(message: "Service not choose", viewController: viewController)
-        case 1427:
-            return "Пакет не найден"
-//            showToast(message: "Package not found ", viewController: viewController)
-        case 1428:
-            return "Автомойка не имеет этого рабочего пространства"
-//            showToast(message: "CarWash don't have this working space ", viewController: viewController)
-        case 1429:
-            return "Идентификатор рабочего пространства равен нулю"
-//            showToast(message: "Working space id is null ", viewController: viewController)
+       
         case 1430:
-            return "Недостаточно свободного времени для выполнения заказа. Пожалуйста, выберите другое время"
+            return NSLocalizedString("E1430", comment: "")
 //            showToast(message: "Not enough time for create record, choose another time", viewController: viewController)
-        case 1431:
-            return "запись не найдена"
-//            showToast(message: "Record not found", viewController: viewController)
-        case 1432:
-            return "Time begin is empty"
-//            showToast(message: "Time begin is empty", viewController: viewController)
-        case 1433:
-            return "Рабочее пространство не найдено"
-//            showToast(message: "Working space not found", viewController: viewController)
+    
         case 1434:
-            return "CarWash don't work this day"
+            return NSLocalizedString("E1434", comment: "")
 //            showToast(message: "CarWash don't work this day", viewController: viewController)
         case 1435:
-            return "Выбранная компания не работает в это время"
+            return NSLocalizedString("E1435", comment: "")
 //            showToast(message: "CarWash don't work this time", viewController: viewController)
-        case 1436:
-            return "Time working already exist in this car wash"
-//            showToast(message: "Time working already exist in this car wash", viewController: viewController)
-        case 1437:
-            return "Время работы не найдено"
-//            showToast(message: "Time working not found", viewController: viewController)
-        case 1438:
-            return "Current user don't have permission to action this record"
-//            showToast(message: "Current user don't have permission to action this record", viewController: viewController)
+     
         case 1439:
-            return "Вы выбираете прошедшее время"
+            return NSLocalizedString("E1439", comment: "")
 //            showToast(message: "Try to choose past time", viewController: viewController)
-        case 1440:
-            return "Анонимный пользователь не может комментировать"
-//            showToast(message: "Anonymous user can't comment", viewController: viewController)
-        case 1441:
-            return "Комментарий для текущего пользователя существует"
-//            showToast(message: "Comment for current user exist", viewController: viewController)
-        case 1442:
-            return "Текущий пользователь не может редактировать этот комментарий"
-//            showToast(message: "Current user cant't edit this comment", viewController: viewController)
-        case 1443:
-            return "Комментарий не найден"
-//            showToast(message: "Comment not found", viewController: viewController)
-        case 1450:
-            return "Носитель не найден по идентификатору"
-//            showToast(message: "Media not found by id", viewController: viewController)
-        case 1120:
-            return "Значение номера телефона пусто"
-//            showToast(message: "Value phone number is empty", viewController: viewController)
-        case 1121:
-            return "Код значения по телефону пуст"
-//            showToast(message: "Value code by phone is empty", viewController: viewController)
-        case 1122:
-            return "Номер телефона не найден"
-//            showToast(message: "Phone number not found ", viewController: viewController)
-        case 1123:
-            return "Номер телефона уже существует"
-//            showToast(message: "Phone number already exist", viewController: viewController)
-        case 1124:
-            return "Неверный номер телефона"
-//            showToast(message: "Not valid phone number", viewController: viewController)
-        case 1125:
-            return "User already has some phone"
-//            showToast(message: "User already has some phone", viewController: viewController)
-        case 1126:
-            return "У пользователя нет телефона"
-//            showToast(message: "User doesn't any phone", viewController: viewController)
-        case 1127:
-            return "Вы не можете удалить телефон. У вас нет электронной почты. Телефон - единственный способ подтвердить свой аккаунт"
-//            showToast(message: "You can't delete phone. You don't have email. Phone is only way to verify your account", viewController: viewController)
-        case 1100:
-            return "Токен доступа или обновления пуст"
-//            showToast(message: "Access or Refresh token empty", viewController: viewController)
-        case 1101:
-            return "Токен доступа пуст"
-//            showToast(message: "Access token empty", viewController: viewController)
-        case 1102:
-            return "Токен доступа не найден"
-//            showToast(message: "Access token not found ", viewController: viewController)
-        case 1103:
-            return "Пара токенов доступа и обновления недействительна"
-//            showToast(message: "The pair of access and refresh token not valid", viewController: viewController)
-        case 1104:
-            return "Срок действия маркера истек"
-//            showToast(message: "Access token is expired", viewController: viewController)
-        case 1105:
-            return "Срок действия маркера истек"
-//            showToast(message: "Refresh token is expired", viewController: viewController)
-        case 1010:
-            return "Пользователь не найден"
-//            showToast(message: "User not found ", viewController: viewController)
-        case 1011:
-            return "Пользователь не аутентифицирован"
-//            showToast(message: "User not authentication ", viewController: viewController)
-        case 1012:
-            return "Вы не можете изменить имя. Связаться с администратором"
-//            showToast(message: "You can't change first name. Contact administrator", viewController: viewController)
-        case 1013:
-            return "Вы не можете изменить фамилию. Связаться с администратором"
-//            showToast(message: "You can't change last name. Contact administrator", viewController: viewController)
-        case 1014:
-            return "URL аватар не действителен"
-//            showToast(message: "Url avatar is not valid", viewController: viewController)
-        case 1015:
-            return "URL-адрес недействителен"
-//            showToast(message: "Url cover is not valid", viewController: viewController)
-        case 1016:
-            return "Пользователь не бизнес"
-//            showToast(message: "User not business ", viewController: viewController)
-        case 1017:
-            return "Пользователь не проверен"
-//            showToast(message: "User not VERIFIED ", viewController: viewController)
-        case 1018:
-            return "Пользователь в бане"
-//            showToast(message: "User in ban ", viewController: viewController)
-        case 1451:
-            return "Пакет не имеет никаких услуг"
-//            <string name="error_1451">Package don\'t have any services</string>
+      
 
-        case 1510:
-            return "Составные данные пусты"
-//            <string name="error_1510">Multipart data is empty</string>
-
-        case 1511:
-            return "Составной тип данных не определен"
-//            <string name="error_1511">Multipart data type undefined</string>
-
-        case 1512:
-            return "Составное имя файла не определено"
-//            <string name="error_1512">Multipart file name undefined</string
-        case 1513:
-            return "Многочастный тип файла не совместим"
-//            <string name="error_1513">Multipart file type not compatible</string
-        case 1514:
-            return "Превышен максимальный размер загрузки"
-//            <string name="error_1514">Maximum upload size exceeded</string
         default:
-            return "..."
+            return NSLocalizedString("prest_error", comment: "") + " " + String(code)
 //            showToast(message: "...", viewController: viewController)
         }
     }
@@ -513,7 +286,7 @@ class Utils {
                     return false
                 }
                 vc.view.endEditing(true)
-                SCLAlertView().showWarning("Внимание!", subTitle: checkResponseStatusCode(code: errorBody.code!), closeButtonTitle: "Закрыть")
+                SCLAlertView().showWarning(NSLocalizedString("Attention", comment: ""), subTitle: checkResponseStatusCode(code: errorBody.code!), closeButtonTitle: NSLocalizedString("Clouse", comment: ""))
 //                    TinyToast.shared.show(message: errorBody.message!, valign: .bottom, duration: .normal)
             return false
             }
@@ -595,7 +368,7 @@ class Utils {
     
     func checkFilds(massage: String, vc: UIView){
         
-        SCLAlertView().showWarning("Внимание!", subTitle: massage, closeButtonTitle: "Закрыть")
+        SCLAlertView().showWarning(NSLocalizedString("Attention", comment: ""), subTitle: massage, closeButtonTitle: NSLocalizedString("Clouse", comment: ""))
         vc.endEditing(true)
     }
    
@@ -615,7 +388,7 @@ class Utils {
     func doneMassage(massage: String, vc: UIView){
         
         vc.endEditing(true)
-        SCLAlertView().showSuccess("Отлично!", subTitle: massage, closeButtonTitle: "Закрыть")
+        SCLAlertView().showSuccess(NSLocalizedString("Excellent", comment: ""), subTitle: massage, closeButtonTitle: NSLocalizedString("Clouse", comment: ""))
         
     }
     
@@ -629,13 +402,16 @@ class Utils {
     func checkStatus(status: String) -> String{
         switch status {
         case "WAITING":
-            return "В ожидании"
+            return NSLocalizedString("waiting", comment: "")
         case "IN_PROCESS":
-            return "В процессе"
+            return NSLocalizedString("in_process", comment: "")
         case "COMPLETED":
-            return "В ожидании"
+            return NSLocalizedString("complite", comment: "")
         case "CANCELED":
-            return "Отменен"
+            return NSLocalizedString("canceled", comment: "")
+        case "EXPIRED":
+            return NSLocalizedString("EXPIRED", comment: "")
+            
         default:
             return ""
         }
@@ -696,6 +472,28 @@ class Utils {
         }
     }
     
+    static func showActivityIndicator(view: UIView, targetVC: UIViewController) {
+        
+        var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+        
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        activityIndicator.backgroundColor = UIColor(red:0.16, green:0.17, blue:0.21, alpha:0.3)
+        activityIndicator.layer.cornerRadius = 6
+        activityIndicator.center = targetVC.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
+        activityIndicator.tag = 1
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
+    
+    static func hideActivityIndicator(view: UIView) {
+        let activityIndicator = view.viewWithTag(1) as? UIActivityIndicatorView
+        activityIndicator?.stopAnimating()
+        activityIndicator?.removeFromSuperview()
+        UIApplication.shared.endIgnoringInteractionEvents()
+    }
    
 }
 

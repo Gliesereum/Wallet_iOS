@@ -12,7 +12,7 @@ import Alamofire
 import GoogleMaps
 import CoreLocation
 
-class DrawRouteVC: UIViewController,GMSMapViewDelegate,NVActivityIndicatorViewable {
+class DrawRouteVC: UIViewController,GMSMapViewDelegate {
     
     let constants = Constants()
     let utils = Utils()
@@ -95,7 +95,7 @@ class DrawRouteVC: UIViewController,GMSMapViewDelegate,NVActivityIndicatorViewab
     func addMarkerOnMap(getlatitude: Double, getlongitude: Double, title: String) {
         // Creates a marker in the center of the map.
         var markerImage = UIImage()
-        markerImage = UIImage(named: "marker")!
+        markerImage = UIImage(named: "pin_primary")!
         let matkerView = UIImageView(image: markerImage)
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: getlatitude, longitude: getlongitude)
@@ -126,6 +126,10 @@ class DrawRouteVC: UIViewController,GMSMapViewDelegate,NVActivityIndicatorViewab
             do{
                 let sigInModel = try JSONDecoder().decode(DirectionBody.self, from: response.data!)
                 
+                guard sigInModel.status != "REQUEST_DENIED" else {
+                    self.utils.checkFilds(massage: NSLocalizedString("Error_row", comment: ""), vc: self.view)
+                    return
+                }
                 let points = sigInModel.routes?.first?.overviewPolyline?.points
                 let path = GMSPath.init(fromEncodedPath: points!)
                 let polyline = GMSPolyline.init(path: path)

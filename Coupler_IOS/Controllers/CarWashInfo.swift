@@ -14,7 +14,7 @@ import FloatRatingView
 import MaterialComponents
 
 
-class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate, FSPagerViewDataSource, NVActivityIndicatorViewable, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate, FilterDialodDismissDelegate, ImageShowDismissDelegate, WorkingTimeDismissDelegate, UIScrollViewDelegate {
+class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate, FSPagerViewDataSource, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate, FilterDialodDismissDelegate, ImageShowDismissDelegate, WorkingTimeDismissDelegate, UIScrollViewDelegate {
     
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index)
@@ -156,7 +156,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
 //        self.buttonView.visiblity(gone: true)
         
         self.utils.checkAutorization(vc: self)
-        stopAnimating()
+        hideActivityIndicator()
         return
         
        
@@ -268,7 +268,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
             stText.visiblity(gone: true)
             snText.visiblity(gone: true)
             goToOrders.visiblity(gone: true)
-            descriptionText.text = "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону"
+            descriptionText.text = NSLocalizedString("Error_dont_work_buisnes", comment: "")
             return
         }
         self.adressCW.text = carWashInfo?.address
@@ -349,11 +349,11 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
         
         guard utils.getSharedPref(key: "accessToken") != nil else{
            
-            stopAnimating()
+            hideActivityIndicator()
             return
         }
         let carWashId: String = (carWashInfo?.businessID)!
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/business/\(carWashId)/comment/current-user"
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
@@ -362,27 +362,27 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
                 self.buttonView.isHidden = true
                 self.view.layoutIfNeeded()
                
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
           
             
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
         }
     }
     func getCarWashInfoComments(){
         
-        startAnimating()
+        showActivityIndicator()
         let headers = ["Application-Id":self.constants.iosId]
         let restUrl = constants.startUrl + "karma/v1/business/full-model-by-id?id=\((carWashInfo?.id)!)"
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             do{
@@ -395,7 +395,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
                 
             }
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
         }
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -416,7 +416,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
     }
     
     func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "Выбрав компанию, вы можете ознакомиться с информацией о ней и режимом работы, связаться с администратором для уточнения деталей ")
+        let infoDesc = InfoDescriptor(for: NSLocalizedString("tutor_CWI_1", comment: ""))
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
         
@@ -428,7 +428,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
 //        let rightLeftTask = PassthroughTask(with: [leftHoleDesc])
         
         
-        let leftDesc1 = LabelDescriptor(for: "Нажав на эту кнопку, вы сможете перейти к услугам и сделать заказ")
+        let leftDesc1 = LabelDescriptor(for: NSLocalizedString("tutor_CWI_2", comment: ""))
         leftDesc1.position = .bottom
         let leftHoleDesc1 = HoleViewDescriptor(view: goToOrders, type: .rect(cornerRadius: 5, margin: 10))
         leftHoleDesc1.labelDescriptor = leftDesc1
@@ -508,7 +508,7 @@ class CarWashInfo: UIViewController, UITableViewDataSource, FSPagerViewDelegate,
             start.text = utils.milisecondsToTime(miliseconds: day.from!, timeZone: (carWashInfo?.timeZone)!) + " - " + utils.milisecondsToTime(miliseconds: day.to!, timeZone: (carWashInfo?.timeZone)!)
 //            end.text = utils.milisecondsToTime(miliseconds: day.to!, timeZone: (carWashInfo?.timeZone)!)
         }else {
-            start.text = "Выходной"
+            start.text = NSLocalizedString("day_off", comment: "")
         }
     }
     

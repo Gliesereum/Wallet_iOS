@@ -11,7 +11,7 @@ import UIKit
 protocol ImageShowDismissDelegate: class {
     func Dismiss(filterListId: [String], filterOn: Bool)
 }
-class ImageShow: UIViewController, FSPagerViewDelegate, FSPagerViewDataSource, NVActivityIndicatorViewable, UIGestureRecognizerDelegate {
+class ImageShow: UIViewController, FSPagerViewDelegate, FSPagerViewDataSource, UIGestureRecognizerDelegate {
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index)
         let carWashMedia = imageList![index]

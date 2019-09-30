@@ -23,7 +23,7 @@ import CoreLocation
 //    }
 //}
 
-class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicatorViewable{ //, GMUClusterManagerDelegate
+class MapViewController: UIViewController, GMSMapViewDelegate{ //, GMUClusterManagerDelegate
     
   
     @IBOutlet weak var filterItem: UIBarButtonItem!
@@ -281,7 +281,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
     }
     //MARK: get carwash list
     func getCarWashInfo(carWashId: String){
-        startAnimating()
+        showActivityIndicator()
 //
         if self.utils.getSharedPref(key: "CARWASHID") != nil{
         
@@ -291,7 +291,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
         let restUrl = constants.startUrl + "karma/v1/business/full-model-by-id?id=\(carWashId)"
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
            
@@ -307,7 +307,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, NVActivityIndicat
                 self.navigationController?.pushViewController(vc, animated: true)
              
                 
-                self.stopAnimating()
+                self.hideActivityIndicator()
             } catch{
                 print(error)
             }

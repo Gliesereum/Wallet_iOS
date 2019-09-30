@@ -1,0 +1,690 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "0Oy-UY-bre"; */
+"0Oy-UY-bre.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "  Связаться с нами"; ObjectID = "0e7-Hl-Ypw"; */
+"0e7-Hl-Ypw.normalTitle" = "  Связаться с нами";
+
+/* Class = "UILabel"; text = "Фамилия"; ObjectID = "1NW-nz-Ewm"; */
+"1NW-nz-Ewm.text" = "Фамилия";
+
+/* Class = "UILabel"; text = "25:23"; ObjectID = "1i1-II-Kmk"; */
+"1i1-II-Kmk.text" = "25:23";
+
+/* Class = "UILabel"; text = "грн"; ObjectID = "1jB-Jl-zkz"; */
+"1jB-Jl-zkz.text" = "грн";
+
+/* Class = "UILabel"; text = "Пятница"; ObjectID = "1p3-yL-y9a"; */
+"1p3-yL-y9a.text" = "Пятница";
+
+/* Class = "UILabel"; text = "Авто"; ObjectID = "1rJ-BT-X3A"; */
+"1rJ-BT-X3A.text" = "Авто";
+
+/* Class = "UIButton"; normalTitle = "Вход"; ObjectID = "1tB-9B-Yoe"; */
+"1tB-9B-Yoe.normalTitle" = "Вход";
+
+/* Class = "UILabel"; text = "Баллы"; ObjectID = "3Mp-tT-Obs"; */
+"3Mp-tT-Obs.text" = "Баллы";
+
+/* Class = "UIButton"; normalTitle = "Далее"; ObjectID = "4WE-ls-o2x"; */
+"4WE-ls-o2x.normalTitle" = "Далее";
+
+/* Class = "UIButton"; normalTitle = "ВХОД"; ObjectID = "4a1-0R-lYH"; */
+"4a1-0R-lYH.normalTitle" = "ВХОД";
+
+/* Class = "UILabel"; text = "ФОТО"; ObjectID = "4ou-FM-Ttl"; */
+"4ou-FM-Ttl.text" = "ФОТО";
+
+/* Class = "UILabel"; text = "Понедельник"; ObjectID = "5Y6-N0-CF1"; */
+"5Y6-N0-CF1.text" = "Понедельник";
+
+/* Class = "UILabel"; text = "Запишет на услугу и приведет к месту назначения"; ObjectID = "5f7-2v-0Zq"; */
+"5f7-2v-0Zq.text" = "Запишет на услугу и приведет к месту назначения";
+
+/* Class = "UIButton"; normalTitle = "Выход"; ObjectID = "5lM-c6-A15"; */
+"5lM-c6-A15.normalTitle" = "Выход";
+
+/* Class = "UIButton"; normalTitle = "ЛЮБОЙ МАСТЕР"; ObjectID = "6kn-z7-wpo"; */
+"6kn-z7-wpo.normalTitle" = "ЛЮБОЙ МАСТЕР";
+
+/* Class = "UITextField"; placeholder = "Выберите год выпуска"; ObjectID = "7a4-Re-Vdh"; */
+"7a4-Re-Vdh.placeholder" = "Выберите год выпуска";
+
+/* Class = "UILabel"; text = "Получите по 50 баллов на бонусные счета"; ObjectID = "7ba-rq-O6Y"; */
+"7ba-rq-O6Y.text" = "Получите по 50 баллов на бонусные счета";
+
+/* Class = "UILabel"; text = "Сейчас:"; ObjectID = "7f7-Nh-0dV"; */
+"7f7-Nh-0dV.text" = "Сейчас:";
+
+/* Class = "UIButton"; normalTitle = "ЗАКАЗАТЬ"; ObjectID = "7ry-aB-sB6"; */
+"7ry-aB-sB6.normalTitle" = "ЗАКАЗАТЬ";
+
+/* Class = "UIButton"; normalTitle = "ПОДЕЛИТЬСЯ ССЫЛКОЙ"; ObjectID = "8WV-uf-Ud2"; */
+"8WV-uf-Ud2.normalTitle" = "ПОДЕЛИТЬСЯ ССЫЛКОЙ";
+
+/* Class = "UIButton"; normalTitle = "Информация"; ObjectID = "9AG-hD-ALM"; */
+"9AG-hD-ALM.normalTitle" = "Информация";
+
+/* Class = "UILabel"; text = "Кузов"; ObjectID = "9Lz-ZM-lPW"; */
+"9Lz-ZM-lPW.text" = "Кузов";
+
+/* Class = "UILabel"; text = " мин."; ObjectID = "9Ql-wo-sZ2"; */
+"9Ql-wo-sZ2.text" = " мин.";
+
+/* Class = "UIButton"; normalTitle = "ОБНОВИТЬ"; ObjectID = "9vb-YU-X1p"; */
+"9vb-YU-X1p.normalTitle" = "ОБНОВИТЬ";
+
+/* Class = "UILabel"; text = "Телефон"; ObjectID = "ABU-ua-MKV"; */
+"ABU-ua-MKV.text" = "Телефон";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "B1d-JB-FrP"; */
+"B1d-JB-FrP.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "BNn-oV-a5H"; */
+"BNn-oV-a5H.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "ОФОРМИТЬ ЗАКАЗ"; ObjectID = "Bwn-4D-8Sk"; */
+"Bwn-4D-8Sk.normalTitle" = "ОФОРМИТЬ ЗАКАЗ";
+
+/* Class = "UILabel"; text = "Мастер"; ObjectID = "CTk-AO-d0j"; */
+"CTk-AO-d0j.text" = "Мастер";
+
+/* Class = "UILabel"; text = "Данные отсутствуют"; ObjectID = "Cdf-zx-7c4"; */
+"Cdf-zx-7c4.text" = "Данные отсутствуют";
+
+/* Class = "UILabel"; text = "Код был отправлен на номер"; ObjectID = "Cm2-EZ-0mw"; */
+"Cm2-EZ-0mw.text" = "Код был отправлен на номер";
+
+/* Class = "UILabel"; text = "Вторник"; ObjectID = "DY9-SY-f5D"; */
+"DY9-SY-f5D.text" = "Вторник";
+
+/* Class = "UITextField"; placeholder = "Введите ваше имя"; ObjectID = "Dag-1v-SuC"; */
+"Dag-1v-SuC.placeholder" = "Введите ваше имя";
+
+/* Class = "UILabel"; text = "Город"; ObjectID = "ENf-8q-eQD"; */
+"ENf-8q-eQD.text" = "Город";
+
+/* Class = "UILabel"; text = "%"; ObjectID = "Eg3-tY-I0H"; */
+"Eg3-tY-I0H.text" = "%";
+
+/* Class = "UIButton"; normalTitle = "Начать"; ObjectID = "Eid-w6-E26"; */
+"Eid-w6-E26.normalTitle" = "Начать";
+
+/* Class = "UILabel"; text = "Суббота"; ObjectID = "Elb-K2-fUX"; */
+"Elb-K2-fUX.text" = "Суббота";
+
+/* Class = "UILabel"; text = "Пригласить друга"; ObjectID = "EtY-Fm-xY0"; */
+"EtY-Fm-xY0.text" = "Пригласить друга";
+
+/* Class = "UILabel"; text = "Четверг"; ObjectID = "FFo-VB-wRo"; */
+"FFo-VB-wRo.text" = "Четверг";
+
+/* Class = "UIButton"; normalTitle = "Выбрать"; ObjectID = "H5b-eP-Bxn"; */
+"H5b-eP-Bxn.normalTitle" = "Выбрать";
+
+/* Class = "UILabel"; text = "Продолжительность:"; ObjectID = "H6M-yd-xK5"; */
+"H6M-yd-xK5.text" = "Продолжительность:";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "HAW-jA-1uA"; */
+"HAW-jA-1uA.text" = "Label";
+
+/* Class = "UILabel"; text = "Время"; ObjectID = "HLo-BL-JKs"; */
+"HLo-BL-JKs.text" = "Время";
+
+/* Class = "UIButton"; normalTitle = "ДОБАВИТЬ"; ObjectID = "HWS-Fi-wUI"; */
+"HWS-Fi-wUI.normalTitle" = "ДОБАВИТЬ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "HXP-0d-Oyl"; */
+"HXP-0d-Oyl.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Связаться"; ObjectID = "Hmj-4K-cTq"; */
+"Hmj-4K-cTq.normalTitle" = "Связаться";
+
+/* Class = "UIButton"; normalTitle = "  Посетить наш сайт"; ObjectID = "I6K-wn-1LX"; */
+"I6K-wn-1LX.normalTitle" = "  Посетить наш сайт";
+
+/* Class = "UIButton"; normalTitle = "Профиль"; ObjectID = "IEk-ex-Ui3"; */
+"IEk-ex-Ui3.normalTitle" = "Профиль";
+
+/* Class = "UILabel"; text = "ОТЗЫВЫ"; ObjectID = "IIQ-WJ-C7J"; */
+"IIQ-WJ-C7J.text" = "ОТЗЫВЫ";
+
+/* Class = "UILabel"; text = "Среда"; ObjectID = "IPw-UD-6l0"; */
+"IPw-UD-6l0.text" = "Среда";
+
+/* Class = "UILabel"; text = "Суббота"; ObjectID = "IUB-pd-ye6"; */
+"IUB-pd-ye6.text" = "Суббота";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "IVk-Ke-7M0"; */
+"IVk-Ke-7M0.text" = "Name";
+
+/* Class = "UILabel"; text = "Дружелюбный мастер"; ObjectID = "Ivi-X1-kkt"; */
+"Ivi-X1-kkt.text" = "Дружелюбный мастер";
+
+/* Class = "UIButton"; normalTitle = "Категории"; ObjectID = "JAt-BQ-adD"; */
+"JAt-BQ-adD.normalTitle" = "Категории";
+
+/* Class = "UITextField"; placeholder = "Введите ваш адрес"; ObjectID = "JzI-bt-7CJ"; */
+"JzI-bt-7CJ.placeholder" = "Введите ваш адрес";
+
+/* Class = "UILabel"; text = "+7732882345"; ObjectID = "KJc-JX-yMv"; */
+"KJc-JX-yMv.text" = "+7732882345";
+
+/* Class = "UILabel"; text = "Адрес"; ObjectID = "KiM-gC-AEu"; */
+"KiM-gC-AEu.text" = "Адрес";
+
+/* Class = "UILabel"; text = "Четверг"; ObjectID = "KpL-Hg-Cum"; */
+"KpL-Hg-Cum.text" = "Четверг";
+
+/* Class = "UIButton"; normalTitle = "Карта                                    "; ObjectID = "KtY-Lq-hGF"; */
+"KtY-Lq-hGF.normalTitle" = "Карта";
+
+/* Class = "UILabel"; text = "Покажет подходящие варианты"; ObjectID = "Kwv-0F-vVY"; */
+"Kwv-0F-vVY.text" = "Покажет подходящие варианты";
+
+/* Class = "UILabel"; text = "Название"; ObjectID = "Kzv-kV-RGt"; */
+"Kzv-kV-RGt.text" = "Название";
+
+/* Class = "UILabel"; text = "Выбраный автомобиль"; ObjectID = "L8r-g2-tsW"; */
+"L8r-g2-tsW.text" = "Выбраный автомобиль";
+
+/* Class = "UILabel"; text = "Услуги:"; ObjectID = "L9v-DD-rEm"; */
+"L9v-DD-rEm.text" = "Услуги:";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "LGh-bj-CmY"; */
+"LGh-bj-CmY.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "LJa-Sc-JAk"; */
+"LJa-Sc-JAk.text" = "Label";
+
+/* Class = "UILabel"; text = "Статус"; ObjectID = "LSd-XK-UC9"; */
+"LSd-XK-UC9.text" = "Статус";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "LjC-OV-I2Z"; */
+"LjC-OV-I2Z.text" = "Label";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "Lyc-B0-LJU"; */
+"Lyc-B0-LJU.text" = "0";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Lzr-jJ-Pat"; */
+"Lzr-jJ-Pat.text" = "Label";
+
+/* Class = "UILabel"; text = "Coupler - это выгодно🤔"; ObjectID = "M2R-Dl-3HR"; */
+"M2R-Dl-3HR.text" = "Coupler - это выгодно🤔";
+
+/* Class = "UILabel"; text = "Цена"; ObjectID = "MGo-5K-o4b"; */
+"MGo-5K-o4b.text" = "Цена";
+
+/* Class = "UILabel"; text = "Салон"; ObjectID = "MwV-eI-m95"; */
+"MwV-eI-m95.text" = "Салон";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Mxn-qY-Sue"; */
+"Mxn-qY-Sue.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "N8Y-up-BIl"; */
+"N8Y-up-BIl.text" = "Label";
+
+/* Class = "UILabel"; text = "ДОЛЖНОСТЬ"; ObjectID = "NFU-mm-nU7"; */
+"NFU-mm-nU7.text" = "ДОЛЖНОСТЬ";
+
+/* Class = "UILabel"; text = "ФИО"; ObjectID = "NG9-wg-H0g"; */
+"NG9-wg-H0g.text" = "ФИО";
+
+/* Class = "UILabel"; text = "Phone"; ObjectID = "NSN-5L-rtW"; */
+"NSN-5L-rtW.text" = "Phone";
+
+/* Class = "UILabel"; text = "(0)"; ObjectID = "NVw-5h-aXk"; */
+"NVw-5h-aXk.text" = "(0)";
+
+/* Class = "UIButton"; normalTitle = "ОТМЕНИТЬ"; ObjectID = "NfR-00-P95"; */
+"NfR-00-P95.normalTitle" = "ОТМЕНИТЬ";
+
+/* Class = "UIButton"; normalTitle = "ВЫБРАТЬ"; ObjectID = "NlV-sw-LXo"; */
+"NlV-sw-LXo.normalTitle" = "ВЫБРАТЬ";
+
+/* Class = "UILabel"; text = "ДОБАВИТЬ АВТОМОБИЛЬ"; ObjectID = "Nwf-Sa-A3v"; */
+"Nwf-Sa-A3v.text" = "ДОБАВИТЬ АВТОМОБИЛЬ";
+
+/* Class = "UILabel"; text = "Любой мастер"; ObjectID = "O6b-qa-cTC"; */
+"O6b-qa-cTC.text" = "Любой мастер";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "OFt-XS-1fh"; */
+"OFt-XS-1fh.text" = "Label";
+
+/* Class = "UILabel"; text = "Имя"; ObjectID = "OcE-f6-iFS"; */
+"OcE-f6-iFS.text" = "Имя";
+
+/* Class = "UIButton"; normalTitle = "НАЗАД"; ObjectID = "Ow2-bh-2i0"; */
+"Ow2-bh-2i0.normalTitle" = "НАЗАД";
+
+/* Class = "UILabel"; text = " минут"; ObjectID = "Oxf-bm-l5n"; */
+"Oxf-bm-l5n.text" = " минут";
+
+/* Class = "UILabel"; text = "Время"; ObjectID = "P1E-Mv-CIM"; */
+"P1E-Mv-CIM.text" = "Время";
+
+/* Class = "UITextField"; placeholder = "Введите вашу фамилию"; ObjectID = "P40-65-f7i"; */
+"P40-65-f7i.placeholder" = "Введите вашу фамилию";
+
+/* Class = "UILabel"; text = "id"; ObjectID = "PD7-WQ-5Bn"; */
+"PD7-WQ-5Bn.text" = "id";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "PE9-VZ-sKb"; */
+"PE9-VZ-sKb.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "Введите название страны"; ObjectID = "PKO-RA-dGG"; */
+"PKO-RA-dGG.placeholder" = "Введите название страны";
+
+/* Class = "UILabel"; text = "Умная карта услуг."; ObjectID = "Q6c-cu-YrE"; */
+"Q6c-cu-YrE.text" = "Умная карта услуг.";
+
+/* Class = "UILabel"; text = "ФИО"; ObjectID = "QkJ-RD-xTC"; */
+"QkJ-RD-xTC.text" = "ФИО";
+
+/* Class = "UITextField"; placeholder = "Введите радиус дисков"; ObjectID = "QwG-tX-s3h"; */
+"QwG-tX-s3h.placeholder" = "Введите радиус дисков";
+
+/* Class = "UILabel"; text = " грн."; ObjectID = "RBd-pm-Nud"; */
+"RBd-pm-Nud.text" = " грн.";
+
+/* Class = "UIButton"; normalTitle = "Выбрать"; ObjectID = "RbY-dm-DDg"; */
+"RbY-dm-DDg.normalTitle" = "Выбрать";
+
+/* Class = "UITextField"; placeholder = "Выберите материал салона"; ObjectID = "Rxn-Lh-ssk"; */
+"Rxn-Lh-ssk.placeholder" = "Выберите материал салона";
+
+/* Class = "UIButton"; normalTitle = "Оставить отзыв"; ObjectID = "S6D-Wv-o21"; */
+"S6D-Wv-o21.normalTitle" = "Оставить отзыв";
+
+/* Class = "UIButton"; normalTitle = "Назад"; ObjectID = "S9s-6P-UqT"; */
+"S9s-6P-UqT.normalTitle" = "Назад";
+
+/* Class = "UIButton"; normalTitle = "ПЕРЕЙТИ К ЗАКАЗУ"; ObjectID = "SMq-CC-Zcc"; */
+"SMq-CC-Zcc.normalTitle" = "ПЕРЕЙТИ К ЗАКАЗУ";
+
+/* Class = "UILabel"; text = "ВЫБОР УСЛУГ"; ObjectID = "SOS-ZO-Z1R"; */
+"SOS-ZO-Z1R.text" = "ВЫБОР УСЛУГ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "STT-2C-TrD"; */
+"STT-2C-TrD.text" = "Label";
+
+/* Class = "UILabel"; text = "Описание..."; ObjectID = "T3W-Th-LUG"; */
+"T3W-Th-LUG.text" = "Описание...";
+
+/* Class = "UILabel"; text = "ИСПОЛНИТЕЛЬ ЗАКАЗА"; ObjectID = "TOG-SN-dBe"; */
+"TOG-SN-dBe.text" = "ИСПОЛНИТЕЛЬ ЗАКАЗА";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "TaU-h4-f23"; */
+"TaU-h4-f23.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "Введите ваше отчество"; ObjectID = "U6D-yp-cIW"; */
+"U6D-yp-cIW.placeholder" = "Введите ваше отчество";
+
+/* Class = "UIButton"; normalTitle = "О приложении"; ObjectID = "U8D-bp-cxa"; */
+"U8D-bp-cxa.normalTitle" = "О приложении";
+
+/* Class = "UILabel"; text = "Уведомления"; ObjectID = "U8n-T1-aBw"; */
+"U8n-T1-aBw.text" = "Уведомления";
+
+/* Class = "UILabel"; text = "Адрес..."; ObjectID = "URZ-Kl-ruP"; */
+"URZ-Kl-ruP.text" = "Адрес...";
+
+/* Class = "UILabel"; text = "Фильтр услуг"; ObjectID = "UvL-wj-i54"; */
+"UvL-wj-i54.text" = "Фильтр услуг";
+
+/* Class = "UILabel"; text = "Описанние..."; ObjectID = "VFi-T7-RMf"; */
+"VFi-T7-RMf.text" = "Описанние...";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "VGW-o9-cjC"; */
+"VGW-o9-cjC.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "  Оцените нас в App Store"; ObjectID = "Vot-zU-dnC"; */
+"Vot-zU-dnC.normalTitle" = "  Оцените нас в App Store";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "VvW-9Z-XnN"; */
+"VvW-9Z-XnN.text" = "Label";
+
+/* Class = "UILabel"; text = "Год выпуска"; ObjectID = "VxO-bN-1HB"; */
+"VxO-bN-1HB.text" = "Год выпуска";
+
+/* Class = "UILabel"; text = "ОТЗЫВЫ"; ObjectID = "W3n-9B-b6R"; */
+"W3n-9B-b6R.text" = "ОТЗЫВЫ";
+
+/* Class = "UILabel"; text = "Auto"; ObjectID = "WaW-rs-spY"; */
+"WaW-rs-spY.text" = "Auto";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Wj7-aF-1yd"; */
+"Wj7-aF-1yd.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "ОТМЕНА"; ObjectID = "Wvr-8N-zfM"; */
+"Wvr-8N-zfM.normalTitle" = "ОТМЕНА";
+
+/* Class = "UILabel"; text = "20.08.19"; ObjectID = "WyV-uk-fIV"; */
+"WyV-uk-fIV.text" = "20.08.19";
+
+/* Class = "UIButton"; normalTitle = "НАЗАД"; ObjectID = "X0L-m5-t8Z"; */
+"X0L-m5-t8Z.normalTitle" = "НАЗАД";
+
+/* Class = "UILabel"; text = "Даст скидку за накопленные бонусные баллы"; ObjectID = "X70-4l-CHH"; */
+"X70-4l-CHH.text" = "Даст скидку за накопленные бонусные баллы";
+
+/* Class = "UILabel"; text = "0 грн"; ObjectID = "XE8-x3-LIo"; */
+"XE8-x3-LIo.text" = "0 грн";
+
+/* Class = "UILabel"; text = "Звершить"; ObjectID = "Xa0-PY-GLS"; */
+"Xa0-PY-GLS.text" = "Звершить";
+
+/* Class = "UILabel"; text = "Цена"; ObjectID = "XgV-X3-faO"; */
+"XgV-X3-faO.text" = "Цена";
+
+/* Class = "UITextField"; placeholder = "Выберите модель"; ObjectID = "Y42-H7-ooZ"; */
+"Y42-H7-ooZ.placeholder" = "Выберите модель";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Y4g-Sk-5M0"; */
+"Y4g-Sk-5M0.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "YBZ-1v-IvX"; */
+"YBZ-1v-IvX.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "ВЫБРАТЬ"; ObjectID = "YQh-Jj-GBl"; */
+"YQh-Jj-GBl.normalTitle" = "ВЫБРАТЬ";
+
+/* Class = "UILabel"; text = "Стоимость:"; ObjectID = "YWD-8u-39Y"; */
+"YWD-8u-39Y.text" = "Стоимость:";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "YZl-KI-SDT"; */
+"YZl-KI-SDT.text" = "Label";
+
+/* Class = "UILabel"; text = "Все услуги у вас в кармане, где бы вы ни находились"; ObjectID = "YbA-e8-AMa"; */
+"YbA-e8-AMa.text" = "Все услуги у вас в кармане, где бы вы ни находились";
+
+/* Class = "UILabel"; text = "Юзер"; ObjectID = "YhO-Jd-k8H"; */
+"YhO-Jd-k8H.text" = "Юзер";
+
+/* Class = "UILabel"; text = "Дополнительное описание"; ObjectID = "ZXZ-cd-07x"; */
+"ZXZ-cd-07x.text" = "Дополнительное описание";
+
+/* Class = "UIButton"; normalTitle = "ОТМЕНА"; ObjectID = "ZZT-h8-uVe"; */
+"ZZT-h8-uVe.normalTitle" = "ОТМЕНА";
+
+/* Class = "UILabel"; text = "Цвет"; ObjectID = "Zpe-Cr-Ifd"; */
+"Zpe-Cr-Ifd.text" = "Цвет";
+
+/* Class = "UITextField"; placeholder = "Выберите кузов"; ObjectID = "aEm-uz-8px"; */
+"aEm-uz-8px.placeholder" = "Выберите кузов";
+
+/* Class = "UILabel"; text = "Марка"; ObjectID = "aWO-aY-Knu"; */
+"aWO-aY-Knu.text" = "Марка";
+
+/* Class = "UIButton"; normalTitle = "ПРОЛОЖИТЬ МАРШРУТ"; ObjectID = "alR-Va-RZG"; */
+"alR-Va-RZG.normalTitle" = "ПРОЛОЖИТЬ МАРШРУТ";
+
+/* Class = "UITextField"; placeholder = "Введите телефон"; ObjectID = "b6r-l4-TPw"; */
+"b6r-l4-TPw.placeholder" = "Введите телефон";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "b85-2p-fRO"; */
+"b85-2p-fRO.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "ВЫБРАТЬ ВРЕМЯ"; ObjectID = "b8U-TH-5hb"; */
+"b8U-TH-5hb.normalTitle" = "ВЫБРАТЬ ВРЕМЯ";
+
+/* Class = "UITextField"; placeholder = "Выберите цвет"; ObjectID = "bR0-D8-j7w"; */
+"bR0-D8-j7w.placeholder" = "Выберите цвет";
+
+/* Class = "UIButton"; normalTitle = "Оставить коментарий"; ObjectID = "bcC-Zm-MjP"; */
+"bcC-Zm-MjP.normalTitle" = "Оставить коментарий";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "bmN-Us-eNN"; */
+"bmN-Us-eNN.text" = "Label";
+
+/* Class = "UILabel"; text = "Воскресенье"; ObjectID = "cJY-nP-QJG"; */
+"cJY-nP-QJG.text" = "Воскресенье";
+
+/* Class = "UILabel"; text = "vsdvdsvdsvsdvds"; ObjectID = "cNZ-KF-gTT"; */
+"cNZ-KF-gTT.text" = "vsdvdsvdsvsdvds";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "cbz-Qj-ou5"; */
+"cbz-Qj-ou5.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "  Политика конфиденциальности"; ObjectID = "ctl-gG-sdd"; */
+"ctl-gG-sdd.normalTitle" = "  Политика конфиденциальности";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "d5K-fp-JbP"; */
+"d5K-fp-JbP.text" = "Label";
+
+/* Class = "UILabel"; text = "Выберите удобное для вас время получения услуги"; ObjectID = "dEE-2X-fvA"; */
+"dEE-2X-fvA.text" = "Выберите удобное для вас время получения услуги";
+
+/* Class = "UILabel"; text = "минут"; ObjectID = "e1Y-aP-hoD"; */
+"e1Y-aP-hoD.text" = "минут";
+
+/* Class = "UILabel"; text = "ВЫБОР ПАКЕТА"; ObjectID = "e8Y-Ph-2dX"; */
+"e8Y-Ph-2dX.text" = "ВЫБОР ПАКЕТА";
+
+/* Class = "UILabel"; text = "СПИСОК ЗАКАЗОВ"; ObjectID = "e8k-qz-12p"; */
+"e8k-qz-12p.text" = "СПИСОК ЗАКАЗОВ";
+
+/* Class = "UILabel"; text = "Вторник"; ObjectID = "eHP-w6-T1q"; */
+"eHP-w6-T1q.text" = "Вторник";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "eSo-BE-CLO"; */
+"eSo-BE-CLO.text" = "Label";
+
+/* Class = "UILabel"; text = "(0)"; ObjectID = "eZa-sA-jqf"; */
+"eZa-sA-jqf.text" = "(0)";
+
+/* Class = "UIButton"; normalTitle = "Заказы"; ObjectID = "fdS-Yj-E28"; */
+"fdS-Yj-E28.normalTitle" = "Заказы";
+
+/* Class = "UILabel"; text = "КЛАСС ОБСЛУЖИВАНИЯ"; ObjectID = "fek-jh-lZ8"; */
+"fek-jh-lZ8.text" = "КЛАСС ОБСЛУЖИВАНИЯ";
+
+/* Class = "UITextField"; placeholder = "Введите дополнительные данные"; ObjectID = "ff2-J4-RTN"; */
+"ff2-J4-RTN.placeholder" = "Введите дополнительные данные";
+
+/* Class = "UILabel"; text = "ОПИСАНИЕ"; ObjectID = "fif-TC-hl5"; */
+"fif-TC-hl5.text" = "ОПИСАНИЕ";
+
+/* Class = "UILabel"; text = "Время записи:"; ObjectID = "gLr-Xe-2WZ"; */
+"gLr-Xe-2WZ.text" = "Время записи:";
+
+/* Class = "UILabel"; text = "Название"; ObjectID = "gRD-B7-HqF"; */
+"gRD-B7-HqF.text" = "Название";
+
+/* Class = "UILabel"; text = "Добро пожаловать в Coupler !"; ObjectID = "gnO-Ba-dbu"; */
+"gnO-Ba-dbu.text" = "Добро пожаловать в Coupler !";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "gzs-iH-8iE"; */
+"gzs-iH-8iE.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "СОХРАНИТЬ"; ObjectID = "h3x-WR-Gc5"; */
+"h3x-WR-Gc5.normalTitle" = "СОХРАНИТЬ";
+
+/* Class = "UILabel"; text = "Время работы"; ObjectID = "h5i-0N-C8Y"; */
+"h5i-0N-C8Y.text" = "Время работы";
+
+/* Class = "UITextField"; placeholder = "Введите регистрационный номер"; ObjectID = "h8h-oX-SHK"; */
+"h8h-oX-SHK.placeholder" = "Введите регистрационный номер";
+
+/* Class = "UIButton"; normalTitle = "БЛИЖАЙШЕЕ"; ObjectID = "hQB-gB-N7A"; */
+"hQB-gB-N7A.normalTitle" = "БЛИЖАЙШЕЕ";
+
+/* Class = "UIButton"; normalTitle = "Оставить отзыв"; ObjectID = "hXG-KT-Saj"; */
+"hXG-KT-Saj.normalTitle" = "Оставить отзыв";
+
+/* Class = "UIButton"; normalTitle = "ДОБАВИТЬ АВТО"; ObjectID = "hbB-4K-jtr"; */
+"hbB-4K-jtr.normalTitle" = "ДОБАВИТЬ АВТО";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "hma-Qj-gZe"; */
+"hma-Qj-gZe.text" = "Label";
+
+/* Class = "UILabel"; text = "(0)"; ObjectID = "hou-n1-Hps"; */
+"hou-n1-Hps.text" = "(0)";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "hsS-gS-tRl"; */
+"hsS-gS-tRl.text" = "0";
+
+/* Class = "UILabel"; text = "Категории бизнеса"; ObjectID = "hwz-s2-5kK"; */
+"hwz-s2-5kK.text" = "Категории бизнеса";
+
+/* Class = "UILabel"; text = "Пятница"; ObjectID = "iyc-uc-Wxc"; */
+"iyc-uc-Wxc.text" = "Пятница";
+
+/* Class = "UILabel"; text = "Исполнитель"; ObjectID = "j88-Fm-LYV"; */
+"j88-Fm-LYV.text" = "Исполнитель";
+
+/* Class = "UILabel"; text = "Продолжительность"; ObjectID = "jBa-6C-ifg"; */
+"jBa-6C-ifg.text" = "Продолжительность";
+
+/* Class = "UIButton"; normalTitle = "ОТМЕНИТЬ ЗАКАЗ"; ObjectID = "jIa-hv-hxQ"; */
+"jIa-hv-hxQ.normalTitle" = "ОТМЕНИТЬ ЗАКАЗ";
+
+/* Class = "UITextField"; placeholder = "Выберите марку"; ObjectID = "jva-yW-Yw8"; */
+"jva-yW-Yw8.placeholder" = "Выберите марку";
+
+/* Class = "UITextField"; placeholder = "Введите название города"; ObjectID = "k6L-lH-vTK"; */
+"k6L-lH-vTK.placeholder" = "Введите название города";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "kH4-Db-ozS"; */
+"kH4-Db-ozS.text" = "Label";
+
+/* Class = "UILabel"; text = " Поделитесь ссылкой на приложение"; ObjectID = "kUi-6F-1zF"; */
+"kUi-6F-1zF.text" = " Поделитесь ссылкой на приложение";
+
+/* Class = "UITextField"; placeholder = "Введите название"; ObjectID = "kb7-Za-JZk"; */
+"kb7-Za-JZk.placeholder" = "Введите название";
+
+/* Class = "UILabel"; text = "Среда"; ObjectID = "knL-1e-LFi"; */
+"knL-1e-LFi.text" = "Среда";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "lBR-xS-fQQ"; */
+"lBR-xS-fQQ.text" = "0";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "lSp-to-aOf"; */
+"lSp-to-aOf.text" = "Label";
+
+/* Class = "UILabel"; text = "Дата"; ObjectID = "lWy-Um-jJv"; */
+"lWy-Um-jJv.text" = "Дата";
+
+/* Class = "UIButton"; normalTitle = "ВЫБРАТЬ"; ObjectID = "mdo-ic-bgd"; */
+"mdo-ic-bgd.normalTitle" = "ВЫБРАТЬ";
+
+/* Class = "UILabel"; text = "грн"; ObjectID = "meY-dH-fuJ"; */
+"meY-dH-fuJ.text" = "грн";
+
+/* Class = "UIButton"; normalTitle = "СОЗДАТЬ"; ObjectID = "mzC-g1-gsB"; */
+"mzC-g1-gsB.normalTitle" = "СОЗДАТЬ";
+
+/* Class = "UILabel"; text = "ИНФОРМАЦИЯ О ЗАКАЗЕ"; ObjectID = "nht-jK-bNz"; */
+"nht-jK-bNz.text" = "ИНФОРМАЦИЯ О ЗАКАЗЕ";
+
+/* Class = "UIButton"; normalTitle = "Связаться"; ObjectID = "nqo-9V-Nwq"; */
+"nqo-9V-Nwq.normalTitle" = "Связаться";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "oD5-HV-W6b"; */
+"oD5-HV-W6b.text" = "-";
+
+/* Class = "UILabel"; text = "Страна"; ObjectID = "oEI-uH-lS9"; */
+"oEI-uH-lS9.text" = "Страна";
+
+/* Class = "UILabel"; text = "Регистрационный номер"; ObjectID = "p4j-IE-h05"; */
+"p4j-IE-h05.text" = "Регистрационный номер";
+
+/* Class = "UILabel"; text = "Скидка при выборе пакета"; ObjectID = "p8A-dT-xN0"; */
+"p8A-dT-xN0.text" = "Скидка при выборе пакета";
+
+/* Class = "UITextField"; placeholder = "Введите название"; ObjectID = "pBI-UJ-Bua"; */
+"pBI-UJ-Bua.placeholder" = "Введите название";
+
+/* Class = "UILabel"; text = "Отчество"; ObjectID = "pGE-kU-Oms"; */
+"pGE-kU-Oms.text" = "Отчество";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "pMO-3U-Kay"; */
+"pMO-3U-Kay.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "ПОЛУЧИТЬ КОД"; ObjectID = "pWF-cd-Rbq"; */
+"pWF-cd-Rbq.normalTitle" = "ПОЛУЧИТЬ КОД";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "pyI-jE-0L7"; */
+"pyI-jE-0L7.text" = "Label";
+
+/* Class = "UILabel"; text = "В пакет услуг входит:"; ObjectID = "q2K-im-dMb"; */
+"q2K-im-dMb.text" = "В пакет услуг входит:";
+
+/* Class = "UILabel"; text = "Комментарии:"; ObjectID = "qQZ-Ze-jLE"; */
+"qQZ-Ze-jLE.text" = "Комментарии:";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "qh5-xS-cyg"; */
+"qh5-xS-cyg.text" = "Label";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "qmr-4A-XhH"; */
+"qmr-4A-XhH.text" = "0";
+
+/* Class = "UILabel"; text = "Мои автомобили"; ObjectID = "rvh-jM-fjZ"; */
+"rvh-jM-fjZ.text" = "Мои автомобили";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "s10-8R-9Kt"; */
+"s10-8R-9Kt.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "slD-h0-31g"; */
+"slD-h0-31g.text" = "Label";
+
+/* Class = "UILabel"; text = "ВРЕМЯ РАБОТЫ"; ObjectID = "sqx-cf-ed4"; */
+"sqx-cf-ed4.text" = "ВРЕМЯ РАБОТЫ";
+
+/* Class = "UILabel"; text = "Kнопка услуг"; ObjectID = "t5p-6C-cgI"; */
+"t5p-6C-cgI.text" = "Kнопка услуг";
+
+/* Class = "UILabel"; text = "Воскресенье"; ObjectID = "tJq-am-NhQ"; */
+"tJq-am-NhQ.text" = "Воскресенье";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ta0-6U-a5l"; */
+"ta0-6U-a5l.text" = "Label";
+
+/* Class = "UILabel"; text = "Нет доступа к интернету, \nили Приложение временно недоступно. Мы внедряем более эффективные решения и устраняем ошибки, чтобы приложение работало лучше. Спасибо, что остаетесь с Coupler.\n"; ObjectID = "u7g-OV-Fg6"; */
+"u7g-OV-Fg6.text" = "Нет доступа к интернету, \nили Приложение временно недоступно. Мы внедряем более эффективные решения и устраняем ошибки, чтобы приложение работало лучше. Спасибо, что остаетесь с Coupler.\n";
+
+/* Class = "UIButton"; normalTitle = "УСЛУГИ"; ObjectID = "vQ3-JO-VgB"; */
+"vQ3-JO-VgB.normalTitle" = "УСЛУГИ";
+
+/* Class = "UILabel"; text = "12:28"; ObjectID = "vbY-rC-c2a"; */
+"vbY-rC-c2a.text" = "12:28";
+
+/* Class = "UILabel"; text = "В ПАКЕТ УСЛУГ ВХОДИТ"; ObjectID = "viL-2f-NTa"; */
+"viL-2f-NTa.text" = "В ПАКЕТ УСЛУГ ВХОДИТ";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "vlg-Gy-mML"; */
+"vlg-Gy-mML.text" = "0";
+
+/* Class = "UILabel"; text = "ВРЕМЯ РАБОТЫ"; ObjectID = "wZW-F6-u9n"; */
+"wZW-F6-u9n.text" = "ВРЕМЯ РАБОТЫ";
+
+/* Class = "UILabel"; text = "Юзер"; ObjectID = "wc6-y0-8YB"; */
+"wc6-y0-8YB.text" = "Юзер";
+
+/* Class = "UILabel"; text = "Модель"; ObjectID = "wuc-ps-CVm"; */
+"wuc-ps-CVm.text" = "Модель";
+
+/* Class = "UILabel"; text = "Понедельник"; ObjectID = "xIG-c7-9bU"; */
+"xIG-c7-9bU.text" = "Понедельник";
+
+/* Class = "UILabel"; text = "Мастер сервиса"; ObjectID = "xJE-M7-Jfm"; */
+"xJE-M7-Jfm.text" = "Мастер сервиса";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "xfj-hi-tuz"; */
+"xfj-hi-tuz.text" = "Label";
+
+/* Class = "UILabel"; text = "Радиус дисков"; ObjectID = "yEq-BM-TDP"; */
+"yEq-BM-TDP.text" = "Радиус дисков";
+
+/* Class = "UILabel"; text = "Пользуйтесь скидками на услуги в Coupler 😊"; ObjectID = "ybN-tb-m9l"; */
+"ybN-tb-m9l.text" = "Пользуйтесь скидками на услуги в Coupler 😊";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "yeI-eR-BiT"; */
+"yeI-eR-BiT.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Добавить на карту"; ObjectID = "yeO-mB-l95"; */
+"yeO-mB-l95.normalTitle" = "Добавить на карту";
+
+/* Class = "UIButton"; normalTitle = "  Условия использования"; ObjectID = "ygK-GO-kcn"; */
+"ygK-GO-kcn.normalTitle" = "  Условия использования";

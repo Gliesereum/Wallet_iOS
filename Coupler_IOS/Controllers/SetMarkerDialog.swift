@@ -25,7 +25,7 @@ struct NewMarker: Codable {
 }
 
 
-class SetMarkerDialog: UIViewController, UITableViewDataSource, UITableViewDelegate, NVActivityIndicatorViewable {
+class SetMarkerDialog: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
     @IBOutlet weak var categotyTable: UITableView!
     @IBOutlet weak var markerName: MDCTextField!
@@ -81,15 +81,15 @@ class SetMarkerDialog: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     @IBAction func add(_ sender: Any) {
         guard selectedId != "" else{
-            utils.checkFilds(massage: "Введите категорию бизнеса", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("enter_busines_cat", comment: ""), vc: self.view)
             return
         }
         guard markerName.text!.count >= 2 else{
-            utils.checkFilds(massage: "Введите название", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("enter_name_of", comment: ""), vc: self.view)
             return
         }
         guard markerPhone.text!.count >= 7 else{
-            utils.checkFilds(massage: "Введите номер телефона", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("Enter_phone", comment: ""), vc: self.view)
             return
         }
         orderWash(param: NewMarker(businessCategoryID: selectedId, latitude: currentCoordinate!.latitude, longitude: currentCoordinate!.longitude, name: markerName.text!, phone: markerPhone.text!))
@@ -157,12 +157,12 @@ class SetMarkerDialog: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func getAllBuisness(){
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/business-category"
         Alamofire.request(restUrl, method: .get, headers: constants.appID).responseJSON { response  in
             
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             
@@ -181,7 +181,7 @@ class SetMarkerDialog: UIViewController, UITableViewDataSource, UITableViewDeleg
                 print(error)
             }
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
             
             
             self.categotyTable.reloadData()
@@ -193,7 +193,7 @@ class SetMarkerDialog: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func orderWash(param : NewMarker){
-        startAnimating()
+        showActivityIndicator()
         
         var parameters = try! JSONEncoder().encode(param)
        
@@ -204,12 +204,12 @@ class SetMarkerDialog: UIViewController, UITableViewDataSource, UITableViewDeleg
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
         Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
-            self.utils.doneMassage(massage: "Успешно создано", vc: self.view)
+            self.utils.doneMassage(massage: NSLocalizedString("new_marker_done", comment: ""), vc: self.view)
             self.dismiss(animated: true, completion: nil)
-            self.stopAnimating()
+            self.hideActivityIndicator()
             
             
             

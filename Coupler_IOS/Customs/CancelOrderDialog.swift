@@ -34,7 +34,7 @@ class CancelOrderDialog: UIViewController, NVActivityIndicatorViewable{
     }
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            frameY = self.view.frame.origin.y
+            frameY = self.view.frame.origin.y
             //            if self.view.frame.origin.y == 0 {
             self.view.frame.origin.y -= keyboardSize.height / 2
             //            }
@@ -58,12 +58,14 @@ class CancelOrderDialog: UIViewController, NVActivityIndicatorViewable{
         
         self.view.endEditing(true)
         guard self.comments.text != "" else{
-            utils.checkFilds(massage: "Укажите причину по которой Вы отменяете заказ", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("enter_reason_why", comment: ""), vc: self.view)
             //            TinyToast.shared.show(message: "Введите комментарий", valign: .bottom, duration: .normal)
             return
         }
         cancelRecord()
         
+        self.view.endEditing(true)
+        delegate?.dismissDialog(chouse: true)
     }
     @objc func cancelRecord(){
         startAnimating()
@@ -77,8 +79,6 @@ class CancelOrderDialog: UIViewController, NVActivityIndicatorViewable{
 //            self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "ordersTableViewController")), animated: true)
 //            self.sideMenuViewController!.hideMenuViewController()
             
-            self.view.endEditing(true)
-            self.delegate?.dismissDialog(chouse: true)
             self.stopAnimating()
         }
     }

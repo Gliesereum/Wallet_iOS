@@ -26,7 +26,7 @@ class OrdersVIewCell: UITableViewCell{
     @IBAction func getRote(_ sender: Any) {
        
     let vc = OrdersTableViewController()
-    TinyToast.shared.show(message: "Данная опция в разработке", valign: .bottom, duration: .normal)
+    TinyToast.shared.show(message: NSLocalizedString("Error_in_development", comment: ""), valign: .bottom, duration: .normal)
 //        utils.fetchRoute(sourceLat: utils.getSharedPref(key: "curLat")!, sourceLong: utils.getSharedPref(key: "curLon")!, destinationLt: carwoshLatitude.text!, destinationLg: carwashLongitude.text!, viewController: vc)
     }
 }
@@ -41,7 +41,7 @@ struct  RecordData {
     var orderStatus: String?
 }
 
-class OrdersTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NVActivityIndicatorViewable{
+class OrdersTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     @IBOutlet var recordTableView: UITableView!
     
     let constants = Constants()
@@ -85,12 +85,12 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @objc func getAllCars(page: Int){
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/record/by-current-user?page=\(page)&size=20"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             
             self.utils.checkAutorization(vc: self)
-            stopAnimating()
+            hideActivityIndicator()
             return
         }
 //        guard UserDefaults.standard.object(forKey: "BUISNESSID") != nil else{
@@ -116,11 +116,11 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
 //                self.recordTableView.addSubview(notOrder)
 //                }
                 
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
           
@@ -130,6 +130,11 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
 //                for element in carList{
 //                    self.recordListData.append(RecordData.init(carwoshImage: element.business?.logoURL, orderDate: element.begin, carwashName: element.business?.name, orderPrice: element.price, carwoshLatitude: element.business?.latitude, carwashLongitude: element.business?.longitude, orderStatus: element.statusProcess))
 //                }
+                if page == 0 {
+                    
+                    self.recordListData.removeAll()
+                    
+                }
                 if self.loadMore == true{
                     self.recordListData = self.recordListData + carList.content!
                     
@@ -144,7 +149,7 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
                 print(error)
             }
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
            
            
             self.recordTableView.reloadData()
@@ -187,24 +192,28 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
             cell.carwoshImage.image = UIImage(named: "logo_v1SmallLogo")
         }
         cell.orderDate.text = utils.milisecondsToDate(miliseconds: record.begin!)
-        cell.orderPrice.text = String(record.price!) + " грн"
+        cell.orderPrice.text = String(record.price!) + NSLocalizedString("UAH", comment: "")
         cell.carwoshLatitude.text = String(format:"%f",(record.business?.latitude)!)
         cell.carwashLongitude.text = String(format:"%f",(record.business?.longitude)!)
         switch record.statusProcess {
         case "WAITING":
-             cell.orderStatus.text = "В ожидании"
+             cell.orderStatus.text = NSLocalizedString("waiting", comment: "")
              cell.compliteImage.image = UIImage(named: "waiting")
             break
         case "IN_PROCESS":
-            cell.orderStatus.text = "В процессе"
+            cell.orderStatus.text = NSLocalizedString("in_process", comment: "")
             cell.compliteImage.image = UIImage(named: "in_process")
             break
         case "COMPLETED":
-            cell.orderStatus.text = "Завершен"
+            cell.orderStatus.text = NSLocalizedString("complite", comment: "")
             cell.compliteImage.image = UIImage(named: "complite")
             break
         case "CANCELED":
-            cell.orderStatus.text = "Отменен"
+            cell.orderStatus.text = NSLocalizedString("canceled", comment: "")
+            cell.compliteImage.image = UIImage(named: "canceled")
+            break
+        case "EXPIRED":
+            cell.orderStatus.text = NSLocalizedString("EXPIRED", comment: "")
             cell.compliteImage.image = UIImage(named: "canceled")
             break
         default:
@@ -218,16 +227,19 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cells = cell as! OrdersVIewCell
         switch cells.orderStatus.text {
-        case "В ожидании":
+        case NSLocalizedString("waiting", comment: ""):
             cells.compliteImage.image = UIImage(named: "waiting")
             break
-        case "В процессе":
+        case NSLocalizedString("in_process", comment: ""):
             cells.compliteImage.image = UIImage(named: "in_process")
             break
-        case "Завершен":
+        case NSLocalizedString("complite", comment: ""):
             cells.compliteImage.image = UIImage(named: "complite")
             break
-        case "Отменен":
+        case NSLocalizedString("canceled", comment: ""):
+            cells.compliteImage.image = UIImage(named: "canceled")
+            break
+        case NSLocalizedString("EXPIRED", comment: ""):
             cells.compliteImage.image = UIImage(named: "canceled")
             break
         default:
@@ -312,12 +324,12 @@ class OrdersTableViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "Здесь будут отображаться все ваши заказы")
+        let infoDesc = InfoDescriptor(for: NSLocalizedString("tutor_OTVC_1", comment: ""))
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
         
         
-        let cellDesc = LabelDescriptor(for: "Подробную информацию о заказе вы можете узнать, перейдя в карточку заказа")
+        let cellDesc = LabelDescriptor(for: NSLocalizedString("tutor_OTVC_2", comment: ""))
         cellDesc.position = .bottom
         let cellHoleDesc = CellViewDescriptor(tableView: self.recordTableView, indexPath: IndexPath(row: 0, section: 0), forOrientation: .any)
         cellHoleDesc.labelDescriptor = cellDesc

@@ -69,7 +69,7 @@ class BusinessCategoryCWB: NSObject, Codable {
     let businessType: String?
     let active: Bool?
     let orderIndex: Int?
-    let descriptions: String?
+    let descriptions: Descriptions?
     
     enum CodingKeys: String, CodingKey {
         case id, code, name
@@ -78,7 +78,7 @@ class BusinessCategoryCWB: NSObject, Codable {
         case businessType, active, orderIndex, descriptions
     }
     
-    init(id: String?, code: String?, name: String?, businessCategoryDescription: String?, imageURL: String?, businessType: String?, active: Bool?, orderIndex: Int?, descriptions: String?) {
+    init(id: String?, code: String?, name: String?, businessCategoryDescription: String?, imageURL: String?, businessType: String?, active: Bool?, orderIndex: Int?, descriptions: Descriptions?) {
         self.id = id
         self.code = code
         self.name = name
@@ -119,7 +119,7 @@ extension BusinessCategoryCWB {
         businessType: String?? = nil,
         active: Bool?? = nil,
         orderIndex: Int?? = nil,
-        descriptions: String?? = nil
+        descriptions: Descriptions?? = nil
         ) -> BusinessCategoryCWB {
         return BusinessCategoryCWB(
             id: id ?? self.id,
@@ -279,12 +279,13 @@ class Attribute: NSObject, Codable {
 }
 
 class Service: NSObject, Codable {
-    let id, name, descriptions: String?
+    let id, name: String?
+    let descriptions: Descriptions?
     let serviceType: ServiceType?
     let objectState: String?
     let orderIndex: Int?
     
-    init(id: String?, name: String?, descriptions: String?, serviceType: ServiceType?, objectState: String?, orderIndex: Int?) {
+    init(id: String?, name: String?, descriptions: Descriptions?, serviceType: ServiceType?, objectState: String?, orderIndex: Int?) {
         self.id = id
         self.name = name
         self.descriptions = descriptions
@@ -857,7 +858,7 @@ extension Service {
     func with(
         id: String?? = nil,
         name: String?? = nil,
-        descriptions: String?? = nil,
+        descriptions: Descriptions?? = nil,
         serviceType: ServiceType?? = nil,
         objectState: String?? = nil,
         orderIndex: Int?? = nil

@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "Отмена заказа"; ObjectID = "2iy-ED-85B"; */
+"2iy-ED-85B.text" = "Скасування замовлення";
+
+/* Class = "UIButton"; normalTitle = "ОТМЕНИТЬ ЗАКАЗ"; ObjectID = "JiX-1b-8ON"; */
+"JiX-1b-8ON.normalTitle" = "CКАСУВАТИ ЗАМОВЛЕННЯ";
+
+/* Class = "UITextField"; placeholder = "Введите причину отмены заказа"; ObjectID = "bvK-JW-oNY"; */
+"bvK-JW-oNY.placeholder" = "Введіть причину скасування замовлення";
+
+/* Class = "UIButton"; normalTitle = "ВЕРНУТЬСЯ"; ObjectID = "lP9-98-W7B"; */
+"lP9-98-W7B.normalTitle" = "ПОВЕРНУТИСЯ";
+
+/* Class = "UILabel"; text = "Пожалуйста, укажите причину отмены заказа. Нам важна ваша обратная связь. Вы помогаете нам становиться лучше"; ObjectID = "ucJ-sp-bmg"; */
+"ucJ-sp-bmg.text" = "Будь ласка, вкажіть причину скасування замовлення. Нам важливий ваш зворотній зв'язок. Ви допомагаєте нам ставати краще";

@@ -21,9 +21,9 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.1.1</string>
+	<string>0.1.2</string>
 	<key>CFBundleVersion</key>
-	<string>10</string>
+	<string>2</string>
 	<key>LSApplicationCategoryType</key>
 	<string>Coupler</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -36,6 +36,8 @@
 	<key>NSCameraUsageDescription</key>
 	<string>This app wants to take pictures to set avatar</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app wants to take current location to show in the map</string>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This app wants to take current location to show in the map</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app wants to take current location to show in the map</string>
@@ -75,6 +77,8 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 </dict>
 </plist>

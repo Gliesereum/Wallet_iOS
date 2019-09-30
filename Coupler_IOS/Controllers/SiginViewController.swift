@@ -59,7 +59,7 @@ extension UserPushNot {
     }
 }
 
-class SiginViewController: UIViewController, NVActivityIndicatorViewable{
+class SiginViewController: UIViewController{
     
     
    
@@ -79,6 +79,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var logoKarma: UIImageView!
     @IBOutlet weak var mainVIew: UIView!
+    @IBOutlet weak var phoneTextField: UITextField!
     let utils = Utils()
     let constants = Constants()
     let button = UIButton()
@@ -104,27 +105,30 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        phoneTextField.layer.borderColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+        phoneTextField.layer.borderWidth = 2
+        phoneTextField.layer.cornerRadius = 8
         frameY = self.view.frame.origin.y
         frameView = frameY
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 //        logoKarma.image = utils.getImageFromSVG(name: "KarmaClient")
         
-        phoneNumberTextField = FPNTextField(frame: CGRect(x: 0, y: 0, width:  view.bounds.width  - 16, height: 56))
-//        phoneNumberTextField.frame = centrLable.frame
-        phoneNumberTextField.borderStyle = .roundedRect
-        phoneNumberTextField.layer.borderColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
-        phoneNumberTextField.parentViewController = self
-        phoneNumberTextField.delegate = self
-        phoneNumberTextField.flagSize = CGSize(width: 35, height: 56)
-        phoneNumberTextField.flagButtonEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 0)
-        phoneNumberTextField.hasPhoneNumberExample = true
-        mainVIew.addSubview(phoneNumberTextField)
+//        phoneNumberTextField = FPNTextField(frame: CGRect(x: 0, y: 0, width:  view.bounds.width  - 16, height: 56))
+////        phoneNumberTextField.frame = centrLable.frame
+//        phoneNumberTextField.borderStyle = .roundedRect
+//        phoneNumberTextField.layer.borderColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
+//        phoneNumberTextField.parentViewController = self
+//        phoneNumberTextField.delegate = self
+//        phoneNumberTextField.flagSize = CGSize(width: 35, height: 56)
+//        phoneNumberTextField.flagButtonEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 0)
+//        phoneNumberTextField.hasPhoneNumberExample = true
+//        mainVIew.addSubview(phoneNumberTextField)
         mainVIew.addSubview(pinCodeInputView)
         
-        phoneNumberTextField.center = view.center
-        phoneNumberTextField.frame = CGRect(x: phoneNumberTextField.frame.minX, y: centrLable.frame.midY - 10, width: phoneNumberTextField.bounds.width, height: phoneNumberTextField.bounds.height)
-        
+//        phoneNumberTextField.center = view.center
+//        phoneNumberTextField.frame = CGRect(x: phoneNumberTextField.frame.minX, y: centrLable.frame.midY - 10, width: phoneNumberTextField.bounds.width, height: phoneNumberTextField.bounds.height)
+//
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
         view.addGestureRecognizer(tapGesture)
@@ -135,7 +139,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
         pinCodeInputView.set(changeTextHandler: { text in
             if text.count == 6{
                 self.smsCodeText = text
-                self.setCodeSignIn(phone: self.phoneNumberTextField.getFormattedPhoneNumber(format: .E164)!.replacingOccurrences(of: "+", with: ""), code: text)
+                self.setCodeSignIn(phone: self.phoneNumber.text!.replacingOccurrences(of: "+", with: ""), code: text)
             }
         })
         pinCodeInputView.set(
@@ -158,7 +162,8 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
                 name: UIApplication.didBecomeActiveNotification,
                 object: nil
         )
-        phoneNumberTextField.addDoneCancelToolbar(onDone: (target: (Any).self, action: #selector(sigInBtnAct)))
+        phoneTextField.addDoneCancelToolbar(onDone: (target: (Any).self, action: #selector(sigInBtnAct)))
+//        phoneNumberTextField.addDoneCancelToolbar(onDone: (target: (Any).self, action: #selector(sigInBtnAct)))
         if poper == true{
             self.definesPresentationContext = true
             exitBtn.isHidden = false
@@ -202,12 +207,15 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
         
         let contentInset:UIEdgeInsets = UIEdgeInsets.zero
         scrollView.contentInset = contentInset
-        phoneNumberTextField.addDoneCancelToolbar(onDone: (target: (Any).self, action: #selector(sigInBtnAct)))
+        
+         phoneTextField.addDoneCancelToolbar(onDone: (target: (Any).self, action: #selector(sigInBtnAct)))
+//        phoneNumberTextField.addDoneCancelToolbar(onDone: (target: (Any).self, action: #selector(sigInBtnAct)))
     
     }
     
     @IBAction func onBackBtn(_ sender: Any) {
-        self.phoneNumberTextField.isHidden = false
+//        self.phoneNumberTextField.isHidden = false
+        self.phoneTextField.isHidden = false
         self.getCodeBtn.isHidden = true
         self.pinCodeInputView.isHidden = true
         self.sigInBtn.isHidden = false
@@ -238,12 +246,12 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
     @IBAction func getCode(_ sender: Any) {
         
         self.view.endEditing(true)
-       startAnimating()
+       showActivityIndicator()
         if smsCodeText.count == 6{
-            setCodeSignIn(phone: phoneNumberTextField.getFormattedPhoneNumber(format: .E164)!.replacingOccurrences(of: "+", with: ""), code: smsCodeText)
+            setCodeSignIn(phone:  phoneNumber.text!.replacingOccurrences(of: "+", with: ""), code: smsCodeText)
         } else {
-            stopAnimating()
-            utils.checkFilds(massage: "Введите код", vc: self.view)
+            hideActivityIndicator()
+            utils.checkFilds(massage: NSLocalizedString("Enter_code", comment: ""), vc: self.view)
 //             TinyToast.shared.show(message: "Введите код", valign: .bottom, duration: .normal)
 //            utils.showToast(message: "Введите код",viewController: self)
             
@@ -253,26 +261,43 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
         sigInBtnAct()
     }
     @objc func sigInBtnAct() {
-        startAnimating()
+        showActivityIndicator()
         
         self.view.endEditing(true)
-        guard phoneNumberTextField.text != "(null)(null)" else {
-            stopAnimating()
-            return
-        }
-        if let text = phoneNumberTextField.text, !text.isEmpty
+        if let text = phoneTextField.text, !text.isEmpty
         {
-            phoneNumber.text = phoneNumberTextField.getFormattedPhoneNumber(format: .E164)
             
-//            sigInBtn.isEnabled = false
-//            sigInBtn.isHidden = true
-            phoneAutorithation(phone:  phoneNumberTextField.getFormattedPhoneNumber(format: .E164)!.replacingOccurrences(of: "+", with: ""), isNew: false)
+            phoneNumber.text =  text.replacingOccurrences(of: " ", with: "")
+            
+            
+            //            sigInBtn.isEnabled = false
+            //            sigInBtn.isHidden = true
+            phoneAutorithation(phone:  phoneNumber.text!.replacingOccurrences(of: "+", with: ""), isNew: false)
         } else {
-            stopAnimating()
-            utils.checkFilds(massage: "Введите нормер телефона", vc: self.view)
+            hideActivityIndicator()
+            utils.checkFilds(massage: NSLocalizedString("Enter_phone", comment: ""), vc: self.view)
             //              TinyToast.shared.show(message: "Введите нормер телефона", valign: .bottom, duration: .normal)
             //            utils.showToast(message: "Введите нормер телефона",viewController: self)
         }
+//        guard phoneNumberTextField.text != "(null)(null)" else {
+//            hideActivityIndicator()
+//            return
+//        }
+//        if let text = phoneNumberTextField.text, !text.isEmpty
+//        {
+//
+//            phoneNumber.text = (phoneNumberTextField.selectedCountry!.phoneCode + text).replacingOccurrences(of: " ", with: "")
+//
+//
+////            sigInBtn.isEnabled = false
+////            sigInBtn.isHidden = true
+//            phoneAutorithation(phone:  phoneNumber.text!.replacingOccurrences(of: "+", with: ""), isNew: false)
+//        } else {
+//            hideActivityIndicator()
+//            utils.checkFilds(massage: NSLocalizedString("Enter_phone", comment: ""), vc: self.view)
+//            //              TinyToast.shared.show(message: "Введите нормер телефона", valign: .bottom, duration: .normal)
+//            //            utils.showToast(message: "Введите нормер телефона",viewController: self)
+//        }
     }
     //MARK - REST API request
     func phoneAutorithation(phone: String, isNew: Bool){
@@ -280,10 +305,11 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
         let toDo: [String: Any]  = ["phone": phone, "isNew": isNew]
         Alamofire.request(restUrl, method: .get, parameters: toDo, encoding: URLEncoding(destination: .queryString), headers: self.constants.appID).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
-            self.phoneNumberTextField.isHidden = true
+//            self.phoneNumberTextField.isHidden = true
+            self.phoneTextField.isHidden = true
             self.getCodeBtn.isHidden = false
             self.pinCodeInputView.isHidden = false
             self.sigInBtn.isHidden = true
@@ -292,18 +318,19 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
             self.codeLable.isHidden = false
             self.pinCodeInputView.resignFirstResponder()
             self.sigInBtn.isEnabled = true
-            self.stopAnimating()
+            self.hideActivityIndicator()
+            self.tap()
         }
         
     }
     
     func setCodeSignIn(phone: String, code: String){
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "account/v1/auth/signin"
         let toDo: [String: Any]  = ["value": phone, "code": code, "type": "PHONE"]
         Alamofire.request(restUrl, method: .post, parameters: toDo, encoding: JSONEncoding.default, headers: self.constants.appID).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             do{
@@ -358,13 +385,13 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
                 
             }
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
         }
     }
     
     
     func setFireBaseToken(token: String, userId: String, accessToken: String){
-        startAnimating()
+        showActivityIndicator()
         print(token)
         utils.setSaredPref(key: "REGISTRATIONTOKEN", value: token)
         let restUrl = constants.startUrl + "notification/v1/user-device"
@@ -379,21 +406,21 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
         let headers = ["Authorization" : accessToken, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .post, parameters: toDo,encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
         }
     }
     
     func getAllCars(){
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/car/user"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             
-            stopAnimating()
+            hideActivityIndicator()
             return
         }
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
@@ -402,7 +429,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
             
             guard self.utils.checkResponse(response: response, vc: self) == true else{
                 
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             
@@ -433,7 +460,7 @@ class SiginViewController: UIViewController, NVActivityIndicatorViewable{
                 
             }
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
             
             
         }

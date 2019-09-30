@@ -12,7 +12,7 @@ import UIKit
 protocol SetTimeDialogDismissDelegate: class {
     func DismissTime(currentTime: Int)
 }
-class SetTimeDialog: UIViewController, NVActivityIndicatorViewable, UIGestureRecognizerDelegate {
+class SetTimeDialog: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func fastTime(_ sender: Any) {
         
         dissmis()

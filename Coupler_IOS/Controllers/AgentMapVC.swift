@@ -15,7 +15,7 @@ import MaterialComponents
 
 
 
-class AgentMapVC: UIViewController, GMSMapViewDelegate, NVActivityIndicatorViewable, CLLocationManagerDelegate {
+class AgentMapVC: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
 
     
     @IBOutlet weak var viewMap: UIView!
@@ -86,7 +86,7 @@ class AgentMapVC: UIViewController, GMSMapViewDelegate, NVActivityIndicatorViewa
         
         guard currentCoordinate != nil else{
             
-            utils.checkFilds(massage: "Нажмите на карту чтобы задать координаты маркеру", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("pls_tab_to_map", comment: ""), vc: self.view)
             return
         }
         let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "setMarkerDialog") as! SetMarkerDialog
@@ -128,7 +128,7 @@ class AgentMapVC: UIViewController, GMSMapViewDelegate, NVActivityIndicatorViewa
         let marker = GMSMarker()
         marker.position = coordinate
         currentCoordinate = coordinate
-        marker.title = "Новый маркер"
+        marker.title = NSLocalizedString("new_marker", comment: "")
         marker.snippet = ""
         let markerImage = UIImage(named: "pin_primary")!
         let matkerView = UIImageView(image: markerImage)

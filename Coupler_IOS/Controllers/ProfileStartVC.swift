@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityIndicatorViewable {
+class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var userNumber: UILabel!
@@ -79,12 +79,12 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
     }
     */
     func getProfile(){
-        self.startAnimating()
+        self.showActivityIndicator()
         let restUrl = constants.startUrl + "account/v1/user/me"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             
             self.utils.checkAutorization(vc: self)
-            self.stopAnimating()
+            self.hideActivityIndicator()
             return
         }
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
@@ -93,7 +93,7 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
             let profileModel = response.result.value
             guard profileModel?.firstName != nil else{
                 self.goToProfile()
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             self.userName.text = (profileModel?.firstName)! + " " + (profileModel?.lastName)!
@@ -102,23 +102,23 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
                 self.userImage.downloaded(from: (profileModel?.avatarURL)!)
             }
             self.profiModel = profileModel
-           self.stopAnimating()
+           self.hideActivityIndicator()
         }
     }
     
     func getScore(){
-        self.startAnimating()
+        self.showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/bonus-score/me"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             
             self.utils.checkAutorization(vc: self)
-            self.stopAnimating()
+            self.hideActivityIndicator()
             return
         }
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             
@@ -130,22 +130,22 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
             catch{
                 print(error)
             }
-            self.stopAnimating()
+            self.hideActivityIndicator()
         }
     }
     func getReferralCode(){
-        self.startAnimating()
+        self.showActivityIndicator()
         let restUrl = constants.startUrl + "account/v1/user/referral-code/me"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             
             self.utils.checkAutorization(vc: self)
-            self.stopAnimating()
+            self.hideActivityIndicator()
             return
         }
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
         Alamofire.request(restUrl, method: .get, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             
@@ -157,7 +157,7 @@ class ProfileStartVC: UIViewController, UIGestureRecognizerDelegate, NVActivityI
             catch{
                 print(error)
             }
-            self.stopAnimating()
+            self.hideActivityIndicator()
         }
     }
     override func viewDidAppear(_ animated: Bool) {

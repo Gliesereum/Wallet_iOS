@@ -12,7 +12,7 @@ import Alamofire
 protocol WorkersListDelegate: class {
     func DismissWorker(worker: Worker?)
 }
-class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate, NVActivityIndicatorViewable {
+class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
     @IBOutlet weak var workersTable: UITableView!
     
@@ -117,12 +117,12 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
 
     func getCarWashInfoComments(){
         
-        startAnimating()
+        showActivityIndicator()
         let headers = ["Application-Id":self.constants.iosId]
         let restUrl = constants.startUrl + "karma/v1/business/full-model-by-id?id=\((businesId)!)"
         Alamofire.request(restUrl, method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             do{
@@ -143,7 +143,7 @@ class WorkersList: UIViewController, UITableViewDataSource, UITableViewDelegate,
                 
             }
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
         }
     }
     override func viewWillAppear(_ animated: Bool) {

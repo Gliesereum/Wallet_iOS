@@ -16,16 +16,11 @@ protocol CreateCarDissmisDelegete: class {
     func CreateCarDismiss()
 }
 
-class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableViewDataSource, UITableViewDelegate, DateTimePickerDelegate, NVActivityIndicatorViewable, UIPopoverPresentationControllerDelegate, DialodDismissDelegate, SetTimeDialogDismissDelegate, OrderDialogDismissDelegate, WorkersListDelegate, CreateCarDissmisDelegete, OrderPopDismissDelegate{
+class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableViewDataSource, UITableViewDelegate, DateTimePickerDelegate, UIPopoverPresentationControllerDelegate, DialodDismissDelegate, SetTimeDialogDismissDelegate, OrderDialogDismissDelegate, WorkersListDelegate, CreateCarDissmisDelegete, OrderPopDismissDelegate{
    
     func OrderPopDismiss() {
         pressOrderButton = false
     }
-    
-    
-   
-    
-   
     @IBOutlet weak var workerImage: UIImageView!
     @IBOutlet weak var workerPosition: UILabel!
     @IBOutlet weak var workerName: UILabel!
@@ -65,7 +60,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     var sumDurations = Int()
     @IBOutlet weak var packageLable: UILabel!
     var pricesPackage = [Int]()
-    var packagesList: [String] = ["Не выбран"]
+    var packagesList: [String] = [NSLocalizedString("not_chousen", comment: "")]
     var packageDuration = Int()
     var packagePrice : Int = 0
     var packageId: String = ""
@@ -85,7 +80,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     var checkedWorker: [Worker] = []
     var worker : Worker?
     
-    let dialogController = AZDialogViewController(title: "Выберите время", message: "Время не выбрато")
+//    let dialogController = AZDialogViewController(title: "Выберите время", message: "Время не выбрато")
     
     let cellSpacingHeight: CGFloat = 5
    
@@ -101,7 +96,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 }
             }
             if checkedWorker.count == 0 || carWashInfo?.spaces?.count == 0{
-                    utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
+                    utils.checkFilds(massage: NSLocalizedString("Error_dont_work_buisnes", comment: ""), vc: self.view)
                     workerView.visiblity(gone: true)
                     workerView.isHidden = true
                     orderButton.isHidden = true
@@ -110,7 +105,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                     //            view.layoutIfNeeded()
             }
         } else {
-            utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("Error_dont_work_buisnes", comment: ""), vc: self.view)
             workerView.visiblity(gone: true)
             workerView.isHidden = true
             orderButton.isHidden = true
@@ -177,7 +172,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     }
     @IBAction func callUs(_ sender: Any) {
         if carWashInfo?.phone == nil{
-            utils.checkFilds(massage: "У этой компании не внесен номер телефона", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("error_phone_on_busines", comment: ""), vc: self.view)
         } else{
             if let phoneCallURL = URL(string: "telprompt://\((carWashInfo?.phone)!)") {
                 
@@ -237,7 +232,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         pressOrderButton = true
 //        getCurrentTime()
         guard sumPrice != 0 else{
-            utils.checkFilds(massage: "Выберите услуги", vc: self.view)
+            utils.checkFilds(massage: NSLocalizedString("select_services", comment: ""), vc: self.view)
             return
         }
         guard utils.getSharedPref(key: "accessToken") != nil else{
@@ -309,7 +304,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 
     func titleForItem(at index: UInt, forHorisontalSelection hSelView: EHHorizontalSelectionView) -> String? {
 //        return arrayPacets[Int(index)] as! String
-        if packagesList[Int(index)] == "Не выбран"{
+        if packagesList[Int(index)] == NSLocalizedString("select_services", comment: ""){
             self.indexPackage = index
         }
         return packagesList[Int(index)]
@@ -453,14 +448,14 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         
     }
     func addsumPriceDurations(price: Int, duration: Int)  {
-        startAnimating()
+        showActivityIndicator()
         durationArray.append(duration)
         sumDurations = durationArray.reduce(0, +)
         allDurations.text = String(sumDurations)
         priceArray.append(price)
         sumPrice = priceArray.reduce(0, +)
         allPrice.text = String(sumPrice)
-        stopAnimating()
+        hideActivityIndicator()
     }
     func removesumPriceDurations(price: Int, duration: Int, packageService: String)  {
         sumPrice = sumPrice - price
@@ -504,7 +499,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
        
         let restUrl = constants.startUrl + "karma/v1/record/free-time"
 //       utils.currentTimeInMiliseconds(timeZone: (carWashInfo?.timeZone)!)
-        startAnimating()
+        showActivityIndicator()
         var parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: nil, description: "IOS", packageID: self.packageId, servicesIDS: idServicePrice, targetID: nil, workingSpaceID: nil))
         if workerId != "" &&  self.carWashInfo?.businessCategory?.businessType == "CAR" {
          parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: self.workerId, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: targetId, workingSpaceID: nil))
@@ -524,7 +519,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //                SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
                 //            TinyToast.shared.show(message: "Нет связи с сервером", valign: .bottom, duration: .normal)
                     
-                    self.stopAnimating()
+                    self.hideActivityIndicator()
                 return
                 }
                 guard response.result.error == nil else {
@@ -532,7 +527,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //                    SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
                     self.view.endEditing(true)
                     
-                    self.stopAnimating()
+                    self.hideActivityIndicator()
                     return
                 }
                 guard response.response?.statusCode == 200 else{
@@ -540,21 +535,21 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                     guard errorBody.code != 1104 else{
                         self.utils.refreshToken()
                         
-                        self.stopAnimating()
+                        self.hideActivityIndicator()
                         return
                     }
                     guard self.utils.checkResponseStatusCode(code: errorBody.code!) != "..." else{
                         
-                        self.stopAnimating()
+                        self.hideActivityIndicator()
                         return
                     }
                     
                     if selected != 3 || selected != 4{
                     self.view.endEditing(true)
-                    SCLAlertView().showWarning("Внимание!", subTitle: self.utils.checkResponseStatusCode(code: errorBody.code!), closeButtonTitle: "Закрыть")
+                    SCLAlertView().showWarning(NSLocalizedString("Attention", comment: ""), subTitle: self.utils.checkResponseStatusCode(code: errorBody.code!), closeButtonTitle: NSLocalizedString("Clouse", comment: ""))
                     }
                    
-                    self.stopAnimating()
+                    self.hideActivityIndicator()
                     self.currentTime = 0
                     if selected == 0 {
                         self.showSelectTimeDialog(enable: false)
@@ -573,17 +568,17 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                     self.currentTime = currentFreeTime.begin!
                     self.workSpaceId = currentFreeTime.workingSpaceID!
                 self.time = self.utils.milisecondsToTime(miliseconds: self.currentTime, timeZone: (self.carWashInfo?.timeZone)! )
-                    self.dialogController.message = "Выбраное время \(self.time)"
+//                    self.dialogController.message = "Выбраное время \(self.time)"
                 if selected == 0 || selected == 4 {
                     self.showOrderDialog()
                 }
                 
             }
             catch{
-                    self.stopAnimating()
+                    self.hideActivityIndicator()
             }
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
         
 //
         }
@@ -593,7 +588,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         return self.currentTime
     }
     func orderWash(){
-        startAnimating()
+        showActivityIndicator()
        
          var parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: currentTime, businessID: carWashInfo?.businessID, workerId: self.workerId, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: nil, workingSpaceID: self.workSpaceId))
         if workerId != "" &&  self.carWashInfo?.businessCategory?.businessType == "CAR" {
@@ -611,16 +606,16 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         let params = try! JSONSerialization.jsonObject(with: parameters, options: .allowFragments)as? [String: Any]
         Alamofire.request(restUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]).responseJSON { response  in
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             
-            self.stopAnimating()
+            self.hideActivityIndicator()
        
            
 //            let newViewController = self.storyboard?.instantiateViewController(withIdentifier: "mapViewController") as! MapViewController
 //          self.navigationController?.pushViewController(newViewController, animated: true)
-            self.utils.doneMassage(massage: "Заказ сделан", vc: self.view)
+            self.utils.doneMassage(massage: NSLocalizedString("order_done", comment: ""), vc: self.view)
             self.sideMenuViewController!.setContentViewController(contentViewController: UINavigationController(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "ordersTableViewController")), animated: true)
             self.sideMenuViewController!.hideMenuViewController()
 //            self.sideMenuViewController!.hideMenuViewController()
@@ -636,11 +631,11 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         self.getSelectTime(setTime: self.utils.dateToMillisecond(date: didSelectDate, timeZone: (self.carWashInfo?.timeZone)!), select: 0, completion: {
             
             if self.currentTime != 0 {
-                picker.doneButtonTitle = "Свободно"
+                picker.doneButtonTitle = NSLocalizedString("free", comment: "")
             
                 picker.doneBackgroundColor = #colorLiteral(red: 0.2, green: 0.6, blue: 0, alpha: 1)
             } else{
-                picker.doneButtonTitle = "Занято"
+                picker.doneButtonTitle = NSLocalizedString("busy", comment: "")
                 picker.doneBackgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
                 //             TinyToast.shared.show(message: "Мойка не работает в данное{ время. Выберите другое время", valign: .center, duration: 1)
                 
@@ -873,7 +868,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 workerImage.downloaded(from: workerAvatar)
             }
         } else {
-            workerName.text = "Любой мастер"
+            workerName.text = NSLocalizedString("any_worker", comment: "")
             workerPosition.text = ""
             workerImage.image = UIImage(named: "Ellipse")
         }
@@ -888,31 +883,31 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     }
     
     func showTutorial() {
-        let infoDesc = InfoDescriptor(for: "Здесь вы можете выбрать услуги / пакеты услуг, удобное для вас время и сделать заказ")
+        let infoDesc = InfoDescriptor(for: NSLocalizedString("tutor_OW_1", comment: ""))
         var infoTask = PassthroughTask(with: [])
         infoTask.infoDescriptor = infoDesc
         
         
-        let leftDesc = LabelDescriptor(for: "Тут Вы можете выбрать пакет услуг, или просмотреть его. Чтобы отменить выбраный пакет, выберите пункт 'Не Выбран' ")
+        let leftDesc = LabelDescriptor(for: NSLocalizedString("tutor_OW_2", comment: ""))
         leftDesc.position = .bottom
         let leftHoleDesc = HoleViewDescriptor(view: pacetsSelector, type: .rect(cornerRadius: 5, margin: 10))
         leftHoleDesc.labelDescriptor = leftDesc
         let rightLeftTask = PassthroughTask(with: [leftHoleDesc])
         
         
-        let leftDesc1 = LabelDescriptor(for: "Нажмите сюда если хотите выбрать время и завершить заказ ")
+        let leftDesc1 = LabelDescriptor(for: NSLocalizedString("tutor_OW_3", comment: ""))
         leftDesc1.position = .bottom
         let leftHoleDesc1 = HoleViewDescriptor(view: orderButton, type: .rect(cornerRadius: 5, margin: 10))
         leftHoleDesc1.labelDescriptor = leftDesc1
         let rightLeftTask1 = PassthroughTask(with: [leftHoleDesc1])
         
-        let leftDesc2 = LabelDescriptor(for: "Нажмите сюда если хотите выбрать исполнителя ")
+        let leftDesc2 = LabelDescriptor(for: NSLocalizedString("tutor_OW_4", comment: ""))
         leftDesc2.position = .bottom
         let leftHoleDesc2 = HoleViewDescriptor(view: workerBtn, type: .rect(cornerRadius: 5, margin: 10))
         leftHoleDesc2.labelDescriptor = leftDesc2
         let rightLeftTask2 = PassthroughTask(with: [leftHoleDesc2])
       
-        let cellDesc = LabelDescriptor(for: "Вы можете выбрать интересующие Вас услуги из данного списка")
+        let cellDesc = LabelDescriptor(for: NSLocalizedString("tutor_OW_5", comment: ""))
         cellDesc.position = .bottom
         let cellHoleDesc = CellViewDescriptor(tableView: self.carServicePrice, indexPath: IndexPath(row: 0, section: 0), forOrientation: .any)
         cellHoleDesc.labelDescriptor = cellDesc
@@ -960,7 +955,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                         }
                     }
                     if self.checkedWorker.count == 0 || self.carWashInfo?.spaces?.count == 0{
-                        self.utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
+                        self.utils.checkFilds(massage: NSLocalizedString("Error_dont_work_buisnes", comment: ""), vc: self.view)
                         self.workerView.visiblity(gone: true)
                         self.workerView.isHidden = true
                         self.orderButton.isHidden = true
@@ -969,7 +964,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                         //            view.layoutIfNeeded()
                     }
                 } else {
-                    self.utils.checkFilds(massage: "У этой компании нет возможности записи онлайн. Вы можете сделать заказ по телефону", vc: self.view)
+                    self.utils.checkFilds(massage: NSLocalizedString("Error_dont_work_buisnes", comment: ""), vc: self.view)
                     self.workerView.visiblity(gone: true)
                     self.workerView.isHidden = true
                     self.orderButton.isHidden = true
@@ -1031,8 +1026,8 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
         picker.includeMonth = true // if true the month shows at bottom of date cell
         picker.highlightColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
         picker.darkColor = #colorLiteral(red: 1, green: 0.4784313725, blue: 0, alpha: 1)
-        picker.cancelButtonTitle = "Закрыть"
-        picker.doneButtonTitle = "Выберите время"
+        picker.cancelButtonTitle = NSLocalizedString("Clouse", comment: "")
+        picker.doneButtonTitle = NSLocalizedString("select_time", comment: "")
         picker.doneBackgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
         picker.completionHandler = { date in
             self.currentTime = self.utils.dateToMillisecond(date: date, timeZone: (self.carWashInfo?.timeZone)!)
@@ -1055,7 +1050,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     func getSelectTime(setTime: Int, select: Int,completion : @escaping ()->()) {
         let restUrl = constants.startUrl + "karma/v1/record/free-time"
         //       utils.currentTimeInMiliseconds(timeZone: (carWashInfo?.timeZone)!)
-        startAnimating()
+        showActivityIndicator()
 //        self.worker = Worker.init(userID: nil, position: nil, businessID: nil, id: workerId, corporationID: nil, workTimes: nil, workingSpaceID: nil, user: nil)
         var parameters = try! JSONEncoder().encode(OrderBodyCarWash.init(begin: setTime, businessID: carWashInfo?.businessID, workerId: nil, description: "IOS", packageID: self.text.text, servicesIDS: idServicePrice, targetID: utils.getSharedPref(key: "CARID"), workingSpaceID: nil))
         
@@ -1073,7 +1068,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             guard response.response?.statusCode != 500 else{
                 self.utils.checkServer(vc: self)
 
-                    self.stopAnimating()
+                    self.hideActivityIndicator()
                     return
                 }
                 guard response.result.error == nil else {
@@ -1082,12 +1077,12 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
 //                    SCLAlertView().showError("Внимание!", subTitle: "Нет связи с сервером", closeButtonTitle: "Закрыть")
                     self.view.endEditing(true)
                     
-                    self.stopAnimating()
+                    self.hideActivityIndicator()
                     return
                 }
             
                 guard response.response?.statusCode != 400 else {
-                    self.stopAnimating()
+                    self.hideActivityIndicator()
                     self.currentTime = 0
                     if select == 4 {
                         self.showDateTimePikerDialog()
@@ -1111,9 +1106,9 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
                 self.currentTime = currentFreeTime.begin!
                 self.workSpaceId = currentFreeTime.workingSpaceID!
                 self.time = self.utils.milisecondsToTime(miliseconds: self.currentTime, timeZone: (self.carWashInfo?.timeZone)! )
-                self.dialogController.message = "Выбраное время \(self.time)"
+//                self.dialogController.message = "Выбраное время \(self.time)"
                    
-            self.stopAnimating()
+            self.hideActivityIndicator()
                     
             //
                 }
@@ -1155,12 +1150,12 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
     }
     
     func getAllCars(){
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "karma/v1/car/user"
         guard UserDefaults.standard.object(forKey: "accessToken") != nil else{
             
             self.utils.checkAutorization(vc: self)
-            stopAnimating()
+            hideActivityIndicator()
             return
         }
         let headers = ["Authorization" : (self.utils.getSharedPref(key: "accessToken"))!, "Application-Id":self.constants.iosId]
@@ -1168,11 +1163,11 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             guard response.response?.statusCode != 204 else{
             
                 self.createCar = true
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             guard self.utils.checkResponse(response: response, vc: self) == true else{
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             
@@ -1188,7 +1183,7 @@ class OrderWash: UIViewController, EHHorizontalSelectionViewProtocol, UITableVie
             catch{
                 
             }
-            self.stopAnimating()
+            self.hideActivityIndicator()
             
             
         }

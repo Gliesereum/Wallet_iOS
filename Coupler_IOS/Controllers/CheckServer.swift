@@ -25,7 +25,7 @@ struct CheckServerBody: Codable {
     }
 }
 
-class CheckServer: UIViewController, NVActivityIndicatorViewable {
+class CheckServer: UIViewController{
 
     
     let constants = Constants()
@@ -40,18 +40,18 @@ class CheckServer: UIViewController, NVActivityIndicatorViewable {
         getAllBuisness()
     }
     func getAllBuisness(){
-        startAnimating()
+        showActivityIndicator()
         let restUrl = constants.startUrl + "status"
         Alamofire.request(restUrl, method: .get, headers: constants.appID).responseJSON { response  in
             
             guard response.response?.statusCode != 500 else{
                
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return
             }
             guard response.result.error == nil else {
               
-                self.stopAnimating()
+                self.hideActivityIndicator()
                 return 
             }
             do{
@@ -66,7 +66,7 @@ class CheckServer: UIViewController, NVActivityIndicatorViewable {
             catch{
                 print(error)
             }
-            self.stopAnimating()
+            self.hideActivityIndicator()
             
         }
     }
